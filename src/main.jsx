@@ -48,7 +48,13 @@ import {
   Sun,
   Moon,
   User,
-  Trash2
+  Trash2,
+  Lock,
+  ExternalLink,
+  Cpu,
+  Database,
+  Terminal,
+  Workflow
 } from 'lucide-react';
 import './styles.css';
 
@@ -101,66 +107,94 @@ const projectsData = [
     img: '/assets/rathore_construction.jpg',
     tags: ['Next.js', 'JCB 3DX Rental', 'Civil Infrastructure', 'Earthmoving', 'Vercel Fast'],
     summary: 'Heavy equipment rental & earthmoving solutions platform for JCB excavation, roadwork, rock breaking, and pipeline infrastructure across Madhya Pradesh.'
+  }
+];
+
+// Interactive "From Idea to Digital Experience" Showcase Data
+const digitalExperienceData = [
+  {
+    id: 'web-dev',
+    category: 'Web Development',
+    kicker: 'MODERN WEB ARCHITECTURE',
+    title: 'High-Performance Next.js Web Platforms',
+    tagline: 'From concept wireframes to high-converting production experiences',
+    description:
+      'We engineer ultra-fast, responsive web platforms built on Next.js, modern React, and TailwindCSS. Engineered with hybrid server-side rendering, sub-second page loads, edge caching, and semantic accessibility for an elevated digital brand presence.',
+    image: '/assets/showcase_web_dev.jpg',
+    urlLabel: 'cineforge.studio/solutions/web-platforms',
+    techStack: ['Next.js 15', 'React 19', 'TailwindCSS', 'TypeScript', 'Edge Runtime', 'Vercel Fast'],
+    specs: [
+      { label: 'Render Architecture', value: 'Hybrid SSR & Static Edge' },
+      { label: 'Performance Benchmark', value: '100% Lighthouse Score' },
+      { label: 'Core Web Vitals', value: 'Sub-50ms TTFB Optimized' }
+    ],
+    architectureTitle: 'Next.js Hybrid Rendering & Global Edge Cache Pipeline',
+    architectureNodes: [
+      { name: 'Edge CDN & DNS Routing', detail: 'Global Anycast Edge Network with sub-30ms TTFB' },
+      { name: 'Hybrid Rendering Engine', detail: 'SSR dynamic routes with ISR cached static assets' },
+      { name: 'Zero-JS Component Hydration', detail: 'Optimized bundle size with streaming server components' }
+    ],
+    highlights: [
+      'Lighthouse 100% performance & accessibility benchmarks',
+      'Dynamic OpenGraph social previews and structured JSON-LD schema',
+      'Responsive multi-breakpoint design with fluid typography'
+    ]
   },
   {
-    id: 1,
-    title: 'Apex Kinetic — Global Commercial',
-    category: 'Commercials',
-    client: 'Apex Athletics',
-    duration: '01:30',
-    type: 'standard',
-    aspect: '16:9 • 4K DCI',
-    img: '/assets/camera_production.jpg',
-    tags: ['Cinema Rig', 'Commercial', 'Sound Design', 'DaVinci Grade'],
-    summary: 'High-energy cinematic brand film shot on Sony FX6 & Cooke anamorphics with rapid-fire match cuts.'
+    id: 'web-apps',
+    category: 'Web Applications',
+    kicker: 'ENTERPRISE SAAS & CLOUD SYSTEMS',
+    title: 'Real-Time Interactive Dashboards & SaaS Portals',
+    tagline: 'From system architecture to reactive data visualization',
+    description:
+      'Enterprise-grade full-stack web applications featuring real-time data streaming, interactive monitoring dashboards, modular micro-frontends, role-based access control, and resilient REST/GraphQL API hubs built for high concurrency.',
+    image: '/assets/showcase_dashboard.jpg',
+    urlLabel: 'cloud.cineforge.studio/analytics',
+    techStack: ['React', 'Node.js', 'FastAPI', 'PostgreSQL', 'WebSockets', 'Docker & Kubernetes'],
+    specs: [
+      { label: 'Data Sync Engine', value: 'Real-Time WebSockets' },
+      { label: 'Throughput Capacity', value: 'High-Concurrency Ready' },
+      { label: 'Security Standard', value: 'OAuth 2.0 & Role-Based RBAC' }
+    ],
+    architectureTitle: 'Reactive WebSocket & High-Concurrency Data Pipeline',
+    architectureNodes: [
+      { name: 'API Gateway & Auth Proxy', detail: 'OAuth 2.0 / JWT token validation with granular RBAC' },
+      { name: 'Event Bus & WebSocket Layer', detail: 'Bi-directional real-time telemetry streaming' },
+      { name: 'PostgreSQL & In-Memory Cache', detail: 'Read-replica pooling with sub-millisecond Redis cache' }
+    ],
+    highlights: [
+      'Live infrastructure health, latency, and telemetry charts',
+      'Multi-dimensional filtering and instant client-side data search',
+      'Adaptive high-contrast dark & light theme architecture'
+    ]
   },
   {
-    id: 2,
-    title: 'The Master Suite — Feature Color Grade',
-    category: 'Documentaries',
-    client: 'A24 / Independent Doc',
-    duration: '04:15',
-    type: 'standard',
-    aspect: '2.39:1 Anamorphic',
-    img: '/assets/video_editing.jpg',
-    tags: ['Kodak 2383 Emulation', 'HDR10', 'Pacing'],
-    summary: 'Moody, rich film grain emulation and color isolation graded in DaVinci Resolve Studio.'
-  },
-  {
-    id: 3,
-    title: 'Cybernetic Flow — 3D Title Sequence',
-    category: '3D Motion / VFX',
-    client: 'Aura Studio',
-    duration: '00:45',
-    type: 'standard',
-    aspect: '16:9 60FPS',
-    img: '/assets/motion_vfx.jpg',
-    tags: ['3D CGI', 'Particle VFX', 'Kinetic Sound'],
-    summary: 'Futuristic liquid metallic typography and 3D simulation rendered in Octane & After Effects.'
-  },
-  {
-    id: 4,
-    title: 'Echoes of Midnight — Cinematic Story',
-    category: 'Commercials',
-    client: 'Lumen Creative Co.',
-    duration: '02:40',
-    type: 'standard',
-    aspect: '4K ProRes 422HQ',
-    img: '/assets/workspace.jpg',
-    tags: ['Story Assembly', 'Atmospheric Foley', 'Commercial'],
-    summary: 'Narrative-driven visual essay featuring low-light Tokyo cinematography and ambient score.'
-  },
-  {
-    id: 5,
-    title: 'HyperSpeed Drop — Viral Campaign',
-    category: 'Short-Form Reels',
-    client: 'Velox Apparel',
-    duration: '00:30',
-    type: 'standard',
-    aspect: '9:16 Vertical Reel',
-    img: '/assets/experience.jpg',
-    tags: ['Viral Hook', 'Kinetic Captions', '3.8M Views'],
-    summary: 'Hook-optimized vertical video series engineered for maximum TikTok & Instagram Reel retention.'
+    id: 'ai-solutions',
+    category: 'AI Solutions',
+    kicker: 'INTELLIGENT AGENTS & NEURAL WORKFLOWS',
+    title: 'Autonomous AI Agents & Vector Retrieval Engines',
+    tagline: 'From prompt engineering to production AI deployments',
+    description:
+      'Custom AI solutions integrating advanced Large Language Models, Retrieval-Augmented Generation (RAG) vector pipelines, semantic search engines, and autonomous multi-step reasoning agents that automate complex workflows and surface contextual intelligence.',
+    image: '/assets/showcase_ai.jpg',
+    urlLabel: 'ai.cineforge.studio/pipeline-engine',
+    techStack: ['Python', 'LangChain', 'Llama 3 / OpenAI', 'Qdrant Vector DB', 'FastAPI', 'Streaming SSE'],
+    specs: [
+      { label: 'Reasoning Architecture', value: 'Agentic Tool-Calling Workflows' },
+      { label: 'Vector Knowledge Store', value: 'Dense Embeddings & RAG' },
+      { label: 'Inference Delivery', value: 'Zero-Latency SSE Token Streaming' }
+    ],
+    architectureTitle: 'Multi-Node Agentic Execution & Vector RAG Pipeline',
+    architectureNodes: [
+      { name: 'Semantic Ingestion & Chunker', detail: 'Document parsing with dense vector embeddings' },
+      { name: 'HNSW Vector Knowledge Store', detail: 'Vector index with cosine similarity search' },
+      { name: 'Autonomous Reasoning Engine', detail: 'Multi-step agent tool calling with streaming token output' }
+    ],
+    highlights: [
+      'Multi-node visual neural workflow execution canvas',
+      'Zero-latency streaming token inference via Server-Sent Events',
+      'Context-aware memory retention and automated self-correction'
+    ]
   }
 ];
 
@@ -466,135 +500,175 @@ const legalPoliciesData = {
   }
 };
 
-function LegalPageView({ activeTab, onSelectTab, onBackHome, onOpenDemo }) {
+// Legal Modal Popup Dialog Component
+function LegalModal({ isOpen, activeTab, onSelectTab, onClose, onOpenDemo }) {
+  const modalBodyRef = useRef(null);
+
+  useEffect(() => {
+    if (modalBodyRef.current) {
+      modalBodyRef.current.scrollTop = 0;
+    }
+  }, [activeTab]);
+
+  if (!isOpen) return null;
+
   const policy = legalPoliciesData[activeTab] || legalPoliciesData.privacy;
   const PolicyIcon = policy.icon;
 
   return (
-    <article className="legal-page-wrapper">
-      <header className="legal-header">
-        <button
-          type="button"
-          onClick={onBackHome}
-          className="legal-back-btn"
-          aria-label="Back to main website"
-        >
-          <ArrowLeft size={16} />
-          <span>Back to Home</span>
-        </button>
+    <div
+      className="legal-modal-overlay"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="legal-modal-title"
+    >
+      <div className="legal-modal-container" onClick={(e) => e.stopPropagation()}>
+        {/* Glowing top line */}
+        <div className="modal-glow-line" />
 
-        <div className="legal-kicker-row">
-          <div className="legal-badge">
-            <PolicyIcon size={12} />
-            <span>{policy.badge}</span>
+        {/* Modal Header */}
+        <div className="legal-modal-header">
+          <div className="legal-modal-title-area">
+            <div className="legal-kicker-row">
+              <div className="legal-badge">
+                <PolicyIcon size={12} />
+                <span>{policy.badge}</span>
+              </div>
+              <span className="legal-last-updated">Last Updated: {policy.lastUpdated}</span>
+            </div>
+            <h2 id="legal-modal-title" className="legal-modal-title">{policy.title}</h2>
           </div>
-          <span className="legal-last-updated">Last Updated: {policy.lastUpdated}</span>
-        </div>
 
-        <h1 className="legal-title">{policy.title}</h1>
-        <p className="legal-lead-text">{policy.lead}</p>
-      </header>
-
-      {/* Policy Switching Tabs */}
-      <nav className="legal-tabs-bar" aria-label="Legal policies navigation">
-        <button
-          type="button"
-          className={`legal-tab-btn ${activeTab === 'privacy' ? 'active' : ''}`}
-          onClick={() => onSelectTab('privacy')}
-        >
-          <ShieldCheck size={14} />
-          <span>Privacy Policy</span>
-        </button>
-        <button
-          type="button"
-          className={`legal-tab-btn ${activeTab === 'terms' ? 'active' : ''}`}
-          onClick={() => onSelectTab('terms')}
-        >
-          <FileText size={14} />
-          <span>Terms of Service</span>
-        </button>
-        <button
-          type="button"
-          className={`legal-tab-btn ${activeTab === 'cookies' ? 'active' : ''}`}
-          onClick={() => onSelectTab('cookies')}
-        >
-          <Cookie size={14} />
-          <span>Cookie Policy</span>
-        </button>
-        <button
-          type="button"
-          className={`legal-tab-btn ${activeTab === 'refund' ? 'active' : ''}`}
-          onClick={() => onSelectTab('refund')}
-        >
-          <RefreshCw size={14} />
-          <span>Refund & Cancellation</span>
-        </button>
-      </nav>
-
-      {/* Content Card */}
-      <div className="legal-content-card">
-        {/* Highlight box */}
-        {policy.highlight && (
-          <aside className={`legal-highlight-box ${policy.highlight.green ? 'green' : ''}`}>
-            <div className="highlight-icon">
-              {policy.highlight.green ? <CheckCircle2 size={20} /> : <PolicyIcon size={20} />}
-            </div>
-            <div className="highlight-content">
-              <h4>{policy.highlight.title}</h4>
-              <p>{policy.highlight.text}</p>
-            </div>
-          </aside>
-        )}
-
-        {/* Policy Sections */}
-        {policy.sections.map((sec) => (
-          <section key={sec.index} className="legal-section-block">
-            <h3>
-              <span className="section-index">{sec.index}</span>
-              <span>{sec.title}</span>
-            </h3>
-            <p>{sec.content}</p>
-            {sec.list && (
-              <ul>
-                {sec.list.map((item, i) => {
-                  const parts = item.split(': ');
-                  if (parts.length > 1) {
-                    return (
-                      <li key={i}>
-                        <strong>{parts[0]}:</strong> {parts.slice(1).join(': ')}
-                      </li>
-                    );
-                  }
-                  return <li key={i}>{item}</li>;
-                })}
-              </ul>
-            )}
-          </section>
-        ))}
-      </div>
-
-      {/* Contact & Inquiries Banner */}
-      <div className="legal-contact-banner">
-        <div className="legal-contact-info">
-          <h4>Have questions regarding our legal terms or project contracts?</h4>
-          <p>Reach out directly to CineForge Studio. We respond to all inquiries within 24 hours.</p>
-        </div>
-        <div className="legal-contact-actions">
-          <a href="mailto:hello@cineforge.studio" className="legal-email-btn">
-            <Mail size={15} />
-            <span>hello@cineforge.studio</span>
-          </a>
           <button
             type="button"
-            onClick={onOpenDemo}
-            className="btn-nav-cta"
-            style={{ padding: '9px 18px', fontSize: 13 }}
+            className="legal-modal-close-btn"
+            onClick={onClose}
+            aria-label="Close legal modal"
           >
-            Start a Project <ArrowUpRight size={14} />
+            <X size={20} />
+          </button>
+        </div>
+
+        {/* Policy Switching Tabs Bar */}
+        <nav className="legal-tabs-bar legal-modal-tabs" aria-label="Legal policies navigation">
+          <button
+            type="button"
+            className={`legal-tab-btn ${activeTab === 'privacy' ? 'active' : ''}`}
+            onClick={() => onSelectTab('privacy')}
+          >
+            <ShieldCheck size={14} />
+            <span>Privacy Policy</span>
+          </button>
+          <button
+            type="button"
+            className={`legal-tab-btn ${activeTab === 'terms' ? 'active' : ''}`}
+            onClick={() => onSelectTab('terms')}
+          >
+            <FileText size={14} />
+            <span>Terms of Service</span>
+          </button>
+          <button
+            type="button"
+            className={`legal-tab-btn ${activeTab === 'cookies' ? 'active' : ''}`}
+            onClick={() => onSelectTab('cookies')}
+          >
+            <Cookie size={14} />
+            <span>Cookie Policy</span>
+          </button>
+          <button
+            type="button"
+            className={`legal-tab-btn ${activeTab === 'refund' ? 'active' : ''}`}
+            onClick={() => onSelectTab('refund')}
+          >
+            <RefreshCw size={14} />
+            <span>Refund Policy</span>
+          </button>
+        </nav>
+
+        {/* Scrollable Modal Body */}
+        <div className="legal-modal-body" ref={modalBodyRef}>
+          <p className="legal-lead-text">{policy.lead}</p>
+
+          <div className="legal-content-card">
+            {/* Highlight box */}
+            {policy.highlight && (
+              <aside className={`legal-highlight-box ${policy.highlight.green ? 'green' : ''}`}>
+                <div className="highlight-icon">
+                  {policy.highlight.green ? <CheckCircle2 size={20} /> : <PolicyIcon size={20} />}
+                </div>
+                <div className="highlight-content">
+                  <h4>{policy.highlight.title}</h4>
+                  <p>{policy.highlight.text}</p>
+                </div>
+              </aside>
+            )}
+
+            {/* Policy Sections */}
+            {policy.sections.map((sec) => (
+              <section key={sec.index} className="legal-section-block">
+                <h3>
+                  <span className="section-index">{sec.index}</span>
+                  <span>{sec.title}</span>
+                </h3>
+                <p>{sec.content}</p>
+                {sec.list && (
+                  <ul>
+                    {sec.list.map((item, i) => {
+                      const parts = item.split(': ');
+                      if (parts.length > 1) {
+                        return (
+                          <li key={i}>
+                            <strong>{parts[0]}:</strong> {parts.slice(1).join(': ')}
+                          </li>
+                        );
+                      }
+                      return <li key={i}>{item}</li>;
+                    })}
+                  </ul>
+                )}
+              </section>
+            ))}
+          </div>
+
+          {/* Contact & Inquiries Banner */}
+          <div className="legal-contact-banner">
+            <div className="legal-contact-info">
+              <h4>Have questions regarding our legal terms or project contracts?</h4>
+              <p>Reach out directly to CineForge Studio. We respond to all inquiries within 24 hours.</p>
+            </div>
+            <div className="legal-contact-actions">
+              <a href="mailto:hello@cineforge.studio" className="legal-email-btn">
+                <Mail size={15} />
+                <span>hello@cineforge.studio</span>
+              </a>
+              <button
+                type="button"
+                onClick={() => {
+                  onClose();
+                  onOpenDemo();
+                }}
+                className="btn-nav-cta"
+                style={{ padding: '8px 16px', fontSize: 13 }}
+              >
+                Start a Project <ArrowUpRight size={14} />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Modal Footer */}
+        <div className="legal-modal-footer">
+          <div className="legal-footer-note">
+            <ShieldCheck size={14} color="#34d399" />
+            <span>Official Legal Documentation • CineForge Studio</span>
+          </div>
+          <button type="button" className="legal-close-action-btn" onClick={onClose}>
+            Close Document
           </button>
         </div>
       </div>
-    </article>
+    </div>
   );
 }
 
@@ -1291,6 +1365,164 @@ function RequestCallbackModal({ isOpen, onClose }) {
   );
 }
 
+// Automated 10-Second Email Lead Capture Popup
+function EmailLeadPopup({ isOpen, onClose, onSubmit, email, setEmail }) {
+  if (!isOpen) return null;
+
+  return (
+    <div
+      className="email-popup-overlay"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="email-popup-heading"
+    >
+      <div className="email-popup-box" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-glow-line" />
+
+        <button
+          type="button"
+          className="email-popup-close-btn"
+          onClick={onClose}
+          aria-label="Close email popup"
+        >
+          <X size={18} />
+        </button>
+
+        <div className="email-popup-badge-row">
+          <div className="email-popup-icon-badge">
+            <Mail size={16} />
+          </div>
+          <span className="email-popup-kicker">
+            <Sparkles size={11} /> LIMITED INVITATION
+          </span>
+        </div>
+
+        <h3 id="email-popup-heading" className="email-popup-title">
+          Turn your next idea into a <span className="hero-highlight">market leader.</span>
+        </h3>
+
+        <p className="email-popup-desc">
+          Join 2,500+ founders and engineers receiving our bi-weekly architecture breakdowns, production AI blueprints, and an exclusive <strong>15% project credit</strong> on your first consultation.
+        </p>
+
+        <form onSubmit={onSubmit} className="email-popup-form">
+          <div className="email-popup-input-wrap">
+            <Mail size={16} className="email-input-icon" />
+            <input
+              type="email"
+              placeholder="Enter your work email address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              autoFocus
+            />
+          </div>
+
+          <button type="submit" className="email-popup-submit-btn">
+            <span>Claim 15% Credit & Dispatch</span>
+            <ArrowUpRight size={15} />
+          </button>
+        </form>
+
+        <div className="email-popup-trust-row">
+          <span><Check size={12} color="#10b981" /> Zero spam</span>
+          <span><Check size={12} color="#10b981" /> 1-Click unsubscribe</span>
+          <span><ShieldCheck size={12} color="#10b981" /> NDA protected</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Floating Email Success Toast Notification
+function EmailToast({ isOpen, email, onClose }) {
+  if (!isOpen) return null;
+
+  return (
+    <div className="email-toast-wrap" role="alert" aria-live="polite">
+      <div className="email-toast-card">
+        <div className="email-toast-icon-wrap">
+          <CheckCircle2 size={20} color="#10b981" />
+        </div>
+        <div className="email-toast-content">
+          <strong>Subscribed to Dispatch! 🎉</strong>
+          <p>
+            Welcome kit & 15% scoping discount sent to <span>{email || 'your inbox'}</span>.
+          </p>
+        </div>
+        <button
+          type="button"
+          className="email-toast-close"
+          onClick={onClose}
+          aria-label="Dismiss toast"
+        >
+          <X size={15} />
+        </button>
+        <div className="toast-progress-bar" />
+      </div>
+    </div>
+  );
+}
+
+// Floating Cookie Consent Banner
+function CookieConsentBanner({ isOpen, onAccept, onOpenCookiePolicy, onClose }) {
+  if (!isOpen) return null;
+
+  return (
+    <aside className="cookie-banner-wrap" role="region" aria-label="Cookie and storage consent">
+      <div className="cookie-banner-card">
+        <button
+          type="button"
+          className="cookie-banner-close"
+          onClick={onClose}
+          aria-label="Dismiss cookie notice"
+        >
+          <X size={14} />
+        </button>
+
+        <div className="cookie-banner-header">
+          <div className="cookie-icon-box">
+            <Cookie size={18} />
+          </div>
+          <div className="cookie-title-area">
+            <h4>Cookie & Privacy Preferences</h4>
+            <span className="cookie-status-badge">PRIVACY FIRST</span>
+          </div>
+        </div>
+
+        <p className="cookie-banner-text">
+          We use local browser storage and strictly necessary session cookies to remember your theme preference and keep page loads lightning fast. We do NOT use invasive ad-trackers.
+        </p>
+
+        <div className="cookie-banner-actions">
+          <button
+            type="button"
+            className="cookie-btn-primary"
+            onClick={() => onAccept('all')}
+          >
+            Accept All
+          </button>
+          <button
+            type="button"
+            className="cookie-btn-secondary"
+            onClick={() => onAccept('essential')}
+          >
+            Essential Only
+          </button>
+          <button
+            type="button"
+            className="cookie-btn-link"
+            onClick={onOpenCookiePolicy}
+          >
+            Cookie Policy <ArrowUpRight size={12} />
+          </button>
+        </div>
+      </div>
+    </aside>
+  );
+}
+
 function App() {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [theme, setTheme] = useState(() => {
@@ -1309,8 +1541,8 @@ function App() {
 
   const [activeCategory, setActiveCategory] = useState('All Works');
   const [isMuted, setIsMuted] = useState(true);
-  const [activeLut, setActiveLut] = useState('kodak');
-  const [sliderPos, setSliderPos] = useState(52);
+  const [showcaseCategory, setShowcaseCategory] = useState('Web Applications');
+  const [showcaseViewMode, setShowcaseViewMode] = useState('preview');
   const [modalVideo, setModalVideo] = useState(null);
   const [formSent, setFormSent] = useState(false);
   const [openFaq, setOpenFaq] = useState(0);
@@ -1370,26 +1602,88 @@ function App() {
     };
   }, [isDemoModalOpen]);
 
-  // Legal Pages Routing State: null | 'privacy' | 'terms' | 'cookies' | 'refund'
-  const [legalPage, setLegalPage] = useState(null);
+  // Legal Modal Popup State: null | 'privacy' | 'terms' | 'cookies' | 'refund'
+  const [legalModalTab, setLegalModalTab] = useState(null);
+
+  // Automated 10-Second Email Popup, Success Toast & Cookie Banner States
+  const [showEmailPopup, setShowEmailPopup] = useState(false);
+  const [emailPopupInput, setEmailPopupInput] = useState('');
+  const [emailToast, setEmailToast] = useState({ show: false, email: '' });
+  const [showCookieBanner, setShowCookieBanner] = useState(false);
+
+  useEffect(() => {
+    // Exactly 10-Second Timer for Hero Section / Page Load Email Popup
+    const timer = setTimeout(() => {
+      setShowEmailPopup(true);
+    }, 10000); // 10 seconds
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleEmailPopupSubmit = (e) => {
+    e.preventDefault();
+    if (!emailPopupInput || !emailPopupInput.includes('@')) return;
+
+    setShowEmailPopup(false);
+    setEmailToast({ show: true, email: emailPopupInput });
+
+    // Show Cookie Banner right after Email submission
+    setTimeout(() => {
+      setShowCookieBanner(true);
+    }, 600);
+
+    // Auto-dismiss toast after 6 seconds
+    setTimeout(() => {
+      setEmailToast({ show: false, email: '' });
+    }, 6000);
+  };
+
+  const closeEmailPopup = () => {
+    setShowEmailPopup(false);
+
+    // Show Cookie Banner after dismissing email popup
+    setTimeout(() => {
+      setShowCookieBanner(true);
+    }, 400);
+  };
+
+  const handleAcceptCookies = (type = 'all') => {
+    localStorage.setItem('cineforge_cookie_consent', type);
+    setShowCookieBanner(false);
+  };
+
+  const openLegalModal = (tab = 'privacy') => {
+    setLegalModalTab(tab);
+    window.location.hash = `#/${tab}`;
+  };
+
+  const closeLegalModal = () => {
+    setLegalModalTab(null);
+    if (
+      window.location.hash.startsWith('#/privacy') ||
+      window.location.hash.startsWith('#privacy') ||
+      window.location.hash.startsWith('#/terms') ||
+      window.location.hash.startsWith('#terms') ||
+      window.location.hash.startsWith('#/cookies') ||
+      window.location.hash.startsWith('#cookies') ||
+      window.location.hash.startsWith('#/refund') ||
+      window.location.hash.startsWith('#refund')
+    ) {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+  };
 
   useEffect(() => {
     const handleHash = () => {
       const h = (window.location.hash || '').toLowerCase();
       if (h === '#/privacy' || h === '#privacy') {
-        setLegalPage('privacy');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setLegalModalTab('privacy');
       } else if (h === '#/terms' || h === '#terms') {
-        setLegalPage('terms');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setLegalModalTab('terms');
       } else if (h === '#/cookies' || h === '#cookies') {
-        setLegalPage('cookies');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setLegalModalTab('cookies');
       } else if (h === '#/refund' || h === '#refund') {
-        setLegalPage('refund');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        setLegalPage(null);
+        setLegalModalTab('refund');
       }
     };
 
@@ -1398,24 +1692,26 @@ function App() {
     return () => window.removeEventListener('hashchange', handleHash);
   }, []);
 
-  const navigateLegal = (page) => {
-    setLegalPage(page);
-    window.location.hash = `#/${page}`;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const returnHome = (targetHash = '#hero') => {
-    setLegalPage(null);
-    window.location.hash = targetHash;
-    setTimeout(() => {
-      const el = document.querySelector(targetHash);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        if (showEmailPopup) {
+          closeEmailPopup();
+        } else if (legalModalTab) {
+          closeLegalModal();
+        }
       }
-    }, 60);
-  };
+    };
+    if (legalModalTab || showEmailPopup) {
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKeyDown);
+    } else if (!isDemoModalOpen && !isCallbackModalOpen) {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [legalModalTab, showEmailPopup, isDemoModalOpen, isCallbackModalOpen]);
 
   // Global Scroll Reveal & Delayed Entrance Observer
   useEffect(() => {
@@ -1475,7 +1771,7 @@ function App() {
     return () => {
       observer.disconnect();
     };
-  }, [legalPage, activeCategory]);
+  }, [activeCategory]);
 
   const heroVideoRef = useRef(null);
 
@@ -1498,6 +1794,8 @@ function App() {
     ? projectsData
     : projectsData.filter((p) => p.category === activeCategory);
 
+  const currentShowcase = digitalExperienceData.find((item) => item.category === showcaseCategory) || digitalExperienceData[0];
+
   return (
     <div className="app-container">
       {/* Navigation Bar */}
@@ -1505,18 +1803,13 @@ function App() {
         <a
           href="#hero"
           className="nav-brand"
-          onClick={(e) => {
-            e.preventDefault();
+          onClick={() => {
             setMobileMenu(false);
-            if (legalPage) {
-              returnHome('#hero');
+            const heroEl = document.getElementById('hero');
+            if (heroEl) {
+              heroEl.scrollIntoView({ behavior: 'smooth' });
             } else {
-              const heroEl = document.getElementById('hero');
-              if (heroEl) {
-                heroEl.scrollIntoView({ behavior: 'smooth' });
-              } else {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }
+              window.scrollTo({ top: 0, behavior: 'smooth' });
             }
           }}
           title="Return to Hero Section"
@@ -1534,92 +1827,45 @@ function App() {
           <a
             href="#work"
             className="nav-link"
-            onClick={(e) => {
-              setMobileMenu(false);
-              if (legalPage) {
-                e.preventDefault();
-                returnHome('#work');
-              }
-            }}
+            onClick={() => setMobileMenu(false)}
           >
             Our Work
           </a>
           <a
             href="#services"
             className="nav-link"
-            onClick={(e) => {
-              setMobileMenu(false);
-              if (legalPage) {
-                e.preventDefault();
-                returnHome('#services');
-              }
-            }}
+            onClick={() => setMobileMenu(false)}
           >
             Services
           </a>
           <a
             href="#about"
             className="nav-link"
-            onClick={(e) => {
-              setMobileMenu(false);
-              if (legalPage) {
-                e.preventDefault();
-                returnHome('#about');
-              }
-            }}
+            onClick={() => setMobileMenu(false)}
           >
             About
           </a>
           <a
             href="#process"
             className="nav-link"
-            onClick={(e) => {
-              setMobileMenu(false);
-              if (legalPage) {
-                e.preventDefault();
-                returnHome('#process');
-              }
-            }}
+            onClick={() => setMobileMenu(false)}
           >
             Process
           </a>
           <a
             href="#faqs"
             className="nav-link"
-            onClick={(e) => {
-              setMobileMenu(false);
-              if (legalPage) {
-                e.preventDefault();
-                returnHome('#faqs');
-              }
-            }}
+            onClick={() => setMobileMenu(false)}
           >
             FAQs
           </a>
           <a
             href="#contact"
             className="nav-link"
-            onClick={(e) => {
-              setMobileMenu(false);
-              if (legalPage) {
-                e.preventDefault();
-                returnHome('#contact');
-              }
-            }}
+            onClick={() => setMobileMenu(false)}
           >
             Contact
           </a>
-          <button
-            type="button"
-            className="mobile-callback-btn"
-            onClick={() => {
-              setMobileMenu(false);
-              setIsCallbackModalOpen(true);
-            }}
-          >
-            <PhoneCall size={14} />
-            <span>Request a Callback</span>
-          </button>
         </nav>
 
         <div className="nav-right">
@@ -1652,7 +1898,7 @@ function App() {
             className="btn-nav-cta"
             style={{ textDecoration: 'none' }}
           >
-            Book Demo Project <ArrowUpRight size={14} />
+            <span>Book Demo Project</span> <ArrowUpRight size={14} />
           </a>
           <button
             className="menu-toggle"
@@ -1664,17 +1910,7 @@ function App() {
         </div>
       </header>
 
-      {legalPage ? (
-        <main id="top" className="legal-view-container">
-          <LegalPageView
-            activeTab={legalPage}
-            onSelectTab={navigateLegal}
-            onBackHome={() => returnHome('#hero')}
-            onOpenDemo={() => setIsDemoModalOpen(true)}
-          />
-        </main>
-      ) : (
-        <main id="top">
+      <main id="top">
           {/* REVERTED HERO WITH ORIGINAL PROJECT VIDEO HERO.MP4 */}
           <section id="hero" className="hero">
           <video
@@ -1782,7 +2018,7 @@ function App() {
 
           {/* Category Tabs */}
           <div className="portfolio-tabs">
-            {['All Works', 'Web Platforms', 'Commercials', 'Documentaries', '3D Motion / VFX', 'Short-Form Reels'].map((cat) => (
+            {['All Works', 'Web Platforms'].map((cat) => (
               <button
                 key={cat}
                 className={`tab-btn ${activeCategory === cat ? 'active' : ''}`}
@@ -1798,53 +2034,77 @@ function App() {
             {filteredProjects.map((p) => (
               <article
                 key={p.id}
-                className={`project-card ${p.type}`}
+                className="project-card modern-showcase"
                 onClick={() => setModalVideo(p)}
               >
-                <div className="project-media-wrap">
-                  <img src={p.img} alt={p.title} loading="lazy" />
-                  <div className="project-gradient" />
+                {/* Elevated Front Browser Showcase Frame */}
+                <div className="project-browser-frame">
+                  <div className="browser-window-bar">
+                    <div className="browser-dots">
+                      <span className="b-dot b-red" />
+                      <span className="b-dot b-yellow" />
+                      <span className="b-dot b-green" />
+                    </div>
+                    <div className="browser-url-pill">
+                      <Lock size={10} />
+                      <span>{p.url ? p.url.replace('https://', '') : p.title}</span>
+                    </div>
+                    {p.url && (
+                      <a
+                        href={p.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="browser-quick-link"
+                        onClick={(e) => e.stopPropagation()}
+                        title={`Open ${p.url}`}
+                      >
+                        <ExternalLink size={12} />
+                      </a>
+                    )}
+                  </div>
+
+                  <div className="project-media-viewport">
+                    <img src={p.img} alt={p.title} loading="lazy" />
+                    <div className="media-hover-overlay">
+                      <span className="live-view-badge">
+                        <span>Click to Preview Details</span>
+                        <ArrowUpRight size={13} />
+                      </span>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="project-badge-top">
-                  <span className="badge-tag">
-                    {p.url && <span className="live-pulse-dot" />}
-                    {p.aspect}
-                  </span>
-                  {p.url ? (
-                    <a
-                      href={p.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="badge-duration live-link-pill"
-                      onClick={(e) => e.stopPropagation()}
-                      title={`Visit ${p.url}`}
-                    >
-                      <span>{p.url.replace('https://', '').replace('www.', '').replace(/\/$/, '')}</span>
-                      <ArrowUpRight size={11} />
-                    </a>
-                  ) : (
-                    <span className="badge-duration">
-                      <Clock size={11} /> {p.duration}
+                {/* Card Details Body */}
+                <div className="project-card-body">
+                  <div className="project-card-header-row">
+                    <span className="project-client-pill">{p.client}</span>
+                    <span className="live-status-pill">
+                      <span className="live-pulse-dot" /> LIVE PLATFORM
                     </span>
-                  )}
-                </div>
+                  </div>
 
-                <div className="hover-play-btn">
-                  {p.url ? (
-                    <ArrowUpRight size={26} color="#05060a" />
-                  ) : (
-                    <Play size={24} fill="#05060a" style={{ marginLeft: 3 }} />
-                  )}
-                </div>
+                  <h3 className="project-card-title">{p.title}</h3>
+                  <p className="project-card-summary">{p.summary}</p>
 
-                <div className="project-info">
-                  <div className="project-client">{p.client}</div>
-                  <h3 className="project-title">{p.title}</h3>
-                  <div className="project-tags">
-                    {p.tags.map((tag) => (
-                      <span key={tag}>{tag}</span>
-                    ))}
+                  <div className="project-card-footer">
+                    <div className="project-tags">
+                      {p.tags.map((tag) => (
+                        <span key={tag} className="tag-pill">{tag}</span>
+                      ))}
+                    </div>
+
+                    {p.url && (
+                      <a
+                        href={p.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="project-direct-btn"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <span>Launch Site</span>
+                        <ArrowUpRight size={14} />
+                      </a>
+                    )}
                   </div>
                 </div>
               </article>
@@ -1852,112 +2112,220 @@ function App() {
           </div>
         </section>
 
-        {/* INTERACTIVE COLOR GRADING LAB (BEFORE / AFTER COMPARISON) */}
-        <section id="color-lab" className="section-wrapper grading-lab">
-          <div className="lab-container">
-            <div className="lab-copy">
+        {/* FROM IDEA TO DIGITAL EXPERIENCE SHOWCASE */}
+        <section id="digital-experience" className="section-wrapper digital-experience-section">
+          <div className="section-head">
+            <div>
               <div className="section-kicker">
-                <Sliders size={14} />
-                <span>DAVINCI COLOR LABORATORY</span>
+                <Sparkles size={14} />
+                <span>ENGINEERING EXCELLENCE</span>
               </div>
               <h2 className="section-title">
-                Before & After <em>Color Grading</em>
+                From Idea to <em className="hero-highlight">Digital Experience.</em>
               </h2>
-              <p>
-                Drag the interactive slider below to witness the transformation from flat LOG sensor footage
-                into rich, contrast-balanced cinematic mastery.
-              </p>
-
-              {/* LUT Selector Buttons */}
-              <div className="lut-selector">
-                <button
-                  className={`lut-btn ${activeLut === 'kodak' ? 'active' : ''}`}
-                  onClick={() => setActiveLut('kodak')}
-                >
-                  Kodak 2383 Film Print
-                </button>
-                <button
-                  className={`lut-btn ${activeLut === 'teal' ? 'active' : ''}`}
-                  onClick={() => setActiveLut('teal')}
-                >
-                  Blockbuster Teal & Orange
-                </button>
-                <button
-                  className={`lut-btn ${activeLut === 'cyber' ? 'active' : ''}`}
-                  onClick={() => setActiveLut('cyber')}
-                >
-                  Cyberpunk Cyan Look
-                </button>
-                <button
-                  className={`lut-btn ${activeLut === 'noir' ? 'active' : ''}`}
-                  onClick={() => setActiveLut('noir')}
-                >
-                  Silver Screen Noir (B&W)
-                </button>
-              </div>
-
-              {/* Scopes simulated indicators */}
-              <div className="scope-indicators">
-                <div className="scope-box">
-                  <div className="scope-title">Waveform IRE</div>
-                  <div className="scope-value">0 - 1023 (HDR10)</div>
-                </div>
-                <div className="scope-box">
-                  <div className="scope-title">Color Space</div>
-                  <div className="scope-value">DaVinci Wide Gamut</div>
-                </div>
-                <div className="scope-box">
-                  <div className="scope-title">Film Grain</div>
-                  <div className="scope-value">35mm 500T Scanned</div>
-                </div>
-              </div>
             </div>
+            <p className="section-desc">
+              Explore how CineForge Studio transforms conceptual whiteboard sketches into high-performance web applications, intelligent AI workflows, and scalable cloud platforms.
+            </p>
+          </div>
 
-            {/* Split Screen Slider Box */}
-            <div className="comparison-box">
-              {/* Flat / LOG Layer */}
-              <img
-                src="/assets/video_editing.jpg"
-                alt="Flat LOG Camera Profile"
-                className="comp-img comp-flat"
-              />
-
-              {/* Graded Layer with Dynamic Width based on slider */}
-              <div
-                className={`comp-graded lut-${activeLut}`}
-                style={{ width: `${sliderPos}%` }}
+          {/* Interactive Category Filter Tabs */}
+          <div className="experience-filter-bar">
+            {['Web Development', 'Web Applications', 'AI Solutions'].map((cat) => (
+              <button
+                key={cat}
+                type="button"
+                className={`exp-filter-btn ${showcaseCategory === cat ? 'active' : ''}`}
+                onClick={() => setShowcaseCategory(cat)}
               >
-                <img
-                  src="/assets/video_editing.jpg"
-                  alt="Graded Master Profile"
-                  style={{ width: '1000px' }}
-                />
+                {cat === 'Web Development' && <Code2 size={15} />}
+                {cat === 'Web Applications' && <Layout size={15} />}
+                {cat === 'AI Solutions' && <Bot size={15} />}
+                <span>{cat}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* Main Showcase Stage */}
+          {currentShowcase && (
+            <div className="experience-stage-grid">
+              {/* Left Column: Editorial Content & Architecture Specs */}
+              <div className="experience-editorial-col">
+                <div className="exp-editorial-card">
+                  <div className="exp-card-header">
+                    <span className="exp-kicker-pill">{currentShowcase.kicker}</span>
+                    <span className="exp-category-pill">{currentShowcase.category}</span>
+                  </div>
+
+                  <h3 className="exp-title">{currentShowcase.title}</h3>
+                  <div className="exp-tagline">
+                    <CheckCircle2 size={15} />
+                    <span>{currentShowcase.tagline}</span>
+                  </div>
+                  <p className="exp-description">{currentShowcase.description}</p>
+
+                  {/* Interactive View Toggle */}
+                  <div className="exp-view-toggle">
+                    <button
+                      type="button"
+                      className={`exp-toggle-btn ${showcaseViewMode === 'preview' ? 'active' : ''}`}
+                      onClick={() => setShowcaseViewMode('preview')}
+                    >
+                      <Layout size={14} />
+                      <span>Production UI View</span>
+                    </button>
+                    <button
+                      type="button"
+                      className={`exp-toggle-btn ${showcaseViewMode === 'architecture' ? 'active' : ''}`}
+                      onClick={() => setShowcaseViewMode('architecture')}
+                    >
+                      <Layers size={14} />
+                      <span>System Architecture</span>
+                    </button>
+                  </div>
+
+                  {/* Specs & Architecture Metrics */}
+                  <div className="exp-specs-grid">
+                    {currentShowcase.specs.map((spec, i) => (
+                      <div className="exp-spec-box" key={i}>
+                        <span className="exp-spec-label">{spec.label}</span>
+                        <strong className="exp-spec-value">{spec.value}</strong>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Technology Stack Pills */}
+                  <div className="exp-tech-section">
+                    <span className="exp-tech-title">TECHNOLOGY STACK:</span>
+                    <div className="exp-tech-tags">
+                      {currentShowcase.techStack.map((tech) => (
+                        <span key={tech} className="exp-tech-pill">{tech}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Engineering Highlights List */}
+                <div className="exp-highlights-box">
+                  <span className="exp-highlights-title">KEY ARCHITECTURAL HIGHLIGHTS</span>
+                  <ul className="exp-highlights-list">
+                    {currentShowcase.highlights.map((h, idx) => (
+                      <li key={idx}>
+                        <CheckCircle2 size={14} className="highlight-check" />
+                        <span>{h}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
 
-              {/* Slider Input */}
-              <input
-                type="range"
-                min="0"
-                max="100"
-                value={sliderPos}
-                onChange={(e) => setSliderPos(e.target.value)}
-                className="comp-slider"
-                aria-label="Color grade comparison slider"
-              />
+              {/* Right Column: Interactive Browser Viewport / Architecture Canvas */}
+              <div className="experience-viewport-col">
+                <div className="exp-browser-frame">
+                  {/* Browser Bar */}
+                  <div className="exp-browser-bar">
+                    <div className="exp-browser-dots">
+                      <span className="dot red" />
+                      <span className="dot yellow" />
+                      <span className="dot green" />
+                    </div>
+                    <div className="exp-browser-url-pill">
+                      <Lock size={11} />
+                      <span>{currentShowcase.urlLabel}</span>
+                    </div>
+                    <div className="exp-browser-status">
+                      <span className="pulse-dot" />
+                      <span>200 OK • PRODUCTION READY</span>
+                    </div>
+                  </div>
 
-              {/* Badges */}
-              <div className="comp-badge-left">
-                GRADED: {activeLut.toUpperCase()}
-              </div>
-              <div className="comp-badge-right">
-                RAW / S-LOG3
-              </div>
+                  {/* Viewport Content: Preview Image or Architecture Diagram */}
+                  {showcaseViewMode === 'preview' ? (
+                    <div className="exp-viewport-media">
+                      <img
+                        src={currentShowcase.image}
+                        alt={currentShowcase.title}
+                        className="exp-showcase-img"
+                        loading="lazy"
+                      />
+                      <div className="exp-media-shine" />
+                      <div className="exp-watermark-pill">
+                        <Code2 size={12} />
+                        <span>CineForge Studio • {currentShowcase.category}</span>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="exp-viewport-architecture">
+                      <div className="exp-arch-header">
+                        <Terminal size={16} />
+                        <span>{currentShowcase.architectureTitle}</span>
+                      </div>
+                      <div className="exp-arch-nodes-wrap">
+                        {currentShowcase.architectureNodes.map((node, idx) => (
+                          <div className="exp-arch-node-card" key={idx}>
+                            <div className="node-step-index">0{idx + 1}</div>
+                            <div className="node-content">
+                              <strong>{node.name}</strong>
+                              <p>{node.detail}</p>
+                            </div>
+                            {idx < currentShowcase.architectureNodes.length - 1 && (
+                              <div className="node-connector-line" />
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
 
-              {/* Divider Handle */}
-              <div className="comp-handle" style={{ left: `${sliderPos}%` }}>
-                <Sliders size={18} />
+                  {/* Viewport Footer Bar */}
+                  <div className="exp-viewport-footer">
+                    <span className="footer-mode-label">
+                      ACTIVE DISPLAY: <strong>{showcaseViewMode === 'preview' ? 'High-Fidelity Interface' : 'Multi-Tier System Flow'}</strong>
+                    </span>
+                    <button
+                      type="button"
+                      className="exp-toggle-action-btn"
+                      onClick={() => setShowcaseViewMode(showcaseViewMode === 'preview' ? 'architecture' : 'preview')}
+                    >
+                      <span>Switch to {showcaseViewMode === 'preview' ? 'Architecture' : 'Preview UI'}</span>
+                      <ArrowUpRight size={13} />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Quick Category Switcher Cards */}
+                <div className="exp-category-quickcards">
+                  {digitalExperienceData.map((item) => (
+                    <div
+                      key={item.id}
+                      className={`exp-quick-card ${showcaseCategory === item.category ? 'active' : ''}`}
+                      onClick={() => setShowcaseCategory(item.category)}
+                    >
+                      <div className="quick-card-left">
+                        {item.category === 'Web Development' && <Code2 size={16} />}
+                        {item.category === 'Web Applications' && <Layout size={16} />}
+                        {item.category === 'AI Solutions' && <Bot size={16} />}
+                        <div>
+                          <strong>{item.category}</strong>
+                          <span>{item.kicker}</span>
+                        </div>
+                      </div>
+                      <ArrowUpRight size={14} className="quick-card-arrow" />
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
+          )}
+
+          {/* Visual Connector Bridge to Services Section */}
+          <div className="showcase-services-bridge">
+            <div className="bridge-glow-line" />
+            <div className="bridge-icon-pill">
+              <Sparkles size={14} />
+              <span>FULL-SPECTRUM SOLUTIONS ARCHITECTURE</span>
+            </div>
+            <div className="bridge-glow-line" />
           </div>
         </section>
 
@@ -2342,7 +2710,6 @@ function App() {
           </div>
         </section>
       </main>
-      )}
 
       {/* FOOTER */}
       <footer className="site-footer">
@@ -2351,13 +2718,8 @@ function App() {
             <a
               href="#hero"
               className="nav-brand"
-              onClick={(e) => {
-                e.preventDefault();
-                if (legalPage) {
-                  returnHome('#hero');
-                } else {
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
               style={{ textDecoration: 'none' }}
               title="CineForge Studio"
@@ -2380,10 +2742,10 @@ function App() {
             <div className="footer-col">
               <h4>Explore</h4>
               <ul>
-                <li><a href="#work" onClick={(e) => { if (legalPage) { e.preventDefault(); returnHome('#work'); } }}>Our Work</a></li>
-                <li><a href="#about" onClick={(e) => { if (legalPage) { e.preventDefault(); returnHome('#about'); } }}>About Us</a></li>
-                <li><a href="#process" onClick={(e) => { if (legalPage) { e.preventDefault(); returnHome('#process'); } }}>Our Process</a></li>
-                <li><a href="#faqs" onClick={(e) => { if (legalPage) { e.preventDefault(); returnHome('#faqs'); } }}>FAQs</a></li>
+                <li><a href="#work">Our Work</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#process">Our Process</a></li>
+                <li><a href="#faqs">FAQs</a></li>
               </ul>
             </div>
 
@@ -2391,21 +2753,10 @@ function App() {
             <div className="footer-col">
               <h4>Services</h4>
               <ul>
-                <li><a href="#services" onClick={(e) => { if (legalPage) { e.preventDefault(); returnHome('#services'); } }}>Web Development</a></li>
-                <li><a href="#services" onClick={(e) => { if (legalPage) { e.preventDefault(); returnHome('#services'); } }}>UI/UX Design</a></li>
-                <li><a href="#services" onClick={(e) => { if (legalPage) { e.preventDefault(); returnHome('#services'); } }}>AI Integration</a></li>
-                <li><a href="#services" onClick={(e) => { if (legalPage) { e.preventDefault(); returnHome('#services'); } }}>E-Commerce</a></li>
-              </ul>
-            </div>
-
-            {/* Technology */}
-            <div className="footer-col">
-              <h4>Technology</h4>
-              <ul>
-                <li><a href="#tech" onClick={(e) => { if (legalPage) { e.preventDefault(); returnHome('#tech'); } }}>React & Next.js</a></li>
-                <li><a href="#tech" onClick={(e) => { if (legalPage) { e.preventDefault(); returnHome('#tech'); } }}>Node.js & APIs</a></li>
-                <li><a href="#tech" onClick={(e) => { if (legalPage) { e.preventDefault(); returnHome('#tech'); } }}>AI & Automation</a></li>
-                <li><a href="#tech" onClick={(e) => { if (legalPage) { e.preventDefault(); returnHome('#tech'); } }}>Cloud & Deployment</a></li>
+                <li><a href="#services">Web Development</a></li>
+                <li><a href="#services">UI/UX Design</a></li>
+                <li><a href="#services">AI Integration</a></li>
+                <li><a href="#services">E-Commerce</a></li>
               </ul>
             </div>
 
@@ -2413,16 +2764,11 @@ function App() {
             <div className="footer-col">
               <h4>Get in Touch</h4>
               <ul>
-                <li><a href="#contact" onClick={(e) => { if (legalPage) { e.preventDefault(); returnHome('#contact'); } }}>Contact Us</a></li>
+                <li><a href="#contact">Contact Us</a></li>
                 <li>
                   <button
                     type="button"
-                    onClick={() => {
-                      if (legalPage) {
-                        returnHome('#contact');
-                      }
-                      setIsDemoModalOpen(true);
-                    }}
+                    onClick={() => setIsDemoModalOpen(true)}
                     className="footer-link-btn"
                   >
                     Start a Project
@@ -2436,10 +2782,10 @@ function App() {
             <div className="footer-col">
               <h4>Legal</h4>
               <ul>
-                <li><a href="#/privacy" onClick={(e) => { e.preventDefault(); navigateLegal('privacy'); }}>Privacy Policy</a></li>
-                <li><a href="#/terms" onClick={(e) => { e.preventDefault(); navigateLegal('terms'); }}>Terms of Service</a></li>
-                <li><a href="#/cookies" onClick={(e) => { e.preventDefault(); navigateLegal('cookies'); }}>Cookie Policy</a></li>
-                <li><a href="#/refund" onClick={(e) => { e.preventDefault(); navigateLegal('refund'); }}>Refund Policy</a></li>
+                <li><a href="#/privacy" onClick={(e) => { e.preventDefault(); openLegalModal('privacy'); }}>Privacy Policy</a></li>
+                <li><a href="#/terms" onClick={(e) => { e.preventDefault(); openLegalModal('terms'); }}>Terms of Service</a></li>
+                <li><a href="#/cookies" onClick={(e) => { e.preventDefault(); openLegalModal('cookies'); }}>Cookie Policy</a></li>
+                <li><a href="#/refund" onClick={(e) => { e.preventDefault(); openLegalModal('refund'); }}>Refund Policy</a></li>
               </ul>
             </div>
           </div>
@@ -2448,13 +2794,13 @@ function App() {
         <div className="footer-bottom">
           <span>© 2026 CINEFORGE STUDIO. ALL RIGHTS RESERVED.</span>
           <div className="footer-bottom-legal-links">
-            <a href="#/privacy" onClick={(e) => { e.preventDefault(); navigateLegal('privacy'); }}>Privacy Policy</a>
+            <a href="#/privacy" onClick={(e) => { e.preventDefault(); openLegalModal('privacy'); }}>Privacy Policy</a>
             <span>•</span>
-            <a href="#/terms" onClick={(e) => { e.preventDefault(); navigateLegal('terms'); }}>Terms of Service</a>
+            <a href="#/terms" onClick={(e) => { e.preventDefault(); openLegalModal('terms'); }}>Terms of Service</a>
             <span>•</span>
-            <a href="#/cookies" onClick={(e) => { e.preventDefault(); navigateLegal('cookies'); }}>Cookie Policy</a>
+            <a href="#/cookies" onClick={(e) => { e.preventDefault(); openLegalModal('cookies'); }}>Cookie Policy</a>
             <span>•</span>
-            <a href="#/refund" onClick={(e) => { e.preventDefault(); navigateLegal('refund'); }}>Refund Policy</a>
+            <a href="#/refund" onClick={(e) => { e.preventDefault(); openLegalModal('refund'); }}>Refund Policy</a>
           </div>
         </div>
       </footer>
@@ -2577,6 +2923,42 @@ function App() {
       <RequestCallbackModal
         isOpen={isCallbackModalOpen}
         onClose={() => setIsCallbackModalOpen(false)}
+      />
+
+      {/* LEGAL POLICIES POPUP MODAL */}
+      <LegalModal
+        isOpen={Boolean(legalModalTab)}
+        activeTab={legalModalTab || 'privacy'}
+        onSelectTab={(tab) => {
+          setLegalModalTab(tab);
+          window.location.hash = `#/${tab}`;
+        }}
+        onClose={closeLegalModal}
+        onOpenDemo={() => setIsDemoModalOpen(true)}
+      />
+
+      {/* 10-SECOND AUTOMATED EMAIL LEAD CAPTURE POPUP */}
+      <EmailLeadPopup
+        isOpen={showEmailPopup}
+        onClose={closeEmailPopup}
+        onSubmit={handleEmailPopupSubmit}
+        email={emailPopupInput}
+        setEmail={setEmailPopupInput}
+      />
+
+      {/* FLOATING EMAIL SUCCESS TOAST */}
+      <EmailToast
+        isOpen={emailToast.show}
+        email={emailToast.email}
+        onClose={() => setEmailToast({ show: false, email: '' })}
+      />
+
+      {/* FLOATING COOKIE CONSENT BANNER */}
+      <CookieConsentBanner
+        isOpen={showCookieBanner}
+        onAccept={handleAcceptCookies}
+        onOpenCookiePolicy={() => openLegalModal('cookies')}
+        onClose={() => setShowCookieBanner(false)}
       />
     </div>
   );

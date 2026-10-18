@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # WebForge — Premium Freelance Web Development Platform
 
 A complete responsive React/Vite marketing site using the supplied 3D hero video and visual assets.
@@ -31,3 +32,7 @@ npm run preview
 The project name, copy, services and portfolio items are in `src/main.jsx`.
 The visual system is in `src/styles.css`.
 The hero video is `public/assets/hero.mp4`.
+=======
+# studio.com
+Modern digital studio website for full-stack development, web applications, and AI-powered solutions.
+>>>>>>> 83e157141577d7ce9a72ab24b3869313dd72e489
