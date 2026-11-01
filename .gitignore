@@ -1,9 +1,12 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 node_modules/
 dist/
 node_modules/
 dist/
 =======
+=======
+>>>>>>> 774c9df8fc4e781d817c990d8b99f5af55a502d9
 # Logs
 logs
 *.log
@@ -153,4 +156,7 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+<<<<<<< HEAD
 >>>>>>> 83e157141577d7ce9a72ab24b3869313dd72e489
+=======
+>>>>>>> 774c9df8fc4e781d817c990d8b99f5af55a502d9

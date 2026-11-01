@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # WebForge — Premium Freelance Web Development Platform
 
 A complete responsive React/Vite marketing site using the supplied 3D hero video and visual assets.
@@ -36,3 +37,7 @@ The hero video is `public/assets/hero.mp4`.
 # studio.com
 Modern digital studio website for full-stack development, web applications, and AI-powered solutions.
 >>>>>>> 83e157141577d7ce9a72ab24b3869313dd72e489
+=======
+# rovaware
+Full-Stack Development &amp; AI Solutions – Official RovaWare Website
+>>>>>>> 774c9df8fc4e781d817c990d8b99f5af55a502d9
