@@ -25,6 +25,8 @@ import {
   MonitorPlay,
   HelpCircle,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   ShieldCheck,
   Code2,
   Layout,
@@ -54,9 +56,23 @@ import {
   Cpu,
   Database,
   Terminal,
-  Workflow
+  Workflow,
+  Globe,
+  Search,
+  TrendingUp,
+  BarChart3,
+  Image,
+  FileSearch,
+  Network,
+  Zap,
+  Activity,
+  Server,
+  Cloud,
+  GitBranch
 } from 'lucide-react';
 import './styles.css';
+import BlogView from './components/blog/BlogView';
+import ArticleDetailView from './components/blog/ArticleDetailView';
 
 // Official Google Form link for Book A Demo
 const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/15zbRoUfGocjXiBKCLB7lj5UWeXUXgKuY8sbix_W0Stw/viewform';
@@ -92,7 +108,7 @@ const projectsData = [
     aspect: 'Next.js • TailwindCSS',
     url: 'https://asa-epc.com',
     img: '/assets/asa_epc.jpg',
-    tags: ['Next.js', 'Solar EPC', 'Enterprise Web', 'High Performance', 'DPIIT Recognized'],
+    tags: ['Next.js 15', 'Solar EPC', 'Enterprise Web', 'High Performance', 'DPIIT Recognized'],
     summary: 'DPIIT-recognized Solar EPC company trusted by L&T Construction, Bajaj & KEC. High-performance Next.js web application built for 100+ projects across India & UAE.'
   },
   {
@@ -101,12 +117,77 @@ const projectsData = [
     category: 'Web Platforms',
     client: 'Rathore Construction & Earthmovers (Betul, MP)',
     duration: 'Live Platform',
-    type: 'secondary',
+    type: 'featured',
     aspect: 'Next.js • TailwindCSS',
     url: 'https://rathore-construction-earthmovers.vercel.app',
     img: '/assets/rathore_construction.jpg',
     tags: ['Next.js', 'JCB 3DX Rental', 'Civil Infrastructure', 'Earthmoving', 'Vercel Fast'],
     summary: 'Heavy equipment rental & earthmoving solutions platform for JCB excavation, roadwork, rock breaking, and pipeline infrastructure across Madhya Pradesh.'
+  },
+  {
+    id: 'vertex-shops',
+    title: 'Vertex Shops — Streamlined Virtual Store & Stage Experience',
+    category: 'Web Platforms',
+    client: 'Vertex Retail Systems',
+    duration: 'Live Platform',
+    type: 'featured',
+    aspect: 'WebGL • Canvas Engine • CSS3',
+    url: '/vertex-shops.html',
+    img: '/assets/workspace.jpg',
+    tags: ['WebGL Stage', 'Virtual Retail', 'Sub-second Load', 'Adaptive Canvas', 'High Fidelity'],
+    summary: 'Immersive virtual commerce stage designed for luxury digital retail. Features a calibrated 1172x657 canvas, dynamic product showcases, and interactive 3D camera controls.'
+  },
+  {
+    id: 'nextgen-saas-portal',
+    title: 'Real-Time Interactive Dashboards & SaaS Monitoring Hub',
+    category: 'SaaS & Web Apps',
+    client: 'Rovaware Cloud Analytics',
+    duration: 'Live System',
+    type: 'secondary',
+    aspect: 'React 19 • WebSockets • FastAPI',
+    url: 'https://asa-epc.com',
+    img: '/assets/showcase_dashboard.jpg',
+    tags: ['React 19', 'WebSockets', 'Telemetry', 'FastAPI', 'High Concurrency'],
+    summary: 'Enterprise-grade monitoring dashboard featuring real-time telemetry streaming, interactive data visualization, role-based RBAC, and sub-millisecond Redis caching.'
+  },
+  {
+    id: 'autonomous-ai-engine',
+    title: 'Autonomous AI Agents & Vector Retrieval RAG Pipeline',
+    category: 'AI Solutions',
+    client: 'NeuralCore Systems',
+    duration: 'Production Engine',
+    type: 'secondary',
+    aspect: 'Python • Qdrant • LangChain',
+    url: 'https://asa-epc.com',
+    img: '/assets/showcase_ai.jpg',
+    tags: ['Python', 'Qdrant Vector DB', 'LangChain', 'Zero-Latency SSE', 'RAG Engine'],
+    summary: 'Custom autonomous AI workflows integrating Large Language Models, semantic search embeddings, and tool-calling agents for contextual multi-step reasoning.'
+  },
+  {
+    id: 'hybrid-web-architecture',
+    title: 'High-Performance Next.js Architecture & Brand Ecosystems',
+    category: 'Web Platforms',
+    client: 'OmniScale Digital',
+    duration: 'Production Framework',
+    type: 'secondary',
+    aspect: 'Next.js 15 • TypeScript • Edge CDN',
+    url: 'https://asa-epc.com',
+    img: '/assets/showcase_web_dev.jpg',
+    tags: ['Next.js 15', 'TypeScript', 'Edge Cache', '100% Lighthouse', 'Zero-JS Hydration'],
+    summary: 'Ultra-fast web platforms engineered with hybrid server-side rendering, sub-50ms TTFB edge caching, dynamic OpenGraph previews, and fluid responsive design.'
+  },
+  {
+    id: 'cloud-infrastructure-pipeline',
+    title: 'Scalable Cloud CI/CD & Microservices Mesh',
+    category: 'Cloud Infrastructure',
+    client: 'DevOps Mesh Labs',
+    duration: 'Cloud Infrastructure',
+    type: 'secondary',
+    aspect: 'Docker • Kubernetes • Terraform',
+    url: 'https://asa-epc.com',
+    img: '/assets/pipeline.jpg',
+    tags: ['Docker', 'Kubernetes', 'Terraform', 'Zero Downtime', 'Edge Routing'],
+    summary: 'Automated CI/CD deployment pipelines, container orchestration, zero-downtime rolling upgrades, and distributed edge CDN delivery for enterprise scale.'
   }
 ];
 
@@ -121,7 +202,7 @@ const digitalExperienceData = [
     description:
       'We engineer ultra-fast, responsive web platforms built on Next.js, modern React, and TailwindCSS. Engineered with hybrid server-side rendering, sub-second page loads, edge caching, and semantic accessibility for an elevated digital brand presence.',
     image: '/assets/showcase_web_dev.jpg',
-    urlLabel: 'cineforge.studio/solutions/web-platforms',
+    urlLabel: 'rovaware.com/solutions/web-platforms',
     techStack: ['Next.js 15', 'React 19', 'TailwindCSS', 'TypeScript', 'Edge Runtime', 'Vercel Fast'],
     specs: [
       { label: 'Render Architecture', value: 'Hybrid SSR & Static Edge' },
@@ -149,7 +230,7 @@ const digitalExperienceData = [
     description:
       'Enterprise-grade full-stack web applications featuring real-time data streaming, interactive monitoring dashboards, modular micro-frontends, role-based access control, and resilient REST/GraphQL API hubs built for high concurrency.',
     image: '/assets/showcase_dashboard.jpg',
-    urlLabel: 'cloud.cineforge.studio/analytics',
+    urlLabel: 'cloud.rovaware.com/analytics',
     techStack: ['React', 'Node.js', 'FastAPI', 'PostgreSQL', 'WebSockets', 'Docker & Kubernetes'],
     specs: [
       { label: 'Data Sync Engine', value: 'Real-Time WebSockets' },
@@ -177,7 +258,7 @@ const digitalExperienceData = [
     description:
       'Custom AI solutions integrating advanced Large Language Models, Retrieval-Augmented Generation (RAG) vector pipelines, semantic search engines, and autonomous multi-step reasoning agents that automate complex workflows and surface contextual intelligence.',
     image: '/assets/showcase_ai.jpg',
-    urlLabel: 'ai.cineforge.studio/pipeline-engine',
+    urlLabel: 'ai.rovaware.com/pipeline-engine',
     techStack: ['Python', 'LangChain', 'Llama 3 / OpenAI', 'Qdrant Vector DB', 'FastAPI', 'Streaming SSE'],
     specs: [
       { label: 'Reasoning Architecture', value: 'Agentic Tool-Calling Workflows' },
@@ -250,25 +331,45 @@ const workflowSteps = [
     num: 'STAGE 01',
     title: 'Discovery & Planning',
     desc: 'We understand your business goals, target audience, project requirements, and desired outcomes before defining the right solution.',
-    tags: ['Requirements', 'Goals', 'Scope', 'Roadmap']
+    tags: ['Requirements', 'Goals', 'Scope', 'Roadmap'],
+    deliverables: [
+      'Strategic Project Brief & Objective Mapping',
+      'Technical Architecture & Technology Selection',
+      'Milestone Timeline & Scope Estimation'
+    ]
   },
   {
     num: 'STAGE 02',
     title: 'Design & Experience',
     desc: 'We create modern, intuitive, and responsive interfaces that align with your brand and make your product easy to use.',
-    tags: ['UI/UX Design', 'Wireframes', 'Prototypes', 'Responsive Layouts']
+    tags: ['UI/UX Design', 'Wireframes', 'Prototypes', 'Responsive Layouts'],
+    deliverables: [
+      'High-Fidelity Wireframes & User Flows',
+      'Interactive Design Prototypes in Figma',
+      'Reusable Component Design System'
+    ]
   },
   {
     num: 'STAGE 03',
     title: 'Development & Testing',
     desc: 'We build your website, application, or AI solution using suitable technologies, then test functionality and fix issues before launch.',
-    tags: ['Frontend', 'Backend', 'AI Integration', 'Quality Testing']
+    tags: ['Frontend', 'Backend', 'AI Integration', 'Quality Testing'],
+    deliverables: [
+      'Full-Stack Modular Codebase (React/Next.js/Node)',
+      'Secure REST/GraphQL API & Database Integration',
+      'Cross-Device Responsiveness & QA Stress Tests'
+    ]
   },
   {
     num: 'STAGE 04',
     title: 'Launch & Handover',
     desc: 'We deploy your finished product, check its performance, and provide the project files and handover guidance agreed upon for your project.',
-    tags: ['Deployment', 'Final Review', 'Source Code', 'Handover']
+    tags: ['Deployment', 'Final Review', 'Source Code', 'Handover'],
+    deliverables: [
+      'Production Cloud Server Deployment & SSL Setup',
+      'Core Web Vitals & Search Engine SEO Verification',
+      'Complete Source Code Repository & Documentation'
+    ]
   }
 ];
 
@@ -300,14 +401,14 @@ const faqsList = [
   }
 ];
 
-// Legal Policies Data tailored for CineForge Studio
+// Legal Policies Data tailored for Rovaware Studio
 const legalPoliciesData = {
   privacy: {
     id: 'privacy',
     badge: 'Data Protection & Privacy',
     title: 'Privacy Policy',
     lastUpdated: 'October 18, 2026',
-    lead: 'This Privacy Policy explains how CineForge Studio collects, uses, and safeguards your information when you visit cineforge.studio, request project scoping, or collaborate with our web development, web application, and AI integration team.',
+    lead: 'This Privacy Policy explains how Rovaware Studio collects, uses, and safeguards your information when you visit rovaware.com, request project scoping, or collaborate with our web development, web application, and AI integration team.',
     icon: ShieldCheck,
     highlight: {
       title: 'Client Privacy & Confidentiality First',
@@ -344,7 +445,7 @@ const legalPoliciesData = {
         list: [
           'Hosting & Edge Delivery: Our platform is hosted on Vercel Inc., providing global CDN routing, automated DDoS protection, and secure SSL/TLS encryption.',
           'Brief Intake & Attachments: Project briefs and uploaded assets may be processed via Google Forms and Google Workspace, subject to Google’s enterprise security policies.',
-          'Payment Processing: For demo reservations, transactions occur directly via standard Indian UPI banking rails (PhonePe, Google Pay, Paytm, or BHIM). CineForge Studio never captures or stores bank credentials, debit/credit card numbers, or UPI PINs.'
+          'Payment Processing: For demo reservations, transactions occur directly via standard Indian UPI banking rails (PhonePe, Google Pay, Paytm, or BHIM). Rovaware Studio never captures or stores bank credentials, debit/credit card numbers, or UPI PINs.'
         ]
       },
       {
@@ -355,7 +456,7 @@ const legalPoliciesData = {
       {
         index: '05',
         title: 'Your Privacy Rights & Inquiries',
-        content: 'You have the right to request access to the personal data we hold about you, request corrections, or request complete deletion of your submitted project briefs from our active records. For any privacy-related questions or data deletion requests, email our engineering lead directly at hello@cineforge.studio.'
+        content: 'You have the right to request access to the personal data we hold about you, request corrections, or request complete deletion of your submitted project briefs from our active records. For any privacy-related questions or data deletion requests, email our engineering lead directly at hello@rovaware.com.'
       }
     ]
   },
@@ -364,7 +465,7 @@ const legalPoliciesData = {
     badge: 'Client Engagement Terms',
     title: 'Terms of Service',
     lastUpdated: 'October 18, 2026',
-    lead: 'These Terms of Service govern all professional engagements between CineForge Studio and clients seeking custom responsive web development, web applications, and artificial intelligence integrations.',
+    lead: 'These Terms of Service govern all professional engagements between Rovaware Studio and clients seeking custom responsive web development, web applications, and artificial intelligence integrations.',
     icon: FileText,
     highlight: {
       title: 'Collaborative, Milestone-Driven Delivery',
@@ -375,7 +476,7 @@ const legalPoliciesData = {
       {
         index: '01',
         title: 'Studio Services & Scope of Work',
-        content: 'CineForge Studio provides professional digital engineering services, including custom responsive websites, full-stack web applications (React, Next.js, Node.js), e-commerce systems, API integrations, and artificial intelligence solutions (LLM integration, smart automation, n8n workflows). The specific deliverables, milestones, pricing, and deadlines for any engagement are defined in the written project proposal or statement of work mutually agreed upon prior to development.'
+        content: 'Rovaware Studio provides professional digital engineering services, including custom responsive websites, full-stack web applications (React, Next.js, Node.js), e-commerce systems, API integrations, and artificial intelligence solutions (LLM integration, smart automation, n8n workflows). The specific deliverables, milestones, pricing, and deadlines for any engagement are defined in the written project proposal or statement of work mutually agreed upon prior to development.'
       },
       {
         index: '02',
@@ -395,12 +496,12 @@ const legalPoliciesData = {
       {
         index: '04',
         title: 'Intellectual Property & Code Ownership',
-        content: 'Upon receipt of full and final payment for the project, all intellectual property rights to the custom source code, design layouts, graphics, and unique digital assets created specifically for the client are transferred unconditionally to the client. CineForge Studio retains ownership of proprietary developer boilerplates, tools, and general knowledge frameworks, and reserves the right to display completed project screenshots and public links in our studio portfolio unless covered under an explicit Non-Disclosure Agreement (NDA).'
+        content: 'Upon receipt of full and final payment for the project, all intellectual property rights to the custom source code, design layouts, graphics, and unique digital assets created specifically for the client are transferred unconditionally to the client. Rovaware Studio retains ownership of proprietary developer boilerplates, tools, and general knowledge frameworks, and reserves the right to display completed project screenshots and public links in our studio portfolio unless covered under an explicit Non-Disclosure Agreement (NDA).'
       },
       {
         index: '05',
         title: 'Warranties & Technical Limitations',
-        content: 'CineForge Studio builds and tests software using modern coding standards and responsive practices across major desktop and mobile browsers. However, we cannot warrant uninterrupted operation against external events outside our reasonable control, including third-party cloud hosting disruptions, breaking changes introduced by external API vendors (e.g. OpenAI or payment processors), or unauthorized modifications made to the codebase after official handover.'
+        content: 'Rovaware Studio builds and tests software using modern coding standards and responsive practices across major desktop and mobile browsers. However, we cannot warrant uninterrupted operation against external events outside our reasonable control, including third-party cloud hosting disruptions, breaking changes introduced by external API vendors (e.g. OpenAI or payment processors), or unauthorized modifications made to the codebase after official handover.'
       },
       {
         index: '06',
@@ -414,11 +515,11 @@ const legalPoliciesData = {
     badge: 'Cookie & Tracking Transparency',
     title: 'Cookie Policy',
     lastUpdated: 'October 18, 2026',
-    lead: 'This Cookie Policy explains how CineForge Studio utilizes browser storage and cookies to provide an intuitive, high-performance web experience when navigating cineforge.studio.',
+    lead: 'This Cookie Policy explains how Rovaware Studio utilizes browser storage and cookies to provide an intuitive, high-performance web experience when navigating rovaware.com.',
     icon: Cookie,
     highlight: {
       title: 'Zero Third-Party Advertising Trackers',
-      text: 'We respect your digital privacy. CineForge Studio does NOT use invasive marketing cookies, Facebook/Meta tracking pixels, Google AdSense trackers, or cross-site commercial profiling scripts.',
+      text: 'We respect your digital privacy. Rovaware Studio does NOT use invasive marketing cookies, Facebook/Meta tracking pixels, Google AdSense trackers, or cross-site commercial profiling scripts.',
       green: false
     },
     sections: [
@@ -429,7 +530,7 @@ const legalPoliciesData = {
       },
       {
         index: '02',
-        title: 'How CineForge Studio Uses Cookies',
+        title: 'How Rovaware Studio Uses Cookies',
         content: 'We maintain a lightweight, privacy-focused platform. The cookies and local storage mechanisms we use fall into the following essential categories:',
         list: [
           'Essential Functional Storage: Used to preserve interactive interface states, such as video audio mute preferences, color laboratory slider positions, and temporary project demo modal inputs.',
@@ -440,7 +541,7 @@ const legalPoliciesData = {
       {
         index: '03',
         title: 'What We Do Not Do',
-        content: 'Unlike many commercial websites, CineForge Studio does not participate in advertising networks or behavioral targeting:',
+        content: 'Unlike many commercial websites, Rovaware Studio does not participate in advertising networks or behavioral targeting:',
         list: [
           'No advertising cookies or conversion tracking pixels.',
           'No behavioral profiling or sharing of browsing data with commercial brokers.',
@@ -463,7 +564,7 @@ const legalPoliciesData = {
     icon: RefreshCw,
     highlight: {
       title: '₹499 Project Reservation Deposit Guarantee',
-      text: 'The ₹499 project demo reservation fee is 100% credited against your final project invoice if you proceed with CineForge Studio, or 100% refunded to your original UPI account upon request if we do not move forward. Completely risk-free.',
+      text: 'The ₹499 project demo reservation fee is 100% credited against your final project invoice if you proceed with Rovaware Studio, or 100% refunded to your original UPI account upon request if we do not move forward. Completely risk-free.',
       green: true
     },
     sections: [
@@ -472,8 +573,8 @@ const legalPoliciesData = {
         title: '₹499 Project Reservation & Demo Deposit',
         content: 'To reserve dedicated engineering time and prioritize your project discovery session, clients may submit a nominal ₹499 reservation deposit via PhonePe or UPI. Our guarantee on this deposit is simple and absolute:',
         list: [
-          'Credited to Project Invoice: If you choose to proceed with CineForge Studio for your website, web application, or AI integration, the entire ₹499 fee is deducted directly from your final project bill.',
-          '100% Full Refund: If after our discovery call you choose not to proceed, or if CineForge Studio determines that we cannot accommodate your required scope or timeline, the ₹499 deposit will be refunded in full to your original UPI payment account within 3 to 5 business days upon request.'
+          'Credited to Project Invoice: If you choose to proceed with Rovaware Studio for your website, web application, or AI integration, the entire ₹499 fee is deducted directly from your final project bill.',
+          '100% Full Refund: If after our discovery call you choose not to proceed, or if Rovaware Studio determines that we cannot accommodate your required scope or timeline, the ₹499 deposit will be refunded in full to your original UPI payment account within 3 to 5 business days upon request.'
         ]
       },
       {
@@ -494,7 +595,7 @@ const legalPoliciesData = {
       {
         index: '04',
         title: 'How to Request a Refund or Cancellation',
-        content: 'To initiate a cancellation or request a refund under our deposit guarantee, please email hello@cineforge.studio with your full name, project name, and UPI transaction reference number. Our team will review and process your request within 3 to 5 business days, and the funds will be transferred directly to your originating UPI account.'
+        content: 'To initiate a cancellation or request a refund under our deposit guarantee, please email hello@rovaware.com with your full name, project name, and UPI transaction reference number. Our team will review and process your request within 3 to 5 business days, and the funds will be transferred directly to your originating UPI account.'
       }
     ]
   }
@@ -635,12 +736,12 @@ function LegalModal({ isOpen, activeTab, onSelectTab, onClose, onOpenDemo }) {
           <div className="legal-contact-banner">
             <div className="legal-contact-info">
               <h4>Have questions regarding our legal terms or project contracts?</h4>
-              <p>Reach out directly to CineForge Studio. We respond to all inquiries within 24 hours.</p>
+              <p>Reach out directly to Rovaware Studio. We respond to all inquiries within 24 hours.</p>
             </div>
             <div className="legal-contact-actions">
-              <a href="mailto:hello@cineforge.studio" className="legal-email-btn">
+              <a href="mailto:hello@rovaware.com" className="legal-email-btn">
                 <Mail size={15} />
-                <span>hello@cineforge.studio</span>
+                <span>hello@rovaware.com</span>
               </a>
               <button
                 type="button"
@@ -660,8 +761,8 @@ function LegalModal({ isOpen, activeTab, onSelectTab, onClose, onOpenDemo }) {
         {/* Modal Footer */}
         <div className="legal-modal-footer">
           <div className="legal-footer-note">
-            <ShieldCheck size={14} color="#34d399" />
-            <span>Official Legal Documentation • CineForge Studio</span>
+            <ShieldCheck size={14} color="#38BDF8" />
+            <span>Official Legal Documentation • Rovaware Studio</span>
           </div>
           <button type="button" className="legal-close-action-btn" onClick={onClose}>
             Close Document
@@ -764,7 +865,7 @@ function ProjectIntakeCard({ isModal = false, onClose = null }) {
 
     // Compose formatted WhatsApp message
     const messageLines = [
-      '🚀 *New Project Inquiry — CineForge Studio*',
+      '🚀 *New Project Inquiry — Rovaware Studio*',
       '━━━━━━━━━━━━━━━━━━━━━',
       `👤 *Name:* ${formData.name.trim()}`,
       `📞 *Client Contact:* ${formData.contact.trim()}`,
@@ -788,11 +889,11 @@ function ProjectIntakeCard({ isModal = false, onClose = null }) {
 
     if (formData.subscribeNewsletter) {
       messageLines.push('');
-      messageLines.push('📬 *CineForge Dispatch:* Subscribed');
+      messageLines.push('📬 *Rovaware Dispatch:* Subscribed');
     }
 
     messageLines.push('━━━━━━━━━━━━━━━━━━━━━');
-    messageLines.push('⚡ _Submitted via CineForge Web Platform_');
+    messageLines.push('⚡ _Submitted via Rovaware Web Platform_');
 
     const whatsappText = encodeURIComponent(messageLines.join('\n'));
     const url = STUDIO_WHATSAPP_NUMBER
@@ -836,7 +937,7 @@ function ProjectIntakeCard({ isModal = false, onClose = null }) {
           <span className="live-dot" />
           <span>PROJECT INTAKE & DISPATCH</span>
         </div>
-        <h3 className="nl-card-title">Start Your Project With CineForge</h3>
+        <h3 className="nl-card-title">Start Your Project With Rovaware</h3>
         <p className="nl-card-subtitle">
           Submit your requirements, references, and specifications below. We provide high-performance engineering & private weekly tech dispatches.
         </p>
@@ -844,7 +945,7 @@ function ProjectIntakeCard({ isModal = false, onClose = null }) {
 
       {submitted ? (
         <div className="nl-success-box">
-          <div className="nl-success-icon" style={{ background: 'rgba(37, 211, 102, 0.15)', borderColor: 'rgba(37, 211, 102, 0.4)', color: '#25d366' }}>
+          <div className="nl-success-icon" style={{ background: 'rgba(56, 189, 248, 0.15)', borderColor: 'rgba(56, 189, 248, 0.4)', color: '#38BDF8' }}>
             <WhatsAppIcon size={34} />
           </div>
           <div className="newsletter-badge success">
@@ -899,7 +1000,7 @@ function ProjectIntakeCard({ isModal = false, onClose = null }) {
               </div>
             )}
             <div className="summary-item">
-              <span className="label">CineForge Dispatch</span>
+              <span className="label">Rovaware Dispatch</span>
               <span className="val">{formData.subscribeNewsletter ? 'Subscribed' : 'Standard'}</span>
             </div>
           </div>
@@ -1182,7 +1283,7 @@ function ProjectIntakeCard({ isModal = false, onClose = null }) {
               {formData.subscribeNewsletter && <Check size={12} />}
             </span>
             <span className="nl-checkbox-label">
-              Also subscribe me to <strong>CineForge Dispatch</strong> (bi-weekly engineering deep-dives & AI teardowns. Zero spam.)
+              Also subscribe me to <strong>Rovaware Dispatch</strong> (bi-weekly engineering deep-dives & AI teardowns. Zero spam.)
             </span>
           </label>
 
@@ -1218,7 +1319,7 @@ function RequestCallbackModal({ isOpen, onClose }) {
     if (!name || !phone) return;
 
     const messageLines = [
-      '📞 *NEW CALLBACK REQUEST — CINEFORGE STUDIO*',
+      '📞 *NEW CALLBACK REQUEST — ROVAWARE STUDIO*',
       '━━━━━━━━━━━━━━━━━━━━━',
       `👤 *Client Name:* ${name}`,
       `📱 *Phone / WhatsApp:* ${phone}`,
@@ -1267,7 +1368,7 @@ function RequestCallbackModal({ isOpen, onClose }) {
         {submitted ? (
           <div className="callback-success-state">
             <div className="callback-success-icon">
-              <CheckCircle2 size={36} color="#10b981" />
+              <CheckCircle2 size={36} color="#38BDF8" />
             </div>
             <h4>Callback Request Dispatched!</h4>
             <p>
@@ -1426,9 +1527,9 @@ function EmailLeadPopup({ isOpen, onClose, onSubmit, email, setEmail }) {
         </form>
 
         <div className="email-popup-trust-row">
-          <span><Check size={12} color="#10b981" /> Zero spam</span>
-          <span><Check size={12} color="#10b981" /> 1-Click unsubscribe</span>
-          <span><ShieldCheck size={12} color="#10b981" /> NDA protected</span>
+          <span><Check size={12} color="#38BDF8" /> Zero spam</span>
+          <span><Check size={12} color="#38BDF8" /> 1-Click unsubscribe</span>
+          <span><ShieldCheck size={12} color="#38BDF8" /> NDA protected</span>
         </div>
       </div>
     </div>
@@ -1443,7 +1544,7 @@ function EmailToast({ isOpen, email, onClose }) {
     <div className="email-toast-wrap" role="alert" aria-live="polite">
       <div className="email-toast-card">
         <div className="email-toast-icon-wrap">
-          <CheckCircle2 size={20} color="#10b981" />
+          <CheckCircle2 size={20} color="#38BDF8" />
         </div>
         <div className="email-toast-content">
           <strong>Subscribed to Dispatch! 🎉</strong>
@@ -1523,16 +1624,1303 @@ function CookieConsentBanner({ isOpen, onAccept, onOpenCookiePolicy, onClose }) 
   );
 }
 
+// ========================================================
+// 3D CONTINUOUS ROTATING PRODUCTION DEPLOYMENTS GALLERY
+// Real deployed projects, browser frames, live URLs, 3D orbit
+// ========================================================
+function ProductionDeploymentsOrbit({ projects, onSelectProject, activeCategory }) {
+  const [angle, setAngle] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [speedMultiplier, setSpeedMultiplier] = useState(1);
+  const [direction, setDirection] = useState(1); // 1 = clockwise, -1 = counter
+  const [hoveredProjectId, setHoveredProjectId] = useState(null);
+
+  const stageRef = useRef(null);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const targetTilt = useRef({ x: 0, y: 0 });
+  const animFrameRef = useRef(null);
+  const touchStartRef = useRef({ x: 0, angle: 0 });
+  const isDraggingRef = useRef(false);
+
+  // Responsive radii and card dimensions
+  const [dimensions, setDimensions] = useState({
+    rx: 480,
+    rz: 210,
+    cardW: 330,
+    cardH: 225,
+  });
+
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mediaQuery.matches);
+    const handler = (e) => setPrefersReducedMotion(e.matches);
+    mediaQuery.addEventListener('change', handler);
+    return () => mediaQuery.removeEventListener('change', handler);
+  }, []);
+
+  useEffect(() => {
+    const updateDimensions = () => {
+      const w = window.innerWidth;
+      if (w > 1280) {
+        setDimensions({ rx: 480, rz: 210, cardW: 330, cardH: 225 });
+      } else if (w > 1024) {
+        setDimensions({ rx: 400, rz: 175, cardW: 300, cardH: 210 });
+      } else if (w > 768) {
+        setDimensions({ rx: 310, rz: 140, cardW: 260, cardH: 195 });
+      } else if (w > 480) {
+        setDimensions({ rx: 220, rz: 100, cardW: 210, cardH: 165 });
+      } else {
+        setDimensions({ rx: 165, rz: 80, cardW: 175, cardH: 145 });
+      }
+    };
+    updateDimensions();
+    window.addEventListener('resize', updateDimensions);
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, []);
+
+  // Continuous animation loop
+  useEffect(() => {
+    let prevTime = performance.now();
+
+    const loop = (time) => {
+      const delta = Math.min((time - prevTime) / 1000, 0.1);
+      prevTime = time;
+
+      if (!isPaused && !prefersReducedMotion) {
+        // Slow down smoothly when a project card is hovered
+        const activeMultiplier = hoveredProjectId ? 0.2 : speedMultiplier;
+        setAngle((prev) => (prev + direction * 10 * activeMultiplier * delta) % 360);
+      }
+
+      // Smooth tilt lerping for mouse parallax
+      setTilt((prev) => {
+        if (prefersReducedMotion) return { x: 0, y: 0 };
+        const dx = targetTilt.current.x - prev.x;
+        const dy = targetTilt.current.y - prev.y;
+        if (Math.abs(dx) < 0.001 && Math.abs(dy) < 0.001) return prev;
+        return {
+          x: prev.x + dx * 0.08,
+          y: prev.y + dy * 0.08,
+        };
+      });
+
+      animFrameRef.current = requestAnimationFrame(loop);
+    };
+
+    animFrameRef.current = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(animFrameRef.current);
+  }, [isPaused, speedMultiplier, direction, hoveredProjectId, prefersReducedMotion]);
+
+  // Mouse move parallax handler
+  const handleMouseMove = (e) => {
+    if (prefersReducedMotion || !stageRef.current) return;
+    const rect = stageRef.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+    targetTilt.current = {
+      x: Math.max(-1, Math.min(1, x)),
+      y: Math.max(-1, Math.min(1, y)),
+    };
+  };
+
+  const handleMouseLeave = () => {
+    targetTilt.current = { x: 0, y: 0 };
+    setHoveredProjectId(null);
+  };
+
+  // Touch drag handlers for mobile & tablet
+  const handleTouchStart = (e) => {
+    if (e.touches.length === 1) {
+      isDraggingRef.current = true;
+      touchStartRef.current = {
+        x: e.touches[0].clientX,
+        angle: angle,
+      };
+    }
+  };
+
+  const handleTouchMove = (e) => {
+    if (isDraggingRef.current && e.touches.length === 1) {
+      const deltaX = e.touches[0].clientX - touchStartRef.current.x;
+      setAngle(touchStartRef.current.angle + deltaX * 0.35);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    isDraggingRef.current = false;
+  };
+
+  const displayProjects = projects && projects.length > 0 ? projects : projectsData;
+  const orbitItems =
+    displayProjects.length < 4
+      ? [...displayProjects, ...displayProjects, ...displayProjects].slice(0, 6)
+      : displayProjects;
+
+  const activeProject =
+    displayProjects.find((p) => p.id === hoveredProjectId) || displayProjects[0];
+
+  return (
+    <div
+      ref={stageRef}
+      className="project-orbit-stage"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      aria-label="3D Rotating Production Deployments Gallery"
+    >
+      {/* Ambient Lighting & Holographic Backdrop */}
+      <div className="project-orbit-backdrop" />
+      <div className="project-orbit-grid" />
+
+      {/* Orbit Toolbar & Telemetry Header */}
+      <div className="project-orbit-header-bar">
+        <div className="orbit-status-indicator">
+          <span className="orbit-pulse-beacon" />
+          <span className="orbit-status-label">3D PRODUCTION DEPLOYMENT ORBIT</span>
+          <span className="orbit-count-badge">{displayProjects.length} LIVE PLATFORMS</span>
+        </div>
+
+        <div className="orbit-controls-cluster">
+          <button
+            type="button"
+            className="orbit-ctrl-btn"
+            onClick={() => setIsPaused((prev) => !prev)}
+            title={isPaused ? 'Resume Orbit Rotation' : 'Pause Orbit Rotation'}
+            aria-label={isPaused ? 'Resume Orbit' : 'Pause Orbit'}
+          >
+            {isPaused ? <Play size={13} /> : <Pause size={13} />}
+            <span>{isPaused ? 'Resume' : 'Pause'}</span>
+          </button>
+
+          <button
+            type="button"
+            className="orbit-ctrl-btn"
+            onClick={() => setDirection((prev) => -prev)}
+            title="Reverse Rotation Direction"
+            aria-label="Reverse Direction"
+          >
+            <RefreshCw size={12} className={direction === -1 ? 'icon-reverse' : ''} />
+            <span>Direction</span>
+          </button>
+
+          <button
+            type="button"
+            className="orbit-ctrl-btn"
+            onClick={() => setSpeedMultiplier((prev) => (prev === 1 ? 0.5 : prev === 0.5 ? 1.5 : 1))}
+            title={`Speed: ${speedMultiplier}x (Click to change)`}
+            aria-label="Toggle Speed"
+          >
+            <Zap size={12} />
+            <span>{speedMultiplier}x</span>
+          </button>
+        </div>
+      </div>
+
+      {/* 3D Perspective Scene Canvas */}
+      <div
+        className="project-orbit-scene"
+        style={{
+          transform: `rotateX(${(tilt.y * -8).toFixed(2)}deg) rotateY(${(tilt.x * 11).toFixed(2)}deg)`,
+        }}
+      >
+        {/* Central Holographic Core Telemetry Hub */}
+        <div className="project-orbit-center-core">
+          <div className="orbit-core-ring-outer" />
+          <div className="orbit-core-ring-middle" />
+          <div className="orbit-core-ring-inner" />
+          <div className="orbit-core-glow-sphere" />
+
+          {/* Telemetry HUD Badge */}
+          <div className="orbit-core-hud-badge">
+            <div className="core-hud-top">
+              <span className="core-hud-beacon" />
+              <span className="core-hud-label">DEPLOYMENT TELEMETRY</span>
+            </div>
+            <div className="core-hud-title" title={activeProject.title}>
+              {activeProject.title}
+            </div>
+            <div className="core-hud-client">{activeProject.client || activeProject.category}</div>
+            <div className="core-hud-actions">
+              <button
+                type="button"
+                className="core-hud-btn preview-cta"
+                onClick={() => {
+                  setIsPaused(true);
+                  if (onSelectProject) onSelectProject(activeProject);
+                }}
+              >
+                <Eye size={12} />
+                <span>Preview Project</span>
+              </button>
+              {activeProject.url && (
+                <a
+                  href={activeProject.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="core-hud-btn live-cta"
+                  onClick={() => setIsPaused(true)}
+                >
+                  <span>Launch Live</span>
+                  <ExternalLink size={11} />
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Orbit Ring Holding the 3D Deployed Project Cards */}
+        <div className="project-orbit-ring">
+          {orbitItems.map((project, i) => {
+            const total = orbitItems.length;
+            const step = 360 / total;
+            const cardAngle = (i * step + angle) % 360;
+            const normalizedAngle = ((cardAngle + 540) % 360) - 180;
+            const rad = (normalizedAngle * Math.PI) / 180;
+            const sin = Math.sin(rad);
+            const cos = Math.cos(rad);
+
+            const x = dimensions.rx * sin;
+            const z = dimensions.rz * cos;
+
+            const depth = (cos + 1) / 2;
+            const scale = 0.80 + 0.30 * depth;
+            const brightness = 0.72 + 0.35 * depth;
+            const opacity = 0.48 + 0.52 * depth;
+            const zIndex = Math.round(10 + depth * 60);
+
+            const tiltY = -sin * 12;
+            const tiltX = cos * 4;
+
+            const isHovered = hoveredProjectId === project.id;
+            const cleanUrl = project.url ? project.url.replace('https://', '') : project.title;
+
+            return (
+              <div
+                key={`${project.id}-${i}`}
+                className={`project-orbit-card ${isHovered ? 'orbit-card-focused' : ''}`}
+                style={{
+                  width: `${dimensions.cardW}px`,
+                  transform: `translate3d(calc(-50% + ${x.toFixed(1)}px), calc(-50% + ${(tilt.y * -14 * cos).toFixed(1)}px), ${z.toFixed(1)}px) rotateY(${tiltY.toFixed(1)}deg) rotateX(${tiltX.toFixed(1)}deg) scale(${scale.toFixed(3)})`,
+                  opacity: isHovered ? 1 : opacity.toFixed(2),
+                  filter: `brightness(${isHovered ? 1.15 : brightness.toFixed(2)})`,
+                  zIndex: isHovered ? 90 : zIndex,
+                }}
+                onMouseEnter={() => setHoveredProjectId(project.id)}
+                onMouseLeave={() => setHoveredProjectId(null)}
+                onClick={() => {
+                  setIsPaused(true);
+                  if (onSelectProject) onSelectProject(project);
+                }}
+                title={`Click to preview ${project.title}`}
+              >
+                {/* Browser Frame Window Header */}
+                <div className="orbit-browser-bar">
+                  <div className="orbit-browser-dots">
+                    <span className="dot dot-red" />
+                    <span className="dot dot-yellow" />
+                    <span className="dot dot-green" />
+                  </div>
+                  <div className="orbit-browser-url" title={project.url || cleanUrl}>
+                    <Lock size={10} />
+                    <span>{cleanUrl}</span>
+                  </div>
+                  {project.url && (
+                    <a
+                      href={project.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="orbit-browser-ext"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setIsPaused(true);
+                      }}
+                      title={`Visit ${project.url}`}
+                    >
+                      <ExternalLink size={11} />
+                    </a>
+                  )}
+                </div>
+
+                {/* Real Website Preview Media Viewport */}
+                <div className="orbit-browser-viewport">
+                  <img src={project.img} alt={project.title} loading="lazy" />
+                  <div className="orbit-viewport-overlay">
+                    <span className="orbit-preview-pill">
+                      <span>Click to Preview Details</span>
+                      <ArrowUpRight size={12} />
+                    </span>
+                  </div>
+                </div>
+
+                {/* Card Content & Action Body */}
+                <div className="orbit-card-content">
+                  <div className="orbit-card-meta">
+                    <span className="orbit-client-tag">{project.client || project.category}</span>
+                    <span className="orbit-live-badge">
+                      <span className="live-dot" /> LIVE PLATFORM
+                    </span>
+                  </div>
+
+                  <h4 className="orbit-card-heading" title={project.title}>
+                    {project.title}
+                  </h4>
+
+                  <div className="orbit-card-tags">
+                    {project.tags.slice(0, 3).map((tag) => (
+                      <span key={tag} className="orbit-tag-pill">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="orbit-card-actions">
+                    <button
+                      type="button"
+                      className="orbit-action-preview-btn"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setIsPaused(true);
+                        if (onSelectProject) onSelectProject(project);
+                      }}
+                    >
+                      <Eye size={12} />
+                      <span>Preview</span>
+                    </button>
+                    {project.url && (
+                      <a
+                        href={project.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="orbit-action-live-btn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setIsPaused(true);
+                        }}
+                      >
+                        <span>View Live Project</span>
+                        <ExternalLink size={12} />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Orbit Footer Caption */}
+      <div className="project-orbit-footer">
+        <span className="footer-pulse-dot" />
+        <span>
+          Auto-rotating 3D deployment showcase • Move cursor to tilt parallax • Click any project to open details modal or view live project
+        </span>
+      </div>
+    </div>
+  );
+}
+
+// Full-Spectrum Digital Solutions Horizontal Scrolling Carousel Component
+function ServicesCarousel({ services }) {
+  const trackRef = useRef(null);
+  const isDraggingRef = useRef(false);
+  const startXRef = useRef(0);
+  const scrollLeftRef = useRef(0);
+  const hasMovedRef = useRef(false);
+
+  const [isDragging, setIsDragging] = useState(false);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [activeCardIndex, setActiveCardIndex] = useState(0);
+
+  const updateScrollState = () => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const { scrollLeft, scrollWidth, clientWidth } = track;
+    const maxScroll = Math.max(0, scrollWidth - clientWidth);
+
+    setCanScrollLeft(scrollLeft > 6);
+    setCanScrollRight(scrollLeft < maxScroll - 6);
+
+    const progress = maxScroll > 0 ? (scrollLeft / maxScroll) * 100 : 0;
+    setScrollProgress(progress);
+
+    // Calculate active card index based on position relative to track
+    const cards = track.querySelectorAll('.service-box');
+    if (cards.length > 0) {
+      let closestIdx = 0;
+      let minDiff = Infinity;
+      const trackRect = track.getBoundingClientRect();
+
+      cards.forEach((card, idx) => {
+        const cardRect = card.getBoundingClientRect();
+        const diff = Math.abs(cardRect.left - trackRect.left);
+        if (diff < minDiff) {
+          minDiff = diff;
+          closestIdx = idx;
+        }
+      });
+      setActiveCardIndex(closestIdx);
+    }
+  };
+
+  useEffect(() => {
+    updateScrollState();
+    const handleResize = () => updateScrollState();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Global mouseup to cleanly stop dragging even when mouse releases outside track
+  useEffect(() => {
+    const handleGlobalMouseUp = () => {
+      if (isDraggingRef.current) {
+        isDraggingRef.current = false;
+        setIsDragging(false);
+      }
+    };
+    window.addEventListener('mouseup', handleGlobalMouseUp);
+    return () => window.removeEventListener('mouseup', handleGlobalMouseUp);
+  }, []);
+
+  // Mouse wheel & trackpad horizontal scroll handling
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const handleWheel = (e) => {
+      // Natural horizontal trackpad swipe - allow native handling
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+        return;
+      }
+
+      // Translate vertical wheel delta into smooth horizontal scroll
+      if (e.deltaY !== 0) {
+        const maxScroll = track.scrollWidth - track.clientWidth;
+        if (maxScroll <= 0) return;
+
+        const isMovingRight = e.deltaY > 0;
+        const canScroll = isMovingRight
+          ? track.scrollLeft < maxScroll - 1
+          : track.scrollLeft > 1;
+
+        if (canScroll) {
+          e.preventDefault();
+          track.scrollBy({
+            left: e.deltaY * 1.6,
+            behavior: 'auto'
+          });
+        }
+      }
+    };
+
+    track.addEventListener('wheel', handleWheel, { passive: false });
+    return () => {
+      track.removeEventListener('wheel', handleWheel);
+    };
+  }, []);
+
+  // Mouse Drag-To-Scroll handlers
+  const handleMouseDown = (e) => {
+    if (e.button !== 0) return; // Only primary button
+    const track = trackRef.current;
+    if (!track) return;
+
+    isDraggingRef.current = true;
+    setIsDragging(true);
+    startXRef.current = e.pageX - track.offsetLeft;
+    scrollLeftRef.current = track.scrollLeft;
+    hasMovedRef.current = false;
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDraggingRef.current) return;
+    const track = trackRef.current;
+    if (!track) return;
+
+    e.preventDefault();
+    const x = e.pageX - track.offsetLeft;
+    const walk = (x - startXRef.current) * 1.4;
+    if (Math.abs(walk) > 3) {
+      hasMovedRef.current = true;
+    }
+    track.scrollLeft = scrollLeftRef.current - walk;
+  };
+
+  const handleMouseUpOrLeave = () => {
+    if (isDraggingRef.current) {
+      isDraggingRef.current = false;
+      setIsDragging(false);
+    }
+  };
+
+  const handleScrollStep = (direction) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const card = track.querySelector('.service-box');
+    const scrollAmount = card ? card.offsetWidth + 24 : 404;
+
+    track.scrollBy({
+      left: direction === 'right' ? scrollAmount : -scrollAmount,
+      behavior: 'smooth'
+    });
+  };
+
+  const scrollToCard = (index) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const cards = track.querySelectorAll('.service-box');
+    const targetCard = cards[index];
+    if (targetCard) {
+      const targetLeft = targetCard.offsetLeft - track.offsetLeft - 6;
+      track.scrollTo({
+        left: Math.max(0, targetLeft),
+        behavior: 'smooth'
+      });
+      setActiveCardIndex(index);
+    }
+  };
+
+  return (
+    <div className="services-carousel-wrapper">
+      {/* Header Controls & Live Counters */}
+      <div className="services-carousel-header">
+        <div className="services-carousel-meta">
+          <div className="services-badge-counter" aria-live="polite">
+            <span className="live-counter-current">0{activeCardIndex + 1}</span>
+            <span className="live-counter-divider">/</span>
+            <span className="live-counter-total">0{services.length}</span>
+          </div>
+          <div className="services-hint-pill">
+            <span className="hint-pulse-dot" />
+            <span>Drag, swipe, or click any number to jump to that service</span>
+          </div>
+        </div>
+
+        <div className="services-carousel-nav">
+          {/* Visual progress bar */}
+          <div className="services-progress-rail" aria-label="Services carousel scroll progress">
+            <div
+              className="services-progress-fill"
+              style={{ width: `${Math.max(16, scrollProgress)}%` }}
+            />
+          </div>
+
+          <div className="services-nav-buttons">
+            <button
+              type="button"
+              className="services-nav-btn prev"
+              onClick={() => handleScrollStep('left')}
+              disabled={!canScrollLeft}
+              aria-label="Previous service"
+            >
+              <ChevronLeft size={18} />
+            </button>
+            <button
+              type="button"
+              className="services-nav-btn next"
+              onClick={() => handleScrollStep('right')}
+              disabled={!canScrollRight}
+              aria-label="Next service"
+            >
+              <ChevronRight size={18} />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Carousel Track Container */}
+      <div className="services-track-container">
+        {/* Subtle Edge Gradients signaling more cards */}
+        <div className={`services-fade-edge left ${canScrollLeft ? 'active' : ''}`} />
+        <div className={`services-fade-edge right ${canScrollRight ? 'active' : ''}`} />
+
+        <div
+          ref={trackRef}
+          className={`services-carousel-track ${isDragging ? 'is-dragging' : ''}`}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUpOrLeave}
+          onMouseLeave={handleMouseUpOrLeave}
+          onScroll={updateScrollState}
+        >
+          {services.map((s, idx) => {
+            const Icon = s.icon;
+            const isCardActive = activeCardIndex === idx;
+            return (
+              <div
+                className={`service-box ${isCardActive ? 'card-focused' : ''}`}
+                key={s.title}
+                onMouseEnter={() => setActiveCardIndex(idx)}
+                onClick={(e) => {
+                  if (hasMovedRef.current) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return;
+                  }
+                  scrollToCard(idx);
+                }}
+              >
+                <div className="service-top-row">
+                  <div className="service-icon-box">
+                    <Icon size={22} />
+                  </div>
+                  <span className="service-number">{s.num}</span>
+                </div>
+                <h3 className="service-name">{s.title}</h3>
+                <p className="service-text">{s.desc}</p>
+                <div className="service-features">
+                  {s.features.map((f) => (
+                    <span key={f}>{f}</span>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Pagination Pills for Direct Jumping & Hover Indication */}
+      <div className="services-pagination-dots" role="tablist" aria-label="Services carousel navigation">
+        {services.map((s, idx) => (
+          <button
+            key={s.num}
+            type="button"
+            role="tab"
+            aria-selected={activeCardIndex === idx}
+            className={`services-dot-btn ${activeCardIndex === idx ? 'active' : ''}`}
+            onClick={() => scrollToCard(idx)}
+            onMouseEnter={() => setActiveCardIndex(idx)}
+            title={`Service ${s.num}: ${s.title}`}
+            aria-label={`Jump to service 0${idx + 1}: ${s.title}`}
+          >
+            <span className="dot-pill">
+              <span className="dot-active-beacon" />
+              <span className="dot-num">{s.num}</span>
+            </span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// Interactive 4-Stage Process Timeline Component with Connecting Gradient Line & Spotlight Cards
+function ProcessTimeline({ steps }) {
+  const [expandedStep, setExpandedStep] = useState(null);
+  const [activeStage, setActiveStage] = useState(0);
+  const [hasRevealed, setHasRevealed] = useState(false);
+  const containerRef = useRef(null);
+
+  const toggleStep = (num) => {
+    setExpandedStep((prev) => (prev === num ? null : num));
+  };
+
+  // Scroll reveal & sequential stage activation (01 -> 02 -> 03 -> 04)
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setHasRevealed(true);
+            // Sequentially activate stages 0 -> 1 -> 2 -> 3
+            [0, 1, 2, 3].forEach((idx) => {
+              setTimeout(() => {
+                setActiveStage((prev) => Math.max(prev, idx));
+              }, 140 + idx * 280);
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  // Cursor spotlight handlers for individual cards
+  const handleCardMouseMove = (e) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    card.style.setProperty('--spotlight-x', `${x}px`);
+    card.style.setProperty('--spotlight-y', `${y}px`);
+  };
+
+  const handleCardMouseEnter = (e) => {
+    e.currentTarget.style.setProperty('--spotlight-opacity', '1');
+  };
+
+  const handleCardMouseLeave = (e) => {
+    e.currentTarget.style.setProperty('--spotlight-opacity', '0');
+  };
+
+  return (
+    <div className="process-timeline-container" ref={containerRef}>
+      {/* 1. Thin Animated Gradient Connecting Line from Stage 01 to Stage 04 */}
+      <div className="timeline-connector-bar" aria-hidden="true">
+        <div className="connector-line-base" />
+        <div
+          className="connector-line-glow"
+          style={{ width: hasRevealed ? `${(activeStage / (steps.length - 1)) * 100}%` : '0%' }}
+        />
+        {steps.map((s, idx) => (
+          <div
+            key={idx}
+            className={`connector-node-dot ${activeStage >= idx ? 'active' : ''}`}
+            style={{ left: `${(idx / (steps.length - 1)) * 100}%` }}
+          >
+            <div className="node-dot-ping" />
+            <div className="node-dot-core" />
+          </div>
+        ))}
+      </div>
+
+      {/* 2. Grid of 4 Stage Cards with Sequential Staggered Fade-Up Reveals */}
+      <div className={`timeline-grid ${hasRevealed ? 'is-revealed' : ''}`}>
+        {steps.map((step, idx) => {
+          const isExpanded = expandedStep === step.num;
+          const isActive = activeStage >= idx;
+
+          return (
+            <div
+              key={step.num}
+              className={`timeline-step ${isActive ? 'stage-active' : ''} ${isExpanded ? 'is-expanded' : ''}`}
+              style={{ '--step-delay': `${idx * 150}ms` }}
+              onMouseMove={handleCardMouseMove}
+              onMouseEnter={handleCardMouseEnter}
+              onMouseLeave={handleCardMouseLeave}
+              onClick={() => toggleStep(step.num)}
+              role="button"
+              tabIndex={0}
+              aria-expanded={isExpanded}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  toggleStep(step.num);
+                }
+              }}
+            >
+              {/* Cursor Spotlight Layer */}
+              <div className="timeline-card-spotlight" aria-hidden="true" />
+
+              {/* Animated Gradient Border on Hover */}
+              <div className="timeline-card-glow-border" aria-hidden="true" />
+
+              {/* Top Row: Glowing Stage Number Box & Click-to-Expand Details Control */}
+              <div className="step-top-row">
+                <span className={`step-num-box ${isActive ? 'glowing' : ''}`}>
+                  <span className="step-num-glow-aura" />
+                  <span className="step-num-text">{step.num}</span>
+                </span>
+
+                <button
+                  type="button"
+                  className="step-expand-trigger"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleStep(step.num);
+                  }}
+                  aria-expanded={isExpanded}
+                  aria-label={`${isExpanded ? 'Collapse' : 'Expand'} details for ${step.title}`}
+                >
+                  <span className="expand-trigger-text">{isExpanded ? 'Less' : 'Details'}</span>
+                  <ChevronDown size={14} className={`expand-chevron ${isExpanded ? 'rotated' : ''}`} />
+                </button>
+              </div>
+
+              <h3 className="step-title">{step.title}</h3>
+              <p className="step-desc">{step.desc}</p>
+
+              {step.tags && (
+                <div className="step-tags">
+                  {step.tags.map((t) => (
+                    <span key={t} className="step-tag-pill">{t}</span>
+                  ))}
+                </div>
+              )}
+
+              {/* 4. Expandable Stage Details & Deliverables with Smooth Accordion Animation */}
+              <div className={`step-expandable-drawer ${isExpanded ? 'expanded' : ''}`}>
+                <div className="step-drawer-inner">
+                  <div className="step-deliverables-header">
+                    <Sparkles size={12} />
+                    <span>KEY DELIVERABLES & OUTCOMES</span>
+                  </div>
+                  <ul className="step-deliverables-list">
+                    {step.deliverables.map((item, dIdx) => (
+                      <li key={dIdx}>
+                        <CheckCircle2 size={13} className="deliverable-check" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
+// TECHNOLOGY STACK SHOWCASE: INTERACTIVE ECOSYSTEM & MARQUEE
+// ============================================================
+
+const techCategoriesData = [
+  {
+    id: 'frontend',
+    title: 'Frontend Development',
+    icon: Layout,
+    badge: 'UI & Client Tier',
+    items: ['React.js', 'Next.js', 'JavaScript', 'Tailwind CSS', 'HTML5 & CSS3'],
+    purpose: 'Building ultra-responsive, component-driven user interfaces with sub-second page loads, accessible layouts, and seamless client interactions.',
+    capabilities: [
+      'Server-Side Rendering (SSR) & Static Site Generation (SSG)',
+      'Custom Component Design Systems & Micro-Interactions',
+      'Mobile-First Responsive Web Design & Accessibility (a11y)',
+      'High-Performance DOM Hydration & State Management'
+    ],
+    projects: [
+      { name: 'ASA EPC — Enterprise Platform', desc: 'Solar EPC portal built with Next.js 15 & Tailwind CSS', url: 'https://asa-epc.com' },
+      { name: 'Rathore Construction Platform', desc: 'Heavy equipment rental portal with responsive UI', url: 'https://rathore-construction-earthmovers.vercel.app' }
+    ]
+  },
+  {
+    id: 'backend',
+    title: 'Backend & Databases',
+    icon: Layers,
+    badge: 'API & Persistence Tier',
+    items: ['Node.js & Express.js', 'REST APIs', 'MongoDB', 'MySQL & SQLite', 'Authentication & Authorization'],
+    purpose: 'Engineering resilient, scalable server architecture, robust RESTful APIs, secure multi-model databases, and granular role-based authentication.',
+    capabilities: [
+      'High-Throughput RESTful APIs & WebSocket Real-Time Endpoints',
+      'Document (MongoDB) & Relational (MySQL/SQLite) Schema Architecture',
+      'JWT & Session Authentication with Role-Based Access Control (RBAC)',
+      'Database Query Optimization, Indexing & Data Integrity'
+    ],
+    projects: [
+      { name: 'Real-Time SaaS Monitoring Hub', desc: 'Low-latency telemetry streaming & WebSocket backend', url: 'https://asa-epc.com' },
+      { name: 'Distributed Multi-DB Core API', desc: 'REST API gateway with JWT authorization & database caching' }
+    ]
+  },
+  {
+    id: 'ai',
+    title: 'AI & Automation',
+    icon: Bot,
+    badge: 'Intelligence & Agent Tier',
+    items: ['AI API Integration', 'LLM-Powered Applications', 'AI Chatbots', 'Workflow Automation with n8n', 'Intelligent Business Tools'],
+    purpose: 'Bridging modern foundation AI models, vector search, and automated multi-step workflows into production tools that automate repetitive tasks.',
+    capabilities: [
+      'Enterprise LLM API Integration & Dynamic Prompt Engineering',
+      'Multi-Step Autonomous Workflow Automation with n8n Webhooks',
+      'Domain-Trained Conversational AI Chatbots & Customer Support',
+      'Vector Embeddings, Semantic Search & Retrieval-Augmented Generation'
+    ],
+    projects: [
+      { name: 'Autonomous AI Agent Workflows', desc: 'Self-orchestrating task execution & multi-agent systems' },
+      { name: 'Automated Lead & Pipeline Engine', desc: 'End-to-end webhook ingestion & intelligent routing with n8n' }
+    ]
+  },
+  {
+    id: 'deployment',
+    title: 'Development & Deployment',
+    icon: Gauge,
+    badge: 'DevOps & Cloud Tier',
+    items: ['Git & GitHub', 'VS Code', 'Vercel', 'Postman', 'Responsive Testing & Debugging'],
+    purpose: 'Operating streamlined CI/CD pipelines, version control protocols, edge server deployments, and rigorous cross-platform quality assurance.',
+    capabilities: [
+      'Automated Git Version Control & Multi-Environment Branching Strategy',
+      'Zero-Downtime Global Edge Hosting on Vercel with Instant Rollbacks',
+      'Comprehensive API Testing & Contract Verification with Postman',
+      'Lighthouse 95+ Performance Audits & Device Compatibility Testing'
+    ],
+    projects: [
+      { name: 'Vercel Global Edge Network', desc: 'Sub-100ms global response times with automated CI/CD deployments' },
+      { name: 'Production Telemetry & QA Suite', desc: 'Automated regression testing & multi-browser device validation' }
+    ]
+  }
+];
+
+const marqueeTechnologies = [
+  { name: 'React.js', icon: <Code2 size={14} />, tag: 'Frontend' },
+  { name: 'Next.js', icon: <Globe size={14} />, tag: 'Framework' },
+  { name: 'JavaScript', icon: <Terminal size={14} />, tag: 'Language' },
+  { name: 'TypeScript', icon: <Code2 size={14} />, tag: 'Language' },
+  { name: 'Tailwind CSS', icon: <Layout size={14} />, tag: 'Styling' },
+  { name: 'Node.js', icon: <Server size={14} />, tag: 'Runtime' },
+  { name: 'Express.js', icon: <Workflow size={14} />, tag: 'Backend' },
+  { name: 'MongoDB', icon: <Database size={14} />, tag: 'NoSQL' },
+  { name: 'MySQL', icon: <Database size={14} />, tag: 'SQL' },
+  { name: 'Python', icon: <Terminal size={14} />, tag: 'Language' },
+  { name: 'OpenAI API', icon: <Bot size={14} />, tag: 'AI Models' },
+  { name: 'Vercel', icon: <Cloud size={14} />, tag: 'Cloud Edge' },
+  { name: 'Git & GitHub', icon: <GitBranch size={14} />, tag: 'Version Control' },
+  { name: 'Postman', icon: <Activity size={14} />, tag: 'API Testing' },
+  { name: 'n8n Automation', icon: <Workflow size={14} />, tag: 'Automation' },
+  { name: 'HTML5 & CSS3', icon: <Layout size={14} />, tag: 'Core Web' },
+  { name: 'Vite', icon: <Zap size={14} />, tag: 'Build Tool' },
+  { name: 'REST APIs', icon: <Network size={14} />, tag: 'Protocols' }
+];
+
+
+// 3. Horizontal Technology Logo Marquee Component
+function TechLogoMarquee({ items }) {
+  const scrollRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    setStartX(e.pageX - scrollRef.current.offsetLeft);
+    setScrollLeft(scrollRef.current.scrollLeft);
+  };
+
+  const handleMouseLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    scrollRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  return (
+    <div className="tech-marquee-section">
+      <div className="tech-marquee-header">
+        <div className="marquee-header-pill">
+          <Zap size={13} />
+          <span>PRODUCTION TOOLCHAIN</span>
+        </div>
+        <span className="marquee-header-hint">Auto-scrolling • Hover to pause • Drag to explore</span>
+      </div>
+
+      <div className="tech-marquee-wrapper">
+        <div className="tech-marquee-fade-left" aria-hidden="true" />
+        <div className="tech-marquee-fade-right" aria-hidden="true" />
+        <div
+          className={`tech-marquee-track ${isDragging ? 'is-dragging' : ''}`}
+          ref={scrollRef}
+          onMouseDown={handleMouseDown}
+          onMouseLeave={handleMouseLeave}
+          onMouseUp={handleMouseUp}
+          onMouseMove={handleMouseMove}
+        >
+          <div className="tech-marquee-content">
+            {[...items, ...items, ...items].map((item, idx) => (
+              <div key={idx} className="tech-marquee-pill">
+                <span className="marquee-pill-icon">{item.icon}</span>
+                <span className="marquee-pill-name">{item.name}</span>
+                <span className="marquee-pill-tag">{item.tag}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// 2. Main TechStackShowcase Component
+function TechStackShowcase() {
+  const [activeCardId, setActiveCardId] = useState(null);
+  const [hasRevealed, setHasRevealed] = useState(false);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setHasRevealed(true);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const handleCardMouseMove = (e, isExpanded) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    card.style.setProperty('--spotlight-x', `${x}px`);
+    card.style.setProperty('--spotlight-y', `${y}px`);
+
+    if (isExpanded) {
+      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(-4px)';
+    } else {
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = ((y - centerY) / centerY) * -4;
+      const rotateY = ((x - centerX) / centerX) * 4;
+      card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px)`;
+    }
+  };
+
+  const handleCardMouseEnter = (catId, e) => {
+    setActiveCardId(catId);
+    e.currentTarget.style.setProperty('--spotlight-opacity', '1');
+  };
+
+  const handleCardMouseLeave = (catId, e) => {
+    const card = e.currentTarget;
+    card.style.setProperty('--spotlight-opacity', '0');
+    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+    setActiveCardId((prev) => (prev === catId ? null : prev));
+  };
+
+  const handleCardClick = (catId) => {
+    setActiveCardId((prev) => (prev === catId ? null : catId));
+  };
+
+  const handleKeyDown = (e, catId) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      setActiveCardId((prev) => (prev === catId ? null : catId));
+    }
+  };
+
+  const handleFocus = (catId) => {
+    setActiveCardId(catId);
+  };
+
+  const handleBlur = (catId, e) => {
+    if (!e.currentTarget.contains(e.relatedTarget)) {
+      setActiveCardId((prev) => (prev === catId ? null : prev));
+    }
+  };
+
+  return (
+    <div className="tech-showcase-container" ref={containerRef}>
+      {/* Four Technology Category Cards with Auto Hover-Expand, 3D Tilt, Spotlight & Glow */}
+      <div className={`gear-grid ${hasRevealed ? 'is-revealed' : ''}`}>
+        {techCategoriesData.map((cat, idx) => {
+          const isExpanded = activeCardId === cat.id;
+          const IconComponent = cat.icon;
+
+          return (
+            <div
+              key={cat.id}
+              className={`gear-category ${isExpanded ? 'is-selected is-expanded' : ''}`}
+              style={{ '--card-delay': `${idx * 130}ms` }}
+              onMouseMove={(e) => handleCardMouseMove(e, isExpanded)}
+              onMouseEnter={(e) => handleCardMouseEnter(cat.id, e)}
+              onMouseLeave={(e) => handleCardMouseLeave(cat.id, e)}
+              onClick={() => handleCardClick(cat.id)}
+              onFocus={() => handleFocus(cat.id)}
+              onBlur={(e) => handleBlur(cat.id, e)}
+              role="button"
+              tabIndex={0}
+              aria-expanded={isExpanded}
+              aria-label={`${cat.title}: ${isExpanded ? 'Collapse' : 'Explore'} capabilities and projects`}
+              onKeyDown={(e) => handleKeyDown(e, cat.id)}
+            >
+              {/* Cursor Spotlight Layer */}
+              <div className="gear-card-spotlight" aria-hidden="true" />
+
+              {/* Animated Cyan-Purple Glowing Border on Hover & Active */}
+              <div className="gear-card-glow-border" aria-hidden="true" />
+
+              <div className="gear-cat-header">
+                <div className="gear-cat-title-wrap">
+                  <IconComponent size={18} />
+                  <span>{cat.title}</span>
+                </div>
+                <span className={`gear-inspect-badge ${isExpanded ? 'active' : ''}`}>
+                  {isExpanded ? 'Active' : 'Inspect'}
+                </span>
+              </div>
+
+              <ul className="gear-list">
+                {cat.items.map((item, iIdx) => (
+                  <li key={iIdx}>{item}</li>
+                ))}
+              </ul>
+
+              <div className="gear-card-footer">
+                <span className="gear-explore-prompt">
+                  {isExpanded ? 'Collapse Details' : 'View Capabilities & Projects'}
+                </span>
+                <ChevronDown size={14} className={`gear-chevron ${isExpanded ? 'rotated' : ''}`} />
+              </div>
+
+              {/* Smooth Expandable Drawer: opens automatically on hover */}
+              <div
+                className={`gear-expandable-drawer ${isExpanded ? 'expanded' : ''}`}
+                aria-hidden={!isExpanded}
+              >
+                <div className="gear-drawer-inner">
+                  {/* Architectural Purpose */}
+                  <div className="gear-drawer-section">
+                    <div className="gear-drawer-label">
+                      <Sparkles size={11} />
+                      <span>ARCHITECTURAL PURPOSE</span>
+                    </div>
+                    <p className="gear-drawer-purpose">{cat.purpose}</p>
+                  </div>
+
+                  {/* Key Capabilities */}
+                  <div className="gear-drawer-section">
+                    <div className="gear-drawer-label">
+                      <CheckCircle2 size={11} />
+                      <span>KEY CAPABILITIES</span>
+                    </div>
+                    <ul className="gear-drawer-caps-list">
+                      {cat.capabilities.map((cap, cIdx) => (
+                        <li key={cIdx}>
+                          <CheckCircle2 size={12} className="gear-cap-check" />
+                          <span>{cap}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Production Projects */}
+                  <div className="gear-drawer-section">
+                    <div className="gear-drawer-label">
+                      <ExternalLink size={11} />
+                      <span>PRODUCTION PROJECTS</span>
+                    </div>
+                    <div className="gear-drawer-projects">
+                      {cat.projects.map((proj, pIdx) => (
+                        <div key={pIdx} className="gear-drawer-proj-card">
+                          <div className="gear-proj-info">
+                            <span className="gear-proj-name">{proj.name}</span>
+                            <span className="gear-proj-desc">{proj.desc}</span>
+                          </div>
+                          {proj.url && (
+                            <a
+                              href={proj.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="gear-proj-link"
+                              onClick={(e) => e.stopPropagation()}
+                              title={`Open live project: ${proj.name}`}
+                            >
+                              <span>Live</span>
+                              <ArrowUpRight size={11} />
+                            </a>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Horizontal Technology Logo Marquee */}
+      <TechLogoMarquee items={marqueeTechnologies} />
+    </div>
+  );
+}
+
 function App() {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [theme, setTheme] = useState(() => {
-    return localStorage.getItem('cineforge_theme') || 'dark';
+    return (localStorage.getItem('rovaware_theme') || localStorage.getItem('rovaware_theme')) || 'dark';
   });
   const [isCallbackModalOpen, setIsCallbackModalOpen] = useState(false);
 
+  // Routing State for Blog & Article Pages
+  const getInitialRoute = () => {
+    const path = window.location.pathname;
+    const hash = window.location.hash || '';
+
+    if (path.startsWith('/blog/')) {
+      const slug = path.replace(/^\/blog\//, '').replace(/\/$/, '');
+      if (slug) return { view: 'article', slug };
+      return { view: 'blog', slug: null };
+    }
+    if (path === '/blog' || path === '/blog/') {
+      return { view: 'blog', slug: null };
+    }
+
+    if (hash.startsWith('#/blog/') || hash.startsWith('#blog/')) {
+      const slug = hash.replace(/^#(|\/)?blog\//, '').replace(/\/$/, '');
+      if (slug) return { view: 'article', slug };
+      return { view: 'blog', slug: null };
+    }
+    if (hash === '#/blog' || hash === '#blog') {
+      return { view: 'blog', slug: null };
+    }
+
+    return { view: 'home', slug: null };
+  };
+
+  const initialRoute = getInitialRoute();
+  const [currentView, setCurrentView] = useState(initialRoute.view);
+  const [articleSlug, setArticleSlug] = useState(initialRoute.slug);
+
+  const navigateToBlog = () => {
+    window.history.pushState(null, '', '/blog');
+    setCurrentView('blog');
+    setArticleSlug(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.title = 'Blog & Insights — ROVAWARE Engineering';
+  };
+
+  const navigateToArticle = (slug) => {
+    window.history.pushState(null, '', `/blog/${slug}`);
+    setCurrentView('article');
+    setArticleSlug(slug);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const navigateToHome = (anchor = '') => {
+    const targetUrl = anchor ? `/#${anchor}` : '/';
+    window.history.pushState(null, '', targetUrl);
+    setCurrentView('home');
+    setArticleSlug(null);
+    document.title = 'ROVAWARE — Build • Automate • Scale';
+    if (anchor) {
+      setTimeout(() => {
+        const el = document.getElementById(anchor);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('cineforge_theme', theme);
+    localStorage.setItem('rovaware_theme', theme); localStorage.setItem('rovaware_theme', theme);
   }, [theme]);
 
   const toggleTheme = () => {
@@ -1540,9 +2928,20 @@ function App() {
   };
 
   const [activeCategory, setActiveCategory] = useState('All Works');
+  const [portfolioViewMode, setPortfolioViewMode] = useState('3d');
   const [isMuted, setIsMuted] = useState(true);
   const [showcaseCategory, setShowcaseCategory] = useState('Web Applications');
+  const [slideDirection, setSlideDirection] = useState('right');
   const [showcaseViewMode, setShowcaseViewMode] = useState('preview');
+
+  const handleShowcaseCategoryChange = (newCat) => {
+    if (newCat === showcaseCategory) return;
+    const order = ['Web Development', 'Web Applications', 'AI Solutions'];
+    const oldIdx = order.indexOf(showcaseCategory);
+    const newIdx = order.indexOf(newCat);
+    setSlideDirection(newIdx >= oldIdx ? 'right' : 'left');
+    setShowcaseCategory(newCat);
+  };
   const [modalVideo, setModalVideo] = useState(null);
   const [formSent, setFormSent] = useState(false);
   const [openFaq, setOpenFaq] = useState(0);
@@ -1648,7 +3047,7 @@ function App() {
   };
 
   const handleAcceptCookies = (type = 'all') => {
-    localStorage.setItem('cineforge_cookie_consent', type);
+    localStorage.setItem('rovaware_cookie_consent', type);
     setShowCookieBanner(false);
   };
 
@@ -1674,9 +3073,36 @@ function App() {
   };
 
   useEffect(() => {
+    const handlePopState = () => {
+      const route = getInitialRoute();
+      setCurrentView(route.view);
+      setArticleSlug(route.slug);
+      if (route.view === 'home') {
+        const h = (window.location.hash || '').replace('#', '');
+        if (h && !h.startsWith('/')) {
+          setTimeout(() => {
+            const el = document.getElementById(h);
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+          }, 100);
+        }
+      }
+    };
+
     const handleHash = () => {
       const h = (window.location.hash || '').toLowerCase();
-      if (h === '#/privacy' || h === '#privacy') {
+      if (h.startsWith('#/blog/') || h.startsWith('#blog/')) {
+        const slug = h.replace(/^#(|\/)?blog\//, '').replace(/\/$/, '');
+        if (slug) {
+          setCurrentView('article');
+          setArticleSlug(slug);
+        } else {
+          setCurrentView('blog');
+          setArticleSlug(null);
+        }
+      } else if (h === '#/blog' || h === '#blog') {
+        setCurrentView('blog');
+        setArticleSlug(null);
+      } else if (h === '#/privacy' || h === '#privacy') {
         setLegalModalTab('privacy');
       } else if (h === '#/terms' || h === '#terms') {
         setLegalModalTab('terms');
@@ -1688,8 +3114,12 @@ function App() {
     };
 
     handleHash();
+    window.addEventListener('popstate', handlePopState);
     window.addEventListener('hashchange', handleHash);
-    return () => window.removeEventListener('hashchange', handleHash);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener('hashchange', handleHash);
+    };
   }, []);
 
   useEffect(() => {
@@ -1783,6 +3213,24 @@ function App() {
     }
   };
 
+  // Cursor Spotlight & Glowing Border Handlers for About Section Visual Card
+  const handleAboutCardMouseMove = (e) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    card.style.setProperty('--spotlight-x', `${x}px`);
+    card.style.setProperty('--spotlight-y', `${y}px`);
+  };
+
+  const handleAboutCardMouseEnter = (e) => {
+    e.currentTarget.style.setProperty('--spotlight-opacity', '1');
+  };
+
+  const handleAboutCardMouseLeave = (e) => {
+    e.currentTarget.style.setProperty('--spotlight-opacity', '0');
+  };
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
     setFormSent(true);
@@ -1801,68 +3249,123 @@ function App() {
       {/* Navigation Bar */}
       <header className="navbar">
         <a
-          href="#hero"
+          href="/"
           className="nav-brand"
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault();
             setMobileMenu(false);
-            const heroEl = document.getElementById('hero');
-            if (heroEl) {
-              heroEl.scrollIntoView({ behavior: 'smooth' });
+            if (currentView !== 'home') {
+              navigateToHome();
             } else {
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              const heroEl = document.getElementById('hero');
+              if (heroEl) {
+                heroEl.scrollIntoView({ behavior: 'smooth' });
+              } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
             }
           }}
           title="Return to Hero Section"
         >
           <div className="brand-icon-box">
-            <Film size={18} />
+            <img src="/assets/rovaware_rw_arrow.png?v=9" alt="RovaWare Logo" className="brand-logo-img" />
           </div>
-          <div className="brand-text">
-            CINE<span>FORGE</span>
+          <div className="brand-text-block">
+            <div className="brand-text">
+              <span className="brand-text-main">ROVA</span>
+              <span className="brand-text-accent">WARE</span>
+            </div>
+            <span className="brand-tagline">ENGINEERING THE DIGITAL FUTURE</span>
           </div>
-          <span className="brand-badge">STUDIO</span>
         </a>
 
         <nav className={`nav-links ${mobileMenu ? 'open' : ''}`}>
           <a
             href="#work"
             className="nav-link"
-            onClick={() => setMobileMenu(false)}
+            onClick={(e) => {
+              setMobileMenu(false);
+              if (currentView !== 'home') {
+                e.preventDefault();
+                navigateToHome('work');
+              }
+            }}
           >
             Our Work
           </a>
           <a
             href="#services"
             className="nav-link"
-            onClick={() => setMobileMenu(false)}
+            onClick={(e) => {
+              setMobileMenu(false);
+              if (currentView !== 'home') {
+                e.preventDefault();
+                navigateToHome('services');
+              }
+            }}
           >
             Services
           </a>
           <a
+            href="/blog"
+            className={`nav-link ${currentView === 'blog' || currentView === 'article' ? 'active' : ''}`}
+            onClick={(e) => {
+              e.preventDefault();
+              setMobileMenu(false);
+              navigateToBlog();
+            }}
+          >
+            Blog
+          </a>
+          <a
             href="#about"
             className="nav-link"
-            onClick={() => setMobileMenu(false)}
+            onClick={(e) => {
+              setMobileMenu(false);
+              if (currentView !== 'home') {
+                e.preventDefault();
+                navigateToHome('about');
+              }
+            }}
           >
             About
           </a>
           <a
             href="#process"
             className="nav-link"
-            onClick={() => setMobileMenu(false)}
+            onClick={(e) => {
+              setMobileMenu(false);
+              if (currentView !== 'home') {
+                e.preventDefault();
+                navigateToHome('process');
+              }
+            }}
           >
             Process
           </a>
           <a
             href="#faqs"
             className="nav-link"
-            onClick={() => setMobileMenu(false)}
+            onClick={(e) => {
+              setMobileMenu(false);
+              if (currentView !== 'home') {
+                e.preventDefault();
+                navigateToHome('faqs');
+              }
+            }}
           >
             FAQs
           </a>
           <a
             href="#contact"
             className="nav-link"
-            onClick={() => setMobileMenu(false)}
+            onClick={(e) => {
+              setMobileMenu(false);
+              if (currentView !== 'home') {
+                e.preventDefault();
+                navigateToHome('contact');
+              }
+            }}
           >
             Contact
           </a>
@@ -1883,7 +3386,7 @@ function App() {
           {/* Request a Callback Button */}
           <button
             type="button"
-            className="btn-callback-nav"
+            className={`btn-callback-nav ${isCallbackModalOpen ? 'active' : ''}`}
             onClick={() => setIsCallbackModalOpen(true)}
             title="Request an instant callback within 15 minutes"
           >
@@ -1895,10 +3398,10 @@ function App() {
             href={GOOGLE_FORM_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-nav-cta"
+            className={`btn-nav-cta ${isDemoModalOpen ? 'active' : ''}`}
             style={{ textDecoration: 'none' }}
           >
-            <span>Book Demo Project</span> <ArrowUpRight size={14} />
+            <span>Book Demo</span> <ArrowUpRight size={14} />
           </a>
           <button
             className="menu-toggle"
@@ -1910,71 +3413,105 @@ function App() {
         </div>
       </header>
 
-      <main id="top">
-          {/* REVERTED HERO WITH ORIGINAL PROJECT VIDEO HERO.MP4 */}
-          <section id="hero" className="hero">
-          <video
-            ref={heroVideoRef}
-            className="hero-video"
-            autoPlay
-            loop
-            muted={isMuted}
-            playsInline
-            poster="/assets/workspace.jpg"
-          >
-            <source src="/assets/hero.mp4" type="video/mp4" />
-          </video>
-          <div className="hero-shade" />
-          <div className="hero-grid" />
+      {currentView === 'blog' && (
+        <BlogView
+          onSelectArticle={navigateToArticle}
+          onNavigateHome={() => navigateToHome()}
+        />
+      )}
 
-          {/* Hero Main Copy */}
-          <div className="hero-copy">
-            <div className="eyebrow">
-              <Sparkles size={13} />
-              <span>FULL-STACK DEVELOPMENT & AI SOLUTIONS</span>
-            </div>
-            <h1>
-              <span className="hero-title-line">Turn bold ideas into</span> <br />
-              <span className="hero-highlight">digital reality.</span>
-            </h1>
-            <p>
-              We build high-performance websites, powerful web applications, and intelligent AI solutions designed to elevate your brand, engage your audience, and grow your business.
-            </p>
+      {currentView === 'article' && (
+        <ArticleDetailView
+          slug={articleSlug}
+          onNavigateBlog={navigateToBlog}
+          onSelectArticle={navigateToArticle}
+          onNavigateHome={() => navigateToHome()}
+        />
+      )}
 
-            <div className="hero-actions">
-              <a
-                href="#contact"
-                className="btn primary"
+      {currentView === 'home' && (
+        <main id="top">
+          {/* CINEMATIC HERO WITH FULL BACKGROUND VIDEO */}
+          <section id="hero" className="hero hero-full-bg">
+            {/* Full Background Video Layer */}
+            <div className="hero-bg-video-container" aria-hidden="true">
+              <video
+                ref={heroVideoRef}
+                className="hero-bg-video"
+                autoPlay
+                loop
+                muted={isMuted}
+                playsInline
+                poster="/assets/workspace.jpg"
               >
-                Start a Project <ArrowUpRight size={16} />
-              </a>
-              <a href="#work" className="btn ghost">
-                <span className="play-ring">
-                  <Play size={13} fill="#05060a" style={{ marginLeft: 2 }} />
-                </span>
-                <span>See What We Build</span>
-              </a>
+                <source src="/assets/hero.mp4" type="video/mp4" />
+              </video>
+              <div className="hero-bg-overlay" />
+              <div className="hero-bg-glow" />
+              <div className="hero-ambient-spotlight" />
             </div>
-          </div>
 
-          {/* Hero Bottom Bar */}
-          <div className="hero-footer-bar">
-            <div className="hero-specs-list">
-              <div className="spec-item">
-                <Check size={14} /> <span>High-Performance Web Apps</span>
-              </div>
-              <div className="spec-item">
-                <Check size={14} /> <span>Intelligent AI & LLM Solutions</span>
-              </div>
-              <div className="spec-item">
-                <Check size={14} /> <span>Modern Responsive Architecture</span>
-              </div>
-              <div className="spec-item">
-                <Check size={14} /> <span>Rapid 99+ Speed Delivery</span>
+            <div className="hero-grid" />
+
+            {/* Centered High-Impact Copy */}
+            <div className="hero-container">
+              <div className="hero-copy">
+                <div className="eyebrow">
+                  <Sparkles size={13} />
+                  <span>FULL-STACK DEVELOPMENT & AI SOLUTIONS</span>
+                </div>
+                <h1>
+                  <span className="hero-title-line">Turn bold ideas into</span> <br />
+                  <span className="hero-highlight">digital reality.</span>
+                </h1>
+                <p>
+                  We build high-performance websites, powerful web applications, and intelligent AI solutions designed to elevate your brand, engage your audience, and grow your business.
+                </p>
+
+                <div className="hero-actions">
+                  <a
+                    href="#contact"
+                    className="btn primary"
+                  >
+                    Start a Project <ArrowUpRight size={16} />
+                  </a>
+                  <a href="#work" className="btn ghost">
+                    <span className="play-ring">
+                      <Play size={12} fill="#38BDF8" color="#38BDF8" style={{ marginLeft: 2 }} />
+                    </span>
+                    <span>See What We Build</span>
+                  </a>
+                  <button
+                    type="button"
+                    className="hero-sound-btn"
+                    onClick={toggleMute}
+                    aria-label={isMuted ? "Unmute hero video audio" : "Mute hero video audio"}
+                  >
+                    {isMuted ? <VolumeX size={15} /> : <Volume2 size={15} />}
+                    <span>{isMuted ? "Sound Off" : "Sound On"}</span>
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+
+            {/* Hero Bottom Bar */}
+            <div className="hero-footer-bar">
+              <div className="hero-specs-list">
+                <div className="spec-item">
+                  <Check size={14} /> <span>High-Performance Web Apps</span>
+                </div>
+                <div className="spec-item">
+                  <Check size={14} /> <span>Intelligent AI & LLM Solutions</span>
+                </div>
+                <div className="spec-item">
+                  <Check size={14} /> <span>Modern Responsive Architecture</span>
+                </div>
+                <div className="spec-item">
+                  <Check size={14} /> <span>Rapid 99+ Speed Delivery</span>
+                </div>
+              </div>
+            </div>
+          </section>
 
         {/* METRICS & PROOF BANNER */}
         <section className="stats-banner">
@@ -1999,28 +3536,30 @@ function App() {
         </section>
 
         {/* SELECTED WORK / PORTFOLIO SHOWCASE */}
-        <section id="work" className="section-wrapper">
+        <section id="work" className="section-wrapper portfolio-showcase-section">
           <div className="section-head">
             <div>
-              <div className="section-kicker">
-                <Camera size={14} />
-                <span>SELECTED REELS & FILMS</span>
+              <div className="section-kicker portfolio-kicker">
+                <div className="kicker-icon-tile">
+                  <Sparkles size={13} />
+                </div>
+                <span>FEATURED DIGITAL PLATFORMS & SYSTEMS</span>
               </div>
               <h2 className="section-title">
-                Engineered for <em>attention.</em>
+                Architected for scale, <em className="hero-highlight">crafted for impact.</em>
               </h2>
             </div>
             <p className="section-desc">
-              From enterprise web platforms and full-stack applications to cinematic commercials and high-retention cuts.
-              Click any project to preview live work.
+              Explore production web platforms, enterprise SaaS portals, and intelligent AI architectures engineered for performance, precision, and business growth.
             </p>
           </div>
 
           {/* Category Tabs */}
           <div className="portfolio-tabs">
-            {['All Works', 'Web Platforms'].map((cat) => (
+            {['All Works', 'Web Platforms', 'SaaS & Web Apps', 'AI Solutions'].map((cat) => (
               <button
                 key={cat}
+                type="button"
                 className={`tab-btn ${activeCategory === cat ? 'active' : ''}`}
                 onClick={() => setActiveCategory(cat)}
               >
@@ -2029,87 +3568,137 @@ function App() {
             ))}
           </div>
 
-          {/* Project Cards Grid */}
-          <div className="portfolio-grid stagger-reveal">
-            {filteredProjects.map((p) => (
-              <article
-                key={p.id}
-                className="project-card modern-showcase"
-                onClick={() => setModalVideo(p)}
+          {/* Production Deployments Viewport Header with View Switcher */}
+          <div className="portfolio-grid-header">
+            <div>
+              <h3 className="grid-header-title">All Production Deployments</h3>
+              <span className="grid-header-count">{filteredProjects.length} Systems Online</span>
+            </div>
+
+            <div className="portfolio-view-switcher">
+              <button
+                type="button"
+                className={`view-switch-btn ${portfolioViewMode === '3d' ? 'active' : ''}`}
+                onClick={() => setPortfolioViewMode('3d')}
+                title="3D Continuous Rotating Portfolio Gallery"
               >
-                {/* Elevated Front Browser Showcase Frame */}
-                <div className="project-browser-frame">
-                  <div className="browser-window-bar">
-                    <div className="browser-dots">
-                      <span className="b-dot b-red" />
-                      <span className="b-dot b-yellow" />
-                      <span className="b-dot b-green" />
+                <Layers size={13} />
+                <span>3D Orbit View</span>
+              </button>
+              <button
+                type="button"
+                className={`view-switch-btn ${portfolioViewMode === 'grid' ? 'active' : ''}`}
+                onClick={() => setPortfolioViewMode('grid')}
+                title="Classic Production Grid"
+              >
+                <Layout size={13} />
+                <span>Grid View</span>
+              </button>
+            </div>
+          </div>
+
+          {portfolioViewMode === '3d' ? (
+            <ProductionDeploymentsOrbit
+              projects={filteredProjects}
+              onSelectProject={(p) => setModalVideo(p)}
+              activeCategory={activeCategory}
+            />
+          ) : (
+            <div className="portfolio-grid stagger-reveal">
+              {filteredProjects.map((p) => (
+                <article
+                  key={p.id}
+                  className="project-card modern-showcase"
+                  onClick={() => setModalVideo(p)}
+                  title={`Click to preview ${p.title}`}
+                >
+                  {/* Elevated Front Browser Showcase Frame */}
+                  <div className="project-browser-frame">
+                    <div className="browser-window-bar">
+                      <div className="browser-dots">
+                        <span className="b-dot b-red" />
+                        <span className="b-dot b-yellow" />
+                        <span className="b-dot b-green" />
+                      </div>
+                      <div className="browser-url-pill">
+                        <Lock size={10} />
+                        <span>{p.url ? p.url.replace('https://', '') : p.title}</span>
+                      </div>
+                      {p.url && (
+                        <a
+                          href={p.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="browser-quick-link"
+                          onClick={(e) => e.stopPropagation()}
+                          title={`Open ${p.url}`}
+                        >
+                          <ExternalLink size={12} />
+                        </a>
+                      )}
                     </div>
-                    <div className="browser-url-pill">
-                      <Lock size={10} />
-                      <span>{p.url ? p.url.replace('https://', '') : p.title}</span>
+
+                    <div className="project-media-viewport">
+                      <img src={p.img} alt={p.title} loading="lazy" />
+                      <div className="media-hover-overlay">
+                        <span className="live-view-badge">
+                          <span>Click to Preview Details</span>
+                          <ArrowUpRight size={13} />
+                        </span>
+                      </div>
                     </div>
-                    {p.url && (
-                      <a
-                        href={p.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="browser-quick-link"
-                        onClick={(e) => e.stopPropagation()}
-                        title={`Open ${p.url}`}
-                      >
-                        <ExternalLink size={12} />
-                      </a>
-                    )}
                   </div>
 
-                  <div className="project-media-viewport">
-                    <img src={p.img} alt={p.title} loading="lazy" />
-                    <div className="media-hover-overlay">
-                      <span className="live-view-badge">
-                        <span>Click to Preview Details</span>
-                        <ArrowUpRight size={13} />
+                  {/* Card Details Body */}
+                  <div className="project-card-body">
+                    <div className="project-card-header-row">
+                      <span className="project-client-pill">{p.client}</span>
+                      <span className="live-status-pill">
+                        <span className="live-pulse-dot" /> LIVE PLATFORM
                       </span>
                     </div>
-                  </div>
-                </div>
 
-                {/* Card Details Body */}
-                <div className="project-card-body">
-                  <div className="project-card-header-row">
-                    <span className="project-client-pill">{p.client}</span>
-                    <span className="live-status-pill">
-                      <span className="live-pulse-dot" /> LIVE PLATFORM
-                    </span>
-                  </div>
+                    <h3 className="project-card-title">{p.title}</h3>
+                    <p className="project-card-summary">{p.summary}</p>
 
-                  <h3 className="project-card-title">{p.title}</h3>
-                  <p className="project-card-summary">{p.summary}</p>
+                    <div className="project-card-footer">
+                      <div className="project-tags">
+                        {p.tags.map((tag) => (
+                          <span key={tag} className="tag-pill">{tag}</span>
+                        ))}
+                      </div>
 
-                  <div className="project-card-footer">
-                    <div className="project-tags">
-                      {p.tags.map((tag) => (
-                        <span key={tag} className="tag-pill">{tag}</span>
-                      ))}
+                      <div className="project-card-btn-group">
+                        <button
+                          type="button"
+                          className="project-view-stage-btn"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setModalVideo(p);
+                          }}
+                        >
+                          <Eye size={13} />
+                          <span>Preview</span>
+                        </button>
+                        {p.url && (
+                          <a
+                            href={p.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="project-direct-btn"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <span>Live Site</span>
+                            <ExternalLink size={12} />
+                          </a>
+                        )}
+                      </div>
                     </div>
-
-                    {p.url && (
-                      <a
-                        href={p.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="project-direct-btn"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <span>Launch Site</span>
-                        <ArrowUpRight size={14} />
-                      </a>
-                    )}
                   </div>
-                </div>
-              </article>
-            ))}
-          </div>
+                </article>
+              ))}
+            </div>
+          )}
         </section>
 
         {/* FROM IDEA TO DIGITAL EXPERIENCE SHOWCASE */}
@@ -2125,7 +3714,7 @@ function App() {
               </h2>
             </div>
             <p className="section-desc">
-              Explore how CineForge Studio transforms conceptual whiteboard sketches into high-performance web applications, intelligent AI workflows, and scalable cloud platforms.
+              Explore how Rovaware Studio transforms conceptual whiteboard sketches into high-performance web applications, intelligent AI workflows, and scalable cloud platforms.
             </p>
           </div>
 
@@ -2136,7 +3725,7 @@ function App() {
                 key={cat}
                 type="button"
                 className={`exp-filter-btn ${showcaseCategory === cat ? 'active' : ''}`}
-                onClick={() => setShowcaseCategory(cat)}
+                onClick={() => handleShowcaseCategoryChange(cat)}
               >
                 {cat === 'Web Development' && <Code2 size={15} />}
                 {cat === 'Web Applications' && <Layout size={15} />}
@@ -2148,24 +3737,27 @@ function App() {
 
           {/* Main Showcase Stage */}
           {currentShowcase && (
-            <div className="experience-stage-grid">
+            <div
+              key={currentShowcase.id}
+              className={`experience-stage-grid slide-dir-${slideDirection}`}
+            >
               {/* Left Column: Editorial Content & Architecture Specs */}
               <div className="experience-editorial-col">
-                <div className="exp-editorial-card">
-                  <div className="exp-card-header">
+                <div className="exp-editorial-card stagger-anim-card">
+                  <div className="exp-card-header stagger-item item-1">
                     <span className="exp-kicker-pill">{currentShowcase.kicker}</span>
                     <span className="exp-category-pill">{currentShowcase.category}</span>
                   </div>
 
-                  <h3 className="exp-title">{currentShowcase.title}</h3>
-                  <div className="exp-tagline">
+                  <h3 className="exp-title stagger-item item-2">{currentShowcase.title}</h3>
+                  <div className="exp-tagline stagger-item item-2">
                     <CheckCircle2 size={15} />
                     <span>{currentShowcase.tagline}</span>
                   </div>
-                  <p className="exp-description">{currentShowcase.description}</p>
+                  <p className="exp-description stagger-item item-3">{currentShowcase.description}</p>
 
                   {/* Interactive View Toggle */}
-                  <div className="exp-view-toggle">
+                  <div className="exp-view-toggle stagger-item item-4">
                     <button
                       type="button"
                       className={`exp-toggle-btn ${showcaseViewMode === 'preview' ? 'active' : ''}`}
@@ -2185,7 +3777,7 @@ function App() {
                   </div>
 
                   {/* Specs & Architecture Metrics */}
-                  <div className="exp-specs-grid">
+                  <div className="exp-specs-grid stagger-item item-4">
                     {currentShowcase.specs.map((spec, i) => (
                       <div className="exp-spec-box" key={i}>
                         <span className="exp-spec-label">{spec.label}</span>
@@ -2195,7 +3787,7 @@ function App() {
                   </div>
 
                   {/* Technology Stack Pills */}
-                  <div className="exp-tech-section">
+                  <div className="exp-tech-section stagger-item item-5">
                     <span className="exp-tech-title">TECHNOLOGY STACK:</span>
                     <div className="exp-tech-tags">
                       {currentShowcase.techStack.map((tech) => (
@@ -2206,7 +3798,7 @@ function App() {
                 </div>
 
                 {/* Engineering Highlights List */}
-                <div className="exp-highlights-box">
+                <div className="exp-highlights-box stagger-item item-6">
                   <span className="exp-highlights-title">KEY ARCHITECTURAL HIGHLIGHTS</span>
                   <ul className="exp-highlights-list">
                     {currentShowcase.highlights.map((h, idx) => (
@@ -2241,7 +3833,7 @@ function App() {
 
                   {/* Viewport Content: Preview Image or Architecture Diagram */}
                   {showcaseViewMode === 'preview' ? (
-                    <div className="exp-viewport-media">
+                    <div className="exp-viewport-media exp-viewport-slide">
                       <img
                         src={currentShowcase.image}
                         alt={currentShowcase.title}
@@ -2251,11 +3843,11 @@ function App() {
                       <div className="exp-media-shine" />
                       <div className="exp-watermark-pill">
                         <Code2 size={12} />
-                        <span>CineForge Studio • {currentShowcase.category}</span>
+                        <span>Rovaware Studio • {currentShowcase.category}</span>
                       </div>
                     </div>
                   ) : (
-                    <div className="exp-viewport-architecture">
+                    <div className="exp-viewport-architecture exp-viewport-slide">
                       <div className="exp-arch-header">
                         <Terminal size={16} />
                         <span>{currentShowcase.architectureTitle}</span>
@@ -2293,26 +3885,70 @@ function App() {
                   </div>
                 </div>
 
-                {/* Quick Category Switcher Cards */}
-                <div className="exp-category-quickcards">
-                  {digitalExperienceData.map((item) => (
-                    <div
-                      key={item.id}
-                      className={`exp-quick-card ${showcaseCategory === item.category ? 'active' : ''}`}
-                      onClick={() => setShowcaseCategory(item.category)}
-                    >
-                      <div className="quick-card-left">
-                        {item.category === 'Web Development' && <Code2 size={16} />}
-                        {item.category === 'Web Applications' && <Layout size={16} />}
-                        {item.category === 'AI Solutions' && <Bot size={16} />}
-                        <div>
-                          <strong>{item.category}</strong>
-                          <span>{item.kicker}</span>
+                {/* Quick Category Switcher Cards (Side-by-Side Horizontal Layout) */}
+                <div className="exp-category-quickcards" role="tablist" aria-label="Digital experience categories">
+                  {digitalExperienceData.map((item) => {
+                    const isActive = showcaseCategory === item.category;
+                    const accentColor =
+                      item.category === 'Web Development'
+                        ? '#38BDF8'
+                        : item.category === 'Web Applications'
+                        ? '#6366F1'
+                        : '#A855F7';
+
+                    return (
+                      <div
+                        key={item.id}
+                        role="tab"
+                        aria-selected={isActive}
+                        tabIndex={0}
+                        className={`exp-quick-card ${isActive ? 'active' : ''} exp-card-${item.id}`}
+                        onClick={() => handleShowcaseCategoryChange(item.category)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            handleShowcaseCategoryChange(item.category);
+                          }
+                        }}
+                      >
+                        {/* Top Glowing Accent Indicator */}
+                        <div className="quick-card-glow-bar" style={{ background: accentColor }} />
+
+                        <div className="quick-card-left">
+                          {/* Mini Thumbnail with Hover Zoom & Category Icon Badge */}
+                          <div className="quick-card-thumb-wrap">
+                            <img
+                              src={item.image}
+                              alt={item.category}
+                              className="quick-card-thumb-img"
+                              loading="lazy"
+                            />
+                            <div
+                              className="quick-card-icon-overlay"
+                              style={{
+                                background: `${accentColor}30`,
+                                borderColor: `${accentColor}60`,
+                              }}
+                            >
+                              {item.category === 'Web Development' && <Code2 size={13} style={{ color: accentColor }} />}
+                              {item.category === 'Web Applications' && <Layout size={13} style={{ color: accentColor }} />}
+                              {item.category === 'AI Solutions' && <Bot size={13} style={{ color: accentColor }} />}
+                            </div>
+                          </div>
+
+                          <div className="quick-card-text">
+                            <strong>{item.category}</strong>
+                            <span>{item.kicker}</span>
+                          </div>
+                        </div>
+
+                        <div className="quick-card-right">
+                          <span className="quick-card-active-dot" style={{ background: accentColor }} />
+                          <ArrowUpRight size={14} className="quick-card-arrow" />
                         </div>
                       </div>
-                      <ArrowUpRight size={14} className="quick-card-arrow" />
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -2346,28 +3982,7 @@ function App() {
             </p>
           </div>
 
-          <div className="services-grid stagger-reveal">
-            {servicesList.map((s) => {
-              const Icon = s.icon;
-              return (
-                <div className="service-box" key={s.title}>
-                  <div className="service-top-row">
-                    <div className="service-icon-box">
-                      <Icon size={22} />
-                    </div>
-                    <span className="service-number">{s.num}</span>
-                  </div>
-                  <h3 className="service-name">{s.title}</h3>
-                  <p className="service-text">{s.desc}</p>
-                  <div className="service-features">
-                    {s.features.map((f) => (
-                      <span key={f}>{f}</span>
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          <ServicesCarousel services={servicesList} />
         </section>
 
         {/* ABOUT STUDIO SECTION */}
@@ -2376,7 +3991,7 @@ function App() {
             <div>
               <div className="section-kicker">
                 <Sparkles size={14} />
-                <span>ABOUT CINEFORGE STUDIO</span>
+                <span>ABOUT ROVAWARE STUDIO</span>
               </div>
               <h2 className="section-title">
                 We turn ideas into <em className="hero-highlight">digital experiences.</em>
@@ -2388,22 +4003,46 @@ function App() {
           </div>
 
           <div className="about-grid">
-            <div className="about-visual-card">
-              <img
-                src="/assets/experience.jpg"
-                alt="CineForge Studio Workspace & Modern Digital Product Engineering"
-                className="about-studio-img"
-              />
-              <div className="about-badge-overlay">
-                <span className="about-badge-num">100%</span>
-                <span className="about-badge-label">Tailored Digital Solutions</span>
+            <div className="about-visual-sticky-col">
+              <div
+                className="about-visual-card scroll-reveal"
+                onMouseMove={handleAboutCardMouseMove}
+                onMouseEnter={handleAboutCardMouseEnter}
+                onMouseLeave={handleAboutCardMouseLeave}
+              >
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="auto"
+                  poster="/assets/experience.jpg"
+                  className="about-studio-img about-studio-video"
+                  onLoadedData={(e) => {
+                    e.currentTarget.play().catch(() => {});
+                  }}
+                >
+                  <source src="/assets/about_experience.mp4" type="video/mp4" />
+                  <source src="https://videos.pexels.com/video-files/33230268/14159465_3840_2160_25fps.mp4" type="video/mp4" />
+                </video>
+
+                {/* Cursor Spotlight Soft Radial Light */}
+                <div className="about-spotlight-layer" aria-hidden="true" />
+
+                {/* Subtle Animated Cyan-Purple Glowing Border on Hover */}
+                <div className="about-glowing-border" aria-hidden="true" />
+
+                <div className="about-badge-overlay">
+                  <span className="about-badge-num">100%</span>
+                  <span className="about-badge-label">Tailored Digital Solutions</span>
+                </div>
               </div>
             </div>
 
             <div className="about-content">
               <h3>Good ideas deserve great execution.</h3>
               <p>
-                At CineForge Studio, we combine creative thinking, modern web technologies, and a problem-solving mindset to build digital products that are functional, user-friendly, and designed around real business needs.
+                At Rovaware Studio, we combine creative thinking, modern web technologies, and a problem-solving mindset to build digital products that are functional, user-friendly, and designed around real business needs.
               </p>
               <p>
                 Whether you’re starting a new business, building your online presence, or exploring AI-powered solutions, we aim to turn your vision into a practical digital product.
@@ -2483,22 +4122,7 @@ function App() {
             </p>
           </div>
 
-          <div className="timeline-grid stagger-reveal">
-            {workflowSteps.map((step) => (
-              <div className="timeline-step" key={step.num}>
-                <span className="step-num-box">{step.num}</span>
-                <h3 className="step-title">{step.title}</h3>
-                <p className="step-desc">{step.desc}</p>
-                {step.tags && (
-                  <div className="step-tags">
-                    {step.tags.map((t) => (
-                      <span key={t} className="step-tag-pill">{t}</span>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
+          <ProcessTimeline steps={workflowSteps} />
 
           <div className="process-bottom-cta">
             <button
@@ -2529,63 +4153,7 @@ function App() {
             </p>
           </div>
 
-          <div className="gear-grid stagger-reveal">
-            <div className="gear-category">
-              <div className="gear-cat-header">
-                <Layout size={18} />
-                <span>Frontend Development</span>
-              </div>
-              <ul className="gear-list">
-                <li>React.js</li>
-                <li>Next.js</li>
-                <li>JavaScript</li>
-                <li>Tailwind CSS</li>
-                <li>HTML5 & CSS3</li>
-              </ul>
-            </div>
-
-            <div className="gear-category">
-              <div className="gear-cat-header">
-                <Layers size={18} />
-                <span>Backend & Databases</span>
-              </div>
-              <ul className="gear-list">
-                <li>Node.js & Express.js</li>
-                <li>REST APIs</li>
-                <li>MongoDB</li>
-                <li>MySQL & SQLite</li>
-                <li>Authentication & Authorization</li>
-              </ul>
-            </div>
-
-            <div className="gear-category">
-              <div className="gear-cat-header">
-                <Bot size={18} />
-                <span>AI & Automation</span>
-              </div>
-              <ul className="gear-list">
-                <li>AI API Integration</li>
-                <li>LLM-Powered Applications</li>
-                <li>AI Chatbots</li>
-                <li>Workflow Automation with n8n</li>
-                <li>Intelligent Business Tools</li>
-              </ul>
-            </div>
-
-            <div className="gear-category">
-              <div className="gear-cat-header">
-                <Gauge size={18} />
-                <span>Development & Deployment</span>
-              </div>
-              <ul className="gear-list">
-                <li>Git & GitHub</li>
-                <li>VS Code</li>
-                <li>Vercel</li>
-                <li>Postman</li>
-                <li>Responsive Testing & Debugging</li>
-              </ul>
-            </div>
-          </div>
+          <TechStackShowcase />
         </section>
 
         {/* FAQS SECTION */}
@@ -2674,7 +4242,7 @@ function App() {
                     <Sparkles size={16} />
                   </div>
                   <div>
-                    <strong>CineForge Dispatch Included</strong>
+                    <strong>Rovaware Dispatch Included</strong>
                     <span>Receive our private bi-weekly engineering breakdowns, performance case studies, and UI motion blueprints.</span>
                   </div>
                 </div>
@@ -2710,27 +4278,36 @@ function App() {
           </div>
         </section>
       </main>
+      )}
 
       {/* FOOTER */}
       <footer className="site-footer">
         <div className="footer-top">
           <div className="footer-brand">
             <a
-              href="#hero"
+              href="/"
               className="nav-brand"
-              onClick={() => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+              onClick={(e) => {
+                e.preventDefault();
+                if (currentView !== 'home') {
+                  navigateToHome();
+                } else {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
               }}
               style={{ textDecoration: 'none' }}
-              title="CineForge Studio"
+              title="Rovaware Studio"
             >
               <div className="brand-icon-box">
-                <Film size={18} />
+                <img src="/assets/rovaware_rw_arrow.png?v=9" alt="RovaWare Logo" className="brand-logo-img" />
               </div>
-              <div className="brand-text">
-                CINE<span>FORGE</span>
+              <div className="brand-text-block">
+                <div className="brand-text">
+                  <span className="brand-text-main">ROVA</span>
+                  <span className="brand-text-accent">WARE</span>
+                </div>
+                <span className="brand-tagline">ENGINEERING THE DIGITAL FUTURE</span>
               </div>
-              <span className="brand-badge">STUDIO</span>
             </a>
             <p>
               We turn ambitious ideas into digital experiences through modern web development and AI solutions.
@@ -2742,10 +4319,10 @@ function App() {
             <div className="footer-col">
               <h4>Explore</h4>
               <ul>
-                <li><a href="#work">Our Work</a></li>
-                <li><a href="#about">About Us</a></li>
-                <li><a href="#process">Our Process</a></li>
-                <li><a href="#faqs">FAQs</a></li>
+                <li><a href="#work" onClick={(e) => { if (currentView !== 'home') { e.preventDefault(); navigateToHome('work'); } }}>Our Work</a></li>
+                <li><a href="#about" onClick={(e) => { if (currentView !== 'home') { e.preventDefault(); navigateToHome('about'); } }}>About Us</a></li>
+                <li><a href="#process" onClick={(e) => { if (currentView !== 'home') { e.preventDefault(); navigateToHome('process'); } }}>Our Process</a></li>
+                <li><a href="#faqs" onClick={(e) => { if (currentView !== 'home') { e.preventDefault(); navigateToHome('faqs'); } }}>FAQs</a></li>
               </ul>
             </div>
 
@@ -2753,10 +4330,21 @@ function App() {
             <div className="footer-col">
               <h4>Services</h4>
               <ul>
-                <li><a href="#services">Web Development</a></li>
-                <li><a href="#services">UI/UX Design</a></li>
-                <li><a href="#services">AI Integration</a></li>
-                <li><a href="#services">E-Commerce</a></li>
+                <li><a href="#services" onClick={(e) => { if (currentView !== 'home') { e.preventDefault(); navigateToHome('services'); } }}>Web Development</a></li>
+                <li><a href="#services" onClick={(e) => { if (currentView !== 'home') { e.preventDefault(); navigateToHome('services'); } }}>UI/UX Design</a></li>
+                <li><a href="#services" onClick={(e) => { if (currentView !== 'home') { e.preventDefault(); navigateToHome('services'); } }}>AI Integration</a></li>
+                <li><a href="#services" onClick={(e) => { if (currentView !== 'home') { e.preventDefault(); navigateToHome('services'); } }}>E-Commerce</a></li>
+              </ul>
+            </div>
+
+            {/* Resources (NEW - Blog & Engineering Insights) */}
+            <div className="footer-col">
+              <h4>Resources</h4>
+              <ul>
+                <li><a href="/blog" onClick={(e) => { e.preventDefault(); navigateToBlog(); }}>Blog & Insights</a></li>
+                <li><a href="/blog" onClick={(e) => { e.preventDefault(); navigateToBlog(); }}>AI & Automation</a></li>
+                <li><a href="/blog" onClick={(e) => { e.preventDefault(); navigateToBlog(); }}>Architecture Guides</a></li>
+                <li><a href="/blog" onClick={(e) => { e.preventDefault(); navigateToBlog(); }}>Tech Radar</a></li>
               </ul>
             </div>
 
@@ -2764,7 +4352,7 @@ function App() {
             <div className="footer-col">
               <h4>Get in Touch</h4>
               <ul>
-                <li><a href="#contact">Contact Us</a></li>
+                <li><a href="#contact" onClick={(e) => { if (currentView !== 'home') { e.preventDefault(); navigateToHome('contact'); } }}>Contact Us</a></li>
                 <li>
                   <button
                     type="button"
@@ -2774,7 +4362,7 @@ function App() {
                     Start a Project
                   </button>
                 </li>
-                <li><a href="mailto:hello@cineforge.studio">Email Us</a></li>
+                <li><a href="mailto:hello@rovaware.com">Email Us</a></li>
               </ul>
             </div>
 
@@ -2792,7 +4380,7 @@ function App() {
         </div>
 
         <div className="footer-bottom">
-          <span>© 2026 CINEFORGE STUDIO. ALL RIGHTS RESERVED.</span>
+          <span>© 2026 ROVAWARE STUDIO. ALL RIGHTS RESERVED.</span>
           <div className="footer-bottom-legal-links">
             <a href="#/privacy" onClick={(e) => { e.preventDefault(); openLegalModal('privacy'); }}>Privacy Policy</a>
             <span>•</span>
@@ -2879,7 +4467,7 @@ function App() {
                 <>
                   <span>FRAMEWORK: <strong>NEXT.JS 15 & REACT</strong></span>
                   <span>CLIENT: <strong>{(modalVideo.client || '').toUpperCase()}</strong></span>
-                  <span>STATUS: <strong>PRODUCTION LIVE 🟢</strong></span>
+                  <span>STATUS: <strong>PRODUCTION LIVE 🔵</strong></span>
                 </>
               ) : (
                 <>
