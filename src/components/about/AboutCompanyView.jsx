@@ -12,6 +12,7 @@ import {
   CheckCircle2,
   ArrowRight,
   ArrowUpRight,
+  ChevronLeft,
   ChevronRight,
   Award,
   Users,
@@ -30,6 +31,344 @@ import {
   Laptop
 } from 'lucide-react';
 
+// 3D Stacked Project Cards Showcase Data (Real RovaWare Portfolio Projects)
+const showcaseProjects = [
+  {
+    id: 'asa-epc',
+    title: 'ASA EPC — Enterprise Solar Energy & Infrastructure Platform',
+    category: 'Solar EPC & Infrastructure',
+    client: 'ASA EPC Pvt. Ltd. (India & UAE)',
+    img: '/assets/asa_epc.jpg',
+    tags: ['Next.js 15', 'Solar EPC', 'DPIIT Recognized'],
+    summary: 'High-performance Next.js enterprise web application built for 100+ projects trusted by L&T Construction, Bajaj & KEC.'
+  },
+  {
+    id: 'vertex-shops',
+    title: 'Vertex Shops — Streamlined Virtual Store & Stage Experience',
+    category: 'WebGL 3D E-Commerce',
+    client: 'Vertex Retail Systems',
+    img: '/assets/workspace.jpg',
+    tags: ['WebGL Stage', 'Virtual Retail', 'Sub-second Load'],
+    summary: 'Immersive virtual commerce stage designed for luxury digital retail with calibrated 3D camera controls and dynamic showcases.'
+  },
+  {
+    id: 'nextgen-saas-portal',
+    title: 'Real-Time Interactive Dashboards & SaaS Monitoring Hub',
+    category: 'SaaS & Telemetry',
+    client: 'RovaWare Cloud Analytics',
+    img: '/assets/showcase_dashboard.jpg',
+    tags: ['React 19', 'WebSockets', 'Sub-1ms Redis'],
+    summary: 'Enterprise-grade monitoring dashboard featuring real-time telemetry streaming, interactive data visualization, and RBAC security.'
+  },
+  {
+    id: 'autonomous-ai-engine',
+    title: 'Autonomous AI Agents & Vector Retrieval RAG Pipeline',
+    category: 'AI Solutions & LLMs',
+    client: 'NeuralCore Systems',
+    img: '/assets/showcase_ai.jpg',
+    tags: ['Python', 'Qdrant Vector DB', 'LangChain'],
+    summary: 'Custom autonomous AI workflows integrating Large Language Models, semantic search embeddings, and multi-step reasoning agents.'
+  },
+  {
+    id: 'rathore-construction',
+    title: 'Rathore Construction & Earthmovers — Heavy Equipment Platform',
+    category: 'Fleet & Civil Infrastructure',
+    client: 'Rathore Construction & Earthmovers',
+    img: '/assets/rathore_construction.jpg',
+    tags: ['Next.js', 'JCB Fleet Rental', 'High Concurrency'],
+    summary: 'Heavy equipment rental & earthmoving solutions platform engineered for civil infrastructure across central India.'
+  }
+];
+
+function Stacked3DProjectShowcase({ onNavigateWork }) {
+  const [activeIndex, setActiveIndex] = useState(2);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
+  const containerRef = useRef(null);
+  const touchStartX = useRef(0);
+
+  const handleMouseMove = (e) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+    setMouseOffset({
+      x: Math.max(-1, Math.min(1, x)),
+      y: Math.max(-1, Math.min(1, y))
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setMouseOffset({ x: 0, y: 0 });
+    setHoveredIndex(null);
+  };
+
+  const handlePrev = () => {
+    setActiveIndex((prev) => (prev > 0 ? prev - 1 : showcaseProjects.length - 1));
+  };
+
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev < showcaseProjects.length - 1 ? prev + 1 : 0));
+  };
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e) => {
+    const diff = e.changedTouches[0].clientX - touchStartX.current;
+    if (diff > 45) {
+      handlePrev();
+    } else if (diff < -45) {
+      handleNext();
+    }
+  };
+
+  return (
+    <div className="stacked-3d-showcase-wrapper">
+      {/* Interactive 3D Perspective Stage */}
+      <div
+        className="stacked-3d-stage"
+        ref={containerRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
+        <div
+          className="stacked-3d-track"
+          style={{
+            transform: `rotateX(${mouseOffset.y * -5}deg) rotateY(${mouseOffset.x * 7}deg)`
+          }}
+        >
+          {showcaseProjects.map((project, idx) => {
+            const offset = idx - activeIndex;
+            const isCenter = offset === 0;
+            const isHovered = hoveredIndex === idx;
+
+            // Compute perspective 3D transform metrics
+            let translateX = 0;
+            let translateY = 0;
+            let translateZ = 0;
+            let rotateY = 0;
+            let rotateZ = 0;
+            let scale = 1;
+            let opacity = 1;
+            let filter = 'blur(0px)';
+            let zIndex = 20;
+
+            if (offset === 0) {
+              translateX = mouseOffset.x * 12;
+              translateY = mouseOffset.y * 8;
+              translateZ = 75;
+              rotateY = mouseOffset.x * 6;
+              rotateZ = 0;
+              scale = isHovered ? 1.07 : 1.03;
+              opacity = 1;
+              filter = 'blur(0px)';
+              zIndex = 30;
+            } else if (offset === -1) {
+              translateX = -280 + mouseOffset.x * 8;
+              translateY = 12 + mouseOffset.y * 6;
+              translateZ = 15;
+              rotateY = 16 + mouseOffset.x * 4;
+              rotateZ = -3;
+              scale = isHovered ? 1.02 : 0.94;
+              opacity = isHovered ? 1 : 0.84;
+              filter = isHovered ? 'blur(0px)' : 'blur(0.8px)';
+              zIndex = isHovered ? 35 : 22;
+            } else if (offset === 1) {
+              translateX = 280 + mouseOffset.x * 8;
+              translateY = 12 + mouseOffset.y * 6;
+              translateZ = 15;
+              rotateY = -16 + mouseOffset.x * 4;
+              rotateZ = 3;
+              scale = isHovered ? 1.02 : 0.94;
+              opacity = isHovered ? 1 : 0.84;
+              filter = isHovered ? 'blur(0px)' : 'blur(0.8px)';
+              zIndex = isHovered ? 35 : 22;
+            } else if (offset <= -2) {
+              translateX = -480 + mouseOffset.x * 4;
+              translateY = 24;
+              translateZ = -50;
+              rotateY = 28;
+              rotateZ = -6;
+              scale = isHovered ? 0.96 : 0.86;
+              opacity = isHovered ? 0.95 : 0.55;
+              filter = isHovered ? 'blur(0px)' : 'blur(1.6px)';
+              zIndex = isHovered ? 35 : 12;
+            } else if (offset >= 2) {
+              translateX = 480 + mouseOffset.x * 4;
+              translateY = 24;
+              translateZ = -50;
+              rotateY = -28;
+              rotateZ = 6;
+              scale = isHovered ? 0.96 : 0.86;
+              opacity = isHovered ? 0.95 : 0.55;
+              filter = isHovered ? 'blur(0px)' : 'blur(1.6px)';
+              zIndex = isHovered ? 35 : 12;
+            }
+
+            return (
+              <div
+                key={project.id}
+                className={`stacked-card-item ${isCenter ? 'card-center' : ''} ${isHovered ? 'card-hovered' : ''}`}
+                style={{
+                  transform: `translate3d(${translateX}px, ${translateY}px, ${translateZ}px) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg) scale(${scale})`,
+                  opacity,
+                  filter,
+                  zIndex
+                }}
+                onClick={() => setActiveIndex(idx)}
+                onMouseEnter={() => setHoveredIndex(idx)}
+                onMouseLeave={() => setHoveredIndex(null)}
+                role="button"
+                tabIndex={0}
+                aria-label={`View ${project.title}`}
+              >
+                {/* Subtle Orange Radial Glow */}
+                <div className="stacked-card-glow" aria-hidden="true" />
+
+                {/* Card Media Preview */}
+                <div className="stacked-card-media">
+                  <img
+                    src={project.img}
+                    alt={project.title}
+                    className="stacked-card-img"
+                    loading="lazy"
+                  />
+                  <div className="stacked-card-media-overlay" />
+                  <span className="stacked-card-category-badge">
+                    {project.category}
+                  </span>
+                </div>
+
+                {/* Card Content & Details */}
+                <div className="stacked-card-content">
+                  <div className="stacked-card-client-tag">
+                    <span className="stacked-pulse-dot" />
+                    <span>{project.client}</span>
+                  </div>
+
+                  <h4 className="stacked-card-title">{project.title}</h4>
+                  <p className="stacked-card-desc">{project.summary}</p>
+
+                  <div className="stacked-card-tags">
+                    {project.tags.map((tag, tIdx) => (
+                      <span key={tIdx} className="stacked-tag-chip">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Navigation Controls & Pagination Dots */}
+      <div className="stacked-3d-controls-row">
+        <button
+          type="button"
+          className="stacked-nav-arrow-btn"
+          onClick={handlePrev}
+          aria-label="Previous Project"
+        >
+          <ChevronLeft size={18} />
+        </button>
+
+        <div className="stacked-dots-indicator" role="tablist">
+          {showcaseProjects.map((p, idx) => (
+            <button
+              key={p.id}
+              type="button"
+              className={`stacked-dot ${idx === activeIndex ? 'active' : ''}`}
+              onClick={() => setActiveIndex(idx)}
+              aria-label={`Go to slide ${idx + 1}: ${p.title}`}
+            />
+          ))}
+        </div>
+
+        <button
+          type="button"
+          className="stacked-nav-arrow-btn"
+          onClick={handleNext}
+          aria-label="Next Project"
+        >
+          <ChevronRight size={18} />
+        </button>
+      </div>
+
+      {/* View All Projects CTA */}
+      <div className="stacked-3d-cta-wrap">
+        <button
+          type="button"
+          className="btn-view-all-projects"
+          onClick={onNavigateWork}
+        >
+          <span>View All Projects</span>
+          <ArrowUpRight size={16} />
+        </button>
+        <p className="stacked-cta-subtext">
+          Explore our full portfolio of 15+ production platforms, custom AI architectures & digital experiences.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+// Lightweight Viewport Intersection Observer Hook (Akaru scroll-triggered choreography)
+function useInViewObserver(threshold = 0.12) {
+  const ref = useRef(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setInView(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold, rootMargin: '0px 0px -40px 0px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [threshold]);
+
+  return [ref, inView];
+}
+
+// Akaru-Style Refined 3D Specular Tilt Hook for Cards
+function useCard3DTilt() {
+  const [tilt, setTilt] = useState({ rx: 0, ry: 0, gx: 50, gy: 50 });
+  const onMouseMove = (e) => {
+    if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+    const rect = e.currentTarget.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width;
+    const py = (e.clientY - rect.top) / rect.height;
+    setTilt({
+      rx: Number(((py - 0.5) * -9).toFixed(2)),
+      ry: Number(((px - 0.5) * 9).toFixed(2)),
+      gx: Math.round(px * 100),
+      gy: Math.round(py * 100)
+    });
+  };
+  const onMouseLeave = () => {
+    setTilt({ rx: 0, ry: 0, gx: 50, gy: 0 });
+  };
+  return { tilt, onMouseMove, onMouseLeave };
+}
+
 export default function AboutCompanyView({
   onNavigateHome,
   onNavigateContact,
@@ -40,8 +379,20 @@ export default function AboutCompanyView({
   const [activeCodeTab, setActiveCodeTab] = useState('manifesto');
   const [activeProcessStage, setActiveProcessStage] = useState(0);
   const [activeTechCategory, setActiveTechCategory] = useState('all');
-  const [videoPlaying, setVideoPlaying] = useState(true);
-  const videoRef = useRef(null);
+
+  // Scroll Trigger Observers for Sections (Akaru Staggered Choreography)
+  const [whoSectionRef, whoInView] = useInViewObserver(0.12);
+  const [missionSectionRef, missionInView] = useInViewObserver(0.12);
+  const [disciplinesRef, disciplinesInView] = useInViewObserver(0.1);
+  const [valuesRef, valuesInView] = useInViewObserver(0.1);
+  const [whyRef, whyInView] = useInViewObserver(0.1);
+  const [processRef, processInView] = useInViewObserver(0.1);
+  const [techRef, techInView] = useInViewObserver(0.1);
+  const [ctaRef, ctaInView] = useInViewObserver(0.1);
+
+  // Refined 3D Tilt for Mission & Vision Cards
+  const missionTilt = useCard3DTilt();
+  const visionTilt = useCard3DTilt();
 
   useEffect(() => {
     document.title = 'About Company — ROVAWARE Engineering Studio';
@@ -341,7 +692,7 @@ export const SecurityHarness = {
       {/* ------------------------------------------------------------------ */}
       {/* 2. WHO WE ARE & INTERACTIVE STUDIO SHOWCASE                        */}
       {/* ------------------------------------------------------------------ */}
-      <section className="about-content-section" id="who-we-are">
+      <section className="about-content-section" id="who-we-are" ref={whoSectionRef}>
         <div className="about-content-container">
           <div className="who-we-are-split">
             {/* Left Narrative Column */}
@@ -350,70 +701,99 @@ export const SecurityHarness = {
                 <Users size={13} />
                 <span>WHO WE ARE</span>
               </div>
-              <h2 className="section-display-heading">
-                A Studio Built for Builders, Driven by Deep Engineering Craft.
+
+              {/* Eyebrow Label */}
+              <div className={`who-eyebrow-label ${whoInView ? 'in-view' : ''}`}>
+                <span className="who-eyebrow-line" />
+                <span>ENGINEERING-FIRST. INNOVATION-DRIVEN.</span>
+              </div>
+
+              {/* Word-by-word reveal heading */}
+              <h2 className={`section-display-heading who-heading-animated ${whoInView ? 'in-view' : ''}`}>
+                {[
+                  { text: 'A', highlight: false },
+                  { text: 'Studio', highlight: false },
+                  { text: 'Built', highlight: false },
+                  { text: 'for', highlight: false },
+                  { text: 'Builders,', highlight: true },
+                  { text: 'Driven', highlight: false },
+                  { text: 'by', highlight: false },
+                  { text: 'Deep', highlight: true },
+                  { text: 'Engineering', highlight: true },
+                  { text: 'Craft.', highlight: true }
+                ].map((item, idx) => (
+                  <span
+                    key={idx}
+                    className={`who-word-wrap ${item.highlight ? 'word-highlight-orange' : ''}`}
+                    style={{
+                      transitionDelay: `${idx * 45}ms`
+                    }}
+                  >
+                    <span className="who-word-inner">{item.text}&nbsp;</span>
+                  </span>
+                ))}
               </h2>
-              <p className="section-narrative-paragraph">
+
+              <p className={`section-narrative-paragraph who-para ${whoInView ? 'in-view' : ''}`} style={{ transitionDelay: '350ms' }}>
                 Founded to bridge the widening gap between slow, fragmented legacy agencies and hyper-accelerated
                 digital demands, RovaWare operates as a tactical engineering force for modern companies.
               </p>
-              <p className="section-narrative-paragraph">
+              <p className={`section-narrative-paragraph who-para ${whoInView ? 'in-view' : ''}`} style={{ transitionDelay: '470ms' }}>
                 We do not employ non-technical account managers or push generic cookie-cutter templates.
                 When you collaborate with RovaWare, your roadmap is owned by architects and developers who write
                 production-grade code, stress-test database schemas, and deploy resilient autonomous AI systems.
               </p>
 
+              {/* Feature Cards / Craft Checklist */}
               <div className="craft-checklist">
-                <div className="craft-check-item">
-                  <div className="check-icon-circle">
-                    <CheckCircle2 size={16} />
+                {[
+                  {
+                    title: 'Direct Architectural Access',
+                    desc: 'No middlemen. You collaborate directly with senior systems developers.'
+                  },
+                  {
+                    title: '100% Clean Intellectual Property Transfer',
+                    desc: 'Full source code, repositories, and documentation transferred upon completion.'
+                  },
+                  {
+                    title: 'Continuous Automated Quality Harnesses',
+                    desc: 'Strict TypeScript schemas, automated regression tests, and sub-second Lighthouse budgets.'
+                  }
+                ].map((item, idx) => (
+                  <div
+                    key={idx}
+                    className={`craft-check-item ${whoInView ? 'in-view' : ''}`}
+                    style={{
+                      transitionDelay: `${520 + idx * 130}ms`
+                    }}
+                  >
+                    <div className="check-icon-circle">
+                      <CheckCircle2 size={16} />
+                    </div>
+                    <div className="check-text">
+                      <strong>{item.title}</strong>
+                      <span>{item.desc}</span>
+                    </div>
                   </div>
-                  <div className="check-text">
-                    <strong>Direct Architectural Access</strong>
-                    <span>No middlemen. You collaborate directly with senior systems developers.</span>
-                  </div>
-                </div>
-
-                <div className="craft-check-item">
-                  <div className="check-icon-circle">
-                    <CheckCircle2 size={16} />
-                  </div>
-                  <div className="check-text">
-                    <strong>100% Clean Intellectual Property Transfer</strong>
-                    <span>Full source code, repositories, and documentation transferred upon completion.</span>
-                  </div>
-                </div>
-
-                <div className="craft-check-item">
-                  <div className="check-icon-circle">
-                    <CheckCircle2 size={16} />
-                  </div>
-                  <div className="check-text">
-                    <strong>Continuous Automated Quality Harnesses</strong>
-                    <span>Strict TypeScript schemas, automated regression tests, and sub-second Lighthouse budgets.</span>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
 
             {/* Right Interactive Showcase Column */}
             <div className="who-interactive-col">
-              {/* Studio Cinematic Ambient Card */}
-              <div className="studio-experience-card">
+              {/* Studio Cinematic Ambient Card with Image */}
+              <div
+                className={`studio-experience-card ${whoInView ? 'in-view' : ''}`}
+                style={{ transitionDelay: '260ms' }}
+              >
                 <div className="video-ambient-glow" aria-hidden="true" />
                 <div className="video-viewport">
-                  <video
-                    ref={videoRef}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    preload="auto"
-                    poster="/assets/experience.jpg"
-                    className="studio-viewport-video"
-                  >
-                    <source src="/assets/about_experience.mp4" type="video/mp4" />
-                  </video>
+                  <img
+                    src="https://plus.unsplash.com/premium_photo-1661299410661-b734635d5ced?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D"
+                    alt="ROVAWARE Digital Labs — Modern Engineering Studio"
+                    className="studio-viewport-image"
+                    loading="lazy"
+                  />
                   <div className="video-viewport-overlay" />
                   <div className="video-status-chip">
                     <span className="pulse-live-dot" />
@@ -423,7 +803,10 @@ export const SecurityHarness = {
               </div>
 
               {/* Interactive Code Terminal with 4 Tabs */}
-              <div className="interactive-code-terminal">
+              <div
+                className={`interactive-code-terminal ${whoInView ? 'in-view' : ''}`}
+                style={{ transitionDelay: '400ms' }}
+              >
                 <div className="terminal-header-bar">
                   <div className="terminal-traffic-lights">
                     <span className="light light-red" />
@@ -431,35 +814,24 @@ export const SecurityHarness = {
                     <span className="light light-green" />
                   </div>
 
-                  <div className="terminal-tab-selector">
-                    <button
-                      type="button"
-                      className={`terminal-tab-btn ${activeCodeTab === 'manifesto' ? 'active' : ''}`}
-                      onClick={() => setActiveCodeTab('manifesto')}
-                    >
-                      manifesto.ts
-                    </button>
-                    <button
-                      type="button"
-                      className={`terminal-tab-btn ${activeCodeTab === 'architecture' ? 'active' : ''}`}
-                      onClick={() => setActiveCodeTab('architecture')}
-                    >
-                      distributed.ts
-                    </button>
-                    <button
-                      type="button"
-                      className={`terminal-tab-btn ${activeCodeTab === 'ai_agent' ? 'active' : ''}`}
-                      onClick={() => setActiveCodeTab('ai_agent')}
-                    >
-                      agent.py
-                    </button>
-                    <button
-                      type="button"
-                      className={`terminal-tab-btn ${activeCodeTab === 'security' ? 'active' : ''}`}
-                      onClick={() => setActiveCodeTab('security')}
-                    >
-                      security.ts
-                    </button>
+                  <div className="terminal-tab-selector" role="tablist">
+                    {[
+                      { key: 'manifesto', label: 'manifesto.ts' },
+                      { key: 'architecture', label: 'distributed.ts' },
+                      { key: 'ai_agent', label: 'agent.py' },
+                      { key: 'security', label: 'security.ts' }
+                    ].map((tab) => (
+                      <button
+                        key={tab.key}
+                        type="button"
+                        role="tab"
+                        aria-selected={activeCodeTab === tab.key}
+                        className={`terminal-tab-btn ${activeCodeTab === tab.key ? 'active' : ''}`}
+                        onClick={() => setActiveCodeTab(tab.key)}
+                      >
+                        {tab.label}
+                      </button>
+                    ))}
                   </div>
 
                   <div className="terminal-lang-badge">
@@ -467,9 +839,25 @@ export const SecurityHarness = {
                   </div>
                 </div>
 
-                <pre className="terminal-code-body">
-                  <code>{codeSnippets[activeCodeTab].code}</code>
-                </pre>
+                <div className="terminal-code-body" role="region" aria-label="Code Editor Preview">
+                  {codeSnippets[activeCodeTab].code.split('\n').map((line, lineIdx, arr) => (
+                    <div
+                      key={`${activeCodeTab}-${lineIdx}`}
+                      className={`terminal-line ${whoInView ? 'line-visible' : ''}`}
+                      style={{
+                        transitionDelay: whoInView ? `${Math.min(lineIdx * 35, 550)}ms` : '0ms'
+                      }}
+                    >
+                      <span className="terminal-line-num">{lineIdx + 1}</span>
+                      <span className="terminal-line-code">
+                        {line}
+                        {lineIdx === arr.length - 1 && (
+                          <span className="terminal-cursor" aria-hidden="true" />
+                        )}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -479,7 +867,7 @@ export const SecurityHarness = {
       {/* ------------------------------------------------------------------ */}
       {/* 3. MISSION & VISION                                                */}
       {/* ------------------------------------------------------------------ */}
-      <section className="about-content-section section-alternate" id="mission-vision">
+      <section className="about-content-section section-alternate" id="mission-vision" ref={missionSectionRef}>
         <div className="about-content-container">
           <div className="section-center-head">
             <div className="section-pill-badge">
@@ -493,9 +881,24 @@ export const SecurityHarness = {
           </div>
 
           <div className="mission-vision-grid">
-            {/* Mission Card */}
-            <div className="hologram-card mission-glow">
-              <div className="hologram-card-ambient" />
+            {/* Mission Card with Akaru 3D Tilt & Specular Light */}
+            <div
+              className={`hologram-card mission-glow ${missionInView ? 'in-view' : ''}`}
+              style={{
+                transitionDelay: '80ms',
+                transform: missionInView
+                  ? `perspective(1000px) rotateX(${missionTilt.tilt.rx}deg) rotateY(${missionTilt.tilt.ry}deg) translateY(${missionTilt.tilt.rx !== 0 ? -6 : 0}px)`
+                  : 'translateY(18px)'
+              }}
+              onMouseMove={missionTilt.onMouseMove}
+              onMouseLeave={missionTilt.onMouseLeave}
+            >
+              <div
+                className="hologram-card-ambient"
+                style={{
+                  background: `radial-gradient(circle at ${missionTilt.tilt.gx}% ${missionTilt.tilt.gy}%, rgba(255, 106, 0, 0.22) 0%, rgba(255, 140, 50, 0.05) 50%, transparent 75%)`
+                }}
+              />
               <div className="card-top-icon-row">
                 <div className="card-icon-emblem">
                   <Target size={24} />
@@ -503,7 +906,7 @@ export const SecurityHarness = {
                 <span className="card-kicker-tag">OUR MISSION</span>
               </div>
               <h3 className="card-main-title">
-                Empower Digital Innovators with Uncompromising Speed & Craft
+                Empower Digital Innovators with <span className="mv-highlight-orange">Uncompromising Speed & Craft</span>
               </h3>
               <p className="card-main-desc">
                 To eliminate technical debt and execution bottlenecks for fast-growing businesses by architecting
@@ -515,9 +918,24 @@ export const SecurityHarness = {
               </div>
             </div>
 
-            {/* Vision Card */}
-            <div className="hologram-card vision-glow">
-              <div className="hologram-card-ambient" />
+            {/* Vision Card with Akaru 3D Tilt & Specular Light */}
+            <div
+              className={`hologram-card vision-glow ${missionInView ? 'in-view' : ''}`}
+              style={{
+                transitionDelay: '220ms',
+                transform: missionInView
+                  ? `perspective(1000px) rotateX(${visionTilt.tilt.rx}deg) rotateY(${visionTilt.tilt.ry}deg) translateY(${visionTilt.tilt.rx !== 0 ? -6 : 0}px)`
+                  : 'translateY(18px)'
+              }}
+              onMouseMove={visionTilt.onMouseMove}
+              onMouseLeave={visionTilt.onMouseLeave}
+            >
+              <div
+                className="hologram-card-ambient"
+                style={{
+                  background: `radial-gradient(circle at ${visionTilt.tilt.gx}% ${visionTilt.tilt.gy}%, rgba(255, 106, 0, 0.22) 0%, rgba(255, 140, 50, 0.05) 50%, transparent 75%)`
+                }}
+              />
               <div className="card-top-icon-row">
                 <div className="card-icon-emblem">
                   <Sparkles size={24} />
@@ -525,7 +943,7 @@ export const SecurityHarness = {
                 <span className="card-kicker-tag">OUR VISION</span>
               </div>
               <h3 className="card-main-title">
-                The Gold Standard in Next-Generation Software Engineering
+                The Gold Standard in <span className="mv-highlight-orange">Next-Generation Software Engineering</span>
               </h3>
               <p className="card-main-desc">
                 To pioneer an engineering model where human architectural craftsmanship and autonomous agentic workflows
@@ -537,13 +955,21 @@ export const SecurityHarness = {
               </div>
             </div>
           </div>
+
+          {/* Thin animated orange divider below both cards */}
+          <div className={`mission-vision-divider-wrap ${missionInView ? 'in-view' : ''}`}>
+            <div className="mission-vision-divider-line" />
+            <div className="mission-vision-tagline">
+              <span>PURPOSE. PRECISION. PROGRESS.</span>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* ------------------------------------------------------------------ */}
       {/* 4. CORE ENGINEERING DISCIPLINES                                    */}
       {/* ------------------------------------------------------------------ */}
-      <section className="about-content-section" id="disciplines">
+      <section className="about-content-section" id="disciplines" ref={disciplinesRef}>
         <div className="about-content-container">
           <div className="section-center-head">
             <div className="section-pill-badge">
@@ -560,7 +986,11 @@ export const SecurityHarness = {
             {coreExpertise.map((item, idx) => {
               const Icon = item.icon;
               return (
-                <div key={idx} className="discipline-interactive-card">
+                <div
+                  key={idx}
+                  className={`discipline-interactive-card ${disciplinesInView ? 'in-view' : ''}`}
+                  style={{ transitionDelay: `${idx * 80}ms` }}
+                >
                   <div className="discipline-card-top">
                     <div className="discipline-icon-box" style={{ borderColor: `${item.color}40`, color: item.color }}>
                       <Icon size={22} />
@@ -586,9 +1016,31 @@ export const SecurityHarness = {
       </section>
 
       {/* ------------------------------------------------------------------ */}
+      {/* 4.5 3D STACKED PORTFOLIO PROJECT SHOWCASE                          */}
+      {/* ------------------------------------------------------------------ */}
+      <section className="about-content-section section-alternate" id="featured-projects">
+        <div className="about-content-container">
+          <div className="section-center-head">
+            <div className="section-pill-badge">
+              <Sparkles size={13} />
+              <span>FEATURED WORK</span>
+            </div>
+            <h2 className="section-display-heading">
+              Engineered for Scale. <span className="mv-highlight-orange">Built with Precision.</span>
+            </h2>
+            <p className="section-center-sub">
+              An interactive 3D showcase of production systems, high-concurrency web platforms, and autonomous AI architectures shipped by RovaWare.
+            </p>
+          </div>
+
+          <Stacked3DProjectShowcase onNavigateWork={onNavigateWork} />
+        </div>
+      </section>
+
+      {/* ------------------------------------------------------------------ */}
       {/* 5. COMPANY VALUES                                                  */}
       {/* ------------------------------------------------------------------ */}
-      <section className="about-content-section section-alternate" id="company-values">
+      <section className="about-content-section" id="company-values" ref={valuesRef}>
         <div className="about-content-container">
           <div className="section-center-head">
             <div className="section-pill-badge">
@@ -603,7 +1055,11 @@ export const SecurityHarness = {
 
           <div className="values-stagger-grid">
             {companyValues.map((val, idx) => (
-              <div key={idx} className="value-pillar-card">
+              <div
+                key={idx}
+                className={`value-pillar-card ${valuesInView ? 'in-view' : ''}`}
+                style={{ transitionDelay: `${idx * 90}ms` }}
+              >
                 <div className="value-card-header">
                   <span className="value-pillar-number">{val.num}</span>
                   <span className="value-pillar-badge">{val.badge}</span>
@@ -620,7 +1076,7 @@ export const SecurityHarness = {
       {/* ------------------------------------------------------------------ */}
       {/* 6. WHY CHOOSE ROVAWARE (COMPARISON TABLE)                          */}
       {/* ------------------------------------------------------------------ */}
-      <section className="about-content-section" id="why-choose">
+      <section className="about-content-section" id="why-choose" ref={whyRef}>
         <div className="about-content-container">
           <div className="section-center-head">
             <div className="section-pill-badge">
@@ -633,7 +1089,7 @@ export const SecurityHarness = {
             </p>
           </div>
 
-          <div className="comparison-table-futuristic-card">
+          <div className={`comparison-table-futuristic-card ${whyInView ? 'in-view' : ''}`}>
             <div className="table-responsive-wrapper">
               <table className="futuristic-comparison-table">
                 <thead>
@@ -676,7 +1132,7 @@ export const SecurityHarness = {
       {/* ------------------------------------------------------------------ */}
       {/* 7. OUR DEVELOPMENT PROCESS                                         */}
       {/* ------------------------------------------------------------------ */}
-      <section className="about-content-section section-alternate" id="development-process">
+      <section className="about-content-section section-alternate" id="development-process" ref={processRef}>
         <div className="about-content-container">
           <div className="section-center-head">
             <div className="section-pill-badge">
@@ -690,7 +1146,7 @@ export const SecurityHarness = {
           </div>
 
           {/* Process Stage Selector Tabs */}
-          <div className="process-interactive-wrapper">
+          <div className={`process-interactive-wrapper ${processInView ? 'in-view' : ''}`}>
             <div className="process-stage-pills">
               {developmentStages.map((stage, idx) => (
                 <button
@@ -748,7 +1204,7 @@ export const SecurityHarness = {
       {/* ------------------------------------------------------------------ */}
       {/* 8. TECHNOLOGY STACK                                                */}
       {/* ------------------------------------------------------------------ */}
-      <section className="about-content-section" id="tech-stack">
+      <section className="about-content-section" id="tech-stack" ref={techRef}>
         <div className="about-content-container">
           <div className="section-center-head">
             <div className="section-pill-badge">
@@ -803,7 +1259,11 @@ export const SecurityHarness = {
           {/* Tech Grid */}
           <div className="tech-cards-grid">
             {filteredTech.map((tech, idx) => (
-              <div key={idx} className="tech-stack-card">
+              <div
+                key={idx}
+                className={`tech-stack-card ${techInView ? 'in-view' : ''}`}
+                style={{ transitionDelay: `${Math.min(idx * 35, 320)}ms` }}
+              >
                 <div className="tech-card-top-row">
                   <div className="tech-code-icon">
                     <Code2 size={16} />
@@ -821,11 +1281,11 @@ export const SecurityHarness = {
       {/* ------------------------------------------------------------------ */}
       {/* 9. FINAL CTA – READY TO BUILD SOMETHING EXTRAORDINARY?            */}
       {/* ------------------------------------------------------------------ */}
-      <section className="about-final-cta-section" id="final-cta">
+      <section className="about-final-cta-section" id="final-cta" ref={ctaRef}>
         <div className="about-cta-futuristic-container">
           <div className="cta-ambient-cosmic-glow" aria-hidden="true" />
 
-          <div className="cta-content-wrapper">
+          <div className={`cta-content-wrapper ${ctaInView ? 'in-view' : ''}`}>
             <div className="cta-kicker-pill">
               <Sparkles size={14} />
               <span>START YOUR ARCHITECTURE SPRINT</span>

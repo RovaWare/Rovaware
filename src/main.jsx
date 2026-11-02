@@ -47,8 +47,6 @@ import {
   Paperclip,
   Phone,
   PhoneCall,
-  Sun,
-  Moon,
   User,
   Trash2,
   Lock,
@@ -99,6 +97,16 @@ function WhatsAppIcon({ size = 16, className = '' }) {
     >
       <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.04 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.53 7.5C9.36 7.5 9.09 7.57 8.87 7.81C8.65 8.05 8.02 8.64 8.02 9.85C8.02 11.06 8.9 12.23 9.02 12.39C9.14 12.56 10.74 15.03 13.2 16.1C13.79 16.35 14.24 16.5 14.6 16.62C15.19 16.81 15.73 16.78 16.16 16.71C16.64 16.64 17.63 16.11 17.84 15.53C18.05 14.95 18.05 14.45 17.98 14.34C17.91 14.23 17.74 14.17 17.48 14.04C17.22 13.91 15.95 13.28 15.71 13.2C15.48 13.11 15.31 13.07 15.14 13.32C14.97 13.57 14.49 14.13 14.34 14.3C14.2 14.47 14.05 14.49 13.79 14.36C13.54 14.23 12.71 13.96 11.73 13.09C10.97 12.41 10.45 11.57 10.3 11.32C10.16 11.06 10.29 10.93 10.42 10.8C10.53 10.68 10.68 10.49 10.81 10.34C10.94 10.19 10.98 10.08 11.07 9.91C11.15 9.74 11.11 9.59 11.05 9.47C10.98 9.34 10.49 8.14 10.28 7.64C10.08 7.15 9.87 7.22 9.72 7.21C9.57 7.2 9.53 7.5 9.53 7.5Z" />
     </svg>
+  );
+}
+
+// Nav Rolling Text: Smooth Dual-Layer Vertical Slide Animation on Hover
+function NavRollingText({ text, className = '' }) {
+  return (
+    <span className={`nav-roll-box ${className}`.trim()} aria-label={text}>
+      <span className="nav-roll-primary">{text}</span>
+      <span className="nav-roll-secondary" aria-hidden="true">{text}</span>
+    </span>
   );
 }
 
@@ -1533,9 +1541,9 @@ function EmailLeadPopup({ isOpen, onClose, onSubmit, email, setEmail }) {
         </form>
 
         <div className="email-popup-trust-row">
-          <span><Check size={12} color="#38BDF8" /> Zero spam</span>
-          <span><Check size={12} color="#38BDF8" /> 1-Click unsubscribe</span>
-          <span><ShieldCheck size={12} color="#38BDF8" /> NDA protected</span>
+          <span><Check size={12} color="#FF8C32" /> Zero spam</span>
+          <span><Check size={12} color="#FF8C32" /> 1-Click unsubscribe</span>
+          <span><ShieldCheck size={12} color="#FF8C32" /> NDA protected</span>
         </div>
       </div>
     </div>
@@ -1550,7 +1558,7 @@ function EmailToast({ isOpen, email, onClose }) {
     <div className="email-toast-wrap" role="alert" aria-live="polite">
       <div className="email-toast-card">
         <div className="email-toast-icon-wrap">
-          <CheckCircle2 size={20} color="#38BDF8" />
+          <CheckCircle2 size={20} color="#FF8C32" />
         </div>
         <div className="email-toast-content">
           <strong>Subscribed to Dispatch! 🎉</strong>
@@ -2858,9 +2866,6 @@ function TechStackShowcase() {
 
 function App() {
   const [mobileMenu, setMobileMenu] = useState(false);
-  const [theme, setTheme] = useState(() => {
-    return (localStorage.getItem('rovaware_theme') || localStorage.getItem('rovaware_theme')) || 'dark';
-  });
   const [isCallbackModalOpen, setIsCallbackModalOpen] = useState(false);
 
   // Routing State for Blog, Article & Dedicated About Pages
@@ -2989,14 +2994,28 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('rovaware_theme', theme); localStorage.setItem('rovaware_theme', theme);
-  }, [theme]);
+  // Route-Aware Theme Architecture
+  const isAboutSuite = currentView === 'about-company' || currentView === 'about-contact' || currentView === 'about-book-project';
+  const routeTheme = isAboutSuite ? 'orange-black' : 'deep-blue';
 
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
-  };
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.documentElement.setAttribute('data-route-theme', routeTheme);
+    document.documentElement.setAttribute('data-current-view', currentView);
+
+    // Apply route-aware theme classes to document body
+    document.body.classList.remove(
+      'theme-deep-blue',
+      'theme-orange-black',
+      'view-home',
+      'view-about-company',
+      'view-about-contact',
+      'view-about-book-project',
+      'view-blog',
+      'view-article'
+    );
+    document.body.classList.add(`theme-${routeTheme}`, `view-${currentView}`);
+  }, [currentView, routeTheme]);
 
   const [activeCategory, setActiveCategory] = useState('All Works');
   const [portfolioViewMode, setPortfolioViewMode] = useState('3d');
@@ -3337,9 +3356,9 @@ function App() {
   const currentShowcase = digitalExperienceData.find((item) => item.category === showcaseCategory) || digitalExperienceData[0];
 
   return (
-    <div className="app-container">
+    <div className={`app-container theme-${routeTheme} view-${currentView}`}>
       {/* Navigation Bar */}
-      <header className="navbar">
+      <header className={`navbar navbar-${routeTheme} navbar-view-${currentView}`}>
         <a
           href="/"
           className="nav-brand"
@@ -3383,7 +3402,7 @@ function App() {
               }
             }}
           >
-            Our Work
+            <NavRollingText text="Our Work" />
           </a>
           <a
             href="#services"
@@ -3396,7 +3415,7 @@ function App() {
               }
             }}
           >
-            Services
+            <NavRollingText text="Services" />
           </a>
           <a
             href="/blog"
@@ -3407,7 +3426,7 @@ function App() {
               navigateToBlog();
             }}
           >
-            Blog
+            <NavRollingText text="Blog" />
           </a>
           {/* DEDICATED ABOUT DROPDOWN (Desktop + Mobile) */}
           <div
@@ -3418,13 +3437,12 @@ function App() {
           >
             <button
               type="button"
-              className={`nav-dropdown-trigger ${
-                currentView === 'about-company' ||
+              className={`nav-dropdown-trigger ${currentView === 'about-company' ||
                 currentView === 'about-contact' ||
                 currentView === 'about-book-project'
-                  ? 'active'
-                  : ''
-              }`}
+                ? 'active'
+                : ''
+                }`}
               onClick={(e) => {
                 e.preventDefault();
                 setAboutDropdownOpen((prev) => !prev);
@@ -3432,7 +3450,7 @@ function App() {
               aria-haspopup="true"
               aria-expanded={aboutDropdownOpen}
             >
-              <span>About</span>
+              <NavRollingText text="About" />
               <ChevronDown size={13} className="nav-chevron-icon" />
             </button>
 
@@ -3500,16 +3518,15 @@ function App() {
           <div className="mobile-dropdown-group">
             <button
               type="button"
-              className={`mobile-dropdown-header ${
-                currentView === 'about-company' ||
+              className={`mobile-dropdown-header ${currentView === 'about-company' ||
                 currentView === 'about-contact' ||
                 currentView === 'about-book-project'
-                  ? 'active'
-                  : ''
-              }`}
+                ? 'active'
+                : ''
+                }`}
               onClick={() => setMobileAboutExpanded((prev) => !prev)}
             >
-              <span>About</span>
+              <NavRollingText text="About" />
               <ChevronDown
                 size={16}
                 className={`nav-chevron-icon ${mobileAboutExpanded ? 'open' : ''}`}
@@ -3569,7 +3586,7 @@ function App() {
               }
             }}
           >
-            Process
+            <NavRollingText text="Process" />
           </a>
           <a
             href="#faqs"
@@ -3582,33 +3599,11 @@ function App() {
               }
             }}
           >
-            FAQs
+            <NavRollingText text="FAQs" />
           </a>
         </nav>
 
         <div className="nav-right">
-          {/* Brand Particle Reveal Trigger */}
-          <button
-            type="button"
-            className="btn-reveal-nav"
-            onClick={() => setShowBrandReveal(true)}
-            title="Experience ROVAWARE Particle Brand Reveal"
-          >
-            <Sparkles size={13} />
-            <span>Brand Reveal</span>
-          </button>
-
-          {/* Theme Toggle Button */}
-          <button
-            type="button"
-            className="theme-toggle-btn"
-            onClick={toggleTheme}
-            title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-            aria-label="Toggle theme mode"
-          >
-            {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
-          </button>
-
           {/* Request a Callback Button */}
           <button
             type="button"
@@ -3770,771 +3765,771 @@ function App() {
             </div>
           </section>
 
-        {/* METRICS & PROOF BANNER */}
-        <section className="stats-banner">
-          <div className="stats-grid stagger-reveal">
-            <div className="stat-card">
-              <div className="stat-number">85M<span>+</span></div>
-              <p>Total views generated across commercials, docs & social reels</p>
-            </div>
-            <div className="stat-card">
-              <div className="stat-number">450<span>+</span></div>
-              <p>Projects cut, color-graded and delivered worldwide</p>
-            </div>
-            <div className="stat-card">
-              <div className="stat-number">99.2<span>%</span></div>
-              <p>Audience retention rate boost on optimized edits</p>
-            </div>
-            <div className="stat-card">
-              <div className="stat-number">48<span>h</span></div>
-              <p>Average first-draft turn on commercial & social reels</p>
-            </div>
-          </div>
-        </section>
-
-        {/* SELECTED WORK / PORTFOLIO SHOWCASE */}
-        <section id="work" className="section-wrapper portfolio-showcase-section">
-          <div className="section-head">
-            <div>
-              <div className="section-kicker portfolio-kicker">
-                <div className="kicker-icon-tile">
-                  <Sparkles size={13} />
-                </div>
-                <span>FEATURED DIGITAL PLATFORMS & SYSTEMS</span>
+          {/* METRICS & PROOF BANNER */}
+          <section className="stats-banner">
+            <div className="stats-grid stagger-reveal">
+              <div className="stat-card">
+                <div className="stat-number">85M<span>+</span></div>
+                <p>Total views generated across commercials, docs & social reels</p>
               </div>
-              <h2 className="section-title">
-                Architected for scale, <em className="hero-highlight">crafted for impact.</em>
-              </h2>
+              <div className="stat-card">
+                <div className="stat-number">450<span>+</span></div>
+                <p>Projects cut, color-graded and delivered worldwide</p>
+              </div>
+              <div className="stat-card">
+                <div className="stat-number">99.2<span>%</span></div>
+                <p>Audience retention rate boost on optimized edits</p>
+              </div>
+              <div className="stat-card">
+                <div className="stat-number">48<span>h</span></div>
+                <p>Average first-draft turn on commercial & social reels</p>
+              </div>
             </div>
-            <p className="section-desc">
-              Explore production web platforms, enterprise SaaS portals, and intelligent AI architectures engineered for performance, precision, and business growth.
-            </p>
-          </div>
+          </section>
 
-          {/* Category Tabs */}
-          <div className="portfolio-tabs">
-            {['All Works', 'Web Platforms', 'SaaS & Web Apps', 'AI Solutions'].map((cat) => (
-              <button
-                key={cat}
-                type="button"
-                className={`tab-btn ${activeCategory === cat ? 'active' : ''}`}
-                onClick={() => setActiveCategory(cat)}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-
-          {/* Production Deployments Viewport Header with View Switcher */}
-          <div className="portfolio-grid-header">
-            <div>
-              <h3 className="grid-header-title">All Production Deployments</h3>
-              <span className="grid-header-count">{filteredProjects.length} Systems Online</span>
-            </div>
-
-            <div className="portfolio-view-switcher">
-              <button
-                type="button"
-                className={`view-switch-btn ${portfolioViewMode === '3d' ? 'active' : ''}`}
-                onClick={() => setPortfolioViewMode('3d')}
-                title="3D Continuous Rotating Portfolio Gallery"
-              >
-                <Layers size={13} />
-                <span>3D Orbit View</span>
-              </button>
-              <button
-                type="button"
-                className={`view-switch-btn ${portfolioViewMode === 'grid' ? 'active' : ''}`}
-                onClick={() => setPortfolioViewMode('grid')}
-                title="Classic Production Grid"
-              >
-                <Layout size={13} />
-                <span>Grid View</span>
-              </button>
-            </div>
-          </div>
-
-          {portfolioViewMode === '3d' ? (
-            <ProductionDeploymentsOrbit
-              projects={filteredProjects}
-              onSelectProject={(p) => setModalVideo(p)}
-              activeCategory={activeCategory}
-            />
-          ) : (
-            <div className="portfolio-grid stagger-reveal">
-              {filteredProjects.map((p) => (
-                <article
-                  key={p.id}
-                  className="project-card modern-showcase"
-                  onClick={() => setModalVideo(p)}
-                  title={`Click to preview ${p.title}`}
-                >
-                  {/* Elevated Front Browser Showcase Frame */}
-                  <div className="project-browser-frame">
-                    <div className="browser-window-bar">
-                      <div className="browser-dots">
-                        <span className="b-dot b-red" />
-                        <span className="b-dot b-yellow" />
-                        <span className="b-dot b-green" />
-                      </div>
-                      <div className="browser-url-pill">
-                        <Lock size={10} />
-                        <span>{p.url ? p.url.replace('https://', '') : p.title}</span>
-                      </div>
-                      {p.url && (
-                        <a
-                          href={p.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="browser-quick-link"
-                          onClick={(e) => e.stopPropagation()}
-                          title={`Open ${p.url}`}
-                        >
-                          <ExternalLink size={12} />
-                        </a>
-                      )}
-                    </div>
-
-                    <div className="project-media-viewport">
-                      <img src={p.img} alt={p.title} loading="lazy" />
-                      <div className="media-hover-overlay">
-                        <span className="live-view-badge">
-                          <span>Click to Preview Details</span>
-                          <ArrowUpRight size={13} />
-                        </span>
-                      </div>
-                    </div>
+          {/* SELECTED WORK / PORTFOLIO SHOWCASE */}
+          <section id="work" className="section-wrapper portfolio-showcase-section">
+            <div className="section-head">
+              <div>
+                <div className="section-kicker portfolio-kicker">
+                  <div className="kicker-icon-tile">
+                    <Sparkles size={13} />
                   </div>
+                  <span>FEATURED DIGITAL PLATFORMS & SYSTEMS</span>
+                </div>
+                <h2 className="section-title">
+                  Architected for scale, <em className="hero-highlight">crafted for impact.</em>
+                </h2>
+              </div>
+              <p className="section-desc">
+                Explore production web platforms, enterprise SaaS portals, and intelligent AI architectures engineered for performance, precision, and business growth.
+              </p>
+            </div>
 
-                  {/* Card Details Body */}
-                  <div className="project-card-body">
-                    <div className="project-card-header-row">
-                      <span className="project-client-pill">{p.client}</span>
-                      <span className="live-status-pill">
-                        <span className="live-pulse-dot" /> LIVE PLATFORM
-                      </span>
-                    </div>
+            {/* Category Tabs */}
+            <div className="portfolio-tabs">
+              {['All Works', 'Web Platforms', 'SaaS & Web Apps', 'AI Solutions'].map((cat) => (
+                <button
+                  key={cat}
+                  type="button"
+                  className={`tab-btn ${activeCategory === cat ? 'active' : ''}`}
+                  onClick={() => setActiveCategory(cat)}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
 
-                    <h3 className="project-card-title">{p.title}</h3>
-                    <p className="project-card-summary">{p.summary}</p>
+            {/* Production Deployments Viewport Header with View Switcher */}
+            <div className="portfolio-grid-header">
+              <div>
+                <h3 className="grid-header-title">All Production Deployments</h3>
+                <span className="grid-header-count">{filteredProjects.length} Systems Online</span>
+              </div>
 
-                    <div className="project-card-footer">
-                      <div className="project-tags">
-                        {p.tags.map((tag) => (
-                          <span key={tag} className="tag-pill">{tag}</span>
-                        ))}
-                      </div>
+              <div className="portfolio-view-switcher">
+                <button
+                  type="button"
+                  className={`view-switch-btn ${portfolioViewMode === '3d' ? 'active' : ''}`}
+                  onClick={() => setPortfolioViewMode('3d')}
+                  title="3D Continuous Rotating Portfolio Gallery"
+                >
+                  <Layers size={13} />
+                  <span>3D Orbit View</span>
+                </button>
+                <button
+                  type="button"
+                  className={`view-switch-btn ${portfolioViewMode === 'grid' ? 'active' : ''}`}
+                  onClick={() => setPortfolioViewMode('grid')}
+                  title="Classic Production Grid"
+                >
+                  <Layout size={13} />
+                  <span>Grid View</span>
+                </button>
+              </div>
+            </div>
 
-                      <div className="project-card-btn-group">
-                        <button
-                          type="button"
-                          className="project-view-stage-btn"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setModalVideo(p);
-                          }}
-                        >
-                          <Eye size={13} />
-                          <span>Preview</span>
-                        </button>
+            {portfolioViewMode === '3d' ? (
+              <ProductionDeploymentsOrbit
+                projects={filteredProjects}
+                onSelectProject={(p) => setModalVideo(p)}
+                activeCategory={activeCategory}
+              />
+            ) : (
+              <div className="portfolio-grid stagger-reveal">
+                {filteredProjects.map((p) => (
+                  <article
+                    key={p.id}
+                    className="project-card modern-showcase"
+                    onClick={() => setModalVideo(p)}
+                    title={`Click to preview ${p.title}`}
+                  >
+                    {/* Elevated Front Browser Showcase Frame */}
+                    <div className="project-browser-frame">
+                      <div className="browser-window-bar">
+                        <div className="browser-dots">
+                          <span className="b-dot b-red" />
+                          <span className="b-dot b-yellow" />
+                          <span className="b-dot b-green" />
+                        </div>
+                        <div className="browser-url-pill">
+                          <Lock size={10} />
+                          <span>{p.url ? p.url.replace('https://', '') : p.title}</span>
+                        </div>
                         {p.url && (
                           <a
                             href={p.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="project-direct-btn"
+                            className="browser-quick-link"
                             onClick={(e) => e.stopPropagation()}
+                            title={`Open ${p.url}`}
                           >
-                            <span>Live Site</span>
                             <ExternalLink size={12} />
                           </a>
                         )}
                       </div>
+
+                      <div className="project-media-viewport">
+                        <img src={p.img} alt={p.title} loading="lazy" />
+                        <div className="media-hover-overlay">
+                          <span className="live-view-badge">
+                            <span>Click to Preview Details</span>
+                            <ArrowUpRight size={13} />
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </article>
+
+                    {/* Card Details Body */}
+                    <div className="project-card-body">
+                      <div className="project-card-header-row">
+                        <span className="project-client-pill">{p.client}</span>
+                        <span className="live-status-pill">
+                          <span className="live-pulse-dot" /> LIVE PLATFORM
+                        </span>
+                      </div>
+
+                      <h3 className="project-card-title">{p.title}</h3>
+                      <p className="project-card-summary">{p.summary}</p>
+
+                      <div className="project-card-footer">
+                        <div className="project-tags">
+                          {p.tags.map((tag) => (
+                            <span key={tag} className="tag-pill">{tag}</span>
+                          ))}
+                        </div>
+
+                        <div className="project-card-btn-group">
+                          <button
+                            type="button"
+                            className="project-view-stage-btn"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setModalVideo(p);
+                            }}
+                          >
+                            <Eye size={13} />
+                            <span>Preview</span>
+                          </button>
+                          {p.url && (
+                            <a
+                              href={p.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="project-direct-btn"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <span>Live Site</span>
+                              <ExternalLink size={12} />
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            )}
+          </section>
+
+          {/* FROM IDEA TO DIGITAL EXPERIENCE SHOWCASE */}
+          <section id="digital-experience" className="section-wrapper digital-experience-section">
+            <div className="section-head">
+              <div>
+                <div className="section-kicker">
+                  <Sparkles size={14} />
+                  <span>ENGINEERING EXCELLENCE</span>
+                </div>
+                <h2 className="section-title">
+                  From Idea to <em className="hero-highlight">Digital Experience.</em>
+                </h2>
+              </div>
+              <p className="section-desc">
+                Explore how Rovaware Studio transforms conceptual whiteboard sketches into high-performance web applications, intelligent AI workflows, and scalable cloud platforms.
+              </p>
+            </div>
+
+            {/* Interactive Category Filter Tabs */}
+            <div className="experience-filter-bar">
+              {['Web Development', 'Web Applications', 'AI Solutions'].map((cat) => (
+                <button
+                  key={cat}
+                  type="button"
+                  className={`exp-filter-btn ${showcaseCategory === cat ? 'active' : ''}`}
+                  onClick={() => handleShowcaseCategoryChange(cat)}
+                >
+                  {cat === 'Web Development' && <Code2 size={15} />}
+                  {cat === 'Web Applications' && <Layout size={15} />}
+                  {cat === 'AI Solutions' && <Bot size={15} />}
+                  <span>{cat}</span>
+                </button>
               ))}
             </div>
-          )}
-        </section>
 
-        {/* FROM IDEA TO DIGITAL EXPERIENCE SHOWCASE */}
-        <section id="digital-experience" className="section-wrapper digital-experience-section">
-          <div className="section-head">
-            <div>
-              <div className="section-kicker">
-                <Sparkles size={14} />
-                <span>ENGINEERING EXCELLENCE</span>
-              </div>
-              <h2 className="section-title">
-                From Idea to <em className="hero-highlight">Digital Experience.</em>
-              </h2>
-            </div>
-            <p className="section-desc">
-              Explore how Rovaware Studio transforms conceptual whiteboard sketches into high-performance web applications, intelligent AI workflows, and scalable cloud platforms.
-            </p>
-          </div>
-
-          {/* Interactive Category Filter Tabs */}
-          <div className="experience-filter-bar">
-            {['Web Development', 'Web Applications', 'AI Solutions'].map((cat) => (
-              <button
-                key={cat}
-                type="button"
-                className={`exp-filter-btn ${showcaseCategory === cat ? 'active' : ''}`}
-                onClick={() => handleShowcaseCategoryChange(cat)}
+            {/* Main Showcase Stage */}
+            {currentShowcase && (
+              <div
+                key={currentShowcase.id}
+                className={`experience-stage-grid slide-dir-${slideDirection}`}
               >
-                {cat === 'Web Development' && <Code2 size={15} />}
-                {cat === 'Web Applications' && <Layout size={15} />}
-                {cat === 'AI Solutions' && <Bot size={15} />}
-                <span>{cat}</span>
-              </button>
-            ))}
-          </div>
+                {/* Left Column: Editorial Content & Architecture Specs */}
+                <div className="experience-editorial-col">
+                  <div className="exp-editorial-card stagger-anim-card">
+                    <div className="exp-card-header stagger-item item-1">
+                      <span className="exp-kicker-pill">{currentShowcase.kicker}</span>
+                      <span className="exp-category-pill">{currentShowcase.category}</span>
+                    </div>
 
-          {/* Main Showcase Stage */}
-          {currentShowcase && (
-            <div
-              key={currentShowcase.id}
-              className={`experience-stage-grid slide-dir-${slideDirection}`}
-            >
-              {/* Left Column: Editorial Content & Architecture Specs */}
-              <div className="experience-editorial-col">
-                <div className="exp-editorial-card stagger-anim-card">
-                  <div className="exp-card-header stagger-item item-1">
-                    <span className="exp-kicker-pill">{currentShowcase.kicker}</span>
-                    <span className="exp-category-pill">{currentShowcase.category}</span>
-                  </div>
+                    <h3 className="exp-title stagger-item item-2">{currentShowcase.title}</h3>
+                    <div className="exp-tagline stagger-item item-2">
+                      <CheckCircle2 size={15} />
+                      <span>{currentShowcase.tagline}</span>
+                    </div>
+                    <p className="exp-description stagger-item item-3">{currentShowcase.description}</p>
 
-                  <h3 className="exp-title stagger-item item-2">{currentShowcase.title}</h3>
-                  <div className="exp-tagline stagger-item item-2">
-                    <CheckCircle2 size={15} />
-                    <span>{currentShowcase.tagline}</span>
-                  </div>
-                  <p className="exp-description stagger-item item-3">{currentShowcase.description}</p>
+                    {/* Interactive View Toggle */}
+                    <div className="exp-view-toggle stagger-item item-4">
+                      <button
+                        type="button"
+                        className={`exp-toggle-btn ${showcaseViewMode === 'preview' ? 'active' : ''}`}
+                        onClick={() => setShowcaseViewMode('preview')}
+                      >
+                        <Layout size={14} />
+                        <span>Production UI View</span>
+                      </button>
+                      <button
+                        type="button"
+                        className={`exp-toggle-btn ${showcaseViewMode === 'architecture' ? 'active' : ''}`}
+                        onClick={() => setShowcaseViewMode('architecture')}
+                      >
+                        <Layers size={14} />
+                        <span>System Architecture</span>
+                      </button>
+                    </div>
 
-                  {/* Interactive View Toggle */}
-                  <div className="exp-view-toggle stagger-item item-4">
-                    <button
-                      type="button"
-                      className={`exp-toggle-btn ${showcaseViewMode === 'preview' ? 'active' : ''}`}
-                      onClick={() => setShowcaseViewMode('preview')}
-                    >
-                      <Layout size={14} />
-                      <span>Production UI View</span>
-                    </button>
-                    <button
-                      type="button"
-                      className={`exp-toggle-btn ${showcaseViewMode === 'architecture' ? 'active' : ''}`}
-                      onClick={() => setShowcaseViewMode('architecture')}
-                    >
-                      <Layers size={14} />
-                      <span>System Architecture</span>
-                    </button>
-                  </div>
-
-                  {/* Specs & Architecture Metrics */}
-                  <div className="exp-specs-grid stagger-item item-4">
-                    {currentShowcase.specs.map((spec, i) => (
-                      <div className="exp-spec-box" key={i}>
-                        <span className="exp-spec-label">{spec.label}</span>
-                        <strong className="exp-spec-value">{spec.value}</strong>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Technology Stack Pills */}
-                  <div className="exp-tech-section stagger-item item-5">
-                    <span className="exp-tech-title">TECHNOLOGY STACK:</span>
-                    <div className="exp-tech-tags">
-                      {currentShowcase.techStack.map((tech) => (
-                        <span key={tech} className="exp-tech-pill">{tech}</span>
+                    {/* Specs & Architecture Metrics */}
+                    <div className="exp-specs-grid stagger-item item-4">
+                      {currentShowcase.specs.map((spec, i) => (
+                        <div className="exp-spec-box" key={i}>
+                          <span className="exp-spec-label">{spec.label}</span>
+                          <strong className="exp-spec-value">{spec.value}</strong>
+                        </div>
                       ))}
                     </div>
-                  </div>
-                </div>
 
-                {/* Engineering Highlights List */}
-                <div className="exp-highlights-box stagger-item item-6">
-                  <span className="exp-highlights-title">KEY ARCHITECTURAL HIGHLIGHTS</span>
-                  <ul className="exp-highlights-list">
-                    {currentShowcase.highlights.map((h, idx) => (
-                      <li key={idx}>
-                        <CheckCircle2 size={14} className="highlight-check" />
-                        <span>{h}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              {/* Right Column: Interactive Browser Viewport / Architecture Canvas */}
-              <div className="experience-viewport-col">
-                <div className="exp-browser-frame">
-                  {/* Browser Bar */}
-                  <div className="exp-browser-bar">
-                    <div className="exp-browser-dots">
-                      <span className="dot red" />
-                      <span className="dot yellow" />
-                      <span className="dot green" />
-                    </div>
-                    <div className="exp-browser-url-pill">
-                      <Lock size={11} />
-                      <span>{currentShowcase.urlLabel}</span>
-                    </div>
-                    <div className="exp-browser-status">
-                      <span className="pulse-dot" />
-                      <span>200 OK • PRODUCTION READY</span>
-                    </div>
-                  </div>
-
-                  {/* Viewport Content: Preview Image or Architecture Diagram */}
-                  {showcaseViewMode === 'preview' ? (
-                    <div className="exp-viewport-media exp-viewport-slide">
-                      <img
-                        src={currentShowcase.image}
-                        alt={currentShowcase.title}
-                        className="exp-showcase-img"
-                        loading="lazy"
-                      />
-                      <div className="exp-media-shine" />
-                      <div className="exp-watermark-pill">
-                        <Code2 size={12} />
-                        <span>Rovaware Studio • {currentShowcase.category}</span>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="exp-viewport-architecture exp-viewport-slide">
-                      <div className="exp-arch-header">
-                        <Terminal size={16} />
-                        <span>{currentShowcase.architectureTitle}</span>
-                      </div>
-                      <div className="exp-arch-nodes-wrap">
-                        {currentShowcase.architectureNodes.map((node, idx) => (
-                          <div className="exp-arch-node-card" key={idx}>
-                            <div className="node-step-index">0{idx + 1}</div>
-                            <div className="node-content">
-                              <strong>{node.name}</strong>
-                              <p>{node.detail}</p>
-                            </div>
-                            {idx < currentShowcase.architectureNodes.length - 1 && (
-                              <div className="node-connector-line" />
-                            )}
-                          </div>
+                    {/* Technology Stack Pills */}
+                    <div className="exp-tech-section stagger-item item-5">
+                      <span className="exp-tech-title">TECHNOLOGY STACK:</span>
+                      <div className="exp-tech-tags">
+                        {currentShowcase.techStack.map((tech) => (
+                          <span key={tech} className="exp-tech-pill">{tech}</span>
                         ))}
                       </div>
                     </div>
-                  )}
+                  </div>
 
-                  {/* Viewport Footer Bar */}
-                  <div className="exp-viewport-footer">
-                    <span className="footer-mode-label">
-                      ACTIVE DISPLAY: <strong>{showcaseViewMode === 'preview' ? 'High-Fidelity Interface' : 'Multi-Tier System Flow'}</strong>
-                    </span>
-                    <button
-                      type="button"
-                      className="exp-toggle-action-btn"
-                      onClick={() => setShowcaseViewMode(showcaseViewMode === 'preview' ? 'architecture' : 'preview')}
-                    >
-                      <span>Switch to {showcaseViewMode === 'preview' ? 'Architecture' : 'Preview UI'}</span>
-                      <ArrowUpRight size={13} />
-                    </button>
+                  {/* Engineering Highlights List */}
+                  <div className="exp-highlights-box stagger-item item-6">
+                    <span className="exp-highlights-title">KEY ARCHITECTURAL HIGHLIGHTS</span>
+                    <ul className="exp-highlights-list">
+                      {currentShowcase.highlights.map((h, idx) => (
+                        <li key={idx}>
+                          <CheckCircle2 size={14} className="highlight-check" />
+                          <span>{h}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
 
-                {/* Quick Category Switcher Cards (Side-by-Side Horizontal Layout) */}
-                <div className="exp-category-quickcards" role="tablist" aria-label="Digital experience categories">
-                  {digitalExperienceData.map((item) => {
-                    const isActive = showcaseCategory === item.category;
-                    const accentColor =
-                      item.category === 'Web Development'
-                        ? '#38BDF8'
-                        : item.category === 'Web Applications'
-                        ? '#6366F1'
-                        : '#A855F7';
+                {/* Right Column: Interactive Browser Viewport / Architecture Canvas */}
+                <div className="experience-viewport-col">
+                  <div className="exp-browser-frame">
+                    {/* Browser Bar */}
+                    <div className="exp-browser-bar">
+                      <div className="exp-browser-dots">
+                        <span className="dot red" />
+                        <span className="dot yellow" />
+                        <span className="dot green" />
+                      </div>
+                      <div className="exp-browser-url-pill">
+                        <Lock size={11} />
+                        <span>{currentShowcase.urlLabel}</span>
+                      </div>
+                      <div className="exp-browser-status">
+                        <span className="pulse-dot" />
+                        <span>200 OK • PRODUCTION READY</span>
+                      </div>
+                    </div>
 
-                    return (
-                      <div
-                        key={item.id}
-                        role="tab"
-                        aria-selected={isActive}
-                        tabIndex={0}
-                        className={`exp-quick-card ${isActive ? 'active' : ''} exp-card-${item.id}`}
-                        onClick={() => handleShowcaseCategoryChange(item.category)}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            handleShowcaseCategoryChange(item.category);
-                          }
-                        }}
+                    {/* Viewport Content: Preview Image or Architecture Diagram */}
+                    {showcaseViewMode === 'preview' ? (
+                      <div className="exp-viewport-media exp-viewport-slide">
+                        <img
+                          src={currentShowcase.image}
+                          alt={currentShowcase.title}
+                          className="exp-showcase-img"
+                          loading="lazy"
+                        />
+                        <div className="exp-media-shine" />
+                        <div className="exp-watermark-pill">
+                          <Code2 size={12} />
+                          <span>Rovaware Studio • {currentShowcase.category}</span>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="exp-viewport-architecture exp-viewport-slide">
+                        <div className="exp-arch-header">
+                          <Terminal size={16} />
+                          <span>{currentShowcase.architectureTitle}</span>
+                        </div>
+                        <div className="exp-arch-nodes-wrap">
+                          {currentShowcase.architectureNodes.map((node, idx) => (
+                            <div className="exp-arch-node-card" key={idx}>
+                              <div className="node-step-index">0{idx + 1}</div>
+                              <div className="node-content">
+                                <strong>{node.name}</strong>
+                                <p>{node.detail}</p>
+                              </div>
+                              {idx < currentShowcase.architectureNodes.length - 1 && (
+                                <div className="node-connector-line" />
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Viewport Footer Bar */}
+                    <div className="exp-viewport-footer">
+                      <span className="footer-mode-label">
+                        ACTIVE DISPLAY: <strong>{showcaseViewMode === 'preview' ? 'High-Fidelity Interface' : 'Multi-Tier System Flow'}</strong>
+                      </span>
+                      <button
+                        type="button"
+                        className="exp-toggle-action-btn"
+                        onClick={() => setShowcaseViewMode(showcaseViewMode === 'preview' ? 'architecture' : 'preview')}
                       >
-                        {/* Top Glowing Accent Indicator */}
-                        <div className="quick-card-glow-bar" style={{ background: accentColor }} />
+                        <span>Switch to {showcaseViewMode === 'preview' ? 'Architecture' : 'Preview UI'}</span>
+                        <ArrowUpRight size={13} />
+                      </button>
+                    </div>
+                  </div>
 
-                        <div className="quick-card-left">
-                          {/* Mini Thumbnail with Hover Zoom & Category Icon Badge */}
-                          <div className="quick-card-thumb-wrap">
-                            <img
-                              src={item.image}
-                              alt={item.category}
-                              className="quick-card-thumb-img"
-                              loading="lazy"
-                            />
-                            <div
-                              className="quick-card-icon-overlay"
-                              style={{
-                                background: `${accentColor}30`,
-                                borderColor: `${accentColor}60`,
-                              }}
-                            >
-                              {item.category === 'Web Development' && <Code2 size={13} style={{ color: accentColor }} />}
-                              {item.category === 'Web Applications' && <Layout size={13} style={{ color: accentColor }} />}
-                              {item.category === 'AI Solutions' && <Bot size={13} style={{ color: accentColor }} />}
+                  {/* Quick Category Switcher Cards (Side-by-Side Horizontal Layout) */}
+                  <div className="exp-category-quickcards" role="tablist" aria-label="Digital experience categories">
+                    {digitalExperienceData.map((item) => {
+                      const isActive = showcaseCategory === item.category;
+                      const accentColor =
+                        item.category === 'Web Development'
+                          ? '#38BDF8'
+                          : item.category === 'Web Applications'
+                            ? '#6366F1'
+                            : '#A855F7';
+
+                      return (
+                        <div
+                          key={item.id}
+                          role="tab"
+                          aria-selected={isActive}
+                          tabIndex={0}
+                          className={`exp-quick-card ${isActive ? 'active' : ''} exp-card-${item.id}`}
+                          onClick={() => handleShowcaseCategoryChange(item.category)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                              e.preventDefault();
+                              handleShowcaseCategoryChange(item.category);
+                            }
+                          }}
+                        >
+                          {/* Top Glowing Accent Indicator */}
+                          <div className="quick-card-glow-bar" style={{ background: accentColor }} />
+
+                          <div className="quick-card-left">
+                            {/* Mini Thumbnail with Hover Zoom & Category Icon Badge */}
+                            <div className="quick-card-thumb-wrap">
+                              <img
+                                src={item.image}
+                                alt={item.category}
+                                className="quick-card-thumb-img"
+                                loading="lazy"
+                              />
+                              <div
+                                className="quick-card-icon-overlay"
+                                style={{
+                                  background: `${accentColor}30`,
+                                  borderColor: `${accentColor}60`,
+                                }}
+                              >
+                                {item.category === 'Web Development' && <Code2 size={13} style={{ color: accentColor }} />}
+                                {item.category === 'Web Applications' && <Layout size={13} style={{ color: accentColor }} />}
+                                {item.category === 'AI Solutions' && <Bot size={13} style={{ color: accentColor }} />}
+                              </div>
+                            </div>
+
+                            <div className="quick-card-text">
+                              <strong>{item.category}</strong>
+                              <span>{item.kicker}</span>
                             </div>
                           </div>
 
-                          <div className="quick-card-text">
-                            <strong>{item.category}</strong>
-                            <span>{item.kicker}</span>
+                          <div className="quick-card-right">
+                            <span className="quick-card-active-dot" style={{ background: accentColor }} />
+                            <ArrowUpRight size={14} className="quick-card-arrow" />
                           </div>
                         </div>
-
-                        <div className="quick-card-right">
-                          <span className="quick-card-active-dot" style={{ background: accentColor }} />
-                          <ArrowUpRight size={14} className="quick-card-arrow" />
-                        </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
 
-          {/* Visual Connector Bridge to Services Section */}
-          <div className="showcase-services-bridge">
-            <div className="bridge-glow-line" />
-            <div className="bridge-icon-pill">
-              <Sparkles size={14} />
-              <span>FULL-SPECTRUM SOLUTIONS ARCHITECTURE</span>
-            </div>
-            <div className="bridge-glow-line" />
-          </div>
-        </section>
-
-        {/* SERVICES OFFERED */}
-        <section id="services" className="section-wrapper">
-          <div className="section-head">
-            <div>
-              <div className="section-kicker">
+            {/* Visual Connector Bridge to Services Section */}
+            <div className="showcase-services-bridge">
+              <div className="bridge-glow-line" />
+              <div className="bridge-icon-pill">
                 <Sparkles size={14} />
-                <span>WHAT WE DELIVER</span>
+                <span>FULL-SPECTRUM SOLUTIONS ARCHITECTURE</span>
               </div>
-              <h2 className="section-title">
-                Full-spectrum <em className="hero-highlight">digital solutions.</em>
-              </h2>
+              <div className="bridge-glow-line" />
             </div>
-            <p className="section-desc">
-              From strategy and design to development and AI integration, we build digital experiences engineered for performance, usability, and business growth.
-            </p>
-          </div>
+          </section>
 
-          <ServicesCarousel services={servicesList} />
-        </section>
-
-        {/* ABOUT STUDIO SECTION */}
-        <section id="about" className="section-wrapper about-section">
-          <div className="section-head">
-            <div>
-              <div className="section-kicker">
-                <Sparkles size={14} />
-                <span>ABOUT ROVAWARE STUDIO</span>
-              </div>
-              <h2 className="section-title">
-                We turn ideas into <em className="hero-highlight">digital experiences.</em>
-              </h2>
-            </div>
-            <p className="section-desc">
-              We’re a growing digital studio passionate about building modern websites, powerful web applications, and AI-powered solutions that help businesses bring their ideas to life.
-            </p>
-          </div>
-
-          <div className="about-grid">
-            <div className="about-visual-sticky-col">
-              <div
-                className="about-visual-card scroll-reveal"
-                onMouseMove={handleAboutCardMouseMove}
-                onMouseEnter={handleAboutCardMouseEnter}
-                onMouseLeave={handleAboutCardMouseLeave}
-              >
-                <video
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="auto"
-                  poster="/assets/experience.jpg"
-                  className="about-studio-img about-studio-video"
-                  onLoadedData={(e) => {
-                    e.currentTarget.play().catch(() => {});
-                  }}
-                >
-                  <source src="/assets/about_experience.mp4" type="video/mp4" />
-                  <source src="https://videos.pexels.com/video-files/33230268/14159465_3840_2160_25fps.mp4" type="video/mp4" />
-                </video>
-
-                {/* Cursor Spotlight Soft Radial Light */}
-                <div className="about-spotlight-layer" aria-hidden="true" />
-
-                {/* Subtle Animated Cyan-Purple Glowing Border on Hover */}
-                <div className="about-glowing-border" aria-hidden="true" />
-
-                <div className="about-badge-overlay">
-                  <span className="about-badge-num">100%</span>
-                  <span className="about-badge-label">Tailored Digital Solutions</span>
+          {/* SERVICES OFFERED */}
+          <section id="services" className="section-wrapper">
+            <div className="section-head">
+              <div>
+                <div className="section-kicker">
+                  <Sparkles size={14} />
+                  <span>WHAT WE DELIVER</span>
                 </div>
+                <h2 className="section-title">
+                  Full-spectrum <em className="hero-highlight">digital solutions.</em>
+                </h2>
               </div>
-            </div>
-
-            <div className="about-content">
-              <h3>Good ideas deserve great execution.</h3>
-              <p>
-                At Rovaware Studio, we combine creative thinking, modern web technologies, and a problem-solving mindset to build digital products that are functional, user-friendly, and designed around real business needs.
+              <p className="section-desc">
+                From strategy and design to development and AI integration, we build digital experiences engineered for performance, usability, and business growth.
               </p>
-              <p>
-                Whether you’re starting a new business, building your online presence, or exploring AI-powered solutions, we aim to turn your vision into a practical digital product.
+            </div>
+
+            <ServicesCarousel services={servicesList} />
+          </section>
+
+          {/* ABOUT STUDIO SECTION */}
+          <section id="about" className="section-wrapper about-section">
+            <div className="section-head">
+              <div>
+                <div className="section-kicker">
+                  <Sparkles size={14} />
+                  <span>ABOUT ROVAWARE STUDIO</span>
+                </div>
+                <h2 className="section-title">
+                  We turn ideas into <em className="hero-highlight">digital experiences.</em>
+                </h2>
+              </div>
+              <p className="section-desc">
+                We’re a growing digital studio passionate about building modern websites, powerful web applications, and AI-powered solutions that help businesses bring their ideas to life.
               </p>
-
-              <div className="drives-us-wrap">
-                <div className="drives-us-title">
-                  <Sparkles size={16} />
-                  <span>What Drives Us</span>
-                </div>
-                <div className="drives-us-grid stagger-reveal">
-                  <div className="drive-item">
-                    <div className="drive-item-head">
-                      <Sparkles size={15} />
-                      <span>Creative Thinking</span>
-                    </div>
-                    <p className="drive-item-desc">Fresh ideas and thoughtful digital experiences.</p>
-                  </div>
-
-                  <div className="drive-item">
-                    <div className="drive-item-head">
-                      <Code2 size={15} />
-                      <span>Modern Development</span>
-                    </div>
-                    <p className="drive-item-desc">Building with modern tools and technologies.</p>
-                  </div>
-
-                  <div className="drive-item">
-                    <div className="drive-item-head">
-                      <Layers size={15} />
-                      <span>Continuous Learning</span>
-                    </div>
-                    <p className="drive-item-desc">Improving our skills with every project.</p>
-                  </div>
-
-                  <div className="drive-item">
-                    <div className="drive-item-head">
-                      <CheckCircle2 size={15} />
-                      <span>Client-Focused Approach</span>
-                    </div>
-                    <p className="drive-item-desc">Understanding your goals before building a solution.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="about-cta-quote">
-                Have an idea in mind? Let's build it together.
-              </div>
-
-              <div className="about-action">
-                <button
-                  type="button"
-                  onClick={() => setIsDemoModalOpen(true)}
-                  className="btn primary"
-                >
-                  Start a Project <ArrowUpRight size={16} />
-                </button>
-              </div>
             </div>
-          </div>
-        </section>
 
-        {/* 4-STEP TIMELINE PROCESS */}
-        <section id="process" className="section-wrapper process-section">
-          <div className="section-head">
-            <div>
-              <div className="section-kicker">
-                <Layers size={14} />
-                <span>HOW WE BUILD</span>
-              </div>
-              <h2 className="section-title">
-                From idea to <em className="hero-highlight">launch in 4 stages.</em>
-              </h2>
-            </div>
-            <p className="section-desc">
-              A clear, collaborative process that turns your vision into a functional digital product.
-            </p>
-          </div>
-
-          <ProcessTimeline steps={workflowSteps} />
-
-          <div className="process-bottom-cta">
-            <button
-              type="button"
-              onClick={() => setIsDemoModalOpen(true)}
-              className="btn primary"
-            >
-              Start a Project <ArrowUpRight size={16} />
-            </button>
-          </div>
-        </section>
-
-        {/* OUR TECHNOLOGY STACK */}
-        <section id="tech" className="section-wrapper" style={{ position: 'relative' }}>
-          <span id="gear" style={{ position: 'absolute', top: '-80px', visibility: 'hidden' }} />
-          <div className="section-head">
-            <div>
-              <div className="section-kicker">
-                <Code2 size={14} />
-                <span>OUR TECHNOLOGY STACK</span>
-              </div>
-              <h2 className="section-title">
-                Modern <em className="hero-highlight">tools. Meaningful solutions.</em>
-              </h2>
-            </div>
-            <p className="section-desc">
-              We use modern development technologies and AI tools to build responsive websites, scalable applications, and intelligent digital experiences.
-            </p>
-          </div>
-
-          <TechStackShowcase />
-        </section>
-
-        {/* FAQS SECTION */}
-        <section id="faqs" className="section-wrapper faqs-section">
-          <div className="section-head">
-            <div>
-              <div className="section-kicker">
-                <HelpCircle size={14} />
-                <span>FREQUENTLY ASKED QUESTIONS</span>
-              </div>
-              <h2 className="section-title">
-                Everything you need to <em className="hero-highlight">know.</em>
-              </h2>
-            </div>
-            <p className="section-desc">
-              Clear answers about project timelines, pricing, communication, revisions, and launching your digital product.
-            </p>
-          </div>
-
-          <div className="faqs-accordion stagger-reveal">
-            {faqsList.map((faq, idx) => {
-              const isOpen = openFaq === idx;
-              return (
+            <div className="about-grid">
+              <div className="about-visual-sticky-col">
                 <div
-                  key={idx}
-                  className={`faq-card ${isOpen ? 'active' : ''}`}
-                  onClick={() => setOpenFaq(isOpen ? null : idx)}
+                  className="about-visual-card scroll-reveal"
+                  onMouseMove={handleAboutCardMouseMove}
+                  onMouseEnter={handleAboutCardMouseEnter}
+                  onMouseLeave={handleAboutCardMouseLeave}
                 >
-                  <button className="faq-question-btn" aria-expanded={isOpen} type="button">
-                    <span className="faq-num">0{idx + 1}</span>
-                    <span className="faq-question-text">{faq.q}</span>
-                    <span className={`faq-chevron ${isOpen ? 'rotated' : ''}`}>
-                      <ChevronDown size={18} />
-                    </span>
-                  </button>
-                  {isOpen && (
-                    <div className="faq-answer">
-                      <p>{faq.a}</p>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </section>
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="auto"
+                    poster="/assets/experience.jpg"
+                    className="about-studio-img about-studio-video"
+                    onLoadedData={(e) => {
+                      e.currentTarget.play().catch(() => { });
+                    }}
+                  >
+                    <source src="/assets/about_experience.mp4" type="video/mp4" />
+                    <source src="https://videos.pexels.com/video-files/33230268/14159465_3840_2160_25fps.mp4" type="video/mp4" />
+                  </video>
 
-        {/* NEWSLETTER & PROJECT INTAKE */}
-        <section id="contact" className="section-wrapper newsletter-section">
-          <div className="newsletter-grid">
-            <div className="newsletter-info-col">
-              <div className="section-kicker">
-                <Sparkles size={14} />
-                <span>PROJECT INTAKE & ENGINEERING DISPATCH</span>
+                  {/* Cursor Spotlight Soft Radial Light */}
+                  <div className="about-spotlight-layer" aria-hidden="true" />
+
+                  {/* Subtle Animated Cyan-Purple Glowing Border on Hover */}
+                  <div className="about-glowing-border" aria-hidden="true" />
+
+                  <div className="about-badge-overlay">
+                    <span className="about-badge-num">100%</span>
+                    <span className="about-badge-label">Tailored Digital Solutions</span>
+                  </div>
+                </div>
               </div>
-              <h2 className="section-title">
-                Turn bold ideas into <br />
-                <em className="hero-highlight">digital reality.</em>
-              </h2>
-              <p className="newsletter-lead-p">
-                Submit your project requirements, references, or specifications below. Every inquiry is reviewed by our engineering leads within 24 hours — complete with technical feasibility and scoping.
-              </p>
 
-              <div className="newsletter-perks stagger-reveal">
-                <div className="nl-perk-item">
-                  <div className="nl-perk-icon">
-                    <Code2 size={16} />
-                  </div>
-                  <div>
-                    <strong>Rapid Scoping & Architecture Blueprint</strong>
-                    <span>24-hour turnaround on system architecture, tech stack recommendations, and milestone plans.</span>
-                  </div>
-                </div>
+              <div className="about-content">
+                <h3>Good ideas deserve great execution.</h3>
+                <p>
+                  At Rovaware Studio, we combine creative thinking, modern web technologies, and a problem-solving mindset to build digital products that are functional, user-friendly, and designed around real business needs.
+                </p>
+                <p>
+                  Whether you’re starting a new business, building your online presence, or exploring AI-powered solutions, we aim to turn your vision into a practical digital product.
+                </p>
 
-                <div className="nl-perk-item">
-                  <div className="nl-perk-icon">
-                    <Bot size={16} />
-                  </div>
-                  <div>
-                    <strong>Production Web & AI Engineering</strong>
-                    <span>React, Next.js, robust Node APIs, custom LLM workflows, and high-conversion UI/UX craft.</span>
-                  </div>
-                </div>
-
-                <div className="nl-perk-item">
-                  <div className="nl-perk-icon">
+                <div className="drives-us-wrap">
+                  <div className="drives-us-title">
                     <Sparkles size={16} />
+                    <span>What Drives Us</span>
                   </div>
-                  <div>
-                    <strong>Rovaware Dispatch Included</strong>
-                    <span>Receive our private bi-weekly engineering breakdowns, performance case studies, and UI motion blueprints.</span>
+                  <div className="drives-us-grid stagger-reveal">
+                    <div className="drive-item">
+                      <div className="drive-item-head">
+                        <Sparkles size={15} />
+                        <span>Creative Thinking</span>
+                      </div>
+                      <p className="drive-item-desc">Fresh ideas and thoughtful digital experiences.</p>
+                    </div>
+
+                    <div className="drive-item">
+                      <div className="drive-item-head">
+                        <Code2 size={15} />
+                        <span>Modern Development</span>
+                      </div>
+                      <p className="drive-item-desc">Building with modern tools and technologies.</p>
+                    </div>
+
+                    <div className="drive-item">
+                      <div className="drive-item-head">
+                        <Layers size={15} />
+                        <span>Continuous Learning</span>
+                      </div>
+                      <p className="drive-item-desc">Improving our skills with every project.</p>
+                    </div>
+
+                    <div className="drive-item">
+                      <div className="drive-item-head">
+                        <CheckCircle2 size={15} />
+                        <span>Client-Focused Approach</span>
+                      </div>
+                      <p className="drive-item-desc">Understanding your goals before building a solution.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="about-cta-quote">
+                  Have an idea in mind? Let's build it together.
+                </div>
+
+                <div className="about-action">
+                  <button
+                    type="button"
+                    onClick={() => setIsDemoModalOpen(true)}
+                    className="btn primary"
+                  >
+                    Start a Project <ArrowUpRight size={16} />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* 4-STEP TIMELINE PROCESS */}
+          <section id="process" className="section-wrapper process-section">
+            <div className="section-head">
+              <div>
+                <div className="section-kicker">
+                  <Layers size={14} />
+                  <span>HOW WE BUILD</span>
+                </div>
+                <h2 className="section-title">
+                  From idea to <em className="hero-highlight">launch in 4 stages.</em>
+                </h2>
+              </div>
+              <p className="section-desc">
+                A clear, collaborative process that turns your vision into a functional digital product.
+              </p>
+            </div>
+
+            <ProcessTimeline steps={workflowSteps} />
+
+            <div className="process-bottom-cta">
+              <button
+                type="button"
+                onClick={() => setIsDemoModalOpen(true)}
+                className="btn primary"
+              >
+                Start a Project <ArrowUpRight size={16} />
+              </button>
+            </div>
+          </section>
+
+          {/* OUR TECHNOLOGY STACK */}
+          <section id="tech" className="section-wrapper" style={{ position: 'relative' }}>
+            <span id="gear" style={{ position: 'absolute', top: '-80px', visibility: 'hidden' }} />
+            <div className="section-head">
+              <div>
+                <div className="section-kicker">
+                  <Code2 size={14} />
+                  <span>OUR TECHNOLOGY STACK</span>
+                </div>
+                <h2 className="section-title">
+                  Modern <em className="hero-highlight">tools. Meaningful solutions.</em>
+                </h2>
+              </div>
+              <p className="section-desc">
+                We use modern development technologies and AI tools to build responsive websites, scalable applications, and intelligent digital experiences.
+              </p>
+            </div>
+
+            <TechStackShowcase />
+          </section>
+
+          {/* FAQS SECTION */}
+          <section id="faqs" className="section-wrapper faqs-section">
+            <div className="section-head">
+              <div>
+                <div className="section-kicker">
+                  <HelpCircle size={14} />
+                  <span>FREQUENTLY ASKED QUESTIONS</span>
+                </div>
+                <h2 className="section-title">
+                  Everything you need to <em className="hero-highlight">know.</em>
+                </h2>
+              </div>
+              <p className="section-desc">
+                Clear answers about project timelines, pricing, communication, revisions, and launching your digital product.
+              </p>
+            </div>
+
+            <div className="faqs-accordion stagger-reveal">
+              {faqsList.map((faq, idx) => {
+                const isOpen = openFaq === idx;
+                return (
+                  <div
+                    key={idx}
+                    className={`faq-card ${isOpen ? 'active' : ''}`}
+                    onClick={() => setOpenFaq(isOpen ? null : idx)}
+                  >
+                    <button className="faq-question-btn" aria-expanded={isOpen} type="button">
+                      <span className="faq-num">0{idx + 1}</span>
+                      <span className="faq-question-text">{faq.q}</span>
+                      <span className={`faq-chevron ${isOpen ? 'rotated' : ''}`}>
+                        <ChevronDown size={18} />
+                      </span>
+                    </button>
+                    {isOpen && (
+                      <div className="faq-answer">
+                        <p>{faq.a}</p>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+
+          {/* NEWSLETTER & PROJECT INTAKE */}
+          <section id="contact" className="section-wrapper newsletter-section">
+            <div className="newsletter-grid">
+              <div className="newsletter-info-col">
+                <div className="section-kicker">
+                  <Sparkles size={14} />
+                  <span>PROJECT INTAKE & ENGINEERING DISPATCH</span>
+                </div>
+                <h2 className="section-title">
+                  Turn bold ideas into <br />
+                  <em className="hero-highlight">digital reality.</em>
+                </h2>
+                <p className="newsletter-lead-p">
+                  Submit your project requirements, references, or specifications below. Every inquiry is reviewed by our engineering leads within 24 hours — complete with technical feasibility and scoping.
+                </p>
+
+                <div className="newsletter-perks stagger-reveal">
+                  <div className="nl-perk-item">
+                    <div className="nl-perk-icon">
+                      <Code2 size={16} />
+                    </div>
+                    <div>
+                      <strong>Rapid Scoping & Architecture Blueprint</strong>
+                      <span>24-hour turnaround on system architecture, tech stack recommendations, and milestone plans.</span>
+                    </div>
+                  </div>
+
+                  <div className="nl-perk-item">
+                    <div className="nl-perk-icon">
+                      <Bot size={16} />
+                    </div>
+                    <div>
+                      <strong>Production Web & AI Engineering</strong>
+                      <span>React, Next.js, robust Node APIs, custom LLM workflows, and high-conversion UI/UX craft.</span>
+                    </div>
+                  </div>
+
+                  <div className="nl-perk-item">
+                    <div className="nl-perk-icon">
+                      <Sparkles size={16} />
+                    </div>
+                    <div>
+                      <strong>Rovaware Dispatch Included</strong>
+                      <span>Receive our private bi-weekly engineering breakdowns, performance case studies, and UI motion blueprints.</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Newsletter Community & Guarantees Card */}
+                <div className="newsletter-community-card">
+                  <div className="community-avatars-row">
+                    <div className="avatar-group">
+                      <span className="avatar av-1">CF</span>
+                      <span className="avatar av-2">AI</span>
+                      <span className="avatar av-3">JS</span>
+                      <span className="avatar av-4">+</span>
+                    </div>
+                    <div className="community-stats-text">
+                      <strong>2,500+ Digital Builders Subscribed</strong>
+                      <span>Engineers, founders & designers from fast-growing tech teams</span>
+                    </div>
+                  </div>
+                  <div className="newsletter-guarantees-row">
+                    <span><Check size={13} /> 24hr response</span>
+                    <span><Check size={13} /> NDA-protected</span>
+                    <span><Check size={13} /> Zero spam</span>
+                    <span><Check size={13} /> 1-click unsubscribe</span>
                   </div>
                 </div>
               </div>
 
-              {/* Newsletter Community & Guarantees Card */}
-              <div className="newsletter-community-card">
-                <div className="community-avatars-row">
-                  <div className="avatar-group">
-                    <span className="avatar av-1">CF</span>
-                    <span className="avatar av-2">AI</span>
-                    <span className="avatar av-3">JS</span>
-                    <span className="avatar av-4">+</span>
-                  </div>
-                  <div className="community-stats-text">
-                    <strong>2,500+ Digital Builders Subscribed</strong>
-                    <span>Engineers, founders & designers from fast-growing tech teams</span>
-                  </div>
-                </div>
-                <div className="newsletter-guarantees-row">
-                  <span><Check size={13} /> 24hr response</span>
-                  <span><Check size={13} /> NDA-protected</span>
-                  <span><Check size={13} /> Zero spam</span>
-                  <span><Check size={13} /> 1-click unsubscribe</span>
-                </div>
+              {/* Newsletter & Project Intake Card */}
+              <div className="newsletter-card-wrap">
+                <ProjectIntakeCard />
               </div>
             </div>
-
-            {/* Newsletter & Project Intake Card */}
-            <div className="newsletter-card-wrap">
-              <ProjectIntakeCard />
-            </div>
-          </div>
-        </section>
-      </main>
+          </section>
+        </main>
       )}
 
       {/* FOOTER */}
@@ -4582,7 +4577,6 @@ function App() {
                 <li><a href="/about/book-project" onClick={(e) => { e.preventDefault(); navigateToBookProject(); }}>Book a Project</a></li>
                 <li><a href="#process" onClick={(e) => { if (currentView !== 'home') { e.preventDefault(); navigateToHome('process'); } }}>Our Process</a></li>
                 <li><a href="#faqs" onClick={(e) => { if (currentView !== 'home') { e.preventDefault(); navigateToHome('faqs'); } }}>FAQs</a></li>
-                <li><a href="/reveal" onClick={(e) => { e.preventDefault(); navigateToReveal(); }}>Brand Particle Reveal</a></li>
               </ul>
             </div>
 

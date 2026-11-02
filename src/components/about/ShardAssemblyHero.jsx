@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 import * as THREE from 'three';
-import { ChevronRight, ArrowRight, ArrowUpRight, Rocket, RotateCcw } from 'lucide-react';
+import { ChevronRight, ArrowRight, ArrowUpRight, Rocket } from 'lucide-react';
 import '../../styles/shard-assembly.css';
 
 /**
@@ -35,10 +35,6 @@ export default function ShardAssemblyHero({
   const laserLineRef = useRef(null);
   const taglineRef = useRef(null);
   const actionRowRef = useRef(null);
-  const progressBarRef = useRef(null);
-  const progressTextRef = useRef(null);
-  const timerLabelRef = useRef(null);
-  const replayBtnRef = useRef(null);
 
   // Animation & Three.js refs
   const animFrameIdRef = useRef(null);
@@ -59,7 +55,6 @@ export default function ShardAssemblyHero({
     const laserLine = laserLineRef.current;
     const tagline = taglineRef.current;
     const actionRow = actionRowRef.current;
-    const replayBtn = replayBtnRef.current;
 
     switch (stage) {
       case 0: // 0–2s: Small orange fragments around center
@@ -69,7 +64,6 @@ export default function ShardAssemblyHero({
         if (laserLine) laserLine.classList.remove('illuminated');
         if (tagline) tagline.classList.remove('revealed');
         if (actionRow) actionRow.classList.remove('revealed');
-        if (replayBtn) replayBtn.style.display = 'none';
         break;
 
       case 1: // 2–6s: Fragments assemble into ROVAWARE letters
@@ -79,7 +73,6 @@ export default function ShardAssemblyHero({
         if (laserLine) laserLine.classList.remove('illuminated');
         if (tagline) tagline.classList.remove('revealed');
         if (actionRow) actionRow.classList.remove('revealed');
-        if (replayBtn) replayBtn.style.display = 'none';
         break;
 
       case 2: // 6–8s: Complete orange wordmark clearly visible
@@ -89,7 +82,6 @@ export default function ShardAssemblyHero({
         if (laserLine) laserLine.classList.remove('illuminated');
         if (tagline) tagline.classList.remove('revealed');
         if (actionRow) actionRow.classList.remove('revealed');
-        if (replayBtn) replayBtn.style.display = 'none';
         break;
 
       case 3: // 8–10s: Light sweep, underline, tagline and CTA reveal
@@ -99,7 +91,6 @@ export default function ShardAssemblyHero({
         if (laserLine) laserLine.classList.add('illuminated');
         if (tagline) tagline.classList.add('revealed');
         if (actionRow) actionRow.classList.add('revealed');
-        if (replayBtn) replayBtn.style.display = 'none';
         break;
 
       case 4: // At 10s & thereafter: Complete and locked
@@ -110,31 +101,9 @@ export default function ShardAssemblyHero({
         if (laserLine) laserLine.classList.add('illuminated');
         if (tagline) tagline.classList.add('revealed');
         if (actionRow) actionRow.classList.add('revealed');
-        if (replayBtn) replayBtn.style.display = 'inline-flex';
         break;
     }
   }, []);
-
-  // Replay Animation handler
-  const handleReplay = useCallback(() => {
-    startTimeRef.current = performance.now();
-    applyStage(0);
-
-    // Reset Three.js shards to initial scattered positions around center
-    if (threeSceneRef.current) {
-      const { shards } = threeSceneRef.current;
-      shards.forEach((s) => {
-        s.mesh.position.set(s.ox, s.oy, s.oz);
-        s.mesh.rotation.set(s.originRotX, s.originRotY, s.originRotZ);
-        s.mesh.scale.set(1, 1, 1);
-        s.mesh.visible = true;
-      });
-    }
-
-    if (progressBarRef.current) progressBarRef.current.style.width = '0%';
-    if (progressTextRef.current) progressTextRef.current.textContent = '0%';
-    if (timerLabelRef.current) timerLabelRef.current.textContent = '10s Brand Reveal: 10.0s remaining';
-  }, [applyStage]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -329,9 +298,6 @@ export default function ShardAssemblyHero({
         s.mesh.position.set(s.tx, s.ty, s.tz);
         s.mesh.visible = false;
       });
-      if (progressBarRef.current) progressBarRef.current.style.width = '100%';
-      if (progressTextRef.current) progressTextRef.current.textContent = '100%';
-      if (timerLabelRef.current) timerLabelRef.current.textContent = 'Complete brand reveal finished (10s)';
     } else {
       applyStage(0);
     }
@@ -346,23 +312,6 @@ export default function ShardAssemblyHero({
       }
 
       const elapsedSec = Math.min(TOTAL_DURATION_SEC, Math.max(0, (now - startTimeRef.current) / 1000));
-      const progressPercent = Math.min(100, Math.round((elapsedSec / TOTAL_DURATION_SEC) * 100));
-      const remainingSec = Math.max(0, TOTAL_DURATION_SEC - elapsedSec);
-
-      // Direct DOM progress bar and timer updates
-      if (progressBarRef.current) {
-        progressBarRef.current.style.width = `${progressPercent}%`;
-      }
-      if (progressTextRef.current) {
-        progressTextRef.current.textContent = `${progressPercent}%`;
-      }
-      if (timerLabelRef.current) {
-        if (elapsedSec >= TOTAL_DURATION_SEC) {
-          timerLabelRef.current.textContent = 'Complete brand reveal finished (10s) • Scroll down to explore capabilities';
-        } else {
-          timerLabelRef.current.textContent = `10s Brand Reveal: ${remainingSec.toFixed(1)}s remaining`;
-        }
-      }
 
       // Camera parallax tilt
       camera.position.x += (mouse.x * 6 - camera.position.x) * 0.05;
@@ -557,38 +506,6 @@ export default function ShardAssemblyHero({
               >
                 <span>Contact Engineering Leads</span>
                 <ArrowUpRight size={14} />
-              </button>
-            </div>
-          </div>
-
-          {/* Bottom Telemetry & 10-Second Controls */}
-          <div className="shard-bottom-bar">
-            <div className="shard-scroll-indicator">
-              <div className="shard-mouse-icon">
-                <div className="shard-mouse-wheel" />
-              </div>
-              <span ref={timerLabelRef} className="shard-scroll-label">
-                10s Brand Reveal: 10.0s remaining
-              </span>
-            </div>
-
-            <div className="shard-progress-box">
-              <div className="shard-progress-bar-bg" title="10-Second Assembly Progress">
-                <div ref={progressBarRef} className="shard-progress-bar-fill" />
-              </div>
-              <span ref={progressTextRef} className="shard-progress-percent">0%</span>
-
-              {/* Replay Animation Button */}
-              <button
-                ref={replayBtnRef}
-                type="button"
-                onClick={handleReplay}
-                className="shard-replay-pill-btn"
-                title="Replay 10-Second 3D Shard Assembly Animation"
-                style={{ display: 'none' }}
-              >
-                <RotateCcw size={12} />
-                <span>Replay Animation</span>
               </button>
             </div>
           </div>

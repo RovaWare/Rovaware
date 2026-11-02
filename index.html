@@ -18,15 +18,10 @@
     <title>ROVAWARE — Build • Automate • Scale</title>
     <script>
       (function() {
+        document.documentElement.setAttribute('data-theme', 'dark');
         try {
-          var saved = localStorage.getItem('rovaware_theme') || localStorage.getItem('cineforge_theme');
-          var theme = (saved === 'light') ? 'light' : 'dark';
-          document.documentElement.setAttribute('data-theme', theme);
-          var meta = document.querySelector('meta[name="theme-color"]');
-          if (meta) meta.setAttribute('content', theme === 'light' ? '#f8fafc' : '#080A10');
-        } catch (e) {
-          document.documentElement.setAttribute('data-theme', 'dark');
-        }
+          localStorage.setItem('rovaware_theme', 'dark');
+        } catch (e) {}
       })();
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
