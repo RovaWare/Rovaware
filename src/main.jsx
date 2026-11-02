@@ -3379,7 +3379,7 @@ function App() {
           title="Return to Hero Section"
         >
           <div className="brand-icon-box">
-            <img src="/assets/rovaware_rw_arrow.png?v=9" alt="RovaWare Logo" className="brand-logo-img" />
+            <img src="/assets/rovaware_rw_arrow.png?v=10" alt="RovaWare Logo" className="brand-logo-img" />
           </div>
           <div className="brand-text-block">
             <div className="brand-text">
@@ -4551,7 +4551,7 @@ function App() {
               title="Rovaware Studio"
             >
               <div className="brand-icon-box">
-                <img src="/assets/rovaware_rw_arrow.png?v=9" alt="RovaWare Logo" className="brand-logo-img" />
+                <img src="/assets/rovaware_rw_arrow.png?v=10" alt="RovaWare Logo" className="brand-logo-img" />
               </div>
               <div className="brand-text-block">
                 <div className="brand-text">
