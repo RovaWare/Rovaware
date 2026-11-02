@@ -73,10 +73,16 @@ import {
 import './styles.css';
 import BlogView from './components/blog/BlogView';
 import ArticleDetailView from './components/blog/ArticleDetailView';
-import AboutCompanyView from './components/about/AboutCompanyView';
-import ContactView from './components/about/ContactView';
-import BookProjectView from './components/about/BookProjectView';
+import AboutCompanyView from './components/about/About Company/aboutcompnayview';
+import ContactView from './components/about/contact/ContactView';
+import BookProjectView from './components/about/Book a project/BookProjectView';
+import ServicesMegaMenu from './components/services/ServicesMegaMenu';
+import ServicesIndexView from './components/services/ServicesIndexView';
+import ServiceDetailView from './components/services/ServiceDetailView';
+import { serviceCategories } from './components/services/servicesData';
+import './styles/services.css';
 import BrandReveal from './components/brand/BrandReveal';
+import { BrowserRouter, useNavigate, useLocation } from 'react-router-dom';
 
 // Official Google Form link for Book A Demo
 const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/15zbRoUfGocjXiBKCLB7lj5UWeXUXgKuY8sbix_W0Stw/viewform';
@@ -1480,162 +1486,19 @@ function RequestCallbackModal({ isOpen, onClose }) {
   );
 }
 
-// Automated 10-Second Email Lead Capture Popup
-function EmailLeadPopup({ isOpen, onClose, onSubmit, email, setEmail }) {
-  if (!isOpen) return null;
-
-  return (
-    <div
-      className="email-popup-overlay"
-      onClick={onClose}
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="email-popup-heading"
-    >
-      <div className="email-popup-box" onClick={(e) => e.stopPropagation()}>
-        <div className="modal-glow-line" />
-
-        <button
-          type="button"
-          className="email-popup-close-btn"
-          onClick={onClose}
-          aria-label="Close email popup"
-        >
-          <X size={18} />
-        </button>
-
-        <div className="email-popup-badge-row">
-          <div className="email-popup-icon-badge">
-            <Mail size={16} />
-          </div>
-          <span className="email-popup-kicker">
-            <Sparkles size={11} /> LIMITED INVITATION
-          </span>
-        </div>
-
-        <h3 id="email-popup-heading" className="email-popup-title">
-          Turn your next idea into a <span className="hero-highlight">market leader.</span>
-        </h3>
-
-        <p className="email-popup-desc">
-          Join 2,500+ founders and engineers receiving our bi-weekly architecture breakdowns, production AI blueprints, and an exclusive <strong>15% project credit</strong> on your first consultation.
-        </p>
-
-        <form onSubmit={onSubmit} className="email-popup-form">
-          <div className="email-popup-input-wrap">
-            <Mail size={16} className="email-input-icon" />
-            <input
-              type="email"
-              placeholder="Enter your work email address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              autoFocus
-            />
-          </div>
-
-          <button type="submit" className="email-popup-submit-btn">
-            <span>Claim 15% Credit & Dispatch</span>
-            <ArrowUpRight size={15} />
-          </button>
-        </form>
-
-        <div className="email-popup-trust-row">
-          <span><Check size={12} color="#FF8C32" /> Zero spam</span>
-          <span><Check size={12} color="#FF8C32" /> 1-Click unsubscribe</span>
-          <span><ShieldCheck size={12} color="#FF8C32" /> NDA protected</span>
-        </div>
-      </div>
-    </div>
-  );
+// Automated 10-Second Email Lead Capture Popup (Disabled per request)
+function EmailLeadPopup() {
+  return null;
 }
 
-// Floating Email Success Toast Notification
-function EmailToast({ isOpen, email, onClose }) {
-  if (!isOpen) return null;
-
-  return (
-    <div className="email-toast-wrap" role="alert" aria-live="polite">
-      <div className="email-toast-card">
-        <div className="email-toast-icon-wrap">
-          <CheckCircle2 size={20} color="#FF8C32" />
-        </div>
-        <div className="email-toast-content">
-          <strong>Subscribed to Dispatch! 🎉</strong>
-          <p>
-            Welcome kit & 15% scoping discount sent to <span>{email || 'your inbox'}</span>.
-          </p>
-        </div>
-        <button
-          type="button"
-          className="email-toast-close"
-          onClick={onClose}
-          aria-label="Dismiss toast"
-        >
-          <X size={15} />
-        </button>
-        <div className="toast-progress-bar" />
-      </div>
-    </div>
-  );
+// Floating Email Success Toast Notification (Disabled per request)
+function EmailToast() {
+  return null;
 }
 
-// Floating Cookie Consent Banner
-function CookieConsentBanner({ isOpen, onAccept, onOpenCookiePolicy, onClose }) {
-  if (!isOpen) return null;
-
-  return (
-    <aside className="cookie-banner-wrap" role="region" aria-label="Cookie and storage consent">
-      <div className="cookie-banner-card">
-        <button
-          type="button"
-          className="cookie-banner-close"
-          onClick={onClose}
-          aria-label="Dismiss cookie notice"
-        >
-          <X size={14} />
-        </button>
-
-        <div className="cookie-banner-header">
-          <div className="cookie-icon-box">
-            <Cookie size={18} />
-          </div>
-          <div className="cookie-title-area">
-            <h4>Cookie & Privacy Preferences</h4>
-            <span className="cookie-status-badge">PRIVACY FIRST</span>
-          </div>
-        </div>
-
-        <p className="cookie-banner-text">
-          We use local browser storage and strictly necessary session cookies to remember your theme preference and keep page loads lightning fast. We do NOT use invasive ad-trackers.
-        </p>
-
-        <div className="cookie-banner-actions">
-          <button
-            type="button"
-            className="cookie-btn-primary"
-            onClick={() => onAccept('all')}
-          >
-            Accept All
-          </button>
-          <button
-            type="button"
-            className="cookie-btn-secondary"
-            onClick={() => onAccept('essential')}
-          >
-            Essential Only
-          </button>
-          <button
-            type="button"
-            className="cookie-btn-link"
-            onClick={onOpenCookiePolicy}
-          >
-            Cookie Policy <ArrowUpRight size={12} />
-          </button>
-        </div>
-      </div>
-    </aside>
-  );
+// Floating Cookie Consent Banner (Disabled per request)
+function CookieConsentBanner() {
+  return null;
 }
 
 // ========================================================
@@ -2864,125 +2727,128 @@ function TechStackShowcase() {
   );
 }
 
-function App() {
+function AppContent() {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [isCallbackModalOpen, setIsCallbackModalOpen] = useState(false);
 
-  // Routing State for Blog, Article & Dedicated About Pages
-  const getInitialRoute = () => {
-    const path = window.location.pathname;
-    const hash = window.location.hash || '';
+  // Pure HTML5 Browser Routing via BrowserRouter (Strictly NO # Hash Routing)
+  const location = useLocation();
+  const navigate = useNavigate();
 
-    // Brand Reveal route
-    if (path === '/reveal' || path === '/reveal/') {
-      return { view: 'reveal', slug: null };
-    }
-    if (hash === '#/reveal' || hash === '#reveal') {
-      return { view: 'reveal', slug: null };
-    }
-
-    // Dedicated About routes
-    if (path === '/about/company' || path === '/about/company/') {
+  const getRouteInfo = (pathname) => {
+    if (pathname === '/about/company' || pathname === '/about/company/') {
       return { view: 'about-company', slug: null };
     }
-    if (path === '/about/contact' || path === '/about/contact/') {
+    if (pathname === '/about/contact' || pathname === '/about/contact/') {
       return { view: 'about-contact', slug: null };
     }
-    if (path === '/about/book-project' || path === '/about/book-project/') {
+    if (pathname === '/about/book-project' || pathname === '/about/book-project/') {
       return { view: 'about-book-project', slug: null };
     }
-
-    if (hash === '#/about/company' || hash === '#about/company') {
-      return { view: 'about-company', slug: null };
+    if (pathname === '/services' || pathname === '/services/') {
+      return { view: 'services-index', slug: null };
     }
-    if (hash === '#/about/contact' || hash === '#about/contact') {
-      return { view: 'about-contact', slug: null };
+    if (pathname.startsWith('/services/')) {
+      const serviceSlug = pathname.replace(/^\/services\//, '').replace(/\/$/, '');
+      if (serviceSlug) return { view: 'service-detail', slug: serviceSlug };
+      return { view: 'services-index', slug: null };
     }
-    if (hash === '#/about/book-project' || hash === '#about/book-project') {
-      return { view: 'about-book-project', slug: null };
-    }
-
-    if (path.startsWith('/blog/')) {
-      const slug = path.replace(/^\/blog\//, '').replace(/\/$/, '');
+    if (pathname.startsWith('/blog/')) {
+      const slug = pathname.replace(/^\/blog\//, '').replace(/\/$/, '');
       if (slug) return { view: 'article', slug };
       return { view: 'blog', slug: null };
     }
-    if (path === '/blog' || path === '/blog/') {
+    if (pathname === '/blog' || pathname === '/blog/') {
       return { view: 'blog', slug: null };
     }
-
-    if (hash.startsWith('#/blog/') || hash.startsWith('#blog/')) {
-      const slug = hash.replace(/^#(|\/)?blog\//, '').replace(/\/$/, '');
-      if (slug) return { view: 'article', slug };
-      return { view: 'blog', slug: null };
+    if (pathname === '/reveal' || pathname === '/reveal/') {
+      return { view: 'reveal', slug: null };
     }
-    if (hash === '#/blog' || hash === '#blog') {
-      return { view: 'blog', slug: null };
-    }
-
     return { view: 'home', slug: null };
   };
 
-  const initialRoute = getInitialRoute();
-  const [currentView, setCurrentView] = useState(initialRoute.view);
-  const [articleSlug, setArticleSlug] = useState(initialRoute.slug);
+  const { view: currentView, slug: articleSlug } = getRouteInfo(location.pathname);
   const [showBrandReveal, setShowBrandReveal] = useState(false);
   const [aboutDropdownOpen, setAboutDropdownOpen] = useState(false);
   const [mobileAboutExpanded, setMobileAboutExpanded] = useState(false);
   const aboutDropdownRef = useRef(null);
 
+  const [servicesMegaMenuOpen, setServicesMegaMenuOpen] = useState(false);
+  const [mobileServicesExpanded, setMobileServicesExpanded] = useState(false);
+  const servicesDropdownRef = useRef(null);
+  const servicesTimeoutRef = useRef(null);
+
+  const handleServicesMouseEnter = () => {
+    if (servicesTimeoutRef.current) {
+      clearTimeout(servicesTimeoutRef.current);
+      servicesTimeoutRef.current = null;
+    }
+    setServicesMegaMenuOpen(true);
+  };
+
+  const handleServicesMouseLeave = () => {
+    if (servicesTimeoutRef.current) {
+      clearTimeout(servicesTimeoutRef.current);
+    }
+    servicesTimeoutRef.current = setTimeout(() => {
+      setServicesMegaMenuOpen(false);
+    }, 280);
+  };
+
+  const navigateToServices = () => {
+    navigate('/services');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setServicesMegaMenuOpen(false);
+    setMobileMenu(false);
+    document.title = 'Digital Engineering & Growth Services — ROVAWARE';
+  };
+
+  const navigateToServiceDetail = (serviceSlug) => {
+    navigate(`/services/${serviceSlug}`);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setServicesMegaMenuOpen(false);
+    setMobileMenu(false);
+  };
+
   const navigateToReveal = () => {
-    window.history.pushState(null, '', '/reveal');
-    setCurrentView('reveal');
-    setArticleSlug(null);
+    navigate('/reveal');
     setShowBrandReveal(true);
     document.title = 'ROVAWARE — Brand Reveal Animation';
   };
 
   const navigateToBlog = () => {
-    window.history.pushState(null, '', '/blog');
-    setCurrentView('blog');
-    setArticleSlug(null);
+    navigate('/blog');
     window.scrollTo({ top: 0, behavior: 'smooth' });
     document.title = 'Blog & Insights — ROVAWARE Engineering';
   };
 
   const navigateToArticle = (slug) => {
-    window.history.pushState(null, '', `/blog/${slug}`);
-    setCurrentView('article');
-    setArticleSlug(slug);
+    navigate(`/blog/${slug}`);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const navigateToAboutCompany = () => {
-    window.history.pushState(null, '', '/about/company');
-    setCurrentView('about-company');
-    setArticleSlug(null);
+    navigate('/about/company');
     window.scrollTo({ top: 0, behavior: 'smooth' });
     document.title = 'About ROVAWARE — Company, Mission & Engineering Standards';
   };
 
   const navigateToContact = () => {
-    window.history.pushState(null, '', '/about/contact');
-    setCurrentView('about-contact');
-    setArticleSlug(null);
+    navigate('/about/contact');
     window.scrollTo({ top: 0, behavior: 'smooth' });
     document.title = 'Contact ROVAWARE — Direct Technical Inquiry';
   };
 
   const navigateToBookProject = () => {
-    window.history.pushState(null, '', '/about/book-project');
-    setCurrentView('about-book-project');
-    setArticleSlug(null);
+    navigate('/about/book-project');
     window.scrollTo({ top: 0, behavior: 'smooth' });
     document.title = 'Book a Project — ROVAWARE Scope & Architecture Scoping';
   };
 
   const navigateToHome = (anchor = '') => {
-    const targetUrl = anchor ? `/#${anchor}` : '/';
-    window.history.pushState(null, '', targetUrl);
-    setCurrentView('home');
-    setArticleSlug(null);
+    if (location.pathname !== '/') {
+      navigate('/');
+    }
     document.title = 'ROVAWARE — Build • Automate • Scale';
     if (anchor) {
       setTimeout(() => {
@@ -2994,9 +2860,31 @@ function App() {
     }
   };
 
+  const scrollToSection = (sectionId, e) => {
+    if (e) e.preventDefault();
+    setMobileMenu(false);
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        const el = document.getElementById(sectionId);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 120);
+    } else {
+      const el = document.getElementById(sectionId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+  };
+
   // Route-Aware Theme Architecture
   const isAboutSuite = currentView === 'about-company' || currentView === 'about-contact' || currentView === 'about-book-project';
-  const routeTheme = isAboutSuite ? 'orange-black' : 'deep-blue';
+  const isServicesSuite = currentView === 'services-index' || currentView === 'service-detail';
+  const routeTheme = currentView === 'about-contact'
+    ? 'emerald-green'
+    : (currentView === 'about-company' || currentView === 'about-book-project' || isServicesSuite ? 'orange-black' : 'deep-blue');
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', 'dark');
@@ -3007,10 +2895,13 @@ function App() {
     document.body.classList.remove(
       'theme-deep-blue',
       'theme-orange-black',
+      'theme-emerald-green',
       'view-home',
       'view-about-company',
       'view-about-contact',
       'view-about-book-project',
+      'view-services-index',
+      'view-service-detail',
       'view-blog',
       'view-article'
     );
@@ -3094,141 +2985,23 @@ function App() {
   // Legal Modal Popup State: null | 'privacy' | 'terms' | 'cookies' | 'refund'
   const [legalModalTab, setLegalModalTab] = useState(null);
 
-  // Automated 10-Second Email Popup, Success Toast & Cookie Banner States
-  const [showEmailPopup, setShowEmailPopup] = useState(false);
-  const [emailPopupInput, setEmailPopupInput] = useState('');
-  const [emailToast, setEmailToast] = useState({ show: false, email: '' });
-  const [showCookieBanner, setShowCookieBanner] = useState(false);
-
-  useEffect(() => {
-    // Exactly 10-Second Timer for Hero Section / Page Load Email Popup
-    const timer = setTimeout(() => {
-      setShowEmailPopup(true);
-    }, 10000); // 10 seconds
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  const handleEmailPopupSubmit = (e) => {
-    e.preventDefault();
-    if (!emailPopupInput || !emailPopupInput.includes('@')) return;
-
-    setShowEmailPopup(false);
-    setEmailToast({ show: true, email: emailPopupInput });
-
-    // Show Cookie Banner right after Email submission
-    setTimeout(() => {
-      setShowCookieBanner(true);
-    }, 600);
-
-    // Auto-dismiss toast after 6 seconds
-    setTimeout(() => {
-      setEmailToast({ show: false, email: '' });
-    }, 6000);
-  };
-
-  const closeEmailPopup = () => {
-    setShowEmailPopup(false);
-
-    // Show Cookie Banner after dismissing email popup
-    setTimeout(() => {
-      setShowCookieBanner(true);
-    }, 400);
-  };
-
-  const handleAcceptCookies = (type = 'all') => {
-    localStorage.setItem('rovaware_cookie_consent', type);
-    setShowCookieBanner(false);
-  };
-
   const openLegalModal = (tab = 'privacy') => {
     setLegalModalTab(tab);
-    window.location.hash = `#/${tab}`;
   };
 
   const closeLegalModal = () => {
     setLegalModalTab(null);
-    if (
-      window.location.hash.startsWith('#/privacy') ||
-      window.location.hash.startsWith('#privacy') ||
-      window.location.hash.startsWith('#/terms') ||
-      window.location.hash.startsWith('#terms') ||
-      window.location.hash.startsWith('#/cookies') ||
-      window.location.hash.startsWith('#cookies') ||
-      window.location.hash.startsWith('#/refund') ||
-      window.location.hash.startsWith('#refund')
-    ) {
-      history.replaceState(null, '', window.location.pathname + window.location.search);
-    }
   };
 
   useEffect(() => {
-    const handlePopState = () => {
-      const route = getInitialRoute();
-      setCurrentView(route.view);
-      setArticleSlug(route.slug);
-      if (route.view === 'home') {
-        const h = (window.location.hash || '').replace('#', '');
-        if (h && !h.startsWith('/')) {
-          setTimeout(() => {
-            const el = document.getElementById(h);
-            if (el) el.scrollIntoView({ behavior: 'smooth' });
-          }, 100);
-        }
-      }
-    };
-
-    const handleHash = () => {
-      const h = (window.location.hash || '').toLowerCase();
-      if (h.startsWith('#/reveal') || h === '#reveal') {
-        setCurrentView('reveal');
-        setArticleSlug(null);
-        setShowBrandReveal(true);
-      } else if (h.startsWith('#/about/company') || h.startsWith('#about/company')) {
-        setCurrentView('about-company');
-        setArticleSlug(null);
-      } else if (h.startsWith('#/about/contact') || h.startsWith('#about/contact')) {
-        setCurrentView('about-contact');
-        setArticleSlug(null);
-      } else if (h.startsWith('#/about/book-project') || h.startsWith('#about/book-project')) {
-        setCurrentView('about-book-project');
-        setArticleSlug(null);
-      } else if (h.startsWith('#/blog/') || h.startsWith('#blog/')) {
-        const slug = h.replace(/^#(|\/)?blog\//, '').replace(/\/$/, '');
-        if (slug) {
-          setCurrentView('article');
-          setArticleSlug(slug);
-        } else {
-          setCurrentView('blog');
-          setArticleSlug(null);
-        }
-      } else if (h === '#/blog' || h === '#blog') {
-        setCurrentView('blog');
-        setArticleSlug(null);
-      } else if (h === '#/privacy' || h === '#privacy') {
-        setLegalModalTab('privacy');
-      } else if (h === '#/terms' || h === '#terms') {
-        setLegalModalTab('terms');
-      } else if (h === '#/cookies' || h === '#cookies') {
-        setLegalModalTab('cookies');
-      } else if (h === '#/refund' || h === '#refund') {
-        setLegalModalTab('refund');
-      }
-    };
-
     const handleClickOutside = (e) => {
       if (aboutDropdownRef.current && !aboutDropdownRef.current.contains(e.target)) {
         setAboutDropdownOpen(false);
       }
     };
 
-    handleHash();
-    window.addEventListener('popstate', handlePopState);
-    window.addEventListener('hashchange', handleHash);
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      window.removeEventListener('popstate', handlePopState);
-      window.removeEventListener('hashchange', handleHash);
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
@@ -3236,14 +3009,12 @@ function App() {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
-        if (showEmailPopup) {
-          closeEmailPopup();
-        } else if (legalModalTab) {
+        if (legalModalTab) {
           closeLegalModal();
         }
       }
     };
-    if (legalModalTab || showEmailPopup) {
+    if (legalModalTab) {
       document.body.style.overflow = 'hidden';
       window.addEventListener('keydown', handleKeyDown);
     } else if (!isDemoModalOpen && !isCallbackModalOpen) {
@@ -3252,7 +3023,7 @@ function App() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [legalModalTab, showEmailPopup, isDemoModalOpen, isCallbackModalOpen]);
+  }, [legalModalTab, isDemoModalOpen, isCallbackModalOpen]);
 
   // Global Scroll Reveal & Delayed Entrance Observer
   useEffect(() => {
@@ -3379,7 +3150,7 @@ function App() {
           title="Return to Hero Section"
         >
           <div className="brand-icon-box">
-            <img src="/assets/rovaware_rw_arrow.png?v=9" alt="RovaWare Logo" className="brand-logo-img" />
+            <img src="/assets/rovaware_rw_arrow.png?v=11" alt="RovaWare Logo" className="brand-logo-img" />
           </div>
           <div className="brand-text-block">
             <div className="brand-text">
@@ -3394,29 +3165,41 @@ function App() {
           <a
             href="#work"
             className="nav-link"
-            onClick={(e) => {
-              setMobileMenu(false);
-              if (currentView !== 'home') {
-                e.preventDefault();
-                navigateToHome('work');
-              }
-            }}
+            onClick={(e) => scrollToSection('work', e)}
           >
             <NavRollingText text="Our Work" />
           </a>
-          <a
-            href="#services"
-            className="nav-link"
-            onClick={(e) => {
-              setMobileMenu(false);
-              if (currentView !== 'home') {
-                e.preventDefault();
-                navigateToHome('services');
-              }
-            }}
+          {/* DEDICATED SERVICES MEGA MENU (Desktop) */}
+          <div
+            ref={servicesDropdownRef}
+            className={`nav-dropdown-wrapper services-mega-dropdown-wrapper ${servicesMegaMenuOpen ? 'open' : ''}`}
+            onMouseEnter={handleServicesMouseEnter}
+            onMouseLeave={handleServicesMouseLeave}
           >
-            <NavRollingText text="Services" />
-          </a>
+            <a
+              href="/services"
+              className={`nav-dropdown-trigger nav-link ${isServicesSuite ? 'active' : ''}`}
+              onClick={(e) => {
+                e.preventDefault();
+                setServicesMegaMenuOpen((prev) => !prev);
+              }}
+              aria-haspopup="true"
+              aria-expanded={servicesMegaMenuOpen}
+            >
+              <NavRollingText text="Services" />
+              <ChevronDown size={13} className="nav-chevron-icon" />
+            </a>
+
+            <ServicesMegaMenu
+              isOpen={servicesMegaMenuOpen}
+              currentPath={location.pathname}
+              onNavigateService={navigateToServiceDetail}
+              onNavigateAllServices={navigateToServices}
+              onClose={() => setServicesMegaMenuOpen(false)}
+              onMouseEnter={handleServicesMouseEnter}
+              onMouseLeave={handleServicesMouseLeave}
+            />
+          </div>
           <a
             href="/blog"
             className={`nav-link ${currentView === 'blog' || currentView === 'article' ? 'active' : ''}`}
@@ -3514,6 +3297,62 @@ function App() {
             </div>
           </div>
 
+          {/* Mobile Services Accordion in drawer */}
+          <div className="mobile-dropdown-group">
+            <button
+              type="button"
+              className={`mobile-dropdown-header ${isServicesSuite ? 'active' : ''}`}
+              onClick={() => setMobileServicesExpanded((prev) => !prev)}
+            >
+              <NavRollingText text="Services" />
+              <ChevronDown
+                size={16}
+                className={`nav-chevron-icon ${mobileServicesExpanded ? 'open' : ''}`}
+                style={{ transform: mobileServicesExpanded ? 'rotate(180deg)' : 'none', transition: 'transform 0.25s' }}
+              />
+            </button>
+            {mobileServicesExpanded && (
+              <div className="mobile-dropdown-items">
+                <a
+                  href="/services"
+                  className={`mobile-dropdown-sublink ${currentView === 'services-index' ? 'active' : ''}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setMobileMenu(false);
+                    navigateToServices();
+                  }}
+                  style={{ color: '#FF8C32', fontWeight: 700 }}
+                >
+                  <Sparkles size={14} />
+                  <span>All Services Overview</span>
+                </a>
+                {serviceCategories.map((cat) => (
+                  <div key={cat.id} style={{ margin: '6px 0 10px', paddingLeft: '8px' }}>
+                    <span style={{ fontSize: '10px', fontWeight: 800, color: cat.accent, letterSpacing: '0.1em', display: 'block', marginBottom: '6px' }}>
+                      {cat.title}
+                    </span>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', paddingLeft: '8px' }}>
+                      {cat.services.map((s) => (
+                        <a
+                          key={s.slug}
+                          href={`/services/${s.slug}`}
+                          className={`mobile-dropdown-sublink ${location.pathname === `/services/${s.slug}` ? 'active' : ''}`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setMobileMenu(false);
+                            navigateToServiceDetail(s.slug);
+                          }}
+                        >
+                          <span>{s.title}</span>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
           {/* Mobile Accordion in drawer */}
           <div className="mobile-dropdown-group">
             <button
@@ -3578,26 +3417,14 @@ function App() {
           <a
             href="#process"
             className="nav-link"
-            onClick={(e) => {
-              setMobileMenu(false);
-              if (currentView !== 'home') {
-                e.preventDefault();
-                navigateToHome('process');
-              }
-            }}
+            onClick={(e) => scrollToSection('process', e)}
           >
             <NavRollingText text="Process" />
           </a>
           <a
             href="#faqs"
             className="nav-link"
-            onClick={(e) => {
-              setMobileMenu(false);
-              if (currentView !== 'home') {
-                e.preventDefault();
-                navigateToHome('faqs');
-              }
-            }}
+            onClick={(e) => scrollToSection('faqs', e)}
           >
             <NavRollingText text="FAQs" />
           </a>
@@ -3686,6 +3513,26 @@ function App() {
       {currentView === 'about-book-project' && (
         <BookProjectView
           onNavigateHome={() => navigateToHome()}
+          onNavigateContact={navigateToContact}
+        />
+      )}
+
+      {currentView === 'services-index' && (
+        <ServicesIndexView
+          onNavigateHome={() => navigateToHome()}
+          onNavigateService={navigateToServiceDetail}
+          onNavigateBookProject={navigateToBookProject}
+          onNavigateContact={navigateToContact}
+        />
+      )}
+
+      {currentView === 'service-detail' && (
+        <ServiceDetailView
+          slug={articleSlug}
+          onNavigateHome={() => navigateToHome()}
+          onNavigateAllServices={navigateToServices}
+          onNavigateService={navigateToServiceDetail}
+          onNavigateBookProject={navigateToBookProject}
           onNavigateContact={navigateToContact}
         />
       )}
@@ -4551,7 +4398,7 @@ function App() {
               title="Rovaware Studio"
             >
               <div className="brand-icon-box">
-                <img src="/assets/rovaware_rw_arrow.png?v=9" alt="RovaWare Logo" className="brand-logo-img" />
+                <img src="/assets/rovaware_rw_arrow.png?v=11" alt="RovaWare Logo" className="brand-logo-img" />
               </div>
               <div className="brand-text-block">
                 <div className="brand-text">
@@ -4571,12 +4418,12 @@ function App() {
             <div className="footer-col">
               <h4>Explore</h4>
               <ul>
-                <li><a href="#work" onClick={(e) => { if (currentView !== 'home') { e.preventDefault(); navigateToHome('work'); } }}>Our Work</a></li>
+                <li><a href="#work" onClick={(e) => scrollToSection('work', e)}>Our Work</a></li>
                 <li><a href="/about/company" onClick={(e) => { e.preventDefault(); navigateToAboutCompany(); }}>About Company</a></li>
                 <li><a href="/about/contact" onClick={(e) => { e.preventDefault(); navigateToContact(); }}>Contact Studio</a></li>
                 <li><a href="/about/book-project" onClick={(e) => { e.preventDefault(); navigateToBookProject(); }}>Book a Project</a></li>
-                <li><a href="#process" onClick={(e) => { if (currentView !== 'home') { e.preventDefault(); navigateToHome('process'); } }}>Our Process</a></li>
-                <li><a href="#faqs" onClick={(e) => { if (currentView !== 'home') { e.preventDefault(); navigateToHome('faqs'); } }}>FAQs</a></li>
+                <li><a href="#process" onClick={(e) => scrollToSection('process', e)}>Our Process</a></li>
+                <li><a href="#faqs" onClick={(e) => scrollToSection('faqs', e)}>FAQs</a></li>
               </ul>
             </div>
 
@@ -4584,10 +4431,11 @@ function App() {
             <div className="footer-col">
               <h4>Services</h4>
               <ul>
-                <li><a href="#services" onClick={(e) => { if (currentView !== 'home') { e.preventDefault(); navigateToHome('services'); } }}>Web Development</a></li>
-                <li><a href="#services" onClick={(e) => { if (currentView !== 'home') { e.preventDefault(); navigateToHome('services'); } }}>UI/UX Design</a></li>
-                <li><a href="#services" onClick={(e) => { if (currentView !== 'home') { e.preventDefault(); navigateToHome('services'); } }}>AI Integration</a></li>
-                <li><a href="#services" onClick={(e) => { if (currentView !== 'home') { e.preventDefault(); navigateToHome('services'); } }}>E-Commerce</a></li>
+                <li><a href="/services/web-development" onClick={(e) => { e.preventDefault(); navigateToServiceDetail('web-development'); }}>Web Development</a></li>
+                <li><a href="/services/android-development" onClick={(e) => { e.preventDefault(); navigateToServiceDetail('android-development'); }}>Android Development</a></li>
+                <li><a href="/services/saas-scaling" onClick={(e) => { e.preventDefault(); navigateToServiceDetail('saas-scaling'); }}>SaaS Scaling</a></li>
+                <li><a href="/services/ui-ux-design" onClick={(e) => { e.preventDefault(); navigateToServiceDetail('ui-ux-design'); }}>UI/UX Design</a></li>
+                <li><a href="/services" onClick={(e) => { e.preventDefault(); navigateToServices(); }} style={{ color: '#FF8C32', fontWeight: 600 }}>All 9 Services →</a></li>
               </ul>
             </div>
 
@@ -4625,10 +4473,10 @@ function App() {
             <div className="footer-col">
               <h4>Legal</h4>
               <ul>
-                <li><a href="#/privacy" onClick={(e) => { e.preventDefault(); openLegalModal('privacy'); }}>Privacy Policy</a></li>
-                <li><a href="#/terms" onClick={(e) => { e.preventDefault(); openLegalModal('terms'); }}>Terms of Service</a></li>
-                <li><a href="#/cookies" onClick={(e) => { e.preventDefault(); openLegalModal('cookies'); }}>Cookie Policy</a></li>
-                <li><a href="#/refund" onClick={(e) => { e.preventDefault(); openLegalModal('refund'); }}>Refund Policy</a></li>
+                <li><a href="#privacy" onClick={(e) => { e.preventDefault(); openLegalModal('privacy'); }}>Privacy Policy</a></li>
+                <li><a href="#terms" onClick={(e) => { e.preventDefault(); openLegalModal('terms'); }}>Terms of Service</a></li>
+                <li><a href="#cookies" onClick={(e) => { e.preventDefault(); openLegalModal('cookies'); }}>Cookie Policy</a></li>
+                <li><a href="#refund" onClick={(e) => { e.preventDefault(); openLegalModal('refund'); }}>Refund Policy</a></li>
               </ul>
             </div>
           </div>
@@ -4637,13 +4485,13 @@ function App() {
         <div className="footer-bottom">
           <span>© 2026 ROVAWARE STUDIO. ALL RIGHTS RESERVED.</span>
           <div className="footer-bottom-legal-links">
-            <a href="#/privacy" onClick={(e) => { e.preventDefault(); openLegalModal('privacy'); }}>Privacy Policy</a>
+            <a href="#privacy" onClick={(e) => { e.preventDefault(); openLegalModal('privacy'); }}>Privacy Policy</a>
             <span>•</span>
-            <a href="#/terms" onClick={(e) => { e.preventDefault(); openLegalModal('terms'); }}>Terms of Service</a>
+            <a href="#terms" onClick={(e) => { e.preventDefault(); openLegalModal('terms'); }}>Terms of Service</a>
             <span>•</span>
-            <a href="#/cookies" onClick={(e) => { e.preventDefault(); openLegalModal('cookies'); }}>Cookie Policy</a>
+            <a href="#cookies" onClick={(e) => { e.preventDefault(); openLegalModal('cookies'); }}>Cookie Policy</a>
             <span>•</span>
-            <a href="#/refund" onClick={(e) => { e.preventDefault(); openLegalModal('refund'); }}>Refund Policy</a>
+            <a href="#refund" onClick={(e) => { e.preventDefault(); openLegalModal('refund'); }}>Refund Policy</a>
           </div>
         </div>
       </footer>
@@ -4774,36 +4622,19 @@ function App() {
         activeTab={legalModalTab || 'privacy'}
         onSelectTab={(tab) => {
           setLegalModalTab(tab);
-          window.location.hash = `#/${tab}`;
         }}
         onClose={closeLegalModal}
         onOpenDemo={() => setIsDemoModalOpen(true)}
       />
-
-      {/* 10-SECOND AUTOMATED EMAIL LEAD CAPTURE POPUP */}
-      <EmailLeadPopup
-        isOpen={showEmailPopup}
-        onClose={closeEmailPopup}
-        onSubmit={handleEmailPopupSubmit}
-        email={emailPopupInput}
-        setEmail={setEmailPopupInput}
-      />
-
-      {/* FLOATING EMAIL SUCCESS TOAST */}
-      <EmailToast
-        isOpen={emailToast.show}
-        email={emailToast.email}
-        onClose={() => setEmailToast({ show: false, email: '' })}
-      />
-
-      {/* FLOATING COOKIE CONSENT BANNER */}
-      <CookieConsentBanner
-        isOpen={showCookieBanner}
-        onAccept={handleAcceptCookies}
-        onOpenCookiePolicy={() => openLegalModal('cookies')}
-        onClose={() => setShowCookieBanner(false)}
-      />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
   );
 }
 

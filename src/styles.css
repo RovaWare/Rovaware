@@ -597,6 +597,156 @@ textarea:focus-visible {
   box-shadow: 0 0 5px rgba(255, 106, 0, 0.6);
 }
 
+/* ========================================================
+   EMERALD GREEN ROUTE THEME (Contact Page Suite)
+   Active ONLY after navigating to Contact page
+   ======================================================== */
+.navbar-emerald-green {
+  background: rgba(6, 11, 8, 0.88);
+  border-bottom: 1px solid rgba(52, 211, 153, 0.25);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.navbar-emerald-green .nav-links {
+  background: rgba(12, 20, 15, 0.85);
+  border: 1px solid rgba(52, 211, 153, 0.25);
+}
+
+.navbar-emerald-green .nav-links:hover {
+  border-color: rgba(52, 211, 153, 0.5);
+}
+
+.navbar-emerald-green .nav-link,
+.navbar-emerald-green .nav-dropdown-trigger {
+  color: #9FB4A8;
+}
+
+.navbar-emerald-green .nav-link:hover,
+.navbar-emerald-green .nav-dropdown-trigger:hover,
+.navbar-emerald-green .nav-link.active,
+.navbar-emerald-green .nav-dropdown-trigger.active {
+  color: #F2FBF6;
+}
+
+/* Emerald Green Rolling Text Hover */
+.navbar-emerald-green .nav-roll-secondary,
+.navbar-emerald-green .nav-link:hover .nav-roll-secondary,
+.navbar-emerald-green .nav-link:focus-visible .nav-roll-secondary,
+.navbar-emerald-green .nav-dropdown-trigger:hover .nav-roll-secondary,
+.navbar-emerald-green .nav-dropdown-trigger:focus-visible .nav-roll-secondary,
+.navbar-emerald-green .nav-dropdown-wrapper:hover .nav-dropdown-trigger .nav-roll-secondary,
+.navbar-emerald-green .mobile-dropdown-header:hover .nav-roll-secondary {
+  color: #34D399;
+  text-shadow: 0 0 10px rgba(52, 211, 153, 0.45);
+}
+
+.navbar-emerald-green .nav-link.active .nav-roll-secondary,
+.navbar-emerald-green .nav-dropdown-trigger.active .nav-roll-secondary {
+  color: #34D399;
+}
+
+/* Emerald Green Animated Underlines */
+.navbar-emerald-green .nav-link::after,
+.navbar-emerald-green .nav-dropdown-trigger::after {
+  background: linear-gradient(90deg, #10B981, #34D399);
+  box-shadow: 0 0 8px rgba(52, 211, 153, 0.6);
+}
+
+/* Emerald Green Chevron Icon */
+.navbar-emerald-green .nav-chevron-icon {
+  color: #9FB4A8;
+}
+
+.navbar-emerald-green .nav-dropdown-wrapper:hover .nav-chevron-icon,
+.navbar-emerald-green .nav-dropdown-wrapper.open .nav-chevron-icon,
+.navbar-emerald-green .nav-dropdown-trigger:hover .nav-chevron-icon {
+  color: #34D399;
+}
+
+/* Emerald Green Callback Nav Button */
+.navbar-emerald-green .btn-callback-nav {
+  background: rgba(14, 24, 18, 0.7);
+  border: 1px solid rgba(52, 211, 153, 0.35);
+  color: #6EE7B7;
+}
+
+.navbar-emerald-green .btn-callback-nav svg {
+  color: #34D399;
+}
+
+.navbar-emerald-green .btn-callback-nav:hover {
+  background: rgba(52, 211, 153, 0.18);
+  border-color: #34D399;
+  color: #FFFFFF;
+  box-shadow: 0 0 15px rgba(52, 211, 153, 0.45);
+}
+
+.navbar-emerald-green .btn-callback-nav:hover svg {
+  color: #FFFFFF;
+}
+
+/* Emerald Green Nav CTA Button */
+.navbar-emerald-green .btn-nav-cta {
+  background: linear-gradient(135deg, #059669 0%, #34D399 100%);
+  border: 1px solid rgba(52, 211, 153, 0.5);
+  box-shadow: 0 0 20px rgba(52, 211, 153, 0.35);
+  color: #04120B !important;
+  font-weight: 700;
+}
+
+.navbar-emerald-green .btn-nav-cta svg {
+  color: #04120B !important;
+}
+
+.navbar-emerald-green .btn-nav-cta:hover {
+  background: linear-gradient(135deg, #10B981 0%, #6EE7B7 100%);
+  box-shadow: 0 0 28px rgba(52, 211, 153, 0.65);
+  transform: translateY(-2px);
+}
+
+/* Emerald Green Brand Accent & Pulse */
+.navbar-emerald-green .brand-text-accent {
+  background: linear-gradient(135deg, #10B981 0%, #34D399 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 10px rgba(52, 211, 153, 0.45));
+}
+
+.navbar-emerald-green .pulse-dot {
+  background-color: #34D399;
+  box-shadow: 0 0 5px rgba(52, 211, 153, 0.6);
+}
+
+/* Dropdown Menu inside emerald-green navbar */
+.navbar-emerald-green .nav-dropdown-menu {
+  background: rgba(8, 14, 10, 0.96);
+  border: 1px solid rgba(52, 211, 153, 0.35);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 30px rgba(52, 211, 153, 0.2);
+}
+
+.navbar-emerald-green .nav-dropdown-item:hover {
+  background: rgba(52, 211, 153, 0.15);
+  border-color: rgba(52, 211, 153, 0.35);
+}
+
+.navbar-emerald-green .nav-dropdown-item.active {
+  background: rgba(52, 211, 153, 0.2);
+  border-color: rgba(52, 211, 153, 0.45);
+}
+
+.navbar-emerald-green .dropdown-item-icon {
+  background: rgba(52, 211, 153, 0.15);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  color: #34D399;
+}
+
+.navbar-emerald-green .nav-dropdown-item:hover .dropdown-item-icon {
+  background: linear-gradient(135deg, #059669 0%, #34D399 100%);
+  color: #FFFFFF;
+  box-shadow: 0 0 14px rgba(52, 211, 153, 0.5);
+}
+
 /* Light mode support */
 html[data-theme="light"] .nav-roll-secondary,
 html[data-theme="light"] .nav-link:hover .nav-roll-secondary,
@@ -9751,6 +9901,18 @@ html[data-theme="light"] .browser-address-bar .browser-visit-btn {
   background: rgba(124, 58, 237, 0.3) !important;
   color: #ffffff !important;
   border-color: rgba(124, 58, 237, 0.5) !important;
+}
+
+/* ============================================================
+   GLOBAL SUPPRESSION: EMAIL POPUP, COOKIE BANNER, EMAIL TOAST
+   ============================================================ */
+.email-popup-overlay,
+.cookie-banner-wrap,
+.email-toast-wrap {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
 
 /* ============================================================

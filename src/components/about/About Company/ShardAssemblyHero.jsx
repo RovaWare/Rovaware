@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 import * as THREE from 'three';
 import { ChevronRight, ArrowRight, ArrowUpRight, Rocket } from 'lucide-react';
-import '../../styles/shard-assembly.css';
+import '../../../styles/shard-assembly.css';
 
 /**
  * ROVAWARE — 3D Shard Assembly & Brand Reveal Hero
