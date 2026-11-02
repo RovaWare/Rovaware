@@ -68,11 +68,17 @@ import {
   Activity,
   Server,
   Cloud,
-  GitBranch
+  GitBranch,
+  Building2,
+  CalendarCheck
 } from 'lucide-react';
 import './styles.css';
 import BlogView from './components/blog/BlogView';
 import ArticleDetailView from './components/blog/ArticleDetailView';
+import AboutCompanyView from './components/about/AboutCompanyView';
+import ContactView from './components/about/ContactView';
+import BookProjectView from './components/about/BookProjectView';
+import BrandReveal from './components/brand/BrandReveal';
 
 // Official Google Form link for Book A Demo
 const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/15zbRoUfGocjXiBKCLB7lj5UWeXUXgKuY8sbix_W0Stw/viewform';
@@ -2857,10 +2863,39 @@ function App() {
   });
   const [isCallbackModalOpen, setIsCallbackModalOpen] = useState(false);
 
-  // Routing State for Blog & Article Pages
+  // Routing State for Blog, Article & Dedicated About Pages
   const getInitialRoute = () => {
     const path = window.location.pathname;
     const hash = window.location.hash || '';
+
+    // Brand Reveal route
+    if (path === '/reveal' || path === '/reveal/') {
+      return { view: 'reveal', slug: null };
+    }
+    if (hash === '#/reveal' || hash === '#reveal') {
+      return { view: 'reveal', slug: null };
+    }
+
+    // Dedicated About routes
+    if (path === '/about/company' || path === '/about/company/') {
+      return { view: 'about-company', slug: null };
+    }
+    if (path === '/about/contact' || path === '/about/contact/') {
+      return { view: 'about-contact', slug: null };
+    }
+    if (path === '/about/book-project' || path === '/about/book-project/') {
+      return { view: 'about-book-project', slug: null };
+    }
+
+    if (hash === '#/about/company' || hash === '#about/company') {
+      return { view: 'about-company', slug: null };
+    }
+    if (hash === '#/about/contact' || hash === '#about/contact') {
+      return { view: 'about-contact', slug: null };
+    }
+    if (hash === '#/about/book-project' || hash === '#about/book-project') {
+      return { view: 'about-book-project', slug: null };
+    }
 
     if (path.startsWith('/blog/')) {
       const slug = path.replace(/^\/blog\//, '').replace(/\/$/, '');
@@ -2886,6 +2921,18 @@ function App() {
   const initialRoute = getInitialRoute();
   const [currentView, setCurrentView] = useState(initialRoute.view);
   const [articleSlug, setArticleSlug] = useState(initialRoute.slug);
+  const [showBrandReveal, setShowBrandReveal] = useState(false);
+  const [aboutDropdownOpen, setAboutDropdownOpen] = useState(false);
+  const [mobileAboutExpanded, setMobileAboutExpanded] = useState(false);
+  const aboutDropdownRef = useRef(null);
+
+  const navigateToReveal = () => {
+    window.history.pushState(null, '', '/reveal');
+    setCurrentView('reveal');
+    setArticleSlug(null);
+    setShowBrandReveal(true);
+    document.title = 'ROVAWARE — Brand Reveal Animation';
+  };
 
   const navigateToBlog = () => {
     window.history.pushState(null, '', '/blog');
@@ -2900,6 +2947,30 @@ function App() {
     setCurrentView('article');
     setArticleSlug(slug);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const navigateToAboutCompany = () => {
+    window.history.pushState(null, '', '/about/company');
+    setCurrentView('about-company');
+    setArticleSlug(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.title = 'About ROVAWARE — Company, Mission & Engineering Standards';
+  };
+
+  const navigateToContact = () => {
+    window.history.pushState(null, '', '/about/contact');
+    setCurrentView('about-contact');
+    setArticleSlug(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.title = 'Contact ROVAWARE — Direct Technical Inquiry';
+  };
+
+  const navigateToBookProject = () => {
+    window.history.pushState(null, '', '/about/book-project');
+    setCurrentView('about-book-project');
+    setArticleSlug(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.title = 'Book a Project — ROVAWARE Scope & Architecture Scoping';
   };
 
   const navigateToHome = (anchor = '') => {
@@ -3090,7 +3161,20 @@ function App() {
 
     const handleHash = () => {
       const h = (window.location.hash || '').toLowerCase();
-      if (h.startsWith('#/blog/') || h.startsWith('#blog/')) {
+      if (h.startsWith('#/reveal') || h === '#reveal') {
+        setCurrentView('reveal');
+        setArticleSlug(null);
+        setShowBrandReveal(true);
+      } else if (h.startsWith('#/about/company') || h.startsWith('#about/company')) {
+        setCurrentView('about-company');
+        setArticleSlug(null);
+      } else if (h.startsWith('#/about/contact') || h.startsWith('#about/contact')) {
+        setCurrentView('about-contact');
+        setArticleSlug(null);
+      } else if (h.startsWith('#/about/book-project') || h.startsWith('#about/book-project')) {
+        setCurrentView('about-book-project');
+        setArticleSlug(null);
+      } else if (h.startsWith('#/blog/') || h.startsWith('#blog/')) {
         const slug = h.replace(/^#(|\/)?blog\//, '').replace(/\/$/, '');
         if (slug) {
           setCurrentView('article');
@@ -3113,12 +3197,20 @@ function App() {
       }
     };
 
+    const handleClickOutside = (e) => {
+      if (aboutDropdownRef.current && !aboutDropdownRef.current.contains(e.target)) {
+        setAboutDropdownOpen(false);
+      }
+    };
+
     handleHash();
     window.addEventListener('popstate', handlePopState);
     window.addEventListener('hashchange', handleHash);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
       window.removeEventListener('popstate', handlePopState);
       window.removeEventListener('hashchange', handleHash);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
@@ -3317,19 +3409,155 @@ function App() {
           >
             Blog
           </a>
-          <a
-            href="#about"
-            className="nav-link"
-            onClick={(e) => {
-              setMobileMenu(false);
-              if (currentView !== 'home') {
-                e.preventDefault();
-                navigateToHome('about');
-              }
-            }}
+          {/* DEDICATED ABOUT DROPDOWN (Desktop + Mobile) */}
+          <div
+            ref={aboutDropdownRef}
+            className={`nav-dropdown-wrapper ${aboutDropdownOpen ? 'open' : ''}`}
+            onMouseEnter={() => setAboutDropdownOpen(true)}
+            onMouseLeave={() => setAboutDropdownOpen(false)}
           >
-            About
-          </a>
+            <button
+              type="button"
+              className={`nav-dropdown-trigger ${
+                currentView === 'about-company' ||
+                currentView === 'about-contact' ||
+                currentView === 'about-book-project'
+                  ? 'active'
+                  : ''
+              }`}
+              onClick={(e) => {
+                e.preventDefault();
+                setAboutDropdownOpen((prev) => !prev);
+              }}
+              aria-haspopup="true"
+              aria-expanded={aboutDropdownOpen}
+            >
+              <span>About</span>
+              <ChevronDown size={13} className="nav-chevron-icon" />
+            </button>
+
+            <div className="nav-dropdown-menu">
+              <a
+                href="/about/company"
+                className={`nav-dropdown-item ${currentView === 'about-company' ? 'active' : ''}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setAboutDropdownOpen(false);
+                  setMobileMenu(false);
+                  navigateToAboutCompany();
+                }}
+              >
+                <div className="dropdown-item-icon">
+                  <Building2 size={16} />
+                </div>
+                <div className="dropdown-item-text">
+                  <span className="dropdown-item-title">About Company</span>
+                  <span className="dropdown-item-desc">Who we are, mission & values</span>
+                </div>
+              </a>
+
+              <a
+                href="/about/contact"
+                className={`nav-dropdown-item ${currentView === 'about-contact' ? 'active' : ''}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setAboutDropdownOpen(false);
+                  setMobileMenu(false);
+                  navigateToContact();
+                }}
+              >
+                <div className="dropdown-item-icon">
+                  <Mail size={16} />
+                </div>
+                <div className="dropdown-item-text">
+                  <span className="dropdown-item-title">Contact</span>
+                  <span className="dropdown-item-desc">Direct studio inbox & verified inquiries</span>
+                </div>
+              </a>
+
+              <a
+                href="/about/book-project"
+                className={`nav-dropdown-item ${currentView === 'about-book-project' ? 'active' : ''}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setAboutDropdownOpen(false);
+                  setMobileMenu(false);
+                  navigateToBookProject();
+                }}
+              >
+                <div className="dropdown-item-icon">
+                  <CalendarCheck size={16} />
+                </div>
+                <div className="dropdown-item-text">
+                  <span className="dropdown-item-title">Book a Project</span>
+                  <span className="dropdown-item-desc">Scope, budget & timeline onboarding</span>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          {/* Mobile Accordion in drawer */}
+          <div className="mobile-dropdown-group">
+            <button
+              type="button"
+              className={`mobile-dropdown-header ${
+                currentView === 'about-company' ||
+                currentView === 'about-contact' ||
+                currentView === 'about-book-project'
+                  ? 'active'
+                  : ''
+              }`}
+              onClick={() => setMobileAboutExpanded((prev) => !prev)}
+            >
+              <span>About</span>
+              <ChevronDown
+                size={16}
+                className={`nav-chevron-icon ${mobileAboutExpanded ? 'open' : ''}`}
+                style={{ transform: mobileAboutExpanded ? 'rotate(180deg)' : 'none', transition: 'transform 0.25s' }}
+              />
+            </button>
+            {mobileAboutExpanded && (
+              <div className="mobile-dropdown-items">
+                <a
+                  href="/about/company"
+                  className={`mobile-dropdown-sublink ${currentView === 'about-company' ? 'active' : ''}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setMobileMenu(false);
+                    navigateToAboutCompany();
+                  }}
+                >
+                  <Building2 size={15} />
+                  <span>About Company</span>
+                </a>
+                <a
+                  href="/about/contact"
+                  className={`mobile-dropdown-sublink ${currentView === 'about-contact' ? 'active' : ''}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setMobileMenu(false);
+                    navigateToContact();
+                  }}
+                >
+                  <Mail size={15} />
+                  <span>Contact</span>
+                </a>
+                <a
+                  href="/about/book-project"
+                  className={`mobile-dropdown-sublink ${currentView === 'about-book-project' ? 'active' : ''}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setMobileMenu(false);
+                    navigateToBookProject();
+                  }}
+                >
+                  <CalendarCheck size={15} />
+                  <span>Book a Project</span>
+                </a>
+              </div>
+            )}
+          </div>
+
           <a
             href="#process"
             className="nav-link"
@@ -3356,22 +3584,20 @@ function App() {
           >
             FAQs
           </a>
-          <a
-            href="#contact"
-            className="nav-link"
-            onClick={(e) => {
-              setMobileMenu(false);
-              if (currentView !== 'home') {
-                e.preventDefault();
-                navigateToHome('contact');
-              }
-            }}
-          >
-            Contact
-          </a>
         </nav>
 
         <div className="nav-right">
+          {/* Brand Particle Reveal Trigger */}
+          <button
+            type="button"
+            className="btn-reveal-nav"
+            onClick={() => setShowBrandReveal(true)}
+            title="Experience ROVAWARE Particle Brand Reveal"
+          >
+            <Sparkles size={13} />
+            <span>Brand Reveal</span>
+          </button>
+
           {/* Theme Toggle Button */}
           <button
             type="button"
@@ -3413,6 +3639,22 @@ function App() {
         </div>
       </header>
 
+      {/* Standalone Brand Particle Reveal View or Modal Overlay */}
+      {(currentView === 'reveal' || showBrandReveal) && (
+        <BrandReveal
+          standalone={currentView === 'reveal'}
+          onClose={() => {
+            setShowBrandReveal(false);
+            if (currentView === 'reveal') {
+              navigateToHome();
+            }
+          }}
+          onComplete={() => {
+            // Reveal animation completed
+          }}
+        />
+      )}
+
       {currentView === 'blog' && (
         <BlogView
           onSelectArticle={navigateToArticle}
@@ -3429,6 +3671,30 @@ function App() {
         />
       )}
 
+      {currentView === 'about-company' && (
+        <AboutCompanyView
+          onNavigateHome={() => navigateToHome()}
+          onNavigateContact={navigateToContact}
+          onNavigateBookProject={navigateToBookProject}
+          onNavigateBlog={navigateToBlog}
+          onNavigateWork={() => navigateToHome('work')}
+        />
+      )}
+
+      {currentView === 'about-contact' && (
+        <ContactView
+          onNavigateHome={() => navigateToHome()}
+          onNavigateBookProject={navigateToBookProject}
+        />
+      )}
+
+      {currentView === 'about-book-project' && (
+        <BookProjectView
+          onNavigateHome={() => navigateToHome()}
+          onNavigateContact={navigateToContact}
+        />
+      )}
+
       {currentView === 'home' && (
         <main id="top">
           {/* CINEMATIC HERO WITH FULL BACKGROUND VIDEO */}
@@ -3440,9 +3706,9 @@ function App() {
                 className="hero-bg-video"
                 autoPlay
                 loop
-                muted={isMuted}
+                muted
                 playsInline
-                poster="/assets/workspace.jpg"
+                preload="auto"
               >
                 <source src="/assets/hero.mp4" type="video/mp4" />
               </video>
@@ -3481,15 +3747,6 @@ function App() {
                     </span>
                     <span>See What We Build</span>
                   </a>
-                  <button
-                    type="button"
-                    className="hero-sound-btn"
-                    onClick={toggleMute}
-                    aria-label={isMuted ? "Unmute hero video audio" : "Mute hero video audio"}
-                  >
-                    {isMuted ? <VolumeX size={15} /> : <Volume2 size={15} />}
-                    <span>{isMuted ? "Sound Off" : "Sound On"}</span>
-                  </button>
                 </div>
               </div>
             </div>
@@ -4320,9 +4577,12 @@ function App() {
               <h4>Explore</h4>
               <ul>
                 <li><a href="#work" onClick={(e) => { if (currentView !== 'home') { e.preventDefault(); navigateToHome('work'); } }}>Our Work</a></li>
-                <li><a href="#about" onClick={(e) => { if (currentView !== 'home') { e.preventDefault(); navigateToHome('about'); } }}>About Us</a></li>
+                <li><a href="/about/company" onClick={(e) => { e.preventDefault(); navigateToAboutCompany(); }}>About Company</a></li>
+                <li><a href="/about/contact" onClick={(e) => { e.preventDefault(); navigateToContact(); }}>Contact Studio</a></li>
+                <li><a href="/about/book-project" onClick={(e) => { e.preventDefault(); navigateToBookProject(); }}>Book a Project</a></li>
                 <li><a href="#process" onClick={(e) => { if (currentView !== 'home') { e.preventDefault(); navigateToHome('process'); } }}>Our Process</a></li>
                 <li><a href="#faqs" onClick={(e) => { if (currentView !== 'home') { e.preventDefault(); navigateToHome('faqs'); } }}>FAQs</a></li>
+                <li><a href="/reveal" onClick={(e) => { e.preventDefault(); navigateToReveal(); }}>Brand Particle Reveal</a></li>
               </ul>
             </div>
 
@@ -4352,7 +4612,8 @@ function App() {
             <div className="footer-col">
               <h4>Get in Touch</h4>
               <ul>
-                <li><a href="#contact" onClick={(e) => { if (currentView !== 'home') { e.preventDefault(); navigateToHome('contact'); } }}>Contact Us</a></li>
+                <li><a href="/about/contact" onClick={(e) => { e.preventDefault(); navigateToContact(); }}>Contact Desk</a></li>
+                <li><a href="/about/book-project" onClick={(e) => { e.preventDefault(); navigateToBookProject(); }}>Book a Project</a></li>
                 <li>
                   <button
                     type="button"

@@ -1,6 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-# WebForge — Premium Freelance Web Development Platform
+# ROVAWARE — Premium Digital & AI Engineering Platform
 
 A complete responsive React/Vite marketing site using the supplied 3D hero video and visual assets.
 

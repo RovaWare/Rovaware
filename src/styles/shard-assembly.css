@@ -1,0 +1,503 @@
+/* ==========================================================================
+   ROVAWARE — 3D SHARD ASSEMBLY HERO (CLEAN CINEMATIC BRAND REVEAL)
+   Target Page: /about/company
+   Style: Inspired by DIGITECHIE typography reveal
+   Palette: Pure Black (#050505), Premium Orange Gradient (#FF6A00 -> #FF8C32),
+            Metallic Illumination, Subtle Ambient Glow
+   ========================================================================== */
+
+/* Outer hero container (10-Second Cinematic Hero) */
+.shard-assembly-runway {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 640px;
+  background-color: #050505;
+  overflow: hidden;
+}
+
+/* Viewport (Pure black background, no rectangular panels) */
+.shard-assembly-sticky-viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #050505;
+  color: #FFFFFF;
+  z-index: 20;
+}
+
+/* Three.js WebGL Canvas Layer */
+.shard-three-canvas-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.shard-three-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Subtle, Controlled Central Radial Warmth (Clean Black Space) */
+.shard-cosmic-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(800px, 85vw);
+  height: min(400px, 50vh);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 106, 0, 0.1) 0%,
+    rgba(255, 140, 50, 0.025) 55%,
+    transparent 75%
+  );
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Soft Vignette (Blends into pure black #050505) */
+.shard-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 90% 80% at 50% 50%, transparent 50%, rgba(5, 5, 5, 0.85) 100%);
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* UI Content Overlay */
+.shard-ui-overlay {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 40px 5vw 36px;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+/* Top Telemetry & Breadcrumbs */
+.shard-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  pointer-events: auto;
+}
+
+.shard-breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #A1A1AA;
+}
+
+.shard-breadcrumb-btn {
+  background: none;
+  border: none;
+  color: #A1A1AA;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.shard-breadcrumb-btn:hover {
+  color: #FF8C32;
+}
+
+.shard-breadcrumb-active {
+  color: #FF6A00;
+  font-weight: 600;
+}
+
+/* Telemetry Badge */
+.shard-assembly-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: rgba(18, 18, 18, 0.55);
+  border: 1px solid rgba(255, 106, 0, 0.25);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #FF8C32;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.shard-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #FF6A00;
+  box-shadow: 0 0 10px #FF6A00;
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+/* Center Reveal Layer (Directly on pure black, NO rectangular panel) */
+.shard-center-reveal-layer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 1100px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+/* Wordmark Container (100% transparent, NO borders, NO panels, NO cards) */
+.shard-wordmark-container {
+  position: relative;
+  display: inline-block;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 8px 16px;
+  overflow: visible;
+}
+
+/* Premium Orange Gradient Typography (ROVAWARE) */
+.shard-wordmark-title {
+  font-size: clamp(52px, 9.5vw, 120px);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  margin: 0;
+  text-transform: uppercase;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #FF6A00 0%, #FF8C32 50%, #FFA855 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 24px rgba(255, 106, 0, 0.45)) drop-shadow(0 0 50px rgba(255, 140, 50, 0.2));
+  opacity: 0;
+  transform: scale(0.98);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.shard-wordmark-title.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Metallic Light Sweep Beam (8s - 10s) */
+.shard-light-sweep-container {
+  position: absolute;
+  top: -10%;
+  left: 0;
+  width: 100%;
+  height: 120%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.shard-light-sweep {
+  position: absolute;
+  top: 0;
+  width: 130px;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.45) 50%,
+    transparent 100%
+  );
+  transform: skewX(-25deg);
+  filter: blur(12px);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.shard-light-sweep.active {
+  opacity: 1;
+}
+
+/* Thin Orange Underline below Wordmark */
+.shard-laser-line-wrapper {
+  position: relative;
+  width: min(560px, 82vw);
+  height: 2px;
+  margin-top: 24px;
+  overflow: visible;
+}
+
+.shard-laser-line {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, #FF6A00 25%, #FF8C32 50%, #FF6A00 75%, transparent 100%);
+  box-shadow: 0 0 16px rgba(255, 106, 0, 0.8), 0 0 32px rgba(255, 140, 50, 0.4);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.shard-laser-line.illuminated {
+  transform: scaleX(1);
+}
+
+/* Tagline below Underline (Clean, Elegant, Tracked Typography) */
+.shard-tagline-box {
+  margin-top: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.shard-tagline-box.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.shard-tagline {
+  font-size: clamp(12px, 1.8vw, 15px);
+  font-weight: 600;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: #D4D4D8;
+  margin: 0;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.9);
+}
+
+/* Action Buttons (Generous spacing below tagline) */
+.shard-action-row {
+  margin-top: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.shard-action-row.revealed {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.shard-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+}
+
+.shard-action-btn.primary {
+  background: linear-gradient(135deg, #CC5500 0%, #FF6A00 50%, #FF8C32 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+  box-shadow: 0 4px 20px rgba(255, 106, 0, 0.35);
+}
+
+.shard-action-btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(255, 106, 0, 0.65);
+}
+
+.shard-action-btn.ghost {
+  background: rgba(26, 26, 26, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #D4D4D8;
+  backdrop-filter: blur(10px);
+}
+
+.shard-action-btn.ghost:hover {
+  background: rgba(255, 106, 0, 0.15);
+  border-color: rgba(255, 106, 0, 0.5);
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(255, 106, 0, 0.25);
+}
+
+/* Bottom Progress & Replay Controls */
+.shard-bottom-bar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  pointer-events: auto;
+}
+
+.shard-scroll-indicator {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(17, 17, 17, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 16px;
+  border-radius: 999px;
+  backdrop-filter: blur(10px);
+}
+
+.shard-mouse-icon {
+  width: 16px;
+  height: 24px;
+  border: 1.5px solid rgba(255, 106, 0, 0.6);
+  border-radius: 12px;
+  position: relative;
+}
+
+.shard-mouse-wheel {
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 5px;
+  background-color: #FF6A00;
+  border-radius: 2px;
+  animation: mouseWheel 1.5s infinite ease-out;
+}
+
+.shard-scroll-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #A1A1AA;
+}
+
+/* Scroll Progress Bar */
+.shard-progress-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.shard-progress-bar-bg {
+  width: 140px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.shard-progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #CC5500, #FF6A00, #FF8C32);
+  width: 0%;
+  transition: width 0.1s linear;
+}
+
+.shard-progress-percent {
+  font-size: 11px;
+  font-family: monospace;
+  font-weight: 700;
+  color: #FF8C32;
+  min-width: 32px;
+}
+
+/* Replay Pill Button */
+.shard-replay-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 106, 0, 0.14);
+  border: 1px solid rgba(255, 106, 0, 0.45);
+  color: #FF8C32;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(8px);
+}
+
+.shard-replay-pill-btn:hover {
+  background: rgba(255, 106, 0, 0.28);
+  border-color: #FF6A00;
+  color: #FFFFFF;
+  transform: translateY(-1px);
+  box-shadow: 0 0 16px rgba(255, 106, 0, 0.4);
+}
+
+@keyframes pulseDot {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.85);
+  }
+}
+
+@keyframes mouseWheel {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, 8px);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .shard-ui-overlay {
+    padding: 24px 4vw 20px;
+  }
+  .shard-top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .shard-action-row {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+  .shard-action-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .shard-bottom-bar {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+}

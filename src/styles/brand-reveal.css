@@ -1,0 +1,503 @@
+/* ==========================================================================
+   ROVAWARE — PREMIUM CINEMATIC BRAND REVEAL ANIMATION (PARTICLE ENGINE)
+   Theme: Pure Black (#050505) & Glowing Orange (#FF6A00 / #FF8C32)
+   ========================================================================== */
+
+.brand-reveal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background-color: #050505;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  opacity: 1;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.brand-reveal-overlay.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Background Atmosphere & Ambient Light Rays */
+.brand-reveal-canvas-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.brand-reveal-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+
+/* Volumetric Ambient Glow Behind Text */
+.brand-reveal-ambient-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(800px, 90vw);
+  height: min(400px, 60vh);
+  background: radial-gradient(ellipse at center, rgba(255, 106, 0, 0.18) 0%, rgba(255, 140, 50, 0.08) 45%, transparent 75%);
+  filter: blur(80px);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.8s ease;
+  z-index: 1;
+}
+
+.brand-reveal-ambient-glow.active {
+  opacity: 1;
+}
+
+/* Atmospheric Light Rays */
+.brand-reveal-light-rays {
+  position: absolute;
+  inset: 0;
+  background: 
+    conic-gradient(
+      from 0deg at 50% 50%,
+      transparent 0deg,
+      rgba(255, 106, 0, 0.04) 20deg,
+      transparent 40deg,
+      rgba(255, 140, 50, 0.03) 90deg,
+      transparent 120deg,
+      rgba(255, 106, 0, 0.04) 180deg,
+      transparent 210deg,
+      rgba(255, 140, 50, 0.03) 270deg,
+      transparent 320deg,
+      transparent 360deg
+    );
+  mix-blend-mode: screen;
+  pointer-events: none;
+  opacity: 0;
+  animation: rotateLightRays 60s linear infinite;
+  transition: opacity 2s ease;
+  z-index: 1;
+}
+
+.brand-reveal-light-rays.active {
+  opacity: 1;
+}
+
+@keyframes rotateLightRays {
+  from {
+    transform: rotate(0deg) scale(1.5);
+  }
+  to {
+    transform: rotate(360deg) scale(1.5);
+  }
+}
+
+/* Energy Flash Overlay */
+.brand-reveal-flash-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.9) 0%, rgba(255, 140, 50, 0.7) 40%, rgba(255, 106, 0, 0.3) 70%, transparent 100%);
+  pointer-events: none;
+  opacity: 0;
+  z-index: 10;
+  transition: opacity 0.05s ease-out;
+}
+
+/* Subtle Film Grain Noise Overlay */
+.brand-reveal-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  z-index: 2;
+}
+
+/* Typography Overlay Layer */
+.brand-reveal-typography-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Revealed Brand Header Box */
+.brand-reveal-wordmark-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  padding: 0 24px;
+}
+
+/* Illuminated Laser Underline */
+.brand-reveal-laser-line-wrapper {
+  position: relative;
+  width: min(680px, 86vw);
+  height: 2px;
+  margin-top: 14px;
+  overflow: visible;
+}
+
+.brand-reveal-laser-line {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, #FF6A00 20%, #FF8C32 50%, #FF6A00 80%, transparent 100%);
+  box-shadow: 0 0 16px rgba(255, 106, 0, 0.8), 0 0 32px rgba(255, 140, 50, 0.4);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.brand-reveal-laser-line.illuminated {
+  transform: scaleX(1);
+}
+
+/* Photon Glow Head at Center of Underline */
+.brand-reveal-laser-photon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background: #FFFFFF;
+  border-radius: 50%;
+  box-shadow: 0 0 20px #FFFFFF, 0 0 40px #FF8C32, 0 0 60px #FF6A00;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.brand-reveal-laser-line.illuminated .brand-reveal-laser-photon {
+  opacity: 1;
+}
+
+/* Tagline Container */
+.brand-reveal-tagline-box {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.brand-reveal-tagline-box.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.brand-reveal-tagline-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #FF6A00;
+  box-shadow: 0 0 10px #FF6A00, 0 0 20px rgba(255, 106, 0, 0.6);
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 1;
+  }
+}
+
+.brand-reveal-tagline {
+  font-size: clamp(11px, 2vw, 15px);
+  font-weight: 600;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: #D4D4D8;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+  margin: 0;
+  transition: letter-spacing 1.4s ease-out;
+}
+
+.brand-reveal-tagline-box.revealed .brand-reveal-tagline {
+  letter-spacing: 0.45em;
+  color: #FFFFFF;
+}
+
+/* Cinematic Telemetry HUD Accents */
+.brand-reveal-hud-header {
+  position: absolute;
+  top: 36px;
+  left: 40px;
+  right: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 20;
+  pointer-events: auto;
+}
+
+.brand-reveal-hud-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-reveal-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(26, 26, 26, 0.7);
+  border: 1px solid rgba(255, 106, 0, 0.25);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #FF8C32;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.brand-reveal-status-indicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #FF6A00;
+  box-shadow: 0 0 8px #FF6A00;
+}
+
+.brand-reveal-particle-count {
+  font-size: 11px;
+  font-weight: 500;
+  color: #A1A1AA;
+  letter-spacing: 0.08em;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* HUD Controls & Actions */
+.brand-reveal-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-reveal-btn {
+  background: rgba(26, 26, 26, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  backdrop-filter: blur(12px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+}
+
+.brand-reveal-btn:hover {
+  background: rgba(255, 106, 0, 0.15);
+  border-color: rgba(255, 106, 0, 0.5);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+  box-shadow: 0 0 20px rgba(255, 106, 0, 0.25);
+}
+
+.brand-reveal-btn.primary {
+  background: linear-gradient(135deg, #CC5500 0%, #FF6A00 50%, #FF8C32 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+  box-shadow: 0 4px 20px rgba(255, 106, 0, 0.35);
+}
+
+.brand-reveal-btn.primary:hover {
+  box-shadow: 0 0 28px rgba(255, 106, 0, 0.6);
+  transform: translateY(-2px);
+}
+
+.brand-reveal-btn-icon {
+  width: 14px;
+  height: 14px;
+}
+
+/* Bottom Hint / Prompt */
+.brand-reveal-footer-hint {
+  position: absolute;
+  bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 20;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.8s ease;
+  pointer-events: auto;
+}
+
+.brand-reveal-footer-hint.active {
+  opacity: 0.8;
+  transform: translateY(0);
+}
+
+.brand-reveal-footer-hint:hover {
+  opacity: 1;
+}
+
+.brand-reveal-hint-text {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #A1A1AA;
+}
+
+.brand-reveal-mouse-icon {
+  width: 16px;
+  height: 24px;
+  border: 1.5px solid rgba(255, 106, 0, 0.5);
+  border-radius: 12px;
+  position: relative;
+}
+
+.brand-reveal-mouse-dot {
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 5px;
+  background-color: #FF6A00;
+  border-radius: 2px;
+  animation: mouseWheel 1.5s infinite ease-out;
+}
+
+@keyframes mouseWheel {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, 8px);
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .brand-reveal-light-rays {
+    animation: none;
+  }
+  .brand-reveal-tagline-dot {
+    animation: none;
+  }
+  .brand-reveal-laser-line {
+    transition: none;
+    transform: scaleX(1);
+  }
+  .brand-reveal-tagline-box {
+    transition: none;
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile & Tablet Adjustments */
+@media (max-width: 768px) {
+  .brand-reveal-hud-header {
+    top: 20px;
+    left: 20px;
+    right: 20px;
+  }
+  .brand-reveal-particle-count {
+    display: none;
+  }
+  .brand-reveal-btn {
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+  .brand-reveal-footer-hint {
+    bottom: 20px;
+  }
+  .brand-reveal-tagline {
+    letter-spacing: 0.25em !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   NAVBAR BRAND REVEAL TRIGGER BUTTON
+   -------------------------------------------------------------------------- */
+.btn-reveal-nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: 38px;
+  min-height: 38px;
+  padding: 0 14px;
+  box-sizing: border-box;
+  border-radius: 999px;
+  background: rgba(255, 106, 0, 0.08);
+  border: 1px solid rgba(255, 106, 0, 0.3);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #FFFFFF;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-reveal-nav svg {
+  color: #FF8C32;
+  transition: transform 0.25s ease;
+}
+
+.btn-reveal-nav:hover {
+  background: rgba(255, 106, 0, 0.18);
+  border-color: rgba(255, 106, 0, 0.6);
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(255, 106, 0, 0.35);
+}
+
+.btn-reveal-nav:hover svg {
+  transform: rotate(20deg) scale(1.15);
+  color: #FFA459;
+}
+
+@media (max-width: 768px) {
+  .btn-reveal-nav span {
+    display: none;
+  }
+  .btn-reveal-nav {
+    padding: 9px;
+    width: 36px;
+    height: 36px;
+  }
+}
+
