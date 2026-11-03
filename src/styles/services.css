@@ -1522,3 +1522,135 @@
   }
 }
 
+
+
+/* Ultra-Responsive Mobile Rules for Services Suite */
+@media (max-width: 640px) {
+  .services-page-root,
+  .service-detail-root {
+    padding-top: 72px;
+  }
+
+  .services-hero-section {
+    padding: 28px 0 44px;
+  }
+
+  .services-hero-title,
+  .detail-hero-title {
+    font-size: clamp(26px, 7.5vw, 38px);
+    line-height: 1.2;
+    word-break: break-word;
+  }
+
+  .services-hero-subtitle,
+  .detail-hero-desc {
+    font-size: 15px;
+    margin-bottom: 24px;
+  }
+
+  .detail-cta-group {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+
+  .btn-detail-primary,
+  .btn-detail-secondary {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 20px;
+  }
+
+  .service-card,
+  .offering-card {
+    padding: 22px 18px 20px;
+    border-radius: 12px;
+  }
+
+  .featured-case-study-box {
+    padding: 24px 18px;
+    border-radius: 14px;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .cta-inquiry-box {
+    padding: 32px 20px;
+    border-radius: 16px;
+    text-align: center;
+  }
+
+  .cta-inquiry-box h2 {
+    font-size: clamp(24px, 7vw, 32px);
+  }
+
+  .cta-inquiry-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+
+  .cta-inquiry-buttons a,
+  .cta-inquiry-buttons button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .process-pipeline-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .benefits-outcomes-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .services-container,
+  .detail-container {
+    width: calc(100% - 24px);
+  }
+
+  .service-card-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .tech-capabilities-split {
+    gap: 24px;
+  }
+
+  .tech-chip-list {
+    gap: 8px;
+  }
+
+  .tech-chip {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .faq-q-btn {
+    padding: 16px 14px;
+    font-size: 15px;
+  }
+
+  .faq-a-body {
+    padding: 0 14px 16px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 360px) {
+  .services-container,
+  .detail-container {
+    width: calc(100% - 18px);
+  }
+
+  .services-hero-title,
+  .detail-hero-title {
+    font-size: 24px;
+  }
+}

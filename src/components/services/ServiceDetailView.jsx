@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { allServicesDetail, serviceCategories } from './servicesData';
+import WebDevelopmentView from './WebDevelopmentView';
 import {
   Code2,
   ChevronRight,
@@ -26,6 +27,18 @@ export default function ServiceDetailView({
   onNavigateBookProject,
   onNavigateContact
 }) {
+  if (slug === 'web-development') {
+    return (
+      <WebDevelopmentView
+        onNavigateHome={onNavigateHome}
+        onNavigateAllServices={onNavigateAllServices}
+        onNavigateService={onNavigateService}
+        onNavigateBookProject={onNavigateBookProject}
+        onNavigateContact={onNavigateContact}
+      />
+    );
+  }
+
   const service = allServicesDetail[slug] || allServicesDetail['web-development'];
   const [openFaq, setOpenFaq] = useState(0);
 

@@ -5730,6 +5730,131 @@ html[data-theme="light"] .navbar-orange-black .nav-dropdown-trigger.active::afte
   font-family: var(--font-mono);
 }
 
+/* ============================================================
+   INTERACTIVE FOOTER TYPOGRAPHY SYSTEM (ROVAWARE WORDMARK)
+   ============================================================ */
+.footer-typography-section {
+  position: relative;
+  width: 100%;
+  margin: 50px 0 32px;
+  padding: 24px 0 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  background: radial-gradient(ellipse 70% 65% at 50% 50%, rgba(56, 189, 248, 0.04) 0%, rgba(8, 10, 16, 0) 75%);
+  user-select: none;
+  cursor: crosshair;
+  overflow: hidden;
+  transition: background 0.4s ease;
+}
+
+.footer-typography-section.theme-deep-blue {
+  background: radial-gradient(ellipse 70% 65% at 50% 50%, rgba(56, 189, 248, 0.06) 0%, rgba(99, 102, 241, 0.03) 45%, rgba(8, 10, 16, 0) 80%);
+}
+
+.footer-typography-section.theme-orange-black {
+  background: radial-gradient(ellipse 70% 65% at 50% 50%, rgba(255, 140, 50, 0.06) 0%, rgba(255, 106, 0, 0.03) 45%, rgba(8, 10, 16, 0) 80%);
+}
+
+.footer-typography-section.theme-emerald-green {
+  background: radial-gradient(ellipse 70% 65% at 50% 50%, rgba(16, 185, 129, 0.06) 0%, rgba(5, 150, 105, 0.03) 45%, rgba(8, 10, 16, 0) 80%);
+}
+
+.footer-typog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-typog-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer-typog-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #A5ADBD;
+  transition: all 0.3s ease;
+}
+
+.footer-typog-dot.is-active {
+  background: #FF8C32;
+  box-shadow: 0 0 10px #FF8C32, 0 0 16px rgba(255, 140, 50, 0.6);
+  transform: scale(1.3);
+}
+
+.footer-typog-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: #A5ADBD;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.footer-typog-hint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: rgba(165, 173, 189, 0.5);
+  text-transform: uppercase;
+}
+
+.hint-divider {
+  color: rgba(255, 140, 50, 0.6);
+}
+
+.footer-typog-canvas-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.footer-typog-canvas {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  touch-action: pan-y;
+}
+
+.footer-typog-glow-line {
+  position: absolute;
+  bottom: 0;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 140, 50, 0.35) 50%, transparent);
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .footer-typography-section {
+    margin: 32px 0 22px;
+    padding: 16px 0 8px;
+  }
+  .footer-typog-header {
+    justify-content: center;
+    gap: 8px;
+  }
+  .footer-typog-hint {
+    font-size: 9px;
+  }
+}
+
 @keyframes slideDownNav {
   from {
     opacity: 0;
@@ -12379,3 +12504,53 @@ html[data-theme="light"] .project-orbit-footer {
 
 
 
+
+
+/* ============================================================
+   GLOBAL ULTRA-MOBILE RESPONSIVENESS ENHANCEMENTS (< 480px / 380px)
+   ============================================================ */
+@media (max-width: 480px) {
+  .nav-links {
+    top: 62px;
+    left: 3vw;
+    right: 3vw;
+    padding: 14px 16px;
+  }
+}
+
+@media (max-width: 380px) {
+  .navbar {
+    padding: 10px 3vw;
+  }
+  .nav-right {
+    gap: 6px;
+  }
+  .brand-tagline {
+    display: none !important;
+  }
+  .brand-text {
+    font-size: 13.5px;
+  }
+  .btn-nav-cta {
+    padding: 6px 9px;
+    font-size: 10.5px;
+  }
+  .btn-callback-nav {
+    padding: 7px;
+  }
+  .menu-toggle {
+    padding: 6px;
+  }
+  .nav-links {
+    top: 58px;
+    left: 2.5vw;
+    right: 2.5vw;
+    padding: 14px 12px;
+  }
+}
+
+/* Ensure global horizontal clipping */
+html, body {
+  overflow-x: clip;
+  max-width: 100vw;
+}

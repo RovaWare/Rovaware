@@ -82,6 +82,7 @@ import ServiceDetailView from './components/services/ServiceDetailView';
 import { serviceCategories } from './components/services/servicesData';
 import './styles/services.css';
 import BrandReveal from './components/brand/BrandReveal';
+import InteractiveFooterTypography from './components/footer/InteractiveFooterTypography';
 import { BrowserRouter, useNavigate, useLocation } from 'react-router-dom';
 
 // Official Google Form link for Book A Demo
@@ -4481,6 +4482,9 @@ function AppContent() {
             </div>
           </div>
         </div>
+
+        {/* INTERACTIVE OVERSIZED ROVAWARE TYPOGRAPHY WORDMARK (THEME-AWARE) */}
+        <InteractiveFooterTypography theme={routeTheme} />
 
         <div className="footer-bottom">
           <span>© 2026 ROVAWARE STUDIO. ALL RIGHTS RESERVED.</span>

@@ -13,7 +13,7 @@ export default function BookProjectView({ onNavigateHome, onNavigateContact }) {
 
   return (
     <div className="book-project-page-root">
-      <BookProjectApp hideNav={true} />
+      <BookProjectApp hideNav={true} hideFooter={true} />
     </div>
   );
 }

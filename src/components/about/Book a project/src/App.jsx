@@ -448,7 +448,7 @@ function ProjectBooking({ selectedServices, toggleService, startRequest, }) {
       </div>
     </section>);
 }
-export default function App({ hideNav = true }) {
+export default function App({ hideNav = true, hideFooter = true }) {
     const [scrolled, setScrolled] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
     const [callbackOpen, setCallbackOpen] = useState(false);
@@ -689,20 +689,22 @@ export default function App({ hideNav = true }) {
         </section>
       </main>
 
-      <footer className="site-footer">
-        <div className="container">
-          <div className="footer-top reveal">
-            <div><p>HAVE SOMETHING IN MIND?</p><h2>LET'S MAKE<br />IT HAPPEN.</h2></div>
-            <a href="#book-project" className="button button-orange">Start your project <span className="button-icon"><Arrow diagonal/></span></a>
+      {!hideFooter && (
+        <footer className="site-footer">
+          <div className="container">
+            <div className="footer-top reveal">
+              <div><p>HAVE SOMETHING IN MIND?</p><h2>LET'S MAKE<br />IT HAPPEN.</h2></div>
+              <a href="#book-project" className="button button-orange">Start your project <span className="button-icon"><Arrow diagonal/></span></a>
+            </div>
+            <div className="footer-main">
+              <div className="footer-brand"><Brand /><p>Building thoughtful digital experiences for a world that never stands still.</p></div>
+              <div className="footer-column"><span>EXPLORE</span><a href="#about">About</a><a href="#services">Services</a><a href="#work">Our work</a><a href="#process">Process</a></div>
+              <div className="footer-column"><span>CONNECT</span><a href="mailto:hello@rovaware.com">hello@rovaware.com</a><a href="https://rovaware.com/about/contact">Contact us</a><button type="button" onClick={() => setCallbackOpen(true)}>Request a callback</button><a href="https://docs.google.com/forms/d/15zbRoUfGocjXiBKCLB7lj5UWeXUXgKuY8sbix_W0Stw/viewform" target="_blank" rel="noreferrer">Book a demo</a><a href="https://rovaware.com/blog">Journal</a></div>
+            </div>
+            <div className="footer-bottom"><span>&copy; {new Date().getFullYear()} ROVAWARE. ALL RIGHTS RESERVED.</span><a href="#home">BACK TO TOP <span aria-hidden="true">&uarr;</span></a></div>
           </div>
-          <div className="footer-main">
-            <div className="footer-brand"><Brand /><p>Building thoughtful digital experiences for a world that never stands still.</p></div>
-            <div className="footer-column"><span>EXPLORE</span><a href="#about">About</a><a href="#services">Services</a><a href="#work">Our work</a><a href="#process">Process</a></div>
-            <div className="footer-column"><span>CONNECT</span><a href="mailto:hello@rovaware.com">hello@rovaware.com</a><a href="https://rovaware.com/about/contact">Contact us</a><button type="button" onClick={() => setCallbackOpen(true)}>Request a callback</button><a href="https://docs.google.com/forms/d/15zbRoUfGocjXiBKCLB7lj5UWeXUXgKuY8sbix_W0Stw/viewform" target="_blank" rel="noreferrer">Book a demo</a><a href="https://rovaware.com/blog">Journal</a></div>
-          </div>
-          <div className="footer-bottom"><span>&copy; {new Date().getFullYear()} ROVAWARE. ALL RIGHTS RESERVED.</span><a href="#home">BACK TO TOP <span aria-hidden="true">&uarr;</span></a></div>
-        </div>
-      </footer>
+        </footer>
+      )}
       {callbackOpen && <CallbackDialog onClose={closeCallback}/>}
     </>);
 }
