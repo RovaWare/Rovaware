@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Search,
   Calendar,
@@ -23,7 +24,14 @@ import {
   Mail,
   ChevronRight
 } from 'lucide-react';
-import { BLOG_CATEGORIES, BLOG_TOPICS, BLOG_ARTICLES, BLOG_STATS } from '../../data/blogData';
+
+import '../../styles/blog.css';
+import {
+  BLOG_CATEGORIES,
+  BLOG_TOPICS,
+  BLOG_ARTICLES,
+  BLOG_STATS
+} from './blogData';
 
 // Map icon name string to Lucide component
 const TOPIC_ICONS = {
@@ -37,11 +45,21 @@ const TOPIC_ICONS = {
   ShieldCheck
 };
 
-export default function BlogView({ onSelectArticle, onNavigateHome }) {
+const EASE_OUT = [0.16, 1, 0.3, 1];
+
+export default function BlogView({
+  onSelectArticle,
+  onOpenArticle,
+  onNavigateHome,
+  onHome
+}) {
+  const handleSelectArticle = onSelectArticle || onOpenArticle;
+  const handleNavigateHome = onNavigateHome || onHome;
+
   const [selectedCategory, setSelectedCategory] = useState('All Articles');
   const [searchQuery, setSearchQuery] = useState('');
   const [visibleCount, setVisibleCount] = useState(6);
-  
+
   // Newsletter state
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [newsletterStatus, setNewsletterStatus] = useState('idle'); // idle | loading | success | error
@@ -49,12 +67,12 @@ export default function BlogView({ onSelectArticle, onNavigateHome }) {
 
   // Featured article
   const featuredArticle = useMemo(() => {
-    return BLOG_ARTICLES.find(a => a.isFeatured) || BLOG_ARTICLES[0];
+    return BLOG_ARTICLES.find((a) => a.isFeatured) || BLOG_ARTICLES[0];
   }, []);
 
   // Filtered articles
   const filteredArticles = useMemo(() => {
-    return BLOG_ARTICLES.filter(article => {
+    return BLOG_ARTICLES.filter((article) => {
       const matchesCategory =
         selectedCategory === 'All Articles' || article.category === selectedCategory;
       const matchesSearch =
@@ -62,7 +80,8 @@ export default function BlogView({ onSelectArticle, onNavigateHome }) {
         article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         article.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
         article.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (article.topics && article.topics.some(t => t.toLowerCase().includes(searchQuery.toLowerCase())));
+        (article.topics &&
+          article.topics.some((t) => t.toLowerCase().includes(searchQuery.toLowerCase())));
       return matchesCategory && matchesSearch;
     });
   }, [selectedCategory, searchQuery]);
@@ -80,13 +99,20 @@ export default function BlogView({ onSelectArticle, onNavigateHome }) {
     setNewsletterStatus('loading');
     setTimeout(() => {
       try {
-        const stored = JSON.parse(localStorage.getItem('rovaware_newsletter_subscribers') || '[]');
+        const stored = JSON.parse(
+          localStorage.getItem('rovaware_newsletter_subscribers') || '[]'
+        );
         if (!stored.includes(newsletterEmail)) {
           stored.push(newsletterEmail);
-          localStorage.setItem('rovaware_newsletter_subscribers', JSON.stringify(stored));
+          localStorage.setItem(
+            'rovaware_newsletter_subscribers',
+            JSON.stringify(stored)
+          );
         }
         setNewsletterStatus('success');
-        setNewsletterMessage("You're subscribed! You'll receive our bi-weekly engineering breakdowns.");
+        setNewsletterMessage(
+          "You're subscribed! You'll receive our bi-weekly engineering breakdowns."
+        );
         setNewsletterEmail('');
       } catch (err) {
         setNewsletterStatus('error');
@@ -106,45 +132,86 @@ export default function BlogView({ onSelectArticle, onNavigateHome }) {
 
   return (
     <div className="blog-page-root">
-      {/* BLOG HERO SECTION */}
+      {/* 1. BLOG HERO SECTION WITH ANIMATED ORBS */}
       <section className="blog-hero">
         <div className="blog-hero-glow-layer" aria-hidden="true">
-          <div className="blog-hero-orb blog-hero-orb-1" />
-          <div className="blog-hero-orb blog-hero-orb-2" />
+          <motion.div
+            className="blog-hero-orb blog-hero-orb-1"
+            animate={{
+              x: [0, 30, -20, 0],
+              y: [0, 20, 35, 0],
+              scale: [1, 1.08, 0.95, 1]
+            }}
+            transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
+          />
+          <motion.div
+            className="blog-hero-orb blog-hero-orb-2"
+            animate={{
+              x: [0, -25, 20, 0],
+              y: [0, 30, -15, 0],
+              scale: [1, 0.96, 1.06, 1]
+            }}
+            transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
+          />
           <div className="blog-hero-grid-pattern" />
         </div>
 
         <div className="blog-hero-inner">
           {/* Breadcrumb */}
-          <div className="blog-breadcrumb">
+          <motion.div
+            className="blog-breadcrumb"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
             <button
               type="button"
               className="blog-breadcrumb-link"
-              onClick={onNavigateHome}
+              onClick={handleNavigateHome}
             >
               Home
             </button>
             <ChevronRight size={13} className="blog-breadcrumb-sep" />
             <span className="blog-breadcrumb-current">Insights & Blog</span>
-          </div>
+          </motion.div>
 
-          <div className="blog-hero-badge">
+          <motion.div
+            className="blog-hero-badge"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
             <Sparkles size={14} className="blog-badge-icon" />
             <span>RovaWare Engineering Dispatch</span>
-          </div>
+          </motion.div>
 
-          <h1 className="blog-hero-title">
+          <motion.h1
+            className="blog-hero-title"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: EASE_OUT }}
+          >
             Insights That Inspire{' '}
             <span className="blog-hero-title-accent">Digital Innovation.</span>
-          </h1>
+          </motion.h1>
 
-          <p className="blog-hero-desc">
+          <motion.p
+            className="blog-hero-desc"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3, ease: EASE_OUT }}
+          >
             Discover ideas, practical guides and expert insights on software development,
             artificial intelligence, automation and the technologies shaping tomorrow.
-          </p>
+          </motion.p>
 
           {/* Search bar */}
-          <div className="blog-search-container">
+          <motion.div
+            className="blog-search-container"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4, ease: EASE_OUT }}
+          >
             <div className="blog-search-input-wrapper">
               <Search size={18} className="blog-search-icon" />
               <input
@@ -173,37 +240,53 @@ export default function BlogView({ onSelectArticle, onNavigateHome }) {
                 {filteredArticles.length} {filteredArticles.length === 1 ? 'article' : 'articles'} found
               </span>
             )}
-          </div>
+          </motion.div>
 
           {/* Statistics Bar */}
-          <div className="blog-stats-grid">
+          <motion.div
+            className="blog-stats-grid"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5, ease: EASE_OUT }}
+          >
             {BLOG_STATS.map((stat, idx) => (
               <div key={idx} className="blog-stat-item">
                 <span className="blog-stat-value">{stat.value}</span>
                 <span className="blog-stat-label">{stat.label}</span>
               </div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* FEATURED ARTICLE (when no search active) */}
+      {/* 2. FEATURED ARTICLE SECTION */}
       {!searchQuery && selectedCategory === 'All Articles' && featuredArticle && (
         <section className="blog-featured-section">
-          <div className="blog-section-header">
+          <motion.div
+            className="blog-section-header"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.8 }}
+          >
             <div className="blog-section-subtitle">
               <TrendingUp size={15} />
               <span>EDITORIAL HIGHLIGHT</span>
             </div>
             <h2 className="blog-section-title">Featured Article</h2>
-          </div>
+          </motion.div>
 
-          <div
+          <motion.div
             className="blog-featured-card"
-            onClick={() => onSelectArticle(featuredArticle.slug)}
+            onClick={() => handleSelectArticle(featuredArticle.slug)}
             role="button"
             tabIndex={0}
-            onKeyDown={(e) => e.key === 'Enter' && onSelectArticle(featuredArticle.slug)}
+            onKeyDown={(e) => e.key === 'Enter' && handleSelectArticle(featuredArticle.slug)}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            whileHover={{ y: -6 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.9, ease: EASE_OUT }}
           >
             <div className="blog-featured-media">
               <img
@@ -253,7 +336,7 @@ export default function BlogView({ onSelectArticle, onNavigateHome }) {
                   className="blog-featured-cta"
                   onClick={(e) => {
                     e.stopPropagation();
-                    onSelectArticle(featuredArticle.slug);
+                    handleSelectArticle(featuredArticle.slug);
                   }}
                 >
                   <span>Read Article</span>
@@ -261,18 +344,19 @@ export default function BlogView({ onSelectArticle, onNavigateHome }) {
                 </button>
               </div>
             </div>
-          </div>
+          </motion.div>
         </section>
       )}
 
-      {/* ARTICLE CATEGORIES FILTER */}
+      {/* 3. CATEGORIES HORIZONTAL PILLS */}
       <section className="blog-categories-section">
         <div className="blog-categories-wrapper">
           <div className="blog-categories-scroll">
             {BLOG_CATEGORIES.map((cat) => {
-              const count = cat === 'All Articles'
-                ? BLOG_ARTICLES.length
-                : BLOG_ARTICLES.filter(a => a.category === cat).length;
+              const count =
+                cat === 'All Articles'
+                  ? BLOG_ARTICLES.length
+                  : BLOG_ARTICLES.filter((a) => a.category === cat).length;
               const isActive = selectedCategory === cat;
               return (
                 <button
@@ -293,9 +377,15 @@ export default function BlogView({ onSelectArticle, onNavigateHome }) {
         </div>
       </section>
 
-      {/* LATEST ARTICLES GRID */}
+      {/* 4. ARTICLES GRID */}
       <section id="articles-grid" className="blog-articles-section">
-        <div className="blog-section-header-row">
+        <motion.div
+          className="blog-section-header-row"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <div>
             <div className="blog-section-subtitle">
               <BookOpen size={15} />
@@ -308,92 +398,109 @@ export default function BlogView({ onSelectArticle, onNavigateHome }) {
           <span className="blog-results-meta">
             Showing {Math.min(visibleCount, filteredArticles.length)} of {filteredArticles.length} articles
           </span>
-        </div>
+        </motion.div>
 
-        {filteredArticles.length === 0 ? (
-          <div className="blog-empty-state">
-            <div className="blog-empty-icon-box">
-              <Search size={32} />
-            </div>
-            <h3>No articles found</h3>
-            <p>
-              We couldn't find any articles matching &ldquo;{searchQuery}&rdquo; in {selectedCategory}.
-            </p>
-            <button
-              type="button"
-              className="blog-clear-filters-btn"
-              onClick={() => {
-                setSearchQuery('');
-                setSelectedCategory('All Articles');
-              }}
+        <AnimatePresence mode="wait">
+          {filteredArticles.length === 0 ? (
+            <motion.div
+              key="empty"
+              className="blog-empty-state"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4 }}
             >
-              Reset Filters
-            </button>
-          </div>
-        ) : (
-          <div className="blog-articles-grid">
-            {filteredArticles.slice(0, visibleCount).map((article) => (
-              <article
-                key={article.id}
-                className="blog-article-card"
-                onClick={() => onSelectArticle(article.slug)}
-                tabIndex={0}
-                role="button"
-                onKeyDown={(e) => e.key === 'Enter' && onSelectArticle(article.slug)}
+              <div className="blog-empty-icon-box">
+                <Search size={32} />
+              </div>
+              <h3>No articles found</h3>
+              <p>
+                We couldn't find any articles matching &ldquo;{searchQuery}&rdquo; in {selectedCategory}.
+              </p>
+              <button
+                type="button"
+                className="blog-clear-filters-btn"
+                onClick={() => {
+                  setSearchQuery('');
+                  setSelectedCategory('All Articles');
+                }}
               >
-                <div className="blog-card-media">
-                  <img
-                    src={article.featuredImage}
-                    alt={article.title}
-                    className="blog-card-img"
-                    loading="lazy"
-                  />
-                  <div className="blog-card-overlay" />
-                  <span className="blog-category-pill blog-card-pill">
-                    {article.category}
-                  </span>
-                </div>
-
-                <div className="blog-card-body">
-                  <div className="blog-card-meta-top">
-                    <span className="blog-card-date">
-                      <Calendar size={12} />
-                      {article.publishedAt}
-                    </span>
-                    <span className="blog-card-readtime">
-                      <Clock size={12} />
-                      {article.readTime}
+                Reset Filters
+              </button>
+            </motion.div>
+          ) : (
+            <motion.div
+              key={`grid-${selectedCategory}-${searchQuery}`}
+              className="blog-articles-grid"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4 }}
+            >
+              {filteredArticles.slice(0, visibleCount).map((article, idx) => (
+                <motion.article
+                  key={article.id}
+                  className="blog-article-card"
+                  onClick={() => handleSelectArticle(article.slug)}
+                  tabIndex={0}
+                  role="button"
+                  onKeyDown={(e) => e.key === 'Enter' && handleSelectArticle(article.slug)}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  whileHover={{ y: -6 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.7, ease: EASE_OUT, delay: (idx % 3) * 0.1 }}
+                >
+                  <div className="blog-card-media">
+                    <img
+                      src={article.featuredImage}
+                      alt={article.title}
+                      className="blog-card-img"
+                      loading="lazy"
+                    />
+                    <div className="blog-card-overlay" />
+                    <span className="blog-category-pill blog-card-pill">
+                      {article.category}
                     </span>
                   </div>
 
-                  <h3 className="blog-card-title">
-                    {article.title}
-                  </h3>
-
-                  <p className="blog-card-excerpt">
-                    {article.excerpt}
-                  </p>
-
-                  <div className="blog-card-footer">
-                    <div className="blog-card-author">
-                      <img
-                        src={article.author.avatar}
-                        alt={article.author.name}
-                        className="blog-card-author-avatar"
-                      />
-                      <span className="blog-card-author-name">{article.author.name}</span>
+                  <div className="blog-card-body">
+                    <div className="blog-card-meta-top">
+                      <span className="blog-card-date">
+                        <Calendar size={12} />
+                        {article.publishedAt}
+                      </span>
+                      <span className="blog-card-readtime">
+                        <Clock size={12} />
+                        {article.readTime}
+                      </span>
                     </div>
 
-                    <span className="blog-card-read-link">
-                      <span>Read More</span>
-                      <ArrowRight size={13} className="blog-card-read-icon" />
-                    </span>
+                    <h3 className="blog-card-title">{article.title}</h3>
+
+                    <p className="blog-card-excerpt">{article.excerpt}</p>
+
+                    <div className="blog-card-footer">
+                      <div className="blog-card-author">
+                        <img
+                          src={article.author.avatar}
+                          alt={article.author.name}
+                          className="blog-card-author-avatar"
+                        />
+                        <span className="blog-card-author-name">{article.author.name}</span>
+                      </div>
+
+                      <span className="blog-card-read-link">
+                        <span>Read More</span>
+                        <ArrowRight size={13} className="blog-card-read-icon" />
+                      </span>
+                    </div>
                   </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        )}
+                </motion.article>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Load More Pagination */}
         {filteredArticles.length > visibleCount && (
@@ -410,9 +517,15 @@ export default function BlogView({ onSelectArticle, onNavigateHome }) {
         )}
       </section>
 
-      {/* BLOG TOPICS SECTION */}
+      {/* 5. TOPICS EXPLORATION SECTION */}
       <section className="blog-topics-section">
-        <div className="blog-section-header">
+        <motion.div
+          className="blog-section-header"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+        >
           <div className="blog-section-subtitle">
             <Tag size={15} />
             <span>EXPLORE BY DOMAIN</span>
@@ -421,19 +534,24 @@ export default function BlogView({ onSelectArticle, onNavigateHome }) {
           <p className="blog-section-desc">
             Deep-dive into specific engineering disciplines curated by RovaWare leads.
           </p>
-        </div>
+        </motion.div>
 
         <div className="blog-topics-grid">
-          {BLOG_TOPICS.map((topic) => {
+          {BLOG_TOPICS.map((topic, idx) => {
             const IconComponent = TOPIC_ICONS[topic.icon] || BookOpen;
             return (
-              <div
+              <motion.div
                 key={topic.id}
                 className="blog-topic-card"
                 onClick={() => handleTopicClick(topic)}
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => e.key === 'Enter' && handleTopicClick(topic)}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ y: -4, scale: 1.01 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: (idx % 4) * 0.08 }}
               >
                 <div className="blog-topic-icon-box">
                   <IconComponent size={22} />
@@ -449,24 +567,28 @@ export default function BlogView({ onSelectArticle, onNavigateHome }) {
                     <ArrowUpRight size={13} />
                   </span>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>
       </section>
 
-      {/* NEWSLETTER SECTION */}
+      {/* 6. NEWSLETTER SUBSCRIPTION SECTION */}
       <section className="blog-newsletter-section">
         <div className="blog-newsletter-glow" aria-hidden="true" />
-        <div className="blog-newsletter-card">
+        <motion.div
+          className="blog-newsletter-card"
+          initial={{ opacity: 0, scale: 0.96 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, ease: EASE_OUT }}
+        >
           <div className="blog-newsletter-badge">
             <Mail size={14} />
             <span>ROVAWARE DISPATCH</span>
           </div>
 
-          <h2 className="blog-newsletter-title">
-            Stay Ahead of What&apos;s Next.
-          </h2>
+          <h2 className="blog-newsletter-title">Stay Ahead of What&apos;s Next.</h2>
 
           <p className="blog-newsletter-desc">
             Get the latest insights on AI, software engineering and digital innovation delivered
@@ -474,7 +596,11 @@ export default function BlogView({ onSelectArticle, onNavigateHome }) {
           </p>
 
           {newsletterStatus === 'success' ? (
-            <div className="blog-newsletter-success-box">
+            <motion.div
+              className="blog-newsletter-success-box"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
               <CheckCircle2 size={22} className="blog-newsletter-success-icon" />
               <div>
                 <h4>Subscription Confirmed!</h4>
@@ -487,7 +613,7 @@ export default function BlogView({ onSelectArticle, onNavigateHome }) {
                   Subscribe another email
                 </button>
               </div>
-            </div>
+            </motion.div>
           ) : (
             <form onSubmit={handleNewsletterSubmit} className="blog-newsletter-form">
               <div className="blog-newsletter-input-group">
@@ -529,9 +655,8 @@ export default function BlogView({ onSelectArticle, onNavigateHome }) {
               </div>
             </form>
           )}
-        </div>
+        </motion.div>
       </section>
     </div>
   );
 }
-

@@ -44,6 +44,18 @@ const THEME_CONFIG = {
     dotGlow: '0 0 10px #10B981, 0 0 18px rgba(16, 185, 129, 0.65)',
     pillBorder: 'rgba(16, 185, 129, 0.25)',
   },
+  'rose-gold': {
+    name: 'rose-gold',
+    accent: '#D8B56A',
+    accentRgb: [216, 181, 106],
+    secondaryRgb: [229, 164, 197],
+    rovaBaseRgb: [245, 239, 242],
+    rovaBaseAlpha: 0.85,
+    wareBaseAlpha: 0.92,
+    glowLine: 'rgba(216, 181, 106, 0.45)',
+    dotGlow: '0 0 10px #D8B56A, 0 0 18px rgba(229, 164, 197, 0.65)',
+    pillBorder: 'rgba(216, 181, 106, 0.25)',
+  },
 };
 
 export default function InteractiveFooterTypography({ theme = 'deep-blue' }) {

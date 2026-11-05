@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { allServicesDetail, serviceCategories } from './servicesData';
 import WebDevelopmentView from './WebDevelopmentView';
+import UIUXDesignView from './UIUXDesignView';
 import {
   Code2,
   ChevronRight,
@@ -30,6 +31,18 @@ export default function ServiceDetailView({
   if (slug === 'web-development') {
     return (
       <WebDevelopmentView
+        onNavigateHome={onNavigateHome}
+        onNavigateAllServices={onNavigateAllServices}
+        onNavigateService={onNavigateService}
+        onNavigateBookProject={onNavigateBookProject}
+        onNavigateContact={onNavigateContact}
+      />
+    );
+  }
+
+  if (slug === 'ui-ux-design') {
+    return (
+      <UIUXDesignView
         onNavigateHome={onNavigateHome}
         onNavigateAllServices={onNavigateAllServices}
         onNavigateService={onNavigateService}

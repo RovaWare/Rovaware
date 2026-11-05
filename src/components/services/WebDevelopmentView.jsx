@@ -158,23 +158,6 @@ export default function WebDevelopmentView({
             <div className="hero-image" aria-hidden="true" />
             <div className="hero-shade" aria-hidden="true" />
             <div className="hero-content">
-              {/* Refined In-Hero Breadcrumb Strip */}
-              <div className="hero-header-bar hero-enter">
-                <nav className="hero-breadcrumbs" aria-label="Breadcrumb">
-                  <a
-                    href="/services"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      onNavigateAllServices ? onNavigateAllServices() : (window.location.href = '/services');
-                    }}
-                  >
-                    <span>Services</span>
-                  </a>
-                  <span className="crumb-slash">/</span>
-                  <span className="crumb-active">Web Development &amp; Architecture</span>
-                </nav>
-              </div>
-
               <p className="hero-overline hero-enter">
                 <span className="overline-rule" /> 01 / ENGINEERING &amp; ARCHITECTURE
               </p>
@@ -184,12 +167,7 @@ export default function WebDevelopmentView({
                   <p className="hero-statement">We engineer platforms, applications &amp; AI systems designed to <em>endure.</em></p>
                   <p className="hero-description">Full-stack web engineering, custom AI solutions and cloud infrastructure for businesses ready to lead, not just keep up.</p>
                 </div>
-                <a href="#intro" className="round-link hero-round-link hero-enter" aria-label="Scroll to introduction">
-                  <ArrowIcon />
-                </a>
               </div>
-              <div className="hero-scroll" aria-hidden="true"><i /> SCROLL</div>
-              <div className="hero-index" aria-hidden="true">01 // 05</div>
             </div>
           </section>
 
@@ -233,12 +211,11 @@ export default function WebDevelopmentView({
             <div className="capabilities-list">
               {capabilities.map((item) => (
                 <div className="capability reveal capability--active" key={item.number}>
-                  <div className="capability-trigger">
+                  <div className="capability-trigger" style={{ cursor: 'default' }}>
                     <span className="capability-number">{item.number} /</span>
                     <span className="capability-title">{item.title}</span>
-                    <span className="capability-icon" aria-hidden="true">—</span>
                   </div>
-                  <div className="capability-panel" style={{ maxHeight: 'none', display: 'block' }}>
+                  <div className="capability-panel" style={{ maxHeight: 'none', display: 'block', opacity: 1, visibility: 'visible' }}>
                     <div className="capability-panel-inner">
                       <p>{item.description}</p>
                       <span className="capability-tags">{item.tags}</span>

@@ -68,7 +68,8 @@ import {
   Cloud,
   GitBranch,
   Building2,
-  CalendarCheck
+  CalendarCheck,
+  Briefcase
 } from 'lucide-react';
 import './styles.css';
 import BlogView from './components/blog/BlogView';
@@ -76,6 +77,9 @@ import ArticleDetailView from './components/blog/ArticleDetailView';
 import AboutCompanyView from './components/about/About Company/aboutcompnayview';
 import ContactView from './components/about/contact/ContactView';
 import BookProjectView from './components/about/Book a project/BookProjectView';
+import CareersView from './components/career/CareersView';
+import ProcessView from './components/Process/ProcessView';
+import ProcessSection from './components/Process/src/components/Process.jsx';
 import ServicesMegaMenu from './components/services/ServicesMegaMenu';
 import ServicesIndexView from './components/services/ServicesIndexView';
 import ServiceDetailView from './components/services/ServiceDetailView';
@@ -83,6 +87,7 @@ import { serviceCategories } from './components/services/servicesData';
 import './styles/services.css';
 import BrandReveal from './components/brand/BrandReveal';
 import InteractiveFooterTypography from './components/footer/InteractiveFooterTypography';
+import { useMagneticButtons } from './hooks/useMagneticButtons';
 import { BrowserRouter, useNavigate, useLocation } from 'react-router-dom';
 
 // Official Google Form link for Book A Demo
@@ -2189,171 +2194,7 @@ function ServicesCarousel({ services }) {
   );
 }
 
-// Interactive 4-Stage Process Timeline Component with Connecting Gradient Line & Spotlight Cards
-function ProcessTimeline({ steps }) {
-  const [expandedStep, setExpandedStep] = useState(null);
-  const [activeStage, setActiveStage] = useState(0);
-  const [hasRevealed, setHasRevealed] = useState(false);
-  const containerRef = useRef(null);
 
-  const toggleStep = (num) => {
-    setExpandedStep((prev) => (prev === num ? null : num));
-  };
-
-  // Scroll reveal & sequential stage activation (01 -> 02 -> 03 -> 04)
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setHasRevealed(true);
-            // Sequentially activate stages 0 -> 1 -> 2 -> 3
-            [0, 1, 2, 3].forEach((idx) => {
-              setTimeout(() => {
-                setActiveStage((prev) => Math.max(prev, idx));
-              }, 140 + idx * 280);
-            });
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  // Cursor spotlight handlers for individual cards
-  const handleCardMouseMove = (e) => {
-    const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    card.style.setProperty('--spotlight-x', `${x}px`);
-    card.style.setProperty('--spotlight-y', `${y}px`);
-  };
-
-  const handleCardMouseEnter = (e) => {
-    e.currentTarget.style.setProperty('--spotlight-opacity', '1');
-  };
-
-  const handleCardMouseLeave = (e) => {
-    e.currentTarget.style.setProperty('--spotlight-opacity', '0');
-  };
-
-  return (
-    <div className="process-timeline-container" ref={containerRef}>
-      {/* 1. Thin Animated Gradient Connecting Line from Stage 01 to Stage 04 */}
-      <div className="timeline-connector-bar" aria-hidden="true">
-        <div className="connector-line-base" />
-        <div
-          className="connector-line-glow"
-          style={{ width: hasRevealed ? `${(activeStage / (steps.length - 1)) * 100}%` : '0%' }}
-        />
-        {steps.map((s, idx) => (
-          <div
-            key={idx}
-            className={`connector-node-dot ${activeStage >= idx ? 'active' : ''}`}
-            style={{ left: `${(idx / (steps.length - 1)) * 100}%` }}
-          >
-            <div className="node-dot-ping" />
-            <div className="node-dot-core" />
-          </div>
-        ))}
-      </div>
-
-      {/* 2. Grid of 4 Stage Cards with Sequential Staggered Fade-Up Reveals */}
-      <div className={`timeline-grid ${hasRevealed ? 'is-revealed' : ''}`}>
-        {steps.map((step, idx) => {
-          const isExpanded = expandedStep === step.num;
-          const isActive = activeStage >= idx;
-
-          return (
-            <div
-              key={step.num}
-              className={`timeline-step ${isActive ? 'stage-active' : ''} ${isExpanded ? 'is-expanded' : ''}`}
-              style={{ '--step-delay': `${idx * 150}ms` }}
-              onMouseMove={handleCardMouseMove}
-              onMouseEnter={handleCardMouseEnter}
-              onMouseLeave={handleCardMouseLeave}
-              onClick={() => toggleStep(step.num)}
-              role="button"
-              tabIndex={0}
-              aria-expanded={isExpanded}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault();
-                  toggleStep(step.num);
-                }
-              }}
-            >
-              {/* Cursor Spotlight Layer */}
-              <div className="timeline-card-spotlight" aria-hidden="true" />
-
-              {/* Animated Gradient Border on Hover */}
-              <div className="timeline-card-glow-border" aria-hidden="true" />
-
-              {/* Top Row: Glowing Stage Number Box & Click-to-Expand Details Control */}
-              <div className="step-top-row">
-                <span className={`step-num-box ${isActive ? 'glowing' : ''}`}>
-                  <span className="step-num-glow-aura" />
-                  <span className="step-num-text">{step.num}</span>
-                </span>
-
-                <button
-                  type="button"
-                  className="step-expand-trigger"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    toggleStep(step.num);
-                  }}
-                  aria-expanded={isExpanded}
-                  aria-label={`${isExpanded ? 'Collapse' : 'Expand'} details for ${step.title}`}
-                >
-                  <span className="expand-trigger-text">{isExpanded ? 'Less' : 'Details'}</span>
-                  <ChevronDown size={14} className={`expand-chevron ${isExpanded ? 'rotated' : ''}`} />
-                </button>
-              </div>
-
-              <h3 className="step-title">{step.title}</h3>
-              <p className="step-desc">{step.desc}</p>
-
-              {step.tags && (
-                <div className="step-tags">
-                  {step.tags.map((t) => (
-                    <span key={t} className="step-tag-pill">{t}</span>
-                  ))}
-                </div>
-              )}
-
-              {/* 4. Expandable Stage Details & Deliverables with Smooth Accordion Animation */}
-              <div className={`step-expandable-drawer ${isExpanded ? 'expanded' : ''}`}>
-                <div className="step-drawer-inner">
-                  <div className="step-deliverables-header">
-                    <Sparkles size={12} />
-                    <span>KEY DELIVERABLES & OUTCOMES</span>
-                  </div>
-                  <ul className="step-deliverables-list">
-                    {step.deliverables.map((item, dIdx) => (
-                      <li key={dIdx}>
-                        <CheckCircle2 size={13} className="deliverable-check" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
 
 // ============================================================
 // TECHNOLOGY STACK SHOWCASE: INTERACTIVE ECOSYSTEM & MARQUEE
@@ -2729,6 +2570,9 @@ function TechStackShowcase() {
 }
 
 function AppContent() {
+  // Global luxury magnetic button effect on all CTAs and [data-magnetic] buttons
+  useMagneticButtons();
+
   const [mobileMenu, setMobileMenu] = useState(false);
   const [isCallbackModalOpen, setIsCallbackModalOpen] = useState(false);
 
@@ -2745,6 +2589,12 @@ function AppContent() {
     }
     if (pathname === '/about/book-project' || pathname === '/about/book-project/') {
       return { view: 'about-book-project', slug: null };
+    }
+    if (pathname === '/careers' || pathname === '/careers/' || pathname === '/about/careers' || pathname === '/about/careers/') {
+      return { view: 'careers', slug: null };
+    }
+    if (pathname === '/process' || pathname === '/process/' || pathname === '/our-process' || pathname === '/our-process/') {
+      return { view: 'process', slug: null };
     }
     if (pathname === '/services' || pathname === '/services/') {
       return { view: 'services-index', slug: null };
@@ -2846,6 +2696,22 @@ function AppContent() {
     document.title = 'Book a Project — ROVAWARE Scope & Architecture Scoping';
   };
 
+  const navigateToCareers = () => {
+    navigate('/careers');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setAboutDropdownOpen(false);
+    setMobileMenu(false);
+    document.title = 'Careers & Open Roles — ROVAWARE Engineering Studio';
+  };
+
+  const navigateToProcess = () => {
+    navigate('/process');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setAboutDropdownOpen(false);
+    setMobileMenu(false);
+    document.title = 'Our Process — ROVAWARE Engineering Studio';
+  };
+
   const navigateToHome = (anchor = '') => {
     if (location.pathname !== '/') {
       navigate('/');
@@ -2883,9 +2749,12 @@ function AppContent() {
   // Route-Aware Theme Architecture
   const isAboutSuite = currentView === 'about-company' || currentView === 'about-contact' || currentView === 'about-book-project';
   const isServicesSuite = currentView === 'services-index' || currentView === 'service-detail';
-  const routeTheme = currentView === 'about-contact'
-    ? 'emerald-green'
-    : (currentView === 'about-company' || currentView === 'about-book-project' || isServicesSuite ? 'orange-black' : 'deep-blue');
+  const isUIUXService = currentView === 'service-detail' && articleSlug === 'ui-ux-design';
+  const routeTheme = isUIUXService
+    ? 'rose-gold'
+    : currentView === 'about-contact'
+      ? 'emerald-green'
+      : (currentView === 'about-company' || currentView === 'about-book-project' || isServicesSuite ? 'orange-black' : 'deep-blue');
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', 'dark');
@@ -2897,10 +2766,14 @@ function AppContent() {
       'theme-deep-blue',
       'theme-orange-black',
       'theme-emerald-green',
+      'theme-rose-gold',
       'view-home',
       'view-about-company',
       'view-about-contact',
       'view-about-book-project',
+      'view-careers',
+      'view-about-careers',
+      'view-process',
       'view-services-index',
       'view-service-detail',
       'view-blog',
@@ -3212,7 +3085,7 @@ function AppContent() {
           >
             <NavRollingText text="Blog" />
           </a>
-          {/* DEDICATED ABOUT DROPDOWN (Desktop + Mobile) */}
+          {/* DEDICATED ABOUT DROPDOWN (Desktop) */}
           <div
             ref={aboutDropdownRef}
             className={`nav-dropdown-wrapper ${aboutDropdownOpen ? 'open' : ''}`}
@@ -3416,9 +3289,17 @@ function AppContent() {
           </div>
 
           <a
-            href="#process"
-            className="nav-link"
-            onClick={(e) => scrollToSection('process', e)}
+            href="/process"
+            className={`nav-link ${currentView === 'process' ? 'active' : ''}`}
+            onClick={(e) => {
+              if (currentView === 'home') {
+                scrollToSection('process', e);
+              } else {
+                e.preventDefault();
+                setMobileMenu(false);
+                navigateToProcess();
+              }
+            }}
           >
             <NavRollingText text="Process" />
           </a>
@@ -3438,6 +3319,7 @@ function AppContent() {
             className={`btn-callback-nav ${isCallbackModalOpen ? 'active' : ''}`}
             onClick={() => setIsCallbackModalOpen(true)}
             title="Request an instant callback within 15 minutes"
+            data-magnetic="0.32"
           >
             <PhoneCall size={13} />
             <span>Request a Callback</span>
@@ -3449,6 +3331,7 @@ function AppContent() {
             rel="noopener noreferrer"
             className={`btn-nav-cta ${isDemoModalOpen ? 'active' : ''}`}
             style={{ textDecoration: 'none' }}
+            data-magnetic="0.38"
           >
             <span>Book Demo</span> <ArrowUpRight size={14} />
           </a>
@@ -3518,6 +3401,22 @@ function AppContent() {
         />
       )}
 
+      {currentView === 'careers' && (
+        <CareersView
+          onNavigateHome={() => navigateToHome()}
+          onNavigateContact={navigateToContact}
+          onNavigateBookProject={navigateToBookProject}
+        />
+      )}
+
+      {currentView === 'process' && (
+        <ProcessView
+          onNavigateHome={() => navigateToHome()}
+          onNavigateContact={navigateToContact}
+          onNavigateBookProject={navigateToBookProject}
+        />
+      )}
+
       {currentView === 'services-index' && (
         <ServicesIndexView
           onNavigateHome={() => navigateToHome()}
@@ -3582,7 +3481,7 @@ function AppContent() {
                     href="#contact"
                     className="btn primary"
                   >
-                    Start a Project <ArrowUpRight size={16} />
+                    <span>Start a Project</span> <ArrowUpRight size={16} />
                   </a>
                   <a href="#work" className="btn ghost">
                     <span className="play-ring">
@@ -4197,43 +4096,17 @@ function AppContent() {
                     type="button"
                     onClick={() => setIsDemoModalOpen(true)}
                     className="btn primary"
+                    data-magnetic="0.36"
                   >
-                    Start a Project <ArrowUpRight size={16} />
+                    <span>Start a Project</span> <ArrowUpRight size={16} />
                   </button>
                 </div>
               </div>
             </div>
           </section>
 
-          {/* 4-STEP TIMELINE PROCESS */}
-          <section id="process" className="section-wrapper process-section">
-            <div className="section-head">
-              <div>
-                <div className="section-kicker">
-                  <Layers size={14} />
-                  <span>HOW WE BUILD</span>
-                </div>
-                <h2 className="section-title">
-                  From idea to <em className="hero-highlight">launch in 4 stages.</em>
-                </h2>
-              </div>
-              <p className="section-desc">
-                A clear, collaborative process that turns your vision into a functional digital product.
-              </p>
-            </div>
-
-            <ProcessTimeline steps={workflowSteps} />
-
-            <div className="process-bottom-cta">
-              <button
-                type="button"
-                onClick={() => setIsDemoModalOpen(true)}
-                className="btn primary"
-              >
-                Start a Project <ArrowUpRight size={16} />
-              </button>
-            </div>
-          </section>
+          {/* 5-STAGE ROVAWARE PROCESS */}
+          <ProcessSection />
 
           {/* OUR TECHNOLOGY STACK */}
           <section id="tech" className="section-wrapper" style={{ position: 'relative' }}>
@@ -4421,9 +4294,17 @@ function AppContent() {
               <ul>
                 <li><a href="#work" onClick={(e) => scrollToSection('work', e)}>Our Work</a></li>
                 <li><a href="/about/company" onClick={(e) => { e.preventDefault(); navigateToAboutCompany(); }}>About Company</a></li>
+                <li><a href="/careers" onClick={(e) => { e.preventDefault(); navigateToCareers(); }}>Careers</a></li>
                 <li><a href="/about/contact" onClick={(e) => { e.preventDefault(); navigateToContact(); }}>Contact Studio</a></li>
                 <li><a href="/about/book-project" onClick={(e) => { e.preventDefault(); navigateToBookProject(); }}>Book a Project</a></li>
-                <li><a href="#process" onClick={(e) => scrollToSection('process', e)}>Our Process</a></li>
+                <li><a href="/process" onClick={(e) => {
+                  if (currentView === 'home') {
+                    scrollToSection('process', e);
+                  } else {
+                    e.preventDefault();
+                    navigateToProcess();
+                  }
+                }}>Our Process</a></li>
                 <li><a href="#faqs" onClick={(e) => scrollToSection('faqs', e)}>FAQs</a></li>
               </ul>
             </div>
