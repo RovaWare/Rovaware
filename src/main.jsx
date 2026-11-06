@@ -83,6 +83,8 @@ import { serviceCategories } from './components/services/servicesData';
 import './styles/services.css';
 import BrandReveal from './components/brand/BrandReveal';
 import InteractiveFooterTypography from './components/footer/InteractiveFooterTypography';
+import ServicesMarquee from './components/services/ServicesMarquee';
+import FooterSocialIcons from './components/footer/FooterSocialIcons';
 import { BrowserRouter, useNavigate, useLocation } from 'react-router-dom';
 
 // Official Google Form link for Book A Demo
@@ -4377,6 +4379,11 @@ function AppContent() {
               </div>
             </div>
           </section>
+
+          {/* INFINITE PERSPECTIVE SERVICES CAROUSEL */}
+          <ServicesMarquee
+            onSelectService={(slug) => navigateToServiceDetail(slug)}
+          />
         </main>
       )}
 
@@ -4412,6 +4419,18 @@ function AppContent() {
             <p>
               We turn ambitious ideas into digital experiences through modern web development and AI solutions.
             </p>
+
+            <a
+              href="mailto:hello@rovaware.com"
+              className="footer-email-box"
+              title="Send email to Rovaware"
+            >
+              <Mail size={14} className="footer-email-icon" />
+              <span>hello@rovaware.com</span>
+            </a>
+
+            {/* Glowing Social Media Icons */}
+            <FooterSocialIcons />
           </div>
 
           <div className="footer-links-group stagger-reveal">
