@@ -85,6 +85,8 @@ import BrandReveal from './components/brand/BrandReveal';
 import InteractiveFooterTypography from './components/footer/InteractiveFooterTypography';
 import ServicesMarquee from './components/services/ServicesMarquee';
 import FooterSocialIcons from './components/footer/FooterSocialIcons';
+import VideoHeroSection from './components/hero/VideoHeroSection';
+import PreviousHeroSection from './components/hero/PreviousHeroSection';
 import { BrowserRouter, useNavigate, useLocation } from 'react-router-dom';
 
 // Official Google Form link for Book A Demo
@@ -2917,6 +2919,53 @@ function AppContent() {
   const [showcaseCategory, setShowcaseCategory] = useState('Web Applications');
   const [slideDirection, setSlideDirection] = useState('right');
   const [showcaseViewMode, setShowcaseViewMode] = useState('preview');
+  // Toggle for testing: set to true to restore previous hero section (saved in memory)
+  const [usePreviousHero, setUsePreviousHero] = useState(false);
+
+  useEffect(() => {
+    window.__togglePreviousHero = () => {
+      setUsePreviousHero((prev) => {
+        const next = !prev;
+        console.info(`[Hero Toggle] ${next ? 'Restored Previous Hero' : 'Active New Video Hero (rovavideo.mp4)'}`);
+        return next;
+      });
+    };
+    return () => {
+      delete window.__togglePreviousHero;
+    };
+  }, []);
+
+  // Navbar transparency: transparent when on hero video, solid frosted when scrolling down past it
+  const [isNavbarTransparent, setIsNavbarTransparent] = useState(currentView === 'home');
+
+  useEffect(() => {
+    const updateNavbarTransparency = () => {
+      if (currentView !== 'home') {
+        setIsNavbarTransparent(false);
+        return;
+      }
+
+      const heroEl = document.getElementById('hero');
+      if (heroEl) {
+        const heroBottom = heroEl.getBoundingClientRect().bottom;
+        // Navbar height is 68px. When the hero video is behind the navbar (heroBottom > 70),
+        // it stays transparent. When we go down past the video (heroBottom <= 70),
+        // it comes back with its solid frosted background.
+        setIsNavbarTransparent(heroBottom > 70);
+      } else {
+        setIsNavbarTransparent(window.scrollY < 80);
+      }
+    };
+
+    updateNavbarTransparency();
+    window.addEventListener('scroll', updateNavbarTransparency, { passive: true });
+    window.addEventListener('resize', updateNavbarTransparency);
+
+    return () => {
+      window.removeEventListener('scroll', updateNavbarTransparency);
+      window.removeEventListener('resize', updateNavbarTransparency);
+    };
+  }, [currentView]);
 
   const handleShowcaseCategoryChange = (newCat) => {
     if (newCat === showcaseCategory) return;
@@ -3132,7 +3181,7 @@ function AppContent() {
   return (
     <div className={`app-container theme-${routeTheme} view-${currentView}`}>
       {/* Navigation Bar */}
-      <header className={`navbar navbar-${routeTheme} navbar-view-${currentView}`}>
+      <header className={`navbar navbar-${routeTheme} navbar-view-${currentView} ${isNavbarTransparent && !mobileMenu ? 'navbar-transparent' : ''}`}>
         <a
           href="/"
           className="nav-brand"
@@ -3542,78 +3591,14 @@ function AppContent() {
 
       {currentView === 'home' && (
         <main id="top">
-          {/* CINEMATIC HERO WITH FULL BACKGROUND VIDEO */}
-          <section id="hero" className="hero hero-full-bg">
-            {/* Full Background Video Layer */}
-            <div className="hero-bg-video-container" aria-hidden="true">
-              <video
-                ref={heroVideoRef}
-                className="hero-bg-video"
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="auto"
-              >
-                <source src="/assets/hero.mp4" type="video/mp4" />
-              </video>
-              <div className="hero-bg-overlay" />
-              <div className="hero-bg-glow" />
-              <div className="hero-ambient-spotlight" />
-            </div>
-
-            <div className="hero-grid" />
-
-            {/* Centered High-Impact Copy */}
-            <div className="hero-container">
-              <div className="hero-copy">
-                <div className="eyebrow">
-                  <Sparkles size={13} />
-                  <span>FULL-STACK DEVELOPMENT & AI SOLUTIONS</span>
-                </div>
-                <h1>
-                  <span className="hero-title-line">Turn bold ideas into</span> <br />
-                  <span className="hero-highlight">digital reality.</span>
-                </h1>
-                <p>
-                  We build high-performance websites, powerful web applications, and intelligent AI solutions designed to elevate your brand, engage your audience, and grow your business.
-                </p>
-
-                <div className="hero-actions">
-                  <a
-                    href="#contact"
-                    className="btn primary"
-                  >
-                    Start a Project <ArrowUpRight size={16} />
-                  </a>
-                  <a href="#work" className="btn ghost">
-                    <span className="play-ring">
-                      <Play size={12} fill="#38BDF8" color="#38BDF8" style={{ marginLeft: 2 }} />
-                    </span>
-                    <span>See What We Build</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            {/* Hero Bottom Bar */}
-            <div className="hero-footer-bar">
-              <div className="hero-specs-list">
-                <div className="spec-item">
-                  <Check size={14} /> <span>High-Performance Web Apps</span>
-                </div>
-                <div className="spec-item">
-                  <Check size={14} /> <span>Intelligent AI & LLM Solutions</span>
-                </div>
-                <div className="spec-item">
-                  <Check size={14} /> <span>Modern Responsive Architecture</span>
-                </div>
-                <div className="spec-item">
-                  <Check size={14} /> <span>Rapid 99+ Speed Delivery</span>
-                </div>
-              </div>
-            </div>
-          </section>
+          {/* CINEMATIC HERO SECTION (rovavideo.mp4 applied)
+              Note: Previous hero section is saved in memory & preserved in PreviousHeroSection component.
+              Toggle usePreviousHero to true anytime to restore the previous hero section. */}
+          {usePreviousHero ? (
+            <PreviousHeroSection heroVideoRef={heroVideoRef} />
+          ) : (
+            <VideoHeroSection videoSrc="/rovavideo.mp4" />
+          )}
 
           {/* METRICS & PROOF BANNER */}
           <section className="stats-banner">
