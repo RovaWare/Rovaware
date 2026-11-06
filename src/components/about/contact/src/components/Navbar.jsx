@@ -23,14 +23,9 @@ export default function Navbar() {
       <div className="nav-inner">
         <a href={`${BASE}/`} className="nav-brand ld" style={{ ["--d"]: "150ms" }}>
           <div className="brand-icon-box">
-            <img src="/assets/rovaware_rw_arrow.png?v=11" alt="RovaWare Logo" className="brand-logo-img" />
+            <img src="/assets/rovaware_icon.png?v=12" alt="RovaWare" className="brand-logo-img" />
           </div>
-          <div className="brand-text-block">
-            <span className="brand-text">
-              ROVA<span className="brand-text-accent">WARE</span>
-            </span>
-            <span className="brand-tagline">Engineering the digital future</span>
-          </div>
+          <span className="brand-name">RovaWare</span>
         </a>
 
         <nav className="nav-links" aria-label="Primary">

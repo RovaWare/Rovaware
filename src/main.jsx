@@ -3024,15 +3024,9 @@ function AppContent() {
           title="Return to Hero Section"
         >
           <div className="brand-icon-box">
-            <img src="/assets/rovaware_rw_arrow.png?v=11" alt="RovaWare Logo" className="brand-logo-img" />
+            <img src="/assets/rovaware_icon.png?v=12" alt="RovaWare" className="brand-logo-img" />
           </div>
-          <div className="brand-text-block">
-            <div className="brand-text">
-              <span className="brand-text-main">ROVA</span>
-              <span className="brand-text-accent">WARE</span>
-            </div>
-            <span className="brand-tagline">ENGINEERING THE DIGITAL FUTURE</span>
-          </div>
+          <span className="brand-name">RovaWare</span>
         </a>
 
         <nav className={`nav-links ${mobileMenu ? 'open' : ''}`}>
@@ -3464,16 +3458,12 @@ function AppContent() {
             {/* Centered High-Impact Copy */}
             <div className="hero-container">
               <div className="hero-copy">
-                <div className="eyebrow">
-                  <Sparkles size={13} />
-                  <span>FULL-STACK DEVELOPMENT & AI SOLUTIONS</span>
-                </div>
                 <h1>
                   <span className="hero-title-line">Turn bold ideas into</span> <br />
                   <span className="hero-highlight">digital reality.</span>
                 </h1>
                 <p>
-                  We build high-performance websites, powerful web applications, and intelligent AI solutions designed to elevate your brand, engage your audience, and grow your business.
+                  We build high-performance websites, web apps, and AI solutions that grow your business.
                 </p>
 
                 <div className="hero-actions">
@@ -3489,24 +3479,6 @@ function AppContent() {
                     </span>
                     <span>See What We Build</span>
                   </a>
-                </div>
-              </div>
-            </div>
-
-            {/* Hero Bottom Bar */}
-            <div className="hero-footer-bar">
-              <div className="hero-specs-list">
-                <div className="spec-item">
-                  <Check size={14} /> <span>High-Performance Web Apps</span>
-                </div>
-                <div className="spec-item">
-                  <Check size={14} /> <span>Intelligent AI & LLM Solutions</span>
-                </div>
-                <div className="spec-item">
-                  <Check size={14} /> <span>Modern Responsive Architecture</span>
-                </div>
-                <div className="spec-item">
-                  <Check size={14} /> <span>Rapid 99+ Speed Delivery</span>
                 </div>
               </div>
             </div>
@@ -4272,15 +4244,9 @@ function AppContent() {
               title="Rovaware Studio"
             >
               <div className="brand-icon-box">
-                <img src="/assets/rovaware_rw_arrow.png?v=11" alt="RovaWare Logo" className="brand-logo-img" />
+                <img src="/assets/rovaware_icon.png?v=12" alt="RovaWare" className="brand-logo-img" />
               </div>
-              <div className="brand-text-block">
-                <div className="brand-text">
-                  <span className="brand-text-main">ROVA</span>
-                  <span className="brand-text-accent">WARE</span>
-                </div>
-                <span className="brand-tagline">ENGINEERING THE DIGITAL FUTURE</span>
-              </div>
+              <span className="brand-name">RovaWare</span>
             </a>
             <p>
               We turn ambitious ideas into digital experiences through modern web development and AI solutions.

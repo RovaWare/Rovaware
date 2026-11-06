@@ -244,7 +244,7 @@ textarea:focus-visible {
 
 .brand-icon-box {
   width: auto;
-  height: 28px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -255,21 +255,52 @@ textarea:focus-visible {
   padding: 0 !important;
   overflow: visible;
   flex-shrink: 0;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
 }
 
 .nav-brand:hover .brand-icon-box {
   border-color: transparent !important;
   box-shadow: none !important;
-  transform: scale(1.06);
+  transform: scale(1.08);
+  filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.4));
 }
 
 .brand-logo-img {
   width: auto;
-  height: 28px;
-  max-width: 52px;
+  height: 32px;
+  max-width: 44px;
   object-fit: contain;
   display: block;
+}
+
+.navbar-orange-black .brand-name {
+  background: linear-gradient(135deg, #FF6A00 0%, #FF8C32 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 10px rgba(255, 106, 0, 0.45));
+}
+
+.navbar-emerald-green .brand-name {
+  background: linear-gradient(135deg, #10B981 0%, #34D399 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 10px rgba(52, 211, 153, 0.45));
+}
+
+.navbar-rose-gold .brand-name {
+  background: linear-gradient(135deg, #D8B56A 0%, #E5A4C5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 10px rgba(229, 164, 197, 0.25));
+}
+
+
+.nav-brand:hover .brand-name {
+  opacity: 0.92;
+}
+
+html[data-theme="light"] .brand-name {
+  color: #0F172A !important;
 }
 
 .brand-text-block {
@@ -6406,6 +6437,9 @@ html[data-theme="light"] .navbar-orange-black .nav-dropdown-trigger.active::afte
   .brand-logo-img {
     height: 24px;
     max-width: 44px;
+  }
+  .brand-name {
+    font-size: 16px;
   }
   .brand-text {
     font-size: 14.5px;

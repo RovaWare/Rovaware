@@ -313,8 +313,8 @@ export default function UIUXDesignView({
               }}
               aria-label="Rovaware UI/UX Design home"
             >
-              <span className="brand-mark"><img src="/assets/rovaware_rw_arrow.png" alt="" /></span>
-              <span className="brand-type"><strong>ROVA<span>WARE</span></strong><small>ENGINEERING THE DIGITAL FUTURE</small></span>
+              <span className="brand-mark"><img src="/assets/rovaware_icon.png" alt="RovaWare" style={{ width: '32px', height: '32px', objectFit: 'contain' }} /></span>
+              <span className="brand-name" style={{ marginLeft: '10px', fontSize: '20px', fontWeight: 700, color: '#fff', letterSpacing: '-0.015em' }}>RovaWare</span>
             </a>
             <nav className="desktop-nav" aria-label="Main navigation">
               <div className="nav-dropdown-wrap" onMouseEnter={() => setServicesOpen(true)} onMouseLeave={() => setServicesOpen(false)}>
@@ -769,8 +769,8 @@ export default function UIUXDesignView({
                   }}
                   aria-label="Rovaware home"
                 >
-                  <span className="brand-mark"><img src="/assets/rovaware_rw_arrow.png" alt="" /></span>
-                  <span className="brand-type"><strong>ROVA<span>WARE</span></strong><small>ENGINEERING THE DIGITAL FUTURE</small></span>
+                  <span className="brand-mark"><img src="/assets/rovaware_icon.png" alt="RovaWare" style={{ width: '32px', height: '32px', objectFit: 'contain' }} /></span>
+                  <span className="brand-name" style={{ marginLeft: '10px', fontSize: '20px', fontWeight: 700, color: '#fff', letterSpacing: '-0.015em' }}>RovaWare</span>
                 </a>
                 <p>We turn ambitious ideas into digital experiences through modern web development and AI solutions.</p>
               </div>

@@ -453,6 +453,14 @@ html.is-loaded .ld {
   object-fit: contain;
   display: block;
 }
+.brand-name {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.015em;
+  color: var(--txt);
+  line-height: 1;
+}
 .brand-text-block {
   display: flex;
   flex-direction: column;
