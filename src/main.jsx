@@ -1314,12 +1314,13 @@ function ProjectIntakeCard({ isModal = false, onClose = null }) {
   );
 }
 
-// Request A Callback Modal Component
+// Request A Callback Modal Component (Accurately styled to screenshot)
 function RequestCallbackModal({ isOpen, onClose }) {
   const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [preferredTime, setPreferredTime] = useState('Next 15 Minutes (Immediate)');
-  const [topic, setTopic] = useState('Web Development & AI Solutions');
+  const [enquiryFor, setEnquiryFor] = useState('Web Development');
+  const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
   if (!isOpen) return null;
@@ -1331,12 +1332,13 @@ function RequestCallbackModal({ isOpen, onClose }) {
     const messageLines = [
       '📞 *NEW CALLBACK REQUEST — ROVAWARE STUDIO*',
       '━━━━━━━━━━━━━━━━━━━━━',
-      `👤 *Client Name:* ${name}`,
-      `📱 *Phone / WhatsApp:* ${phone}`,
-      `⏰ *Preferred Time:* ${preferredTime}`,
-      `💬 *Discussion Topic:* ${topic}`,
+      `👤 *Name:* ${name}`,
+      `📧 *Email:* ${email || 'Not provided'}`,
+      `📱 *Phone no.:* +91 ${phone}`,
+      `🎯 *Enquiry For:* ${enquiryFor}`,
+      `💬 *Details:* ${message || 'No additional message'}`,
       '━━━━━━━━━━━━━━━━━━━━━',
-      '⚡ _Please initiate callback at the scheduled time._'
+      '⚡ _Please initiate callback at the earliest convenience._'
     ];
 
     const url = `https://api.whatsapp.com/send?phone=${STUDIO_WHATSAPP_NUMBER}&text=${encodeURIComponent(messageLines.join('\n'))}`;
@@ -1346,15 +1348,16 @@ function RequestCallbackModal({ isOpen, onClose }) {
 
   const handleReset = () => {
     setName('');
+    setEmail('');
     setPhone('');
-    setPreferredTime('Next 15 Minutes (Immediate)');
-    setTopic('Web Development & AI Solutions');
+    setEnquiryFor('Web Development');
+    setMessage('');
     setSubmitted(false);
   };
 
   return (
     <div className="callback-modal-overlay" onClick={onClose} role="dialog" aria-modal="true">
-      <div className="callback-modal-box" onClick={(e) => e.stopPropagation()}>
+      <div className="callback-modal-box callback-modal-reference" onClick={(e) => e.stopPropagation()}>
         <button
           type="button"
           className="callback-close-btn"
@@ -1364,14 +1367,10 @@ function RequestCallbackModal({ isOpen, onClose }) {
           <X size={18} />
         </button>
 
-        <div className="callback-modal-header">
-          <div className="callback-live-badge">
-            <span className="live-dot" />
-            <span>RAPID RESPONSE • WITHIN 15 MINS</span>
-          </div>
-          <h3>Request an Instant Callback</h3>
-          <p>
-            Drop your name and number below. Our lead engineer will call you directly to discuss your project requirements, scope, and technical roadmap.
+        <div className="callback-modal-header text-center">
+          <h3 className="callback-title">Request a Callback</h3>
+          <p className="callback-subtitle">
+            Fill the form below to request a callback from our team.
           </p>
         </div>
 
@@ -1382,20 +1381,20 @@ function RequestCallbackModal({ isOpen, onClose }) {
             </div>
             <h4>Callback Request Dispatched!</h4>
             <p>
-              Thank you, <strong>{name}</strong>. Your callback request has been logged and sent to our team via WhatsApp. We will reach you on <strong>{phone}</strong> shortly.
+              Thank you, <strong>{name}</strong>. Your callback request has been logged and sent to our team via WhatsApp. We will reach you on <strong>+91 {phone}</strong> shortly.
             </p>
-            <div className="callback-direct-call">
+            <div className="callback-direct-call" style={{ marginTop: '16px' }}>
               <span>Need immediate assistance?</span>
               <a href="tel:+919752264618" className="callback-tel-btn">
                 <Phone size={14} /> Call Directly: +91 97522 64618
               </a>
             </div>
-            <div style={{ display: 'flex', gap: 10, width: '100%', marginTop: 14 }}>
+            <div style={{ display: 'flex', gap: 10, width: '100%', marginTop: 20 }}>
               <button
                 type="button"
                 onClick={handleReset}
                 className="btn ghost"
-                style={{ flex: 1, padding: '10px 14px', fontSize: 12, justifyContent: 'center' }}
+                style={{ flex: 1, padding: '11px 16px', fontSize: 13, justifyContent: 'center' }}
               >
                 New Request
               </button>
@@ -1403,35 +1402,48 @@ function RequestCallbackModal({ isOpen, onClose }) {
                 type="button"
                 onClick={onClose}
                 className="btn primary"
-                style={{ flex: 1, padding: '10px 14px', fontSize: 12, justifyContent: 'center' }}
+                style={{ flex: 1, padding: '11px 16px', fontSize: 13, justifyContent: 'center' }}
               >
                 Close Window
               </button>
             </div>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="callback-form">
-            <div className="callback-field">
-              <label>Your Name *</label>
-              <div className="callback-input-wrap">
-                <User size={15} />
-                <input
-                  type="text"
-                  placeholder="e.g. Vikram Sharma"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                />
-              </div>
+          <form onSubmit={handleSubmit} className="callback-form-v2">
+            {/* Field 1: Name */}
+            <div className="callback-field-v2">
+              <label>Name</label>
+              <input
+                type="text"
+                placeholder="Enter your Name here"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
             </div>
 
-            <div className="callback-field">
-              <label>Phone / WhatsApp Number *</label>
-              <div className="callback-input-wrap">
-                <Phone size={15} />
+            {/* Field 2: Email */}
+            <div className="callback-field-v2">
+              <label>Email</label>
+              <input
+                type="email"
+                placeholder="Enter your Email here"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+
+            {/* Field 3: Phone no. */}
+            <div className="callback-field-v2">
+              <label>Phone no.</label>
+              <div className="callback-phone-input-wrap">
+                <span className="callback-country-flag">
+                  <span role="img" aria-label="India">🇮🇳</span> +91
+                </span>
                 <input
                   type="tel"
-                  placeholder="e.g. +91 97522 64618"
+                  placeholder="Enter your number here"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   required
@@ -1439,36 +1451,42 @@ function RequestCallbackModal({ isOpen, onClose }) {
               </div>
             </div>
 
-            <div className="callback-field">
-              <label>Preferred Time for Call</label>
-              <select value={preferredTime} onChange={(e) => setPreferredTime(e.target.value)}>
-                <option value="Next 15 Minutes (Immediate)">Immediate (Next 15 Minutes)</option>
-                <option value="Today Afternoon (2 PM - 5 PM)">Today Afternoon (2 PM - 5 PM)</option>
-                <option value="Today Evening (6 PM - 9 PM)">Today Evening (6 PM - 9 PM)</option>
-                <option value="Tomorrow Morning (10 AM - 1 PM)">Tomorrow Morning (10 AM - 1 PM)</option>
-              </select>
+            {/* Field 4: Enquiry For */}
+            <div className="callback-field-v2">
+              <label>Enquiry For</label>
+              <div className="callback-select-wrap">
+                <select
+                  value={enquiryFor}
+                  onChange={(e) => setEnquiryFor(e.target.value)}
+                >
+                  <option value="Web Development">Web Development</option>
+                  <option value="App Development">App Development (iOS & Android)</option>
+                  <option value="AI & LLM Solutions">AI & LLM Solutions</option>
+                  <option value="Workflow Automation (n8n & APIs)">Workflow Automation (n8n & APIs)</option>
+                  <option value="UI/UX & Product Design">UI/UX & Product Design</option>
+                  <option value="Custom Software & Cloud Systems">Custom Software & Cloud Systems</option>
+                  <option value="Other / General Consultation">Other / General Consultation</option>
+                </select>
+                <ChevronDown size={16} className="callback-select-chevron" />
+              </div>
             </div>
 
-            <div className="callback-field">
-              <label>Project Topic</label>
-              <input
-                type="text"
-                placeholder="e.g. Web App Development, AI Integration, Pricing"
-                value={topic}
-                onChange={(e) => setTopic(e.target.value)}
+            {/* Field 5: How can we help you? */}
+            <div className="callback-field-v2">
+              <label>How can we help you?</label>
+              <textarea
+                rows={3}
+                placeholder="E.g. I want details about the project timeline, tech stack, and scope..."
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
               />
             </div>
 
-            <button type="submit" className="callback-submit-btn">
-              <PhoneCall size={16} />
-              <span>Request Callback Now</span>
-              <ArrowUpRight size={15} />
+            {/* Submit Button */}
+            <button type="submit" className="callback-submit-btn-v2">
+              <Send size={15} />
+              <span>Book My Callback</span>
             </button>
-
-            <div className="callback-modal-footer">
-              <span>Or call our direct studio line: </span>
-              <a href="tel:+919752264618">+91 97522 64618</a>
-            </div>
           </form>
         )}
       </div>
@@ -1988,196 +2006,163 @@ function EngineeringStatsCounter() {
   );
 }
 
-// Interactive Inline Experience Showcase: From Idea to Digital Experience
-function DigitalExperienceWafer({ data }) {
-  const [activeIdx, setActiveIdx] = useState(0);
-  const [viewMode, setViewMode] = useState('preview');
-  const stepRefs = useRef([]);
+// ============================================================================
+// WHAT WE BUILD SHOWCASE: Premium 3-Card Engineering Showcase
+// Replaces the legacy accordion with a full-width software studio portfolio grid.
+// ============================================================================
+const whatWeBuildData = [
+  {
+    id: 'web-platforms',
+    category: 'Web Platforms',
+    kicker: '01 // WEB ARCHITECTURE',
+    title: 'High-Performance Web Platforms',
+    description:
+      'Ultra-fast Next.js and React platforms engineered with hybrid SSR, static edge caching, and sub-second TTFB for mission-critical digital scale.',
+    image: '/assets/exp_web_platforms.jpg',
+    urlLabel: 'rovaware.com/platforms',
+    tags: ['Next.js 15 & React', 'Edge SSR', 'Sub-50ms TTFB'],
+    actionLabel: 'Explore Projects'
+  },
+  {
+    id: 'applications',
+    category: 'Applications',
+    kicker: '02 // ENTERPRISE SYSTEMS',
+    title: 'Scalable SaaS & Cloud Applications',
+    description:
+      'Full-stack enterprise applications featuring reactive WebSocket telemetry, real-time monitoring dashboards, and scalable cloud microservices.',
+    image: '/assets/exp_saas_dashboard.jpg',
+    urlLabel: 'cloud.rovaware.com',
+    tags: ['Full-Stack SaaS', 'Real-Time WebSockets', 'Cloud Microservices'],
+    actionLabel: 'Explore Projects'
+  },
+  {
+    id: 'ai-solutions',
+    category: 'AI Solutions',
+    kicker: '03 // NEURAL WORKFLOWS',
+    title: 'Autonomous AI & Vector Retrieval Engines',
+    description:
+      'Production AI systems integrating multi-node agent tool calling, dense vector retrieval (RAG), and custom LLM inference pipelines.',
+    image: '/assets/exp_ai_architecture.jpg',
+    urlLabel: 'ai.rovaware.com',
+    tags: ['Agentic Workflows', 'Vector Search (RAG)', 'Custom LLMs'],
+    actionLabel: 'Explore Projects'
+  }
+];
 
-  const toggleStep = (idx) => {
-    setActiveIdx((prev) => (prev === idx ? null : idx));
+function WhatWeBuildShowcase({ onExploreProjects }) {
+  const handleExplore = (e) => {
+    if (onExploreProjects) {
+      onExploreProjects(e);
+    } else {
+      const el = document.getElementById('work');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
-    <section className="wafer-experience-section" id="digital-experience">
-      <div className="wafer-experience-container">
+    <section className="what-we-build-section" id="what-we-build">
+      {/* Anchor for backward compatibility with #digital-experience */}
+      <span id="digital-experience" className="what-we-build-anchor" aria-hidden="true" />
+
+      <div className="what-we-build-container">
         {/* Main Section Header */}
-        <div className="wafer-header-block">
-          <div className="wafer-kicker-pill">
-            <Sparkles size={13} />
-            <span>ENGINEERING EXCELLENCE</span>
+        <div className="what-we-build-header">
+          <div className="what-we-build-header-left">
+            <div className="what-we-build-kicker">
+              <Sparkles size={13} />
+              <span>WHAT WE BUILD</span>
+            </div>
+            <h2 className="what-we-build-title">
+              Engineering the Digital Future: <em className="hero-highlight">What We Build.</em>
+            </h2>
+            <p className="what-we-build-desc">
+              Explore the core engineering disciplines we deploy to architect high-performance web platforms, resilient cloud software, and intelligent AI workflows for ambitious modern businesses.
+            </p>
           </div>
-          <h2 className="wafer-main-heading">
-            From Idea to <em className="hero-highlight">Digital Experience.</em>
-          </h2>
-          <p className="wafer-sub-heading">
-            Explore how Rovaware Studio transforms conceptual whiteboard sketches into high-performance web applications, intelligent AI workflows, and scalable cloud platforms.
-          </p>
+
+          <div className="what-we-build-header-right">
+            <button
+              type="button"
+              className="what-we-build-header-cta"
+              onClick={handleExplore}
+              aria-label="Explore all portfolio projects"
+            >
+              <span>Explore All Work</span>
+              <ArrowUpRight size={15} />
+            </button>
+          </div>
         </div>
 
-        {/* Accordion Steps List: Each step renders its visual photo directly underneath */}
-        <div className="wafer-steps-list">
-          {data.map((item, idx) => {
-            const isActive = activeIdx === idx;
-            return (
-              <div
-                key={item.id}
-                ref={(el) => (stepRefs.current[idx] = el)}
-                className={`wafer-step-card ${isActive ? 'is-active' : ''}`}
-                onClick={() => toggleStep(idx)}
-              >
-                <div className="wafer-step-rail">
-                  <span className="wafer-rail-bar" />
-                </div>
-                <div className="wafer-step-content">
-                  {/* Step Header Row: Clickable to toggle open and close */}
-                  <div
-                    className="wafer-step-header"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleStep(idx);
-                    }}
-                  >
-                    <div className="wafer-step-title-row">
-                      <span className="wafer-step-num">0{idx + 1}</span>
-                      <h3 className="wafer-step-title">{item.title}</h3>
-                    </div>
-                    <button
-                      type="button"
-                      className={`wafer-chevron-indicator ${isActive ? 'open' : ''}`}
-                      aria-label={isActive ? `Collapse ${item.title}` : `Expand ${item.title}`}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        toggleStep(idx);
-                      }}
-                    >
-                      <ChevronDown size={20} />
-                    </button>
+        {/* 3 Full-Width Showcase Cards Grid */}
+        <div className="what-we-build-grid">
+          {whatWeBuildData.map((item) => (
+            <article key={item.id} className="build-showcase-card">
+              {/* Top Accent Gradient Border */}
+              <div className="build-card-accent-bar" />
+
+              {/* Card Media Preview Frame */}
+              <div className="build-card-media" onClick={handleExplore}>
+                <div className="build-card-hud">
+                  <div className="build-hud-dots">
+                    <span className="dot red" />
+                    <span className="dot yellow" />
+                    <span className="dot green" />
                   </div>
+                  <div className="build-hud-url">
+                    <Lock size={10} />
+                    <span>{item.urlLabel}</span>
+                  </div>
+                </div>
 
-                  {/* Step Body: 2-Column Layout (Content on Left, Photo Showcase on Right) */}
-                  {isActive && (
-                    <div className="wafer-step-body" onClick={(e) => e.stopPropagation()}>
-                      {/* Left Column: Text Content, Specs & Highlights */}
-                      <div className="wafer-content-col">
-                        <p className="wafer-step-desc">{item.description}</p>
-
-                        <div className="wafer-step-specs">
-                          {item.specs.map((s, i) => (
-                            <div className="wafer-spec-chip" key={i}>
-                              <span className="spec-chip-label">{s.label}:</span>
-                              <span className="spec-chip-val">{s.value}</span>
-                            </div>
-                          ))}
-                        </div>
-
-                        {item.highlights && item.highlights.length > 0 && (
-                          <div className="wafer-highlights-list">
-                            {item.highlights.map((h, i) => (
-                              <div key={i} className="wafer-highlight-item">
-                                <Check size={14} className="wafer-check-icon" />
-                                <span>{h}</span>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-
-                        <div className="wafer-step-tags">
-                          {item.techStack.map((tech) => (
-                            <span key={tech} className="wafer-tech-pill">{tech}</span>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Right Column: Visual Photo Showcase directly to the right */}
-                      <div className="wafer-visual-col">
-                        <div className="wafer-inline-browser">
-                          {/* Browser Window Bar */}
-                          <div className="wafer-window-bar">
-                            <div className="wafer-window-dots">
-                              <span className="dot red" />
-                              <span className="dot yellow" />
-                              <span className="dot green" />
-                            </div>
-                            <div className="wafer-url-pill">
-                              <Lock size={11} />
-                              <span>{item.urlLabel}</span>
-                            </div>
-                            <div className="wafer-status-pill">
-                              <span className="pulse-dot" />
-                              <span>PRODUCTION READY</span>
-                            </div>
-                          </div>
-
-                          {/* Viewport: Shows properly visible photo or architecture */}
-                          <div className="wafer-viewport-container">
-                            {viewMode === 'preview' ? (
-                              <div className="wafer-media-preview">
-                                <img
-                                  src={item.image}
-                                  alt={item.title}
-                                  className="wafer-showcase-image"
-                                  loading="lazy"
-                                />
-                                <div className="wafer-media-watermark">
-                                  <Sparkles size={12} />
-                                  <span>Rovaware Studio // {item.category}</span>
-                                </div>
-                              </div>
-                            ) : (
-                              <div className="wafer-architecture-flow">
-                                <div className="wafer-arch-header">
-                                  <Terminal size={15} />
-                                  <span>{item.architectureTitle}</span>
-                                </div>
-                                <div className="wafer-arch-nodes-grid">
-                                  {item.architectureNodes.map((node, i) => (
-                                    <div key={i} className="wafer-node-card">
-                                      <span className="node-index">0{i + 1}</span>
-                                      <div className="node-info">
-                                        <strong>{node.name}</strong>
-                                        <p>{node.detail}</p>
-                                      </div>
-                                    </div>
-                                  ))}
-                                </div>
-                              </div>
-                            )}
-                          </div>
-
-                          {/* Viewport HUD Footer */}
-                          <div className="wafer-window-footer">
-                            <div className="wafer-footer-info">
-                              <span className="wafer-category-tag">{item.category}</span>
-                              <span className="wafer-tagline-text">{item.tagline}</span>
-                            </div>
-
-                            <button
-                              type="button"
-                              className="wafer-mode-toggle-btn"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setViewMode(viewMode === 'preview' ? 'architecture' : 'preview');
-                              }}
-                            >
-                              {viewMode === 'preview' ? <Layers size={13} /> : <Layout size={13} />}
-                              <span>{viewMode === 'preview' ? 'Architecture Specs' : 'Production UI'}</span>
-                              <ArrowUpRight size={13} />
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
+                <div className="build-card-image-wrap">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="build-card-img"
+                    loading="lazy"
+                  />
+                  <div className="build-card-overlay-gradient" />
                 </div>
               </div>
-            );
-          })}
+
+              {/* Card Body */}
+              <div className="build-card-content">
+                <div className="build-card-meta">
+                  <span className="build-card-kicker">{item.kicker}</span>
+                </div>
+
+                <h3 className="build-card-title">{item.title}</h3>
+                <p className="build-card-desc">{item.description}</p>
+
+                {/* Professional Discipline Tags */}
+                <div className="build-card-tags">
+                  {item.tags.map((tag) => (
+                    <span key={tag} className="build-card-tag">{tag}</span>
+                  ))}
+                </div>
+
+                {/* Card Action Link */}
+                <div className="build-card-footer">
+                  <button
+                    type="button"
+                    className="build-card-cta-btn"
+                    onClick={handleExplore}
+                  >
+                    <span>{item.actionLabel}</span>
+                    <ArrowUpRight size={15} className="build-card-arrow" />
+                  </button>
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>
   );
 }
+
+// Backward compatibility alias
+const DigitalExperienceWafer = WhatWeBuildShowcase;
 
 // Full-Spectrum Digital Solutions Horizontal Scrolling Carousel Component
 function ServicesCarousel({ services }) {
@@ -3736,7 +3721,19 @@ function AppContent() {
             <NavRollingText text="FAQs" />
           </a>
 
-          {/* Mobile Drawer CTA */}
+          {/* Mobile Drawer CTAs */}
+          <button
+            type="button"
+            className="mobile-drawer-cta mobile-drawer-contact-btn"
+            onClick={() => {
+              setMobileMenu(false);
+              setIsCallbackModalOpen(true);
+            }}
+            style={{ marginBottom: '8px' }}
+          >
+            <PhoneCall size={14} style={{ marginRight: '6px' }} />
+            <span>Request a Callback</span>
+          </button>
           <a
             href={GOOGLE_FORM_URL}
             target="_blank"
@@ -3750,6 +3747,15 @@ function AppContent() {
         </nav>
 
         <div className="nav-right">
+          <button
+            type="button"
+            className="btn-nav-contact"
+            onClick={() => setIsCallbackModalOpen(true)}
+            title="Request a Callback"
+          >
+            <PhoneCall size={13} />
+            <span>Request a Callback</span>
+          </button>
           <a
             href={GOOGLE_FORM_URL}
             target="_blank"
@@ -3923,8 +3929,16 @@ function AppContent() {
                     </span>{' '}
                     <br />
                     <span className="hero-highlight-wrap">
-                      <span className="word-mask"><span className="word-reveal hero-highlight" style={{ '--w-delay': '460ms' }}>digital</span></span>{' '}
-                      <span className="word-mask"><span className="word-reveal hero-highlight" style={{ '--w-delay': '540ms' }}>reality.</span></span>
+                      <span className="word-mask">
+                        <span className="word-reveal" style={{ '--w-delay': '460ms' }}>
+                          <span className="hero-highlight">digital</span>
+                        </span>
+                      </span>{' '}
+                      <span className="word-mask">
+                        <span className="word-reveal" style={{ '--w-delay': '540ms' }}>
+                          <span className="hero-highlight">reality.</span>
+                        </span>
+                      </span>
                       <span className="hero-highlight-sweep" aria-hidden="true" />
                     </span>
                   </h1>
@@ -4158,38 +4172,6 @@ function AppContent() {
           )}
         </section>
 
-          {/* FROM IDEA TO DIGITAL EXPERIENCE: WAFER INTERACTIVE SHOWCASE */}
-          <DigitalExperienceWafer data={digitalExperienceData} />
-
-          {/* Visual Connector Bridge to Services Section */}
-          <div className="showcase-services-bridge">
-            <div className="bridge-glow-line" />
-            <div className="bridge-icon-pill">
-              <Sparkles size={14} />
-              <span>FULL-SPECTRUM SOLUTIONS ARCHITECTURE</span>
-            </div>
-            <div className="bridge-glow-line" />
-          </div>
-
-          {/* SERVICES OFFERED */}
-          <section id="services" className="section-wrapper">
-            <div className="section-head">
-              <div>
-                <div className="section-kicker">
-                  <Sparkles size={14} />
-                  <span>WHAT WE DELIVER</span>
-                </div>
-                <h2 className="section-title">
-                  Full-spectrum <em className="hero-highlight">digital solutions.</em>
-                </h2>
-              </div>
-              <p className="section-desc">
-                From strategy and design to development and AI integration, we build digital experiences engineered for performance, usability, and business growth.
-              </p>
-            </div>
-
-            <ServicesCarousel services={servicesList} />
-          </section>
 
           {/* ABOUT STUDIO SECTION */}
           <section id="about" className="section-wrapper about-section">

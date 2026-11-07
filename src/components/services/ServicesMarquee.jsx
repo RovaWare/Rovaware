@@ -7,70 +7,102 @@ import {
   Palette,
   Layers,
   ArrowUpRight,
+  Sparkles,
+  RefreshCw,
 } from 'lucide-react';
 import '../../styles/ServicesMarquee.css';
 
-// 6 Distinct Service Cards as specified
+// 6 Distinct Service Cards with Theme Accents & Photography
 const SERVICES = [
   {
     id: 'web-development',
+    num: '01',
     title: 'Web Development',
     description:
       'High-performance websites and digital experiences built for modern businesses.',
+    image: '/images/service-web.jpg',
     icon: Code2,
     tag: '01 // PLATFORMS',
     actionLabel: 'Explore Architecture',
     slug: 'web-development',
+    accent: '#FF8C32', // BUILD Theme (Orange)
+    accentRgb: '255, 140, 50',
+    features: ['Next.js 15 & SSR', 'Edge Microservices', 'Tailwind CSS', 'High TTFB Speed'],
   },
   {
     id: 'app-development',
+    num: '02',
     title: 'App Development',
     description:
       'Powerful mobile and web applications designed around your business needs.',
+    image: '/images/service-app-dev.jpg',
     icon: Smartphone,
     tag: '02 // MOBILE',
     actionLabel: 'Explore Mobile',
     slug: 'android-development',
+    accent: '#38BDF8', // MOBILE Systems Theme (Cyan / Sky Blue)
+    accentRgb: '56, 189, 248',
+    features: ['Native Kotlin', 'React Native', '120Hz Fluid UI', 'Offline Data Sync'],
   },
   {
     id: 'ai-solutions',
+    num: '03',
     title: 'AI Solutions',
     description:
       'Intelligent AI-powered products that simplify complex business processes.',
+    image: '/images/service-ai.jpg',
     icon: BrainCircuit,
     tag: '03 // INTELLIGENCE',
     actionLabel: 'Explore AI Systems',
     slug: 'chatbot-integration',
+    accent: '#10B981', // GROW / Agentic AI Theme (Emerald Green)
+    accentRgb: '16, 185, 129',
+    features: ['LLM Workflows', 'Vector RAG Search', 'Agent Automation', 'Private APIs'],
   },
   {
     id: 'business-automation',
+    num: '04',
     title: 'Business Automation',
     description:
       'Automate repetitive workflows and connect your business tools.',
+    image: '/images/service-automation.jpg',
     icon: Workflow,
     tag: '04 // AUTOMATION',
     actionLabel: 'Explore Workflows',
     slug: 'saas-scaling',
+    accent: '#A855F7', // AUTOMATION Theme (Purple / Violet)
+    accentRgb: '168, 85, 247',
+    features: ['n8n Pipelines', 'Stripe Billing', 'Custom Webhooks', 'CRM Auto-Sync'],
   },
   {
     id: 'ui-ux-design',
+    num: '05',
     title: 'UI/UX Design',
     description:
       'Intuitive, modern interfaces that make digital experiences effortless.',
+    image: '/images/service-design.jpg',
     icon: Palette,
     tag: '05 // INTERFACES',
     actionLabel: 'Explore Design Systems',
     slug: 'ui-ux-design',
+    accent: '#F472B6', // DESIGN / Rose Gold Theme (Pink / Rose Gold)
+    accentRgb: '244, 114, 182',
+    features: ['Figma Design Tokens', 'Motion Architecture', 'Interactive Prototypes', 'Conversion-Led UX'],
   },
   {
     id: 'custom-software',
+    num: '06',
     title: 'Custom Software',
     description:
       'Scalable software solutions designed around your unique requirements.',
+    image: '/images/service-cloud.jpg',
     icon: Layers,
     tag: '06 // SYSTEMS',
     actionLabel: 'Explore Solutions',
     slug: 'web-development',
+    accent: '#6366F1', // SYSTEMS Theme (Electric Indigo / Blue)
+    accentRgb: '99, 102, 241',
+    features: ['High-Concurrency APIs', 'Distributed DBs', 'Zero-Trust Security', '99.9% Uptime SLA'],
   },
 ];
 
@@ -148,9 +180,10 @@ export default function ServicesMarquee({ onSelectService }) {
 
       const state = animStateRef.current;
 
-      // Update right-to-left linear drift when not dragging and motion allowed
+      // Update right-to-left linear drift when not dragging and motion allowed (pauses gently on card hover)
       if (!state.isDragging && !prefersReducedMotion) {
-        state.progressX += state.speed * delta;
+        const driftSpeed = state.isHovered ? 0 : state.speed;
+        state.progressX += driftSpeed * delta;
         // Seamless wrap around single cycle
         if (state.progressX >= cycleWidth) {
           state.progressX -= cycleWidth;
@@ -251,6 +284,7 @@ export default function ServicesMarquee({ onSelectService }) {
 
   return (
     <section
+      id="services"
       className="services-marquee-section"
       aria-label="Capabilities and Services"
     >
@@ -269,7 +303,7 @@ export default function ServicesMarquee({ onSelectService }) {
 
         <h2 className="marquee-headline">
           TECHNOLOGY THAT{' '}
-          <span className="marquee-highlight-blue">
+          <span className="marquee-highlight-blue hero-highlight">
             MOVES YOUR BUSINESS FORWARD.
           </span>
         </h2>
@@ -306,11 +340,11 @@ export default function ServicesMarquee({ onSelectService }) {
           >
             <defs>
               <linearGradient id="arcGlow" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#315EFF" stopOpacity="0" />
-                <stop offset="25%" stopColor="#315EFF" stopOpacity="0.18" />
-                <stop offset="50%" stopColor="#38BDF8" stopOpacity="0.45" />
-                <stop offset="75%" stopColor="#315EFF" stopOpacity="0.18" />
-                <stop offset="100%" stopColor="#315EFF" stopOpacity="0" />
+                <stop offset="0%" stopColor="#2585E8" stopOpacity="0" />
+                <stop offset="25%" stopColor="#2585E8" stopOpacity="0.22" />
+                <stop offset="50%" stopColor="#36C9F4" stopOpacity="0.55" />
+                <stop offset="75%" stopColor="#2585E8" stopOpacity="0.22" />
+                <stop offset="100%" stopColor="#2585E8" stopOpacity="0" />
               </linearGradient>
             </defs>
             <path
@@ -336,30 +370,96 @@ export default function ServicesMarquee({ onSelectService }) {
                 ref={(el) => (cardElementsRef.current[idx] = el)}
                 href={`/services/${card.slug}`}
                 className="marquee-card-item"
+                style={{
+                  '--card-accent': card.accent,
+                  '--card-accent-rgb': card.accentRgb,
+                }}
                 onClick={(e) => handleCardClick(card.slug, e)}
                 aria-label={`${card.title} — ${card.description}`}
               >
-                {/* Card Top: Icon & Category Tag */}
-                <div className="marquee-card-header">
-                  <div className="marquee-card-icon-box">
-                    <IconComponent size={24} />
+                {/* 3D Flipper Shell */}
+                <div className="marquee-card-flipper">
+                  {/* FRONT FACE: Cinematic Photography Cover */}
+                  <div className="marquee-card-face marquee-card-front">
+                    <div className="marquee-photo-stage">
+                      <img
+                        src={card.image}
+                        alt={card.title}
+                        className="marquee-cover-image"
+                        loading="lazy"
+                      />
+                      <div className="marquee-photo-scrim">
+                        <div className="marquee-scrim-top">
+                          <span
+                            className="marquee-kicker-pill"
+                            style={{
+                              color: card.accent,
+                              borderColor: `rgba(${card.accentRgb}, 0.38)`,
+                            }}
+                          >
+                            <Sparkles size={11} />
+                            <span>{card.tag}</span>
+                          </span>
+                          <span className="marquee-num-badge">{card.num}</span>
+                        </div>
+
+                        <div className="marquee-scrim-bottom">
+                          <span className="marquee-discipline-label">
+                            ROVAWARE // DISCIPLINE {card.num}
+                          </span>
+                          <h3 className="marquee-photo-headline">{card.title}</h3>
+                          <div
+                            className="marquee-interaction-badge"
+                            style={{
+                              color: card.accent,
+                              borderColor: `rgba(${card.accentRgb}, 0.35)`,
+                            }}
+                          >
+                            <span>Hover to View Details</span>
+                            <RefreshCw size={11} className="marquee-spin-glyph" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <span className="marquee-card-tag">{card.tag}</span>
-                </div>
 
-                {/* Card Body: Title & Description */}
-                <div className="marquee-card-body">
-                  <h3 className="marquee-card-title">{card.title}</h3>
-                  <p className="marquee-card-desc">{card.description}</p>
-                </div>
+                  {/* BACK FACE: Detailed Capabilities & Interaction */}
+                  <div className="marquee-card-face marquee-card-back">
+                    <div className="marquee-back-glow" aria-hidden="true" />
 
-                {/* Card Bottom: Interactive Arrow & Label */}
-                <div className="marquee-card-footer">
-                  <span className="marquee-card-action-label">
-                    {card.actionLabel}
-                  </span>
-                  <div className="marquee-card-arrow-circle" aria-hidden="true">
-                    <ArrowUpRight size={16} />
+                    {/* Card Top: Icon & Category Tag */}
+                    <div className="marquee-card-header">
+                      <div className="marquee-card-icon-box">
+                        <IconComponent size={24} />
+                      </div>
+                      <span className="marquee-card-tag">{card.tag}</span>
+                    </div>
+
+                    {/* Card Body: Title, Description & Feature Tags */}
+                    <div className="marquee-card-body">
+                      <h3 className="marquee-card-title">{card.title}</h3>
+                      <p className="marquee-card-desc">{card.description}</p>
+                      <div className="marquee-card-features">
+                        {card.features.map((feat) => (
+                          <span key={feat} className="marquee-feature-tag">
+                            {feat}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Card Bottom: Interactive Arrow & Label */}
+                    <div className="marquee-card-footer">
+                      <span className="marquee-card-action-label">
+                        {card.actionLabel}
+                      </span>
+                      <div
+                        className="marquee-card-arrow-circle"
+                        aria-hidden="true"
+                      >
+                        <ArrowUpRight size={16} />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </a>
