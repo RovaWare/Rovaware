@@ -43,33 +43,6 @@ const showcaseProjects = [
         summary: 'High-performance Next.js enterprise web application built for 100+ projects trusted by L&T Construction, Bajaj & KEC.'
     },
     {
-        id: 'vertex-shops',
-        title: 'Vertex Shops — Streamlined Virtual Store & Stage Experience',
-        category: 'WebGL 3D E-Commerce',
-        client: 'Vertex Retail Systems',
-        img: '/assets/workspace.jpg',
-        tags: ['WebGL Stage', 'Virtual Retail', 'Sub-second Load'],
-        summary: 'Immersive virtual commerce stage designed for luxury digital retail with calibrated 3D camera controls and dynamic showcases.'
-    },
-    {
-        id: 'nextgen-saas-portal',
-        title: 'Real-Time Interactive Dashboards & SaaS Monitoring Hub',
-        category: 'SaaS & Telemetry',
-        client: 'RovaWare Cloud Analytics',
-        img: '/assets/showcase_dashboard.jpg',
-        tags: ['React 19', 'WebSockets', 'Sub-1ms Redis'],
-        summary: 'Enterprise-grade monitoring dashboard featuring real-time telemetry streaming, interactive data visualization, and RBAC security.'
-    },
-    {
-        id: 'autonomous-ai-engine',
-        title: 'Autonomous AI Agents & Vector Retrieval RAG Pipeline',
-        category: 'AI Solutions & LLMs',
-        client: 'NeuralCore Systems',
-        img: '/assets/showcase_ai.jpg',
-        tags: ['Python', 'Qdrant Vector DB', 'LangChain'],
-        summary: 'Custom autonomous AI workflows integrating Large Language Models, semantic search embeddings, and multi-step reasoning agents.'
-    },
-    {
         id: 'rathore-construction',
         title: 'Rathore Construction & Earthmovers — Heavy Equipment Platform',
         category: 'Fleet & Civil Infrastructure',
@@ -77,11 +50,20 @@ const showcaseProjects = [
         img: '/assets/rathore_construction.jpg',
         tags: ['Next.js', 'JCB Fleet Rental', 'High Concurrency'],
         summary: 'Heavy equipment rental & earthmoving solutions platform engineered for civil infrastructure across central India.'
+    },
+    {
+        id: 'doctor-appointment-booking',
+        title: 'Doctor Appointment Booking System',
+        category: 'Full-Stack Web Application',
+        client: 'Appointy • Healthcare',
+        img: '/assets/doctor_appointment.jpg',
+        tags: ['React', 'Tailwind CSS', 'Razorpay'],
+        summary: 'Effortless healthcare scheduling web application enabling patients to browse specialists, book consultations, and complete secure payments.'
     }
 ];
 
 function Stacked3DProjectShowcase({ onNavigateWork }) {
-    const [activeIndex, setActiveIndex] = useState(2);
+    const [activeIndex, setActiveIndex] = useState(1);
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
     const containerRef = useRef(null);
