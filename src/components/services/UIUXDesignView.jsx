@@ -314,7 +314,14 @@ export default function UIUXDesignView({
               aria-label="Rovaware UI/UX Design home"
             >
               <span className="brand-mark"><img src="/assets/rovaware_icon.png" alt="RovaWare" style={{ width: '32px', height: '32px', objectFit: 'contain' }} /></span>
-              <span className="brand-name" style={{ marginLeft: '10px', fontSize: '20px', fontWeight: 700, color: '#fff', letterSpacing: '-0.015em' }}>RovaWare</span>
+              <span className="brand-divider" aria-hidden="true" style={{ width: '1px', height: '22px', background: 'rgba(255, 255, 255, 0.25)', margin: '0 6px 0 4px', display: 'inline-block' }} />
+              <div className="brand-text-block">
+                <div className="brand-text">
+                  <span className="brand-text-main">ROVA</span>
+                  <span className="brand-text-accent">WARE</span>
+                </div>
+                <div className="brand-tagline">ENGINEERING THE DIGITAL FUTURE</div>
+              </div>
             </a>
             <nav className="desktop-nav" aria-label="Main navigation">
               <div className="nav-dropdown-wrap" onMouseEnter={() => setServicesOpen(true)} onMouseLeave={() => setServicesOpen(false)}>
@@ -770,7 +777,14 @@ export default function UIUXDesignView({
                   aria-label="Rovaware home"
                 >
                   <span className="brand-mark"><img src="/assets/rovaware_icon.png" alt="RovaWare" style={{ width: '32px', height: '32px', objectFit: 'contain' }} /></span>
-                  <span className="brand-name" style={{ marginLeft: '10px', fontSize: '20px', fontWeight: 700, color: '#fff', letterSpacing: '-0.015em' }}>RovaWare</span>
+                  <span className="brand-divider" aria-hidden="true" style={{ width: '1px', height: '22px', background: 'rgba(255, 255, 255, 0.25)', margin: '0 6px 0 4px', display: 'inline-block' }} />
+                  <div className="brand-text-block">
+                    <div className="brand-text">
+                      <span className="brand-text-main">ROVA</span>
+                      <span className="brand-text-accent">WARE</span>
+                    </div>
+                    <div className="brand-tagline">ENGINEERING THE DIGITAL FUTURE</div>
+                  </div>
                 </a>
                 <p>We turn ambitious ideas into digital experiences through modern web development and AI solutions.</p>
               </div>

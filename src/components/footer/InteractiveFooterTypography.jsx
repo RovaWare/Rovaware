@@ -98,7 +98,7 @@ export default function InteractiveFooterTypography({ theme = 'deep-blue' }) {
 
     const width = container.clientWidth;
     // Responsive height
-    const height = width < 480 ? 145 : width < 768 ? 185 : 235;
+    const height = width < 480 ? 64 : width < 768 ? 105 : 235;
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     canvas.width = width * dpr;

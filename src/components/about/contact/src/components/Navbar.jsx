@@ -25,7 +25,14 @@ export default function Navbar() {
           <div className="brand-icon-box">
             <img src="/assets/rovaware_icon.png?v=12" alt="RovaWare" className="brand-logo-img" />
           </div>
-          <span className="brand-name">RovaWare</span>
+          <span className="brand-divider" aria-hidden="true" />
+          <div className="brand-text-block">
+            <div className="brand-text">
+              <span className="brand-text-main">ROVA</span>
+              <span className="brand-text-accent">WARE</span>
+            </div>
+            <div className="brand-tagline">ENGINEERING THE DIGITAL FUTURE</div>
+          </div>
         </a>
 
         <nav className="nav-links" aria-label="Primary">

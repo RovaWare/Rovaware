@@ -38,6 +38,7 @@ import {
   Send,
   CheckCircle2,
   ArrowLeft,
+  ArrowRight,
   FileText,
   Cookie,
   Scale,
@@ -69,7 +70,8 @@ import {
   GitBranch,
   Building2,
   CalendarCheck,
-  Briefcase
+  Briefcase,
+  Smartphone
 } from 'lucide-react';
 import './styles.css';
 import BlogView from './components/blog/BlogView';
@@ -133,9 +135,11 @@ const projectsData = [
     type: 'featured',
     aspect: 'Next.js • TailwindCSS',
     url: 'https://asa-epc.com',
+    video: '/assets/asa_epc.mp4',
     img: '/assets/asa_epc.jpg',
     tags: ['Next.js 15', 'Solar EPC', 'Enterprise Web', 'High Performance', 'DPIIT Recognized'],
-    summary: 'DPIIT-recognized Solar EPC company trusted by L&T Construction, Bajaj & KEC. High-performance Next.js web application built for 100+ projects across India & UAE.'
+    summary: 'DPIIT-recognized Solar EPC company trusted by L&T Construction, Bajaj & KEC. High-performance Next.js web application built for 100+ projects across India & UAE.',
+    revealText: 'DPIIT-RECOGNIZED • 100+ UTILITY SOLAR DEPLOYMENTS'
   },
   {
     id: 'rathore-construction',
@@ -146,74 +150,26 @@ const projectsData = [
     type: 'featured',
     aspect: 'Next.js • TailwindCSS',
     url: 'https://rathore-construction-earthmovers.vercel.app',
+    video: '/assets/rathore_construction.mp4',
     img: '/assets/rathore_construction.jpg',
     tags: ['Next.js', 'JCB 3DX Rental', 'Civil Infrastructure', 'Earthmoving', 'Vercel Fast'],
-    summary: 'Heavy equipment rental & earthmoving solutions platform for JCB excavation, roadwork, rock breaking, and pipeline infrastructure across Madhya Pradesh.'
+    summary: 'Heavy equipment rental & earthmoving solutions platform for JCB excavation, roadwork, rock breaking, and pipeline infrastructure across Madhya Pradesh.',
+    revealText: 'CIVIL INFRASTRUCTURE & HEAVY JCB FLEET RENTALS'
   },
   {
-    id: 'vertex-shops',
-    title: 'Vertex Shops — Streamlined Virtual Store & Stage Experience',
-    category: 'Web Platforms',
-    client: 'Vertex Retail Systems',
+    id: 'doctor-appointment-booking',
+    title: 'Doctor Appointment Booking System',
+    category: 'Full-Stack Web Application',
+    client: 'Appointy • Full-Stack Web Application',
     duration: 'Live Platform',
     type: 'featured',
-    aspect: 'WebGL • Canvas Engine • CSS3',
-    url: '/vertex-shops.html',
-    img: '/assets/workspace.jpg',
-    tags: ['WebGL Stage', 'Virtual Retail', 'Sub-second Load', 'Adaptive Canvas', 'High Fidelity'],
-    summary: 'Immersive virtual commerce stage designed for luxury digital retail. Features a calibrated 1172x657 canvas, dynamic product showcases, and interactive 3D camera controls.'
-  },
-  {
-    id: 'nextgen-saas-portal',
-    title: 'Real-Time Interactive Dashboards & SaaS Monitoring Hub',
-    category: 'SaaS & Web Apps',
-    client: 'Rovaware Cloud Analytics',
-    duration: 'Live System',
-    type: 'secondary',
-    aspect: 'React 19 • WebSockets • FastAPI',
-    url: 'https://asa-epc.com',
-    img: '/assets/showcase_dashboard.jpg',
-    tags: ['React 19', 'WebSockets', 'Telemetry', 'FastAPI', 'High Concurrency'],
-    summary: 'Enterprise-grade monitoring dashboard featuring real-time telemetry streaming, interactive data visualization, role-based RBAC, and sub-millisecond Redis caching.'
-  },
-  {
-    id: 'autonomous-ai-engine',
-    title: 'Autonomous AI Agents & Vector Retrieval RAG Pipeline',
-    category: 'AI Solutions',
-    client: 'NeuralCore Systems',
-    duration: 'Production Engine',
-    type: 'secondary',
-    aspect: 'Python • Qdrant • LangChain',
-    url: 'https://asa-epc.com',
-    img: '/assets/showcase_ai.jpg',
-    tags: ['Python', 'Qdrant Vector DB', 'LangChain', 'Zero-Latency SSE', 'RAG Engine'],
-    summary: 'Custom autonomous AI workflows integrating Large Language Models, semantic search embeddings, and tool-calling agents for contextual multi-step reasoning.'
-  },
-  {
-    id: 'hybrid-web-architecture',
-    title: 'High-Performance Next.js Architecture & Brand Ecosystems',
-    category: 'Web Platforms',
-    client: 'OmniScale Digital',
-    duration: 'Production Framework',
-    type: 'secondary',
-    aspect: 'Next.js 15 • TypeScript • Edge CDN',
-    url: 'https://asa-epc.com',
-    img: '/assets/showcase_web_dev.jpg',
-    tags: ['Next.js 15', 'TypeScript', 'Edge Cache', '100% Lighthouse', 'Zero-JS Hydration'],
-    summary: 'Ultra-fast web platforms engineered with hybrid server-side rendering, sub-50ms TTFB edge caching, dynamic OpenGraph previews, and fluid responsive design.'
-  },
-  {
-    id: 'cloud-infrastructure-pipeline',
-    title: 'Scalable Cloud CI/CD & Microservices Mesh',
-    category: 'Cloud Infrastructure',
-    client: 'DevOps Mesh Labs',
-    duration: 'Cloud Infrastructure',
-    type: 'secondary',
-    aspect: 'Docker • Kubernetes • Terraform',
-    url: 'https://asa-epc.com',
-    img: '/assets/pipeline.jpg',
-    tags: ['Docker', 'Kubernetes', 'Terraform', 'Zero Downtime', 'Edge Routing'],
-    summary: 'Automated CI/CD deployment pipelines, container orchestration, zero-downtime rolling upgrades, and distributed edge CDN delivery for enterprise scale.'
+    aspect: 'React • Tailwind CSS • Razorpay',
+    url: 'https://doctor-appointment-nine-brown.vercel.app/',
+    video: '/assets/doctor_appointment.mp4',
+    img: '/assets/doctor_appointment.jpg',
+    tags: ['React', 'Tailwind CSS', 'Razorpay', 'Doctor Scheduling', 'REST API'],
+    summary: 'Effortless healthcare scheduling web application enabling patients to browse specialists, book verified doctor consultations, manage appointments, and complete secure payments.',
+    revealText: 'REAL-TIME DOCTOR SCHEDULING & SECURE RAZORPAY'
   }
 ];
 
@@ -226,8 +182,8 @@ const digitalExperienceData = [
     title: 'High-Performance Next.js Web Platforms',
     tagline: 'From concept wireframes to high-converting production experiences',
     description:
-      'We engineer ultra-fast, responsive web platforms built on Next.js, modern React, and TailwindCSS. Engineered with hybrid server-side rendering, sub-second page loads, edge caching, and semantic accessibility for an elevated digital brand presence.',
-    image: '/assets/showcase_web_dev.jpg',
+      'Ultra-fast Next.js web platforms engineered with hybrid SSR, static edge caching, and sub-second TTFB for mission-critical digital scale.',
+    image: '/assets/exp_web_platforms.jpg',
     urlLabel: 'rovaware.com/solutions/web-platforms',
     techStack: ['Next.js 15', 'React 19', 'TailwindCSS', 'TypeScript', 'Edge Runtime', 'Vercel Fast'],
     specs: [
@@ -254,8 +210,8 @@ const digitalExperienceData = [
     title: 'Real-Time Interactive Dashboards & SaaS Portals',
     tagline: 'From system architecture to reactive data visualization',
     description:
-      'Enterprise-grade full-stack web applications featuring real-time data streaming, interactive monitoring dashboards, modular micro-frontends, role-based access control, and resilient REST/GraphQL API hubs built for high concurrency.',
-    image: '/assets/showcase_dashboard.jpg',
+      'Enterprise-grade SaaS applications featuring reactive WebSocket telemetry, real-time monitoring dashboards, and scalable microservices.',
+    image: '/assets/exp_saas_dashboard.jpg',
     urlLabel: 'cloud.rovaware.com/analytics',
     techStack: ['React', 'Node.js', 'FastAPI', 'PostgreSQL', 'WebSockets', 'Docker & Kubernetes'],
     specs: [
@@ -282,8 +238,8 @@ const digitalExperienceData = [
     title: 'Autonomous AI Agents & Vector Retrieval Engines',
     tagline: 'From prompt engineering to production AI deployments',
     description:
-      'Custom AI solutions integrating advanced Large Language Models, Retrieval-Augmented Generation (RAG) vector pipelines, semantic search engines, and autonomous multi-step reasoning agents that automate complex workflows and surface contextual intelligence.',
-    image: '/assets/showcase_ai.jpg',
+      'Production AI systems integrating multi-node agent tool calling, vector search RAG, and zero-latency streaming token inference.',
+    image: '/assets/exp_ai_architecture.jpg',
     urlLabel: 'ai.rovaware.com/pipeline-engine',
     techStack: ['Python', 'LangChain', 'Llama 3 / OpenAI', 'Qdrant Vector DB', 'FastAPI', 'Streaming SSE'],
     specs: [
@@ -308,46 +264,70 @@ const digitalExperienceData = [
 // Services Data
 const servicesList = [
   {
-    icon: Code2,
-    num: '01',
-    title: 'Full-Stack Web Development',
-    desc: 'End-to-end website and web application development with modern frontend experiences, robust backend systems, secure APIs, and scalable architecture.',
-    features: ['React & Next.js', 'Node.js & Express', 'API Integration', 'Scalable Architecture']
-  },
-  {
     icon: Layout,
+    num: '01',
+    title: 'UI/UX Design',
+    kicker: 'INTERFACE SYSTEMS',
+    image: '/images/service-design.jpg',
+    desc: 'Intuitive design systems, responsive wireframes, and fluid user experiences designed to elevate your brand presence and maximize user engagement.',
+    features: ['Design Systems', 'Figma Wireframing', 'Interactive Prototypes', 'Conversion UX'],
+    slug: 'ui-ux-design',
+    revealText: 'HIGH-CONVERSION DESIGN SYSTEMS & PROTOTYPES'
+  },
+  {
+    icon: Code2,
     num: '02',
-    title: 'UI/UX Design & Development',
-    desc: 'Clean, intuitive interfaces and seamless user experiences designed to make your brand stand out and turn visitors into customers.',
-    features: ['Responsive UI', 'Interactive Prototypes', 'Design Systems', 'Conversion-Focused UX']
+    title: 'Custom Software',
+    kicker: 'MISSION-CRITICAL CLOUD',
+    image: '/images/service-cloud.jpg',
+    desc: 'Tailor-made software architectures, scalable backend platforms, and bespoke microservices engineered for high security and mission-critical uptime.',
+    features: ['High-Concurrency APIs', 'Distributed Architecture', 'Custom Tooling', 'Enterprise Security'],
+    slug: 'saas-scaling',
+    revealText: 'MISSION-CRITICAL BACKENDS & MICROSERVICES'
   },
   {
-    icon: Bot,
+    icon: Globe,
     num: '03',
-    title: 'AI Integration & Automation',
-    desc: 'Smart AI-powered features and automated workflows that reduce repetitive work, improve productivity, and unlock new possibilities for your business.',
-    features: ['AI Chatbots', 'LLM Integration', 'Workflow Automation', 'Intelligent Assistants']
+    title: 'Web Development',
+    kicker: 'HIGH-PERFORMANCE WEB',
+    image: '/images/service-web.jpg',
+    desc: 'Blazing-fast, SEO-optimized web platforms built with modern React, Next.js, and headless architectures tailored for sustained enterprise growth.',
+    features: ['Sub-Second Speeds', 'Headless CMS', 'Responsive Core', 'SEO & Core Web Vitals'],
+    slug: 'web-development',
+    revealText: 'SUB-SECOND NEXT.JS PLATFORMS & EDGE CACHING'
   },
   {
-    icon: ShoppingBag,
+    icon: Smartphone,
     num: '04',
-    title: 'E-Commerce Solutions',
-    desc: 'Modern online stores with smooth shopping experiences, secure checkout flows, product management, and scalable commerce functionality.',
-    features: ['Online Stores', 'Payment Integration', 'Product Catalogs', 'Order Management']
+    title: 'App Development',
+    kicker: 'MOBILE EXPERIENCES',
+    image: '/images/service-app-dev.jpg',
+    desc: 'Cross-platform and native iOS & Android applications with fluid 60fps animations, offline-first reliability, and seamless device-level integration.',
+    features: ['React Native & Flutter', 'Native Device APIs', 'Offline-First Sync', 'Store Deployment'],
+    slug: 'android-development',
+    revealText: 'NATIVE 60FPS MOBILE APPS & STORE LAUNCHES'
   },
   {
-    icon: LineChart,
+    icon: Cpu,
     num: '05',
-    title: 'SaaS & Web Applications',
-    desc: 'Powerful web applications, analytics dashboards, and subscription-based platforms built around your business requirements.',
-    features: ['Admin Dashboards', 'SaaS Platforms', 'Authentication', 'Data Visualization']
+    title: 'AI Solutions',
+    kicker: 'INTELLIGENT SYSTEMS',
+    image: '/images/service-ai.jpg',
+    desc: 'Intelligent AI-powered workflows, Large Language Model integrations, autonomous agents, and vector search pipelines engineered for operational leverage.',
+    features: ['LLM & Agent Pipelines', 'Vector Search RAG', 'Autonomous Workflows', 'Custom AI Models'],
+    slug: 'ai-development',
+    revealText: 'AUTONOMOUS AGENTS & ENTERPRISE VECTOR RAG'
   },
   {
-    icon: Gauge,
+    icon: Zap,
     num: '06',
-    title: 'Website Optimization & Maintenance',
-    desc: 'Keep your digital products fast, secure, accessible, and reliable with performance optimization, ongoing updates, and technical support.',
-    features: ['Core Web Vitals', 'SEO Foundations', 'Bug Fixes', 'Ongoing Support']
+    title: 'Business Automation',
+    kicker: 'AUTOMATED PIPELINES',
+    image: '/images/service-automation.jpg',
+    desc: 'End-to-end workflow automation, intelligent CRM pipelines, and real-time data synchronizations that eliminate operational bottlenecks.',
+    features: ['Workflow Automation', 'CRM Data Pipelines', 'Webhook Integrations', 'Real-Time Telemetry'],
+    slug: 'devops-cloud',
+    revealText: 'ZERO-TOUCH ETL PIPELINES & WEBHOOK AUTOMATION'
   }
 ];
 
@@ -1511,399 +1491,687 @@ function CookieConsentBanner() {
 // 3D CONTINUOUS ROTATING PRODUCTION DEPLOYMENTS GALLERY
 // Real deployed projects, browser frames, live URLs, 3D orbit
 // ========================================================
+// ========================================================
+// 3D ROTATING CYLINDER CAROUSEL (VERTICAL AXIS ROTATION)
+// Places service & project cards around a 3D vertical cylinder
+// with CSS perspective, preserve-3d, rotateY(), translateZ()
+// ========================================================
+const cylinderServicesData = [
+  {
+    id: 'ui-ux-design',
+    title: 'UI/UX Design',
+    category: 'Human-Centered Design',
+    icon: Layout,
+    desc: 'Intuitive user experiences, modern interfaces, and user-tested prototypes engineered for high conversion.',
+    tags: ['Figma', 'Design Systems', 'Micro-Interactions'],
+    revealText: 'MODERN INTERFACES • USER-TESTED PROTOTYPES',
+    accent: '#38BDF8',
+    slug: 'ui-ux-design'
+  },
+  {
+    id: 'custom-software',
+    title: 'Custom Software',
+    category: 'Enterprise Engineering',
+    icon: Code2,
+    desc: 'Scalable cloud infrastructure, robust microservice APIs, and sub-millisecond enterprise platforms.',
+    tags: ['Node.js', 'FastAPI', 'High Concurrency'],
+    revealText: 'SCALABLE CLOUD • ROBUST ENTERPRISE APIS',
+    accent: '#818CF8',
+    slug: 'custom-software'
+  },
+  {
+    id: 'web-development',
+    title: 'Web Development',
+    category: 'Modern Web Architecture',
+    icon: Globe,
+    desc: 'Ultra-fast Next.js 15 web applications, edge-cached platforms, and 100% Lighthouse performance.',
+    tags: ['Next.js 15', 'React 19', 'Sub-second Load'],
+    revealText: 'LIGHTNING-FAST NEXT.JS • SUB-SECOND LOAD',
+    accent: '#00F0FF',
+    slug: 'web-development'
+  },
+  {
+    id: 'app-development',
+    title: 'App Development',
+    category: 'Mobile Architecture',
+    icon: Layers,
+    desc: 'High-performance iOS and Android mobile applications engineered with native 60fps responsiveness.',
+    tags: ['React Native', 'iOS & Android', 'Offline First'],
+    revealText: 'CROSS-PLATFORM • NATIVE 60FPS EXPERIENCE',
+    accent: '#C084FC',
+    slug: 'app-development'
+  },
+  {
+    id: 'ai-solutions',
+    title: 'AI Solutions',
+    category: 'Intelligent Workflows',
+    icon: Bot,
+    desc: 'Intelligent LLM automation, autonomous multi-step agents, and contextual vector RAG pipelines.',
+    tags: ['LangChain', 'Vector RAG', 'Autonomous LLMs'],
+    revealText: 'INTELLIGENT LLMS • ZERO-LATENCY VECTOR RAG',
+    accent: '#A855F7',
+    slug: 'ai-solutions'
+  },
+  {
+    id: 'business-automation',
+    title: 'Business Automation',
+    category: 'Workflow Optimization',
+    icon: Zap,
+    desc: 'Streamline repetitive tasks, automate event-driven pipelines, and maximize studio throughput.',
+    tags: ['Event Meshes', 'CRM Automations', 'Zero Latency'],
+    revealText: 'WORKFLOW OPTIMIZATION • END-TO-END PRODUCTIVITY',
+    accent: '#06B6D4',
+    slug: 'business-automation'
+  }
+];
+
 function ProductionDeploymentsOrbit({ projects, onSelectProject, activeCategory }) {
-  const [angle, setAngle] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-  const [speedMultiplier, setSpeedMultiplier] = useState(1);
-  const [direction, setDirection] = useState(1); // 1 = clockwise, -1 = counter
-  const [hoveredProjectId, setHoveredProjectId] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
 
-  const stageRef = useRef(null);
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
-  const targetTilt = useRef({ x: 0, y: 0 });
-  const animFrameRef = useRef(null);
-  const touchStartRef = useRef({ x: 0, angle: 0 });
-  const isDraggingRef = useRef(false);
+  // 3 Showcase Cards with project images, names, and clean presentation
+  const cardsData = [
+    {
+      id: 'asa-epc',
+      tabLabel: 'ASA EPC — Solar Platform',
+      title: 'ASA EPC Solar Platform',
+      video: '/assets/asa_epc.mp4',
+      img: '/assets/asa_epc.jpg',
+      icon: <Globe size={15} />,
+      project: (projects && projects.find((p) => p.id === 'asa-epc')) || projectsData[0]
+    },
+    {
+      id: 'rathore-construction',
+      tabLabel: 'Rathore Construction',
+      title: 'Rathore Construction & Earthmovers',
+      video: '/assets/rathore_construction.mp4',
+      img: '/assets/rathore_construction.jpg',
+      icon: <Building2 size={15} />,
+      project: (projects && projects.find((p) => p.id === 'rathore-construction')) || projectsData[1]
+    },
+    {
+      id: 'doctor-appointment',
+      tabLabel: 'Doctor Appointment Booking',
+      title: 'Doctor Appointment Booking System',
+      video: '/assets/doctor_appointment.mp4',
+      img: '/assets/doctor_appointment.jpg',
+      icon: <CalendarCheck size={15} />,
+      project: (projects && projects.find((p) => p.id === 'doctor-appointment-booking')) || projectsData[2]
+    }
+  ];
 
-  // Responsive radii and card dimensions
-  const [dimensions, setDimensions] = useState({
-    rx: 480,
-    rz: 210,
-    cardW: 330,
-    cardH: 225,
-  });
-
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setPrefersReducedMotion(mediaQuery.matches);
-    const handler = (e) => setPrefersReducedMotion(e.matches);
-    mediaQuery.addEventListener('change', handler);
-    return () => mediaQuery.removeEventListener('change', handler);
-  }, []);
-
-  useEffect(() => {
-    const updateDimensions = () => {
-      const w = window.innerWidth;
-      if (w > 1280) {
-        setDimensions({ rx: 480, rz: 210, cardW: 330, cardH: 225 });
-      } else if (w > 1024) {
-        setDimensions({ rx: 400, rz: 175, cardW: 300, cardH: 210 });
-      } else if (w > 768) {
-        setDimensions({ rx: 310, rz: 140, cardW: 260, cardH: 195 });
-      } else if (w > 480) {
-        setDimensions({ rx: 220, rz: 100, cardW: 210, cardH: 165 });
-      } else {
-        setDimensions({ rx: 165, rz: 80, cardW: 175, cardH: 145 });
-      }
-    };
-    updateDimensions();
-    window.addEventListener('resize', updateDimensions);
-    return () => window.removeEventListener('resize', updateDimensions);
-  }, []);
-
-  // Continuous animation loop
-  useEffect(() => {
-    let prevTime = performance.now();
-
-    const loop = (time) => {
-      const delta = Math.min((time - prevTime) / 1000, 0.1);
-      prevTime = time;
-
-      if (!isPaused && !prefersReducedMotion) {
-        // Slow down smoothly when a project card is hovered
-        const activeMultiplier = hoveredProjectId ? 0.2 : speedMultiplier;
-        setAngle((prev) => (prev + direction * 10 * activeMultiplier * delta) % 360);
-      }
-
-      // Smooth tilt lerping for mouse parallax
-      setTilt((prev) => {
-        if (prefersReducedMotion) return { x: 0, y: 0 };
-        const dx = targetTilt.current.x - prev.x;
-        const dy = targetTilt.current.y - prev.y;
-        if (Math.abs(dx) < 0.001 && Math.abs(dy) < 0.001) return prev;
-        return {
-          x: prev.x + dx * 0.08,
-          y: prev.y + dy * 0.08,
-        };
-      });
-
-      animFrameRef.current = requestAnimationFrame(loop);
-    };
-
-    animFrameRef.current = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(animFrameRef.current);
-  }, [isPaused, speedMultiplier, direction, hoveredProjectId, prefersReducedMotion]);
-
-  // Mouse move parallax handler
-  const handleMouseMove = (e) => {
-    if (prefersReducedMotion || !stageRef.current) return;
-    const rect = stageRef.current.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-    const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
-    targetTilt.current = {
-      x: Math.max(-1, Math.min(1, x)),
-      y: Math.max(-1, Math.min(1, y)),
-    };
+  // Rotate to specific card index
+  const goToCard = (index) => {
+    setActiveIndex(index);
   };
 
-  const handleMouseLeave = () => {
-    targetTilt.current = { x: 0, y: 0 };
-    setHoveredProjectId(null);
+  const handlePrev = () => {
+    setActiveIndex((prev) => (prev - 1 + 3) % 3);
   };
 
-  // Touch drag handlers for mobile & tablet
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev + 1) % 3);
+  };
+
+  const touchStartXRef = useRef(0);
   const handleTouchStart = (e) => {
-    if (e.touches.length === 1) {
-      isDraggingRef.current = true;
-      touchStartRef.current = {
-        x: e.touches[0].clientX,
-        angle: angle,
+    if (e.touches && e.touches[0]) {
+      touchStartXRef.current = e.touches[0].clientX;
+    }
+  };
+
+  const handleTouchEnd = (e) => {
+    if (e.changedTouches && e.changedTouches[0]) {
+      const diff = touchStartXRef.current - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) {
+        if (diff > 0) {
+          handleNext();
+        } else {
+          handlePrev();
+        }
+      }
+    }
+  };
+
+  // Continuous gentle rotation when not hovered
+  useEffect(() => {
+    if (isHovered) return;
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % 3);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [isHovered]);
+
+  // Calculate forward-facing 3D position relative to activeIndex (avoids mirrored backside)
+  const getCardStyle = (idx) => {
+    const diff = (idx - activeIndex + 3) % 3;
+
+    if (diff === 0) {
+      return {
+        transform: 'translateX(0px) translateZ(40px) rotateY(0deg) scale(1)',
+        zIndex: 10,
+        opacity: 1,
+        filter: 'brightness(1)',
+      };
+    } else if (diff === 1) {
+      return {
+        transform: 'translateX(195px) translateZ(-45px) rotateY(-22deg) scale(0.86)',
+        zIndex: 5,
+        opacity: 0.85,
+        filter: 'brightness(0.8)',
+      };
+    } else {
+      return {
+        transform: 'translateX(-195px) translateZ(-45px) rotateY(22deg) scale(0.86)',
+        zIndex: 5,
+        opacity: 0.85,
+        filter: 'brightness(0.8)',
       };
     }
   };
 
-  const handleTouchMove = (e) => {
-    if (isDraggingRef.current && e.touches.length === 1) {
-      const deltaX = e.touches[0].clientX - touchStartRef.current.x;
-      setAngle(touchStartRef.current.angle + deltaX * 0.35);
-    }
-  };
-
-  const handleTouchEnd = () => {
-    isDraggingRef.current = false;
-  };
-
-  const displayProjects = projects && projects.length > 0 ? projects : projectsData;
-  const orbitItems =
-    displayProjects.length < 4
-      ? [...displayProjects, ...displayProjects, ...displayProjects].slice(0, 6)
-      : displayProjects;
-
-  const activeProject =
-    displayProjects.find((p) => p.id === hoveredProjectId) || displayProjects[0];
-
   return (
     <div
-      ref={stageRef}
-      className="project-orbit-stage"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-      aria-label="3D Rotating Production Deployments Gallery"
+      className="what-we-build-wrapper"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Ambient Lighting & Holographic Backdrop */}
-      <div className="project-orbit-backdrop" />
-      <div className="project-orbit-grid" />
-
-      {/* Orbit Toolbar & Telemetry Header */}
-      <div className="project-orbit-header-bar">
-        <div className="orbit-status-indicator">
-          <span className="orbit-pulse-beacon" />
-          <span className="orbit-status-label">3D PRODUCTION DEPLOYMENT ORBIT</span>
-          <span className="orbit-count-badge">{displayProjects.length} LIVE PLATFORMS</span>
+      {/* LEFT COLUMN: Typography & Interactive Vertical Pill Navigation */}
+      <div className="build-left-col">
+        <div className="build-eyebrow">
+          <span className="build-eyebrow-dot" />
+          <span className="build-eyebrow-text">ROVAWARE / OUR EXPERTISE</span>
         </div>
 
-        <div className="orbit-controls-cluster">
-          <button
-            type="button"
-            className="orbit-ctrl-btn"
-            onClick={() => setIsPaused((prev) => !prev)}
-            title={isPaused ? 'Resume Orbit Rotation' : 'Pause Orbit Rotation'}
-            aria-label={isPaused ? 'Resume Orbit' : 'Pause Orbit'}
-          >
-            {isPaused ? <Play size={13} /> : <Pause size={13} />}
-            <span>{isPaused ? 'Resume' : 'Pause'}</span>
-          </button>
+        <h2 className="build-heading">
+          What We <span className="accent-text">Build.</span>
+        </h2>
 
-          <button
-            type="button"
-            className="orbit-ctrl-btn"
-            onClick={() => setDirection((prev) => -prev)}
-            title="Reverse Rotation Direction"
-            aria-label="Reverse Direction"
-          >
-            <RefreshCw size={12} className={direction === -1 ? 'icon-reverse' : ''} />
-            <span>Direction</span>
-          </button>
+        <p className="build-subtitle">
+          End-to-end digital solutions from beautiful user interfaces to scalable, production-ready systems.
+        </p>
 
-          <button
-            type="button"
-            className="orbit-ctrl-btn"
-            onClick={() => setSpeedMultiplier((prev) => (prev === 1 ? 0.5 : prev === 0.5 ? 1.5 : 1))}
-            title={`Speed: ${speedMultiplier}x (Click to change)`}
-            aria-label="Toggle Speed"
-          >
-            <Zap size={12} />
-            <span>{speedMultiplier}x</span>
-          </button>
+        {/* 3 Interactive Vertical Nav Tabs */}
+        <div className="build-nav-list">
+          {cardsData.map((card, idx) => (
+            <button
+              key={card.id}
+              type="button"
+              className={`build-nav-item ${activeIndex === idx ? 'active' : ''}`}
+              onClick={() => goToCard(idx)}
+            >
+              {activeIndex === idx && <span className="pill-active-bar" />}
+              <div className="pill-left">
+                <div className="pill-icon-box">
+                  {card.icon}
+                </div>
+                <span className="pill-label">{card.tabLabel}</span>
+              </div>
+              <ArrowRight size={15} className="pill-arrow" />
+            </button>
+          ))}
         </div>
+
+        {/* Bottom CTA Button */}
+        <button
+          type="button"
+          className="build-explore-btn"
+          onClick={() => {
+            if (onSelectProject) {
+              const currentCard = cardsData[activeIndex];
+              onSelectProject({ ...(currentCard.project || {}), video: currentCard.video });
+            }
+          }}
+        >
+          <span>Explore Our Work</span>
+          <ExternalLink size={14} />
+        </button>
       </div>
 
-      {/* 3D Perspective Scene Canvas */}
-      <div
-        className="project-orbit-scene"
-        style={{
-          transform: `rotateX(${(tilt.y * -8).toFixed(2)}deg) rotateY(${(tilt.x * 11).toFixed(2)}deg)`,
-        }}
-      >
-        {/* Central Holographic Core Telemetry Hub */}
-        <div className="project-orbit-center-core">
-          <div className="orbit-core-ring-outer" />
-          <div className="orbit-core-ring-middle" />
-          <div className="orbit-core-ring-inner" />
-          <div className="orbit-core-glow-sphere" />
+      {/* RIGHT COLUMN: 3D Curved Showcase on Floor Neon Pedestal */}
+      <div className="build-right-col">
+        {/* Neon Floor Glowing Base Pedestal */}
+        <div className="pedestal-neon-outer" />
+        <div className="pedestal-neon-ring" />
+        <div className="pedestal-floor-reflection" />
 
-          {/* Telemetry HUD Badge */}
-          <div className="orbit-core-hud-badge">
-            <div className="core-hud-top">
-              <span className="core-hud-beacon" />
-              <span className="core-hud-label">DEPLOYMENT TELEMETRY</span>
-            </div>
-            <div className="core-hud-title" title={activeProject.title}>
-              {activeProject.title}
-            </div>
-            <div className="core-hud-client">{activeProject.client || activeProject.category}</div>
-            <div className="core-hud-actions">
-              <button
-                type="button"
-                className="core-hud-btn preview-cta"
-                onClick={() => {
-                  setIsPaused(true);
-                  if (onSelectProject) onSelectProject(activeProject);
-                }}
-              >
-                <Eye size={12} />
-                <span>Preview Project</span>
-              </button>
-              {activeProject.url && (
-                <a
-                  href={activeProject.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="core-hud-btn live-cta"
-                  onClick={() => setIsPaused(true)}
+        {/* 3D Scene Viewport */}
+        <div
+          className="build-3d-scene"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div className="build-3d-rotator">
+            {cardsData.map((card, idx) => {
+              const isCurrent = activeIndex === idx;
+              const cardTransformStyle = getCardStyle(idx);
+
+              return (
+                <div
+                  key={card.id}
+                  className={`build-glass-card ${isCurrent ? 'is-active-card' : ''}`}
+                  style={cardTransformStyle}
+                  onClick={() => {
+                    if (!isCurrent) {
+                      goToCard(idx);
+                    } else if (onSelectProject) {
+                      onSelectProject({ ...(card.project || {}), video: card.video });
+                    }
+                  }}
+                  title={`Click to preview ${card.title}`}
                 >
-                  <span>Launch Live</span>
-                  <ExternalLink size={11} />
-                </a>
-              )}
-            </div>
+                  {/* Card Header: Only Project Name & Status Dot */}
+                  <div className="card-project-header">
+                    <div className="card-project-title-box">
+                      <span className="card-project-dot" />
+                      <h3 className="card-project-name">{card.title}</h3>
+                    </div>
+                    <span className="card-project-live-badge">
+                      <span className="card-live-pulse" />
+                      <span>LIVE</span>
+                    </span>
+                  </div>
+
+                  {/* Card Body: High-Res Project Video or Screenshot */}
+                  <div className="card-project-img-box">
+                    {card.video ? (
+                      <video
+                        src={card.video}
+                        poster={card.img}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="card-project-media card-project-video"
+                      />
+                    ) : (
+                      <img
+                        src={card.img}
+                        alt={card.title}
+                        className="card-project-media card-project-img"
+                        loading="eager"
+                      />
+                    )}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
 
-        {/* Orbit Ring Holding the 3D Deployed Project Cards */}
-        <div className="project-orbit-ring">
-          {orbitItems.map((project, i) => {
-            const total = orbitItems.length;
-            const step = 360 / total;
-            const cardAngle = (i * step + angle) % 360;
-            const normalizedAngle = ((cardAngle + 540) % 360) - 180;
-            const rad = (normalizedAngle * Math.PI) / 180;
-            const sin = Math.sin(rad);
-            const cos = Math.cos(rad);
+        {/* Bottom Carousel Controls: Prev Arrow, 3 Dots, Next Arrow */}
+        <div className="build-carousel-controls">
+          <button
+            type="button"
+            className="build-arrow-btn"
+            onClick={handlePrev}
+            aria-label="Previous Project"
+          >
+            <ChevronLeft size={16} />
+          </button>
 
-            const x = dimensions.rx * sin;
-            const z = dimensions.rz * cos;
+          <div className="build-dots-wrap">
+            {cardsData.map((_, idx) => (
+              <button
+                key={idx}
+                type="button"
+                className={`build-dot ${activeIndex === idx ? 'active' : ''}`}
+                onClick={() => goToCard(idx)}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            ))}
+          </div>
 
-            const depth = (cos + 1) / 2;
-            const scale = 0.80 + 0.30 * depth;
-            const brightness = 0.72 + 0.35 * depth;
-            const opacity = 0.48 + 0.52 * depth;
-            const zIndex = Math.round(10 + depth * 60);
+          <button
+            type="button"
+            className="build-arrow-btn"
+            onClick={handleNext}
+            aria-label="Next Project"
+          >
+            <ChevronRight size={16} />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
-            const tiltY = -sin * 12;
-            const tiltX = cos * 4;
+// Smooth Easing Animated Counter Hook for Viewport Reveal
+function AnimatedCounter({ end, duration = 1200, padZero = true }) {
+  const [count, setCount] = useState(0);
+  const counterRef = useRef(null);
+  const [hasAnimated, setHasAnimated] = useState(false);
 
-            const isHovered = hoveredProjectId === project.id;
-            const cleanUrl = project.url ? project.url.replace('https://', '') : project.title;
+  useEffect(() => {
+    const el = counterRef.current;
+    if (!el) return;
 
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setHasAnimated(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!hasAnimated) return;
+    let startTime = null;
+
+    const animate = (currentTime) => {
+      if (!startTime) startTime = currentTime;
+      const progress = Math.min((currentTime - startTime) / duration, 1);
+      // easeOutExpo for realistic digital speedometer counter
+      const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      setCount(Math.round(ease * end));
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        setCount(end);
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }, [hasAnimated, end, duration]);
+
+  const formatted = padZero && count < 10 ? `0${count}` : `${count}`;
+  return <span ref={counterRef}>{formatted}</span>;
+}
+
+// RovaWare Statistics Counter – Full-Stack & AI Engineering
+function EngineeringStatsCounter() {
+  const [hoveredIdx, setHoveredIdx] = useState(null);
+
+  const stats = [
+    {
+      type: 'counter',
+      value: 3,
+      padZero: true,
+      title: 'Featured Projects',
+      tag: 'PRODUCTION PLATFORMS',
+      desc: 'Live enterprise web applications built for speed, high concurrency & scale.',
+      accent: '#38BDF8',
+      icon: <Globe size={18} />
+    },
+    {
+      type: 'counter',
+      value: 3,
+      padZero: true,
+      title: 'Core Development Services',
+      tag: 'FULL-STACK STACK',
+      desc: 'Frontend design systems, robust server architectures & full-stack engineering.',
+      accent: '#C4B5FD',
+      icon: <Layers size={18} />
+    },
+    {
+      type: 'badge',
+      badgeMain: 'AI',
+      badgeSub: 'POWERED',
+      title: 'AI-Powered Solutions',
+      tag: 'INTELLIGENT SYSTEMS',
+      desc: 'Autonomous AI workflows, vector search pipelines & custom LLM integrations.',
+      accent: '#38BDF8',
+      icon: <Cpu size={18} />
+    },
+    {
+      type: 'badge',
+      badgeMain: 'SCALE',
+      badgeSub: 'READY',
+      title: 'Scalable Digital Architecture',
+      tag: 'CLOUD EXCELLENCE',
+      desc: 'High-availability, fault-tolerant cloud architecture engineered for long-term growth.',
+      accent: '#C4B5FD',
+      icon: <Database size={18} />
+    }
+  ];
+
+  return (
+    <section className="stats-banner engineering-stats-banner">
+      <div className="stats-grid engineering-stats-grid stagger-reveal">
+        {stats.map((s, idx) => (
+          <div
+            key={idx}
+            className={`stat-card engineering-stat-card ${hoveredIdx === idx ? 'is-hovered' : ''}`}
+            onMouseEnter={() => setHoveredIdx(idx)}
+            onMouseLeave={() => setHoveredIdx(null)}
+          >
+            {/* Top Eyebrow with Glow Dot */}
+            <div className="stat-card-eyebrow">
+              <span
+                className="stat-card-dot"
+                style={{
+                  backgroundColor: s.accent,
+                  boxShadow: `0 0 8px ${s.accent}`
+                }}
+              />
+              <span className="stat-card-tag">{s.tag}</span>
+            </div>
+
+            {/* Large Animated Metric Value */}
+            <div className="stat-metric-row">
+              {s.type === 'counter' ? (
+                <div className="stat-number">
+                  <AnimatedCounter end={s.value} padZero={s.padZero} duration={1400} />
+                </div>
+              ) : (
+                <div className="stat-badge-display">
+                  <span className="stat-badge-main">{s.badgeMain}</span>
+                  <span className="stat-badge-sub">{s.badgeSub}</span>
+                </div>
+              )}
+              <div className="stat-icon-wrap" style={{ color: s.accent }}>
+                {s.icon}
+              </div>
+            </div>
+
+            {/* Stat Title & Description */}
+            <h3 className="stat-card-title">{s.title}</h3>
+            <p className="stat-card-desc">{s.desc}</p>
+
+            {/* Glowing Separator Line between cards */}
+            {idx < stats.length - 1 && <div className="stat-glow-separator" />}
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// Interactive Inline Experience Showcase: From Idea to Digital Experience
+function DigitalExperienceWafer({ data }) {
+  const [activeIdx, setActiveIdx] = useState(0);
+  const [viewMode, setViewMode] = useState('preview');
+  const stepRefs = useRef([]);
+
+  const toggleStep = (idx) => {
+    setActiveIdx((prev) => (prev === idx ? null : idx));
+  };
+
+  return (
+    <section className="wafer-experience-section" id="digital-experience">
+      <div className="wafer-experience-container">
+        {/* Main Section Header */}
+        <div className="wafer-header-block">
+          <div className="wafer-kicker-pill">
+            <Sparkles size={13} />
+            <span>ENGINEERING EXCELLENCE</span>
+          </div>
+          <h2 className="wafer-main-heading">
+            From Idea to <em className="hero-highlight">Digital Experience.</em>
+          </h2>
+          <p className="wafer-sub-heading">
+            Explore how Rovaware Studio transforms conceptual whiteboard sketches into high-performance web applications, intelligent AI workflows, and scalable cloud platforms.
+          </p>
+        </div>
+
+        {/* Accordion Steps List: Each step renders its visual photo directly underneath */}
+        <div className="wafer-steps-list">
+          {data.map((item, idx) => {
+            const isActive = activeIdx === idx;
             return (
               <div
-                key={`${project.id}-${i}`}
-                className={`project-orbit-card ${isHovered ? 'orbit-card-focused' : ''}`}
-                style={{
-                  width: `${dimensions.cardW}px`,
-                  transform: `translate3d(calc(-50% + ${x.toFixed(1)}px), calc(-50% + ${(tilt.y * -14 * cos).toFixed(1)}px), ${z.toFixed(1)}px) rotateY(${tiltY.toFixed(1)}deg) rotateX(${tiltX.toFixed(1)}deg) scale(${scale.toFixed(3)})`,
-                  opacity: isHovered ? 1 : opacity.toFixed(2),
-                  filter: `brightness(${isHovered ? 1.15 : brightness.toFixed(2)})`,
-                  zIndex: isHovered ? 90 : zIndex,
-                }}
-                onMouseEnter={() => setHoveredProjectId(project.id)}
-                onMouseLeave={() => setHoveredProjectId(null)}
-                onClick={() => {
-                  setIsPaused(true);
-                  if (onSelectProject) onSelectProject(project);
-                }}
-                title={`Click to preview ${project.title}`}
+                key={item.id}
+                ref={(el) => (stepRefs.current[idx] = el)}
+                className={`wafer-step-card ${isActive ? 'is-active' : ''}`}
+                onClick={() => toggleStep(idx)}
               >
-                {/* Browser Frame Window Header */}
-                <div className="orbit-browser-bar">
-                  <div className="orbit-browser-dots">
-                    <span className="dot dot-red" />
-                    <span className="dot dot-yellow" />
-                    <span className="dot dot-green" />
-                  </div>
-                  <div className="orbit-browser-url" title={project.url || cleanUrl}>
-                    <Lock size={10} />
-                    <span>{cleanUrl}</span>
-                  </div>
-                  {project.url && (
-                    <a
-                      href={project.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="orbit-browser-ext"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setIsPaused(true);
-                      }}
-                      title={`Visit ${project.url}`}
-                    >
-                      <ExternalLink size={11} />
-                    </a>
-                  )}
+                <div className="wafer-step-rail">
+                  <span className="wafer-rail-bar" />
                 </div>
-
-                {/* Real Website Preview Media Viewport */}
-                <div className="orbit-browser-viewport">
-                  <img src={project.img} alt={project.title} loading="lazy" />
-                  <div className="orbit-viewport-overlay">
-                    <span className="orbit-preview-pill">
-                      <span>Click to Preview Details</span>
-                      <ArrowUpRight size={12} />
-                    </span>
-                  </div>
-                </div>
-
-                {/* Card Content & Action Body */}
-                <div className="orbit-card-content">
-                  <div className="orbit-card-meta">
-                    <span className="orbit-client-tag">{project.client || project.category}</span>
-                    <span className="orbit-live-badge">
-                      <span className="live-dot" /> LIVE PLATFORM
-                    </span>
-                  </div>
-
-                  <h4 className="orbit-card-heading" title={project.title}>
-                    {project.title}
-                  </h4>
-
-                  <div className="orbit-card-tags">
-                    {project.tags.slice(0, 3).map((tag) => (
-                      <span key={tag} className="orbit-tag-pill">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="orbit-card-actions">
+                <div className="wafer-step-content">
+                  {/* Step Header Row: Clickable to toggle open and close */}
+                  <div
+                    className="wafer-step-header"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleStep(idx);
+                    }}
+                  >
+                    <div className="wafer-step-title-row">
+                      <span className="wafer-step-num">0{idx + 1}</span>
+                      <h3 className="wafer-step-title">{item.title}</h3>
+                    </div>
                     <button
                       type="button"
-                      className="orbit-action-preview-btn"
+                      className={`wafer-chevron-indicator ${isActive ? 'open' : ''}`}
+                      aria-label={isActive ? `Collapse ${item.title}` : `Expand ${item.title}`}
                       onClick={(e) => {
                         e.stopPropagation();
-                        setIsPaused(true);
-                        if (onSelectProject) onSelectProject(project);
+                        toggleStep(idx);
                       }}
                     >
-                      <Eye size={12} />
-                      <span>Preview</span>
+                      <ChevronDown size={20} />
                     </button>
-                    {project.url && (
-                      <a
-                        href={project.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="orbit-action-live-btn"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setIsPaused(true);
-                        }}
-                      >
-                        <span>View Live Project</span>
-                        <ExternalLink size={12} />
-                      </a>
-                    )}
                   </div>
+
+                  {/* Step Body: 2-Column Layout (Content on Left, Photo Showcase on Right) */}
+                  {isActive && (
+                    <div className="wafer-step-body" onClick={(e) => e.stopPropagation()}>
+                      {/* Left Column: Text Content, Specs & Highlights */}
+                      <div className="wafer-content-col">
+                        <p className="wafer-step-desc">{item.description}</p>
+
+                        <div className="wafer-step-specs">
+                          {item.specs.map((s, i) => (
+                            <div className="wafer-spec-chip" key={i}>
+                              <span className="spec-chip-label">{s.label}:</span>
+                              <span className="spec-chip-val">{s.value}</span>
+                            </div>
+                          ))}
+                        </div>
+
+                        {item.highlights && item.highlights.length > 0 && (
+                          <div className="wafer-highlights-list">
+                            {item.highlights.map((h, i) => (
+                              <div key={i} className="wafer-highlight-item">
+                                <Check size={14} className="wafer-check-icon" />
+                                <span>{h}</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+
+                        <div className="wafer-step-tags">
+                          {item.techStack.map((tech) => (
+                            <span key={tech} className="wafer-tech-pill">{tech}</span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Right Column: Visual Photo Showcase directly to the right */}
+                      <div className="wafer-visual-col">
+                        <div className="wafer-inline-browser">
+                          {/* Browser Window Bar */}
+                          <div className="wafer-window-bar">
+                            <div className="wafer-window-dots">
+                              <span className="dot red" />
+                              <span className="dot yellow" />
+                              <span className="dot green" />
+                            </div>
+                            <div className="wafer-url-pill">
+                              <Lock size={11} />
+                              <span>{item.urlLabel}</span>
+                            </div>
+                            <div className="wafer-status-pill">
+                              <span className="pulse-dot" />
+                              <span>PRODUCTION READY</span>
+                            </div>
+                          </div>
+
+                          {/* Viewport: Shows properly visible photo or architecture */}
+                          <div className="wafer-viewport-container">
+                            {viewMode === 'preview' ? (
+                              <div className="wafer-media-preview">
+                                <img
+                                  src={item.image}
+                                  alt={item.title}
+                                  className="wafer-showcase-image"
+                                  loading="lazy"
+                                />
+                                <div className="wafer-media-watermark">
+                                  <Sparkles size={12} />
+                                  <span>Rovaware Studio // {item.category}</span>
+                                </div>
+                              </div>
+                            ) : (
+                              <div className="wafer-architecture-flow">
+                                <div className="wafer-arch-header">
+                                  <Terminal size={15} />
+                                  <span>{item.architectureTitle}</span>
+                                </div>
+                                <div className="wafer-arch-nodes-grid">
+                                  {item.architectureNodes.map((node, i) => (
+                                    <div key={i} className="wafer-node-card">
+                                      <span className="node-index">0{i + 1}</span>
+                                      <div className="node-info">
+                                        <strong>{node.name}</strong>
+                                        <p>{node.detail}</p>
+                                      </div>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Viewport HUD Footer */}
+                          <div className="wafer-window-footer">
+                            <div className="wafer-footer-info">
+                              <span className="wafer-category-tag">{item.category}</span>
+                              <span className="wafer-tagline-text">{item.tagline}</span>
+                            </div>
+
+                            <button
+                              type="button"
+                              className="wafer-mode-toggle-btn"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setViewMode(viewMode === 'preview' ? 'architecture' : 'preview');
+                              }}
+                            >
+                              {viewMode === 'preview' ? <Layers size={13} /> : <Layout size={13} />}
+                              <span>{viewMode === 'preview' ? 'Architecture Specs' : 'Production UI'}</span>
+                              <ArrowUpRight size={13} />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             );
           })}
         </div>
       </div>
-
-      {/* Orbit Footer Caption */}
-      <div className="project-orbit-footer">
-        <span className="footer-pulse-dot" />
-        <span>
-          Auto-rotating 3D deployment showcase • Move cursor to tilt parallax • Click any project to open details modal or view live project
-        </span>
-      </div>
-    </div>
+    </section>
   );
 }
 
@@ -1920,6 +2188,8 @@ function ServicesCarousel({ services }) {
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeCardIndex, setActiveCardIndex] = useState(0);
+  const [touchRevealedIdx, setTouchRevealedIdx] = useState(null);
+  const [hoveredCardIdx, setHoveredCardIdx] = useState(null);
 
   const updateScrollState = () => {
     const track = trackRef.current;
@@ -2070,6 +2340,32 @@ function ServicesCarousel({ services }) {
     }
   };
 
+  const handleCardMouseMove = (e) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    card.style.setProperty('--mouse-x', `${x}px`);
+    card.style.setProperty('--mouse-y', `${y}px`);
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -5;
+    const rotateY = ((x - centerX) / centerX) * 5;
+
+    card.style.setProperty('--card-rot-x', `${rotateX.toFixed(2)}deg`);
+    card.style.setProperty('--card-rot-y', `${rotateY.toFixed(2)}deg`);
+  };
+
+  const handleCardMouseLeave = (e) => {
+    const card = e.currentTarget;
+    card.style.removeProperty('--card-rot-x');
+    card.style.removeProperty('--card-rot-y');
+    card.style.removeProperty('--mouse-x');
+    card.style.removeProperty('--mouse-y');
+  };
+
   return (
     <div className="services-carousel-wrapper">
       {/* Header Controls & Live Counters */}
@@ -2136,32 +2432,109 @@ function ServicesCarousel({ services }) {
           {services.map((s, idx) => {
             const Icon = s.icon;
             const isCardActive = activeCardIndex === idx;
+            const isFlipped = hoveredCardIdx === idx || touchRevealedIdx === idx;
             return (
               <div
-                className={`service-box ${isCardActive ? 'card-focused' : ''}`}
+                className={`service-box service-flip-card ${isCardActive ? 'card-focused' : ''} ${isFlipped ? 'is-flipped' : ''}`}
                 key={s.title}
-                onMouseEnter={() => setActiveCardIndex(idx)}
+                onMouseEnter={() => {
+                  setActiveCardIndex(idx);
+                  setHoveredCardIdx(idx);
+                }}
+                onMouseMove={handleCardMouseMove}
+                onMouseLeave={(e) => {
+                  handleCardMouseLeave(e);
+                  setHoveredCardIdx(null);
+                  if (touchRevealedIdx === idx) setTouchRevealedIdx(null);
+                }}
                 onClick={(e) => {
                   if (hasMovedRef.current) {
                     e.preventDefault();
                     e.stopPropagation();
                     return;
                   }
+                  setTouchRevealedIdx((prev) => (prev === idx ? null : idx));
                   scrollToCard(idx);
                 }}
               >
-                <div className="service-top-row">
-                  <div className="service-icon-box">
-                    <Icon size={22} />
-                  </div>
-                  <span className="service-number">{s.num}</span>
+                {/* Editorial Top Title Bar (Brandon Yasin portfolio style) */}
+                <div className="service-editorial-bar">
+                  <span className="editorial-kicker">{s.title.toUpperCase()}</span>
+                  <span className="editorial-index">{s.num}</span>
                 </div>
-                <h3 className="service-name">{s.title}</h3>
-                <p className="service-text">{s.desc}</p>
-                <div className="service-features">
-                  {s.features.map((f) => (
-                    <span key={f}>{f}</span>
-                  ))}
+
+                {/* 3D Flipper Shell */}
+                <div className="service-flipper">
+                  {/* FRONT FACE: High-end luxury photography */}
+                  <div className="service-card-face service-card-front">
+                    <div className="service-photo-stage">
+                      <img
+                        src={s.image}
+                        alt={s.title}
+                        className="service-cover-image"
+                        loading="lazy"
+                      />
+                      <div className="service-photo-scrim">
+                        <div className="photo-scrim-top">
+                          <span className="photo-kicker-pill">
+                            <Sparkles size={11} />
+                            <span>{s.kicker || 'SYSTEM ARCHITECTURE'}</span>
+                          </span>
+                          <span className="photo-num-badge">{s.num}</span>
+                        </div>
+
+                        <div className="photo-scrim-bottom">
+                          <span className="photo-discipline-label">ROVAWARE // DISCIPLINE {s.num}</span>
+                          <h3 className="photo-headline">{s.title}</h3>
+                          <div className="photo-interaction-badge">
+                            <span>Hover to View Details</span>
+                            <RefreshCw size={11} className="photo-spin-glyph" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* BACK FACE: Detailed service capabilities & interactive action */}
+                  <div className="service-card-face service-card-back">
+                    {/* Mouse-following Spotlight Glow Layer */}
+                    <div className="service-spotlight" aria-hidden="true" />
+
+                    {/* Mouse-Triggered Slide-Down Text Reveal Badge */}
+                    <div className="card-reveal-wrap" aria-hidden="true">
+                      <div className="card-reveal-badge">
+                        <span className="reveal-dot" />
+                        <span className="reveal-label">{s.revealText || 'ENTERPRISE CAPABILITIES'}</span>
+                        <ArrowUpRight size={11} className="reveal-arrow" />
+                      </div>
+                    </div>
+
+                    <div className="service-top-row">
+                      <div className="service-icon-box">
+                        <Icon size={22} />
+                      </div>
+                      <div className="service-number-wrap">
+                        <span className="service-number-watermark" aria-hidden="true">{s.num}</span>
+                        <span className="service-number">{s.num}</span>
+                      </div>
+                    </div>
+
+                    <h3 className="service-name">{s.title}</h3>
+                    <p className="service-text">{s.desc}</p>
+
+                    <div className="service-features">
+                      {s.features.map((f) => (
+                        <span key={f} className="service-feature-tag">{f}</span>
+                      ))}
+                    </div>
+
+                    <div className="service-card-action">
+                      <span className="service-action-label">Explore Capabilities</span>
+                      <span className="service-action-icon">
+                        <ArrowRight size={14} />
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             );
@@ -2365,6 +2738,7 @@ function TechLogoMarquee({ items }) {
 // 2. Main TechStackShowcase Component
 function TechStackShowcase() {
   const [activeCardId, setActiveCardId] = useState(null);
+  const [hoveredCardId, setHoveredCardId] = useState(null);
   const [hasRevealed, setHasRevealed] = useState(false);
   const containerRef = useRef(null);
 
@@ -2397,27 +2771,25 @@ function TechStackShowcase() {
     card.style.setProperty('--spotlight-x', `${x}px`);
     card.style.setProperty('--spotlight-y', `${y}px`);
 
-    if (isExpanded) {
-      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(-4px)';
-    } else {
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      const rotateX = ((y - centerY) / centerY) * -4;
-      const rotateY = ((x - centerX) / centerX) * 4;
-      card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px)`;
-    }
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -2;
+    const rotateY = ((x - centerX) / centerX) * 2;
+    // Moves card DOWN (+8px) on hover as requested
+    card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(8px)`;
   };
 
   const handleCardMouseEnter = (catId, e) => {
-    setActiveCardId(catId);
+    setHoveredCardId(catId);
     e.currentTarget.style.setProperty('--spotlight-opacity', '1');
+    e.currentTarget.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(8px)';
   };
 
   const handleCardMouseLeave = (catId, e) => {
+    setHoveredCardId((prev) => (prev === catId ? null : prev));
     const card = e.currentTarget;
     card.style.setProperty('--spotlight-opacity', '0');
     card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
-    setActiveCardId((prev) => (prev === catId ? null : prev));
   };
 
   const handleCardClick = (catId) => {
@@ -2432,13 +2804,11 @@ function TechStackShowcase() {
   };
 
   const handleFocus = (catId) => {
-    setActiveCardId(catId);
+    // Focus indicator handled via CSS
   };
 
   const handleBlur = (catId, e) => {
-    if (!e.currentTarget.contains(e.relatedTarget)) {
-      setActiveCardId((prev) => (prev === catId ? null : prev));
-    }
+    // Blur handled via CSS
   };
 
   return (
@@ -2446,7 +2816,7 @@ function TechStackShowcase() {
       {/* Four Technology Category Cards with Auto Hover-Expand, 3D Tilt, Spotlight & Glow */}
       <div className={`gear-grid ${hasRevealed ? 'is-revealed' : ''}`}>
         {techCategoriesData.map((cat, idx) => {
-          const isExpanded = activeCardId === cat.id;
+          const isExpanded = (hoveredCardId ? hoveredCardId === cat.id : activeCardId === cat.id);
           const IconComponent = cat.icon;
 
           return (
@@ -2800,6 +3170,9 @@ function AppContent() {
   const [modalVideo, setModalVideo] = useState(null);
   const [formSent, setFormSent] = useState(false);
   const [openFaq, setOpenFaq] = useState(0);
+  const [showAllFaqs, setShowAllFaqs] = useState(false);
+  const [touchRevealedProject, setTouchRevealedProject] = useState(null);
+  const [touchRevealedStat, setTouchRevealedStat] = useState(null);
 
   // Dedicated Newsletter Subscription State
   const [newsletterEmail, setNewsletterEmail] = useState('');
@@ -2957,7 +3330,7 @@ function AppContent() {
     return () => {
       observer.disconnect();
     };
-  }, [activeCategory]);
+  }, [activeCategory, currentView, location.pathname]);
 
   const heroVideoRef = useRef(null);
 
@@ -3026,7 +3399,14 @@ function AppContent() {
           <div className="brand-icon-box">
             <img src="/assets/rovaware_icon.png?v=12" alt="RovaWare" className="brand-logo-img" />
           </div>
-          <span className="brand-name">RovaWare</span>
+          <span className="brand-divider" aria-hidden="true" />
+          <div className="brand-text-block">
+            <div className="brand-text">
+              <span className="brand-text-main">ROVA</span>
+              <span className="brand-text-accent">WARE</span>
+            </div>
+            <div className="brand-tagline">ENGINEERING THE DIGITAL FUTURE</div>
+          </div>
         </a>
 
         <nav className={`nav-links ${mobileMenu ? 'open' : ''}`}>
@@ -3189,7 +3569,7 @@ function AppContent() {
                     setMobileMenu(false);
                     navigateToServices();
                   }}
-                  style={{ color: '#FF8C32', fontWeight: 700 }}
+                  style={{ color: '#38BDF8', fontWeight: 700 }}
                 >
                   <Sparkles size={14} />
                   <span>All Services Overview</span>
@@ -3304,28 +3684,29 @@ function AppContent() {
           >
             <NavRollingText text="FAQs" />
           </a>
+
+          {/* Mobile Drawer CTA */}
+          <a
+            href={GOOGLE_FORM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mobile-drawer-cta"
+            onClick={() => setMobileMenu(false)}
+          >
+            <span>Book Demo</span>
+            <ArrowUpRight size={15} />
+          </a>
         </nav>
 
         <div className="nav-right">
-          {/* Request a Callback Button */}
-          <button
-            type="button"
-            className={`btn-callback-nav ${isCallbackModalOpen ? 'active' : ''}`}
-            onClick={() => setIsCallbackModalOpen(true)}
-            title="Request an instant callback within 15 minutes"
-            data-magnetic="0.32"
-          >
-            <PhoneCall size={13} />
-            <span>Request a Callback</span>
-          </button>
-
           <a
             href={GOOGLE_FORM_URL}
             target="_blank"
             rel="noopener noreferrer"
             className={`btn-nav-cta ${isDemoModalOpen ? 'active' : ''}`}
             style={{ textDecoration: 'none' }}
-            data-magnetic="0.38"
+            title="Book a Demo Session"
+            data-no-magnetic="true"
           >
             <span>Book Demo</span> <ArrowUpRight size={14} />
           </a>
@@ -3356,88 +3737,107 @@ function AppContent() {
       )}
 
       {currentView === 'blog' && (
-        <BlogView
-          onSelectArticle={navigateToArticle}
-          onNavigateHome={() => navigateToHome()}
-        />
+        <div key="blog" className="cinematic-view-transition">
+          <BlogView
+            onSelectArticle={navigateToArticle}
+            onNavigateHome={() => navigateToHome()}
+          />
+        </div>
       )}
 
       {currentView === 'article' && (
-        <ArticleDetailView
-          slug={articleSlug}
-          onNavigateBlog={navigateToBlog}
-          onSelectArticle={navigateToArticle}
-          onNavigateHome={() => navigateToHome()}
-        />
+        <div key={`article-${articleSlug}`} className="cinematic-view-transition">
+          <ArticleDetailView
+            slug={articleSlug}
+            onNavigateBlog={navigateToBlog}
+            onSelectArticle={navigateToArticle}
+            onNavigateHome={() => navigateToHome()}
+          />
+        </div>
       )}
 
       {currentView === 'about-company' && (
-        <AboutCompanyView
-          onNavigateHome={() => navigateToHome()}
-          onNavigateContact={navigateToContact}
-          onNavigateBookProject={navigateToBookProject}
-          onNavigateBlog={navigateToBlog}
-          onNavigateWork={() => navigateToHome('work')}
-        />
+        <div key="about-company" className="cinematic-view-transition">
+          <AboutCompanyView
+            onNavigateHome={() => navigateToHome()}
+            onNavigateContact={navigateToContact}
+            onNavigateBookProject={navigateToBookProject}
+            onNavigateBlog={navigateToBlog}
+            onNavigateWork={() => navigateToHome('work')}
+          />
+        </div>
       )}
 
       {currentView === 'about-contact' && (
-        <ContactView
-          onNavigateHome={() => navigateToHome()}
-          onNavigateBookProject={navigateToBookProject}
-        />
+        <div key="about-contact" className="cinematic-view-transition">
+          <ContactView
+            onNavigateHome={() => navigateToHome()}
+            onNavigateBookProject={navigateToBookProject}
+          />
+        </div>
       )}
 
       {currentView === 'about-book-project' && (
-        <BookProjectView
-          onNavigateHome={() => navigateToHome()}
-          onNavigateContact={navigateToContact}
-        />
+        <div key="about-book-project" className="cinematic-view-transition">
+          <BookProjectView
+            onNavigateHome={() => navigateToHome()}
+            onNavigateContact={navigateToContact}
+          />
+        </div>
       )}
 
       {currentView === 'careers' && (
-        <CareersView
-          onNavigateHome={() => navigateToHome()}
-          onNavigateContact={navigateToContact}
-          onNavigateBookProject={navigateToBookProject}
-        />
+        <div key="careers" className="cinematic-view-transition">
+          <CareersView
+            onNavigateHome={() => navigateToHome()}
+            onNavigateContact={navigateToContact}
+            onNavigateBookProject={navigateToBookProject}
+          />
+        </div>
       )}
 
       {currentView === 'process' && (
-        <ProcessView
-          onNavigateHome={() => navigateToHome()}
-          onNavigateContact={navigateToContact}
-          onNavigateBookProject={navigateToBookProject}
-        />
+        <div key="process" className="cinematic-view-transition">
+          <ProcessView
+            onNavigateHome={() => navigateToHome()}
+            onNavigateContact={navigateToContact}
+            onNavigateBookProject={navigateToBookProject}
+          />
+        </div>
       )}
 
       {currentView === 'services-index' && (
-        <ServicesIndexView
-          onNavigateHome={() => navigateToHome()}
-          onNavigateService={navigateToServiceDetail}
-          onNavigateBookProject={navigateToBookProject}
-          onNavigateContact={navigateToContact}
-        />
+        <div key="services-index" className="cinematic-view-transition">
+          <ServicesIndexView
+            onNavigateHome={() => navigateToHome()}
+            onNavigateService={navigateToServiceDetail}
+            onNavigateBookProject={navigateToBookProject}
+            onNavigateContact={navigateToContact}
+          />
+        </div>
       )}
 
       {currentView === 'service-detail' && (
-        <ServiceDetailView
-          slug={articleSlug}
-          onNavigateHome={() => navigateToHome()}
-          onNavigateAllServices={navigateToServices}
-          onNavigateService={navigateToServiceDetail}
-          onNavigateBookProject={navigateToBookProject}
-          onNavigateContact={navigateToContact}
-        />
+        <div key={`service-${articleSlug}`} className="cinematic-view-transition">
+          <ServiceDetailView
+            slug={articleSlug}
+            onNavigateHome={() => navigateToHome()}
+            onNavigateAllServices={navigateToServices}
+            onNavigateService={navigateToServiceDetail}
+            onNavigateBookProject={navigateToBookProject}
+            onNavigateContact={navigateToContact}
+          />
+        </div>
       )}
 
       {currentView === 'home' && (
-        <main id="top">
+        <main id="top" className="cinematic-view-transition">
           {/* CINEMATIC HERO WITH FULL BACKGROUND VIDEO */}
           <section id="hero" className="hero hero-full-bg">
             {/* Full Background Video Layer */}
             <div className="hero-bg-video-container" aria-hidden="true">
               <video
+                key="original-hero-video-10s"
                 ref={heroVideoRef}
                 className="hero-bg-video"
                 autoPlay
@@ -3446,7 +3846,7 @@ function AppContent() {
                 playsInline
                 preload="auto"
               >
-                <source src="/assets/hero.mp4" type="video/mp4" />
+                <source src="/assets/hero.mp4?v=orig10s" type="video/mp4" />
               </video>
               <div className="hero-bg-overlay" />
               <div className="hero-bg-glow" />
@@ -3458,15 +3858,25 @@ function AppContent() {
             {/* Centered High-Impact Copy */}
             <div className="hero-container">
               <div className="hero-copy">
-                <h1>
-                  <span className="hero-title-line">Turn bold ideas into</span> <br />
-                  <span className="hero-highlight">digital reality.</span>
+                <h1 className="hero-headline-animated">
+                  <span className="hero-title-line">
+                    <span className="word-mask"><span className="word-reveal" style={{ '--w-delay': '120ms' }}>Turn</span></span>{' '}
+                    <span className="word-mask"><span className="word-reveal" style={{ '--w-delay': '200ms' }}>bold</span></span>{' '}
+                    <span className="word-mask"><span className="word-reveal" style={{ '--w-delay': '280ms' }}>ideas</span></span>{' '}
+                    <span className="word-mask"><span className="word-reveal" style={{ '--w-delay': '360ms' }}>into</span></span>
+                  </span>{' '}
+                  <br />
+                  <span className="hero-highlight-wrap">
+                    <span className="word-mask"><span className="word-reveal hero-highlight" style={{ '--w-delay': '460ms' }}>digital</span></span>{' '}
+                    <span className="word-mask"><span className="word-reveal hero-highlight" style={{ '--w-delay': '540ms' }}>reality.</span></span>
+                    <span className="hero-highlight-sweep" aria-hidden="true" />
+                  </span>
                 </h1>
-                <p>
+                <p className="hero-desc-animated">
                   We build high-performance websites, web apps, and AI solutions that grow your business.
                 </p>
 
-                <div className="hero-actions">
+                <div className="hero-actions hero-actions-animated">
                   <a
                     href="#contact"
                     className="btn primary"
@@ -3484,105 +3894,105 @@ function AppContent() {
             </div>
           </section>
 
-          {/* METRICS & PROOF BANNER */}
-          <section className="stats-banner">
-            <div className="stats-grid stagger-reveal">
-              <div className="stat-card">
-                <div className="stat-number">85M<span>+</span></div>
-                <p>Total views generated across commercials, docs & social reels</p>
-              </div>
-              <div className="stat-card">
-                <div className="stat-number">450<span>+</span></div>
-                <p>Projects cut, color-graded and delivered worldwide</p>
-              </div>
-              <div className="stat-card">
-                <div className="stat-number">99.2<span>%</span></div>
-                <p>Audience retention rate boost on optimized edits</p>
-              </div>
-              <div className="stat-card">
-                <div className="stat-number">48<span>h</span></div>
-                <p>Average first-draft turn on commercial & social reels</p>
-              </div>
-            </div>
-          </section>
+          {/* ROVAWARE ENGINEERING METRICS & CAPABILITIES COUNTER */}
+          <EngineeringStatsCounter />
 
-          {/* SELECTED WORK / PORTFOLIO SHOWCASE */}
+          {/* SELECTED WORK / WHAT WE BUILD 3D SHOWCASE */}
           <section id="work" className="section-wrapper portfolio-showcase-section">
-            <div className="section-head">
-              <div>
-                <div className="section-kicker portfolio-kicker">
-                  <div className="kicker-icon-tile">
-                    <Sparkles size={13} />
-                  </div>
-                  <span>FEATURED DIGITAL PLATFORMS & SYSTEMS</span>
-                </div>
-                <h2 className="section-title">
-                  Architected for scale, <em className="hero-highlight">crafted for impact.</em>
-                </h2>
-              </div>
-              <p className="section-desc">
-                Explore production web platforms, enterprise SaaS portals, and intelligent AI architectures engineered for performance, precision, and business growth.
-              </p>
-            </div>
-
-            {/* Category Tabs */}
-            <div className="portfolio-tabs">
-              {['All Works', 'Web Platforms', 'SaaS & Web Apps', 'AI Solutions'].map((cat) => (
-                <button
-                  key={cat}
-                  type="button"
-                  className={`tab-btn ${activeCategory === cat ? 'active' : ''}`}
-                  onClick={() => setActiveCategory(cat)}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-
-            {/* Production Deployments Viewport Header with View Switcher */}
-            <div className="portfolio-grid-header">
-              <div>
-                <h3 className="grid-header-title">All Production Deployments</h3>
-                <span className="grid-header-count">{filteredProjects.length} Systems Online</span>
-              </div>
-
-              <div className="portfolio-view-switcher">
-                <button
-                  type="button"
-                  className={`view-switch-btn ${portfolioViewMode === '3d' ? 'active' : ''}`}
-                  onClick={() => setPortfolioViewMode('3d')}
-                  title="3D Continuous Rotating Portfolio Gallery"
-                >
-                  <Layers size={13} />
-                  <span>3D Orbit View</span>
-                </button>
-                <button
-                  type="button"
-                  className={`view-switch-btn ${portfolioViewMode === 'grid' ? 'active' : ''}`}
-                  onClick={() => setPortfolioViewMode('grid')}
-                  title="Classic Production Grid"
-                >
-                  <Layout size={13} />
-                  <span>Grid View</span>
-                </button>
-              </div>
-            </div>
-
             {portfolioViewMode === '3d' ? (
-              <ProductionDeploymentsOrbit
-                projects={filteredProjects}
-                onSelectProject={(p) => setModalVideo(p)}
-                activeCategory={activeCategory}
-              />
+              <div style={{ position: 'relative', width: '100%' }}>
+                {/* Subtle View Switcher in Top Right */}
+                <div style={{ position: 'absolute', top: 0, right: 0, zIndex: 30 }}>
+                  <div className="portfolio-view-switcher">
+                    <button
+                      type="button"
+                      className={`view-switch-btn ${portfolioViewMode === '3d' ? 'active' : ''}`}
+                      onClick={() => setPortfolioViewMode('3d')}
+                      title="3D Showcase"
+                    >
+                      <Layers size={13} />
+                      <span>3D View</span>
+                    </button>
+                    <button
+                      type="button"
+                      className={`view-switch-btn ${portfolioViewMode === 'grid' ? 'active' : ''}`}
+                      onClick={() => setPortfolioViewMode('grid')}
+                      title="Classic Grid"
+                    >
+                      <Layout size={13} />
+                      <span>Grid View</span>
+                    </button>
+                  </div>
+                </div>
+
+                <ProductionDeploymentsOrbit
+                  projects={filteredProjects}
+                  onSelectProject={(p) => setModalVideo(p)}
+                  activeCategory={activeCategory}
+                />
+              </div>
             ) : (
-              <div className="portfolio-grid stagger-reveal">
+              <div>
+                <div className="section-head">
+                  <div>
+                    <h2 className="section-title">
+                      Architected for scale, <em className="hero-highlight">crafted for impact.</em>
+                    </h2>
+                  </div>
+                </div>
+
+                <div className="portfolio-grid-header">
+                  <div>
+                    <h3 className="grid-header-title">All Production Deployments</h3>
+                    <span className="grid-header-count">{filteredProjects.length} Systems Online</span>
+                  </div>
+
+                  <div className="portfolio-view-switcher">
+                    <button
+                      type="button"
+                      className={`view-switch-btn ${portfolioViewMode === '3d' ? 'active' : ''}`}
+                      onClick={() => setPortfolioViewMode('3d')}
+                      title="3D Showcase"
+                    >
+                      <Layers size={13} />
+                      <span>3D View</span>
+                    </button>
+                    <button
+                      type="button"
+                      className={`view-switch-btn ${portfolioViewMode === 'grid' ? 'active' : ''}`}
+                      onClick={() => setPortfolioViewMode('grid')}
+                      title="Classic Grid"
+                    >
+                      <Layout size={13} />
+                      <span>Grid View</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div className="portfolio-grid stagger-reveal">
                 {filteredProjects.map((p) => (
                   <article
                     key={p.id}
-                    className="project-card modern-showcase"
+                    className={`project-card modern-showcase ${touchRevealedProject === p.id ? 'touch-revealed' : ''}`}
                     onClick={() => setModalVideo(p)}
+                    onMouseEnter={() => setTouchRevealedProject(p.id)}
+                    onMouseLeave={() => {
+                      if (touchRevealedProject === p.id) setTouchRevealedProject(null);
+                    }}
+                    onTouchStart={() => {
+                      setTouchRevealedProject((prev) => (prev === p.id ? null : p.id));
+                    }}
                     title={`Click to preview ${p.title}`}
                   >
+                    {/* Mouse-Triggered Slide-Down Text Reveal Badge */}
+                    <div className="card-reveal-wrap project-reveal-wrap" aria-hidden="true">
+                      <div className="card-reveal-badge">
+                        <span className="reveal-dot" />
+                        <span className="reveal-label">{p.revealText || 'VERIFIED ENTERPRISE DEPLOYMENT'}</span>
+                        <ArrowUpRight size={11} className="reveal-arrow" />
+                      </div>
+                    </div>
+
                     {/* Elevated Front Browser Showcase Frame */}
                     <div className="project-browser-frame">
                       <div className="browser-window-bar">
@@ -3610,7 +4020,19 @@ function AppContent() {
                       </div>
 
                       <div className="project-media-viewport">
-                        <img src={p.img} alt={p.title} loading="lazy" />
+                        {p.video ? (
+                          <video
+                            src={p.video}
+                            poster={p.img}
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            className="project-video-preview"
+                          />
+                        ) : (
+                          <img src={p.img} alt={p.title} loading="lazy" />
+                        )}
                         <div className="media-hover-overlay">
                           <span className="live-view-badge">
                             <span>Click to Preview Details</span>
@@ -3669,272 +4091,28 @@ function AppContent() {
                   </article>
                 ))}
               </div>
-            )}
-          </section>
 
-          {/* FROM IDEA TO DIGITAL EXPERIENCE SHOWCASE */}
-          <section id="digital-experience" className="section-wrapper digital-experience-section">
-            <div className="section-head">
-              <div>
-                <div className="section-kicker">
-                  <Sparkles size={14} />
-                  <span>ENGINEERING EXCELLENCE</span>
-                </div>
-                <h2 className="section-title">
-                  From Idea to <em className="hero-highlight">Digital Experience.</em>
-                </h2>
+              {/* Mobile Side-Scroll Hint */}
+              <div className="portfolio-mobile-scroll-hint">
+                <span className="scroll-hint-dot" />
+                <span>Swipe horizontally to view systems ({filteredProjects.length})</span>
               </div>
-              <p className="section-desc">
-                Explore how Rovaware Studio transforms conceptual whiteboard sketches into high-performance web applications, intelligent AI workflows, and scalable cloud platforms.
-              </p>
             </div>
+          )}
+        </section>
 
-            {/* Interactive Category Filter Tabs */}
-            <div className="experience-filter-bar">
-              {['Web Development', 'Web Applications', 'AI Solutions'].map((cat) => (
-                <button
-                  key={cat}
-                  type="button"
-                  className={`exp-filter-btn ${showcaseCategory === cat ? 'active' : ''}`}
-                  onClick={() => handleShowcaseCategoryChange(cat)}
-                >
-                  {cat === 'Web Development' && <Code2 size={15} />}
-                  {cat === 'Web Applications' && <Layout size={15} />}
-                  {cat === 'AI Solutions' && <Bot size={15} />}
-                  <span>{cat}</span>
-                </button>
-              ))}
+          {/* FROM IDEA TO DIGITAL EXPERIENCE: WAFER INTERACTIVE SHOWCASE */}
+          <DigitalExperienceWafer data={digitalExperienceData} />
+
+          {/* Visual Connector Bridge to Services Section */}
+          <div className="showcase-services-bridge">
+            <div className="bridge-glow-line" />
+            <div className="bridge-icon-pill">
+              <Sparkles size={14} />
+              <span>FULL-SPECTRUM SOLUTIONS ARCHITECTURE</span>
             </div>
-
-            {/* Main Showcase Stage */}
-            {currentShowcase && (
-              <div
-                key={currentShowcase.id}
-                className={`experience-stage-grid slide-dir-${slideDirection}`}
-              >
-                {/* Left Column: Editorial Content & Architecture Specs */}
-                <div className="experience-editorial-col">
-                  <div className="exp-editorial-card stagger-anim-card">
-                    <div className="exp-card-header stagger-item item-1">
-                      <span className="exp-kicker-pill">{currentShowcase.kicker}</span>
-                      <span className="exp-category-pill">{currentShowcase.category}</span>
-                    </div>
-
-                    <h3 className="exp-title stagger-item item-2">{currentShowcase.title}</h3>
-                    <div className="exp-tagline stagger-item item-2">
-                      <CheckCircle2 size={15} />
-                      <span>{currentShowcase.tagline}</span>
-                    </div>
-                    <p className="exp-description stagger-item item-3">{currentShowcase.description}</p>
-
-                    {/* Interactive View Toggle */}
-                    <div className="exp-view-toggle stagger-item item-4">
-                      <button
-                        type="button"
-                        className={`exp-toggle-btn ${showcaseViewMode === 'preview' ? 'active' : ''}`}
-                        onClick={() => setShowcaseViewMode('preview')}
-                      >
-                        <Layout size={14} />
-                        <span>Production UI View</span>
-                      </button>
-                      <button
-                        type="button"
-                        className={`exp-toggle-btn ${showcaseViewMode === 'architecture' ? 'active' : ''}`}
-                        onClick={() => setShowcaseViewMode('architecture')}
-                      >
-                        <Layers size={14} />
-                        <span>System Architecture</span>
-                      </button>
-                    </div>
-
-                    {/* Specs & Architecture Metrics */}
-                    <div className="exp-specs-grid stagger-item item-4">
-                      {currentShowcase.specs.map((spec, i) => (
-                        <div className="exp-spec-box" key={i}>
-                          <span className="exp-spec-label">{spec.label}</span>
-                          <strong className="exp-spec-value">{spec.value}</strong>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Technology Stack Pills */}
-                    <div className="exp-tech-section stagger-item item-5">
-                      <span className="exp-tech-title">TECHNOLOGY STACK:</span>
-                      <div className="exp-tech-tags">
-                        {currentShowcase.techStack.map((tech) => (
-                          <span key={tech} className="exp-tech-pill">{tech}</span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Engineering Highlights List */}
-                  <div className="exp-highlights-box stagger-item item-6">
-                    <span className="exp-highlights-title">KEY ARCHITECTURAL HIGHLIGHTS</span>
-                    <ul className="exp-highlights-list">
-                      {currentShowcase.highlights.map((h, idx) => (
-                        <li key={idx}>
-                          <CheckCircle2 size={14} className="highlight-check" />
-                          <span>{h}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                {/* Right Column: Interactive Browser Viewport / Architecture Canvas */}
-                <div className="experience-viewport-col">
-                  <div className="exp-browser-frame">
-                    {/* Browser Bar */}
-                    <div className="exp-browser-bar">
-                      <div className="exp-browser-dots">
-                        <span className="dot red" />
-                        <span className="dot yellow" />
-                        <span className="dot green" />
-                      </div>
-                      <div className="exp-browser-url-pill">
-                        <Lock size={11} />
-                        <span>{currentShowcase.urlLabel}</span>
-                      </div>
-                      <div className="exp-browser-status">
-                        <span className="pulse-dot" />
-                        <span>200 OK • PRODUCTION READY</span>
-                      </div>
-                    </div>
-
-                    {/* Viewport Content: Preview Image or Architecture Diagram */}
-                    {showcaseViewMode === 'preview' ? (
-                      <div className="exp-viewport-media exp-viewport-slide">
-                        <img
-                          src={currentShowcase.image}
-                          alt={currentShowcase.title}
-                          className="exp-showcase-img"
-                          loading="lazy"
-                        />
-                        <div className="exp-media-shine" />
-                        <div className="exp-watermark-pill">
-                          <Code2 size={12} />
-                          <span>Rovaware Studio • {currentShowcase.category}</span>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="exp-viewport-architecture exp-viewport-slide">
-                        <div className="exp-arch-header">
-                          <Terminal size={16} />
-                          <span>{currentShowcase.architectureTitle}</span>
-                        </div>
-                        <div className="exp-arch-nodes-wrap">
-                          {currentShowcase.architectureNodes.map((node, idx) => (
-                            <div className="exp-arch-node-card" key={idx}>
-                              <div className="node-step-index">0{idx + 1}</div>
-                              <div className="node-content">
-                                <strong>{node.name}</strong>
-                                <p>{node.detail}</p>
-                              </div>
-                              {idx < currentShowcase.architectureNodes.length - 1 && (
-                                <div className="node-connector-line" />
-                              )}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Viewport Footer Bar */}
-                    <div className="exp-viewport-footer">
-                      <span className="footer-mode-label">
-                        ACTIVE DISPLAY: <strong>{showcaseViewMode === 'preview' ? 'High-Fidelity Interface' : 'Multi-Tier System Flow'}</strong>
-                      </span>
-                      <button
-                        type="button"
-                        className="exp-toggle-action-btn"
-                        onClick={() => setShowcaseViewMode(showcaseViewMode === 'preview' ? 'architecture' : 'preview')}
-                      >
-                        <span>Switch to {showcaseViewMode === 'preview' ? 'Architecture' : 'Preview UI'}</span>
-                        <ArrowUpRight size={13} />
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Quick Category Switcher Cards (Side-by-Side Horizontal Layout) */}
-                  <div className="exp-category-quickcards" role="tablist" aria-label="Digital experience categories">
-                    {digitalExperienceData.map((item) => {
-                      const isActive = showcaseCategory === item.category;
-                      const accentColor =
-                        item.category === 'Web Development'
-                          ? '#38BDF8'
-                          : item.category === 'Web Applications'
-                            ? '#6366F1'
-                            : '#A855F7';
-
-                      return (
-                        <div
-                          key={item.id}
-                          role="tab"
-                          aria-selected={isActive}
-                          tabIndex={0}
-                          className={`exp-quick-card ${isActive ? 'active' : ''} exp-card-${item.id}`}
-                          onClick={() => handleShowcaseCategoryChange(item.category)}
-                          onKeyDown={(e) => {
-                            if (e.key === 'Enter' || e.key === ' ') {
-                              e.preventDefault();
-                              handleShowcaseCategoryChange(item.category);
-                            }
-                          }}
-                        >
-                          {/* Top Glowing Accent Indicator */}
-                          <div className="quick-card-glow-bar" style={{ background: accentColor }} />
-
-                          <div className="quick-card-left">
-                            {/* Mini Thumbnail with Hover Zoom & Category Icon Badge */}
-                            <div className="quick-card-thumb-wrap">
-                              <img
-                                src={item.image}
-                                alt={item.category}
-                                className="quick-card-thumb-img"
-                                loading="lazy"
-                              />
-                              <div
-                                className="quick-card-icon-overlay"
-                                style={{
-                                  background: `${accentColor}30`,
-                                  borderColor: `${accentColor}60`,
-                                }}
-                              >
-                                {item.category === 'Web Development' && <Code2 size={13} style={{ color: accentColor }} />}
-                                {item.category === 'Web Applications' && <Layout size={13} style={{ color: accentColor }} />}
-                                {item.category === 'AI Solutions' && <Bot size={13} style={{ color: accentColor }} />}
-                              </div>
-                            </div>
-
-                            <div className="quick-card-text">
-                              <strong>{item.category}</strong>
-                              <span>{item.kicker}</span>
-                            </div>
-                          </div>
-
-                          <div className="quick-card-right">
-                            <span className="quick-card-active-dot" style={{ background: accentColor }} />
-                            <ArrowUpRight size={14} className="quick-card-arrow" />
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Visual Connector Bridge to Services Section */}
-            <div className="showcase-services-bridge">
-              <div className="bridge-glow-line" />
-              <div className="bridge-icon-pill">
-                <Sparkles size={14} />
-                <span>FULL-SPECTRUM SOLUTIONS ARCHITECTURE</span>
-              </div>
-              <div className="bridge-glow-line" />
-            </div>
-          </section>
+            <div className="bridge-glow-line" />
+          </div>
 
           {/* SERVICES OFFERED */}
           <section id="services" className="section-wrapper">
@@ -4068,7 +4246,6 @@ function AppContent() {
                     type="button"
                     onClick={() => setIsDemoModalOpen(true)}
                     className="btn primary"
-                    data-magnetic="0.36"
                   >
                     <span>Start a Project</span> <ArrowUpRight size={16} />
                   </button>
@@ -4118,30 +4295,67 @@ function AppContent() {
               </p>
             </div>
 
-            <div className="faqs-accordion stagger-reveal">
-              {faqsList.map((faq, idx) => {
-                const isOpen = openFaq === idx;
-                return (
-                  <div
-                    key={idx}
-                    className={`faq-card ${isOpen ? 'active' : ''}`}
-                    onClick={() => setOpenFaq(isOpen ? null : idx)}
+            <div className="faqs-layout-grid">
+              {/* Left Column: FAQ Accordion */}
+              <div className="faqs-accordion stagger-reveal">
+                {faqsList.map((faq, idx) => {
+                  const isOpen = openFaq === idx;
+                  const isExtra = idx >= 3 && !showAllFaqs;
+                  return (
+                    <div
+                      key={idx}
+                      className={`faq-card ${isOpen ? 'active' : ''} ${isExtra ? 'faq-item-extra' : ''}`}
+                      onClick={() => setOpenFaq(isOpen ? null : idx)}
+                    >
+                      <button className="faq-question-btn" aria-expanded={isOpen} type="button">
+                        <span className="faq-num">0{idx + 1}</span>
+                        <span className="faq-question-text">{faq.q}</span>
+                        <span className={`faq-chevron ${isOpen ? 'rotated' : ''}`}>
+                          <ChevronDown size={18} />
+                        </span>
+                      </button>
+                      {isOpen && (
+                        <div className="faq-answer">
+                          <p>{faq.a}</p>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+
+                {faqsList.length > 3 && (
+                  <button
+                    type="button"
+                    className="faq-view-all-btn"
+                    onClick={() => setShowAllFaqs((prev) => !prev)}
+                    aria-expanded={showAllFaqs}
                   >
-                    <button className="faq-question-btn" aria-expanded={isOpen} type="button">
-                      <span className="faq-num">0{idx + 1}</span>
-                      <span className="faq-question-text">{faq.q}</span>
-                      <span className={`faq-chevron ${isOpen ? 'rotated' : ''}`}>
-                        <ChevronDown size={18} />
-                      </span>
-                    </button>
-                    {isOpen && (
-                      <div className="faq-answer">
-                        <p>{faq.a}</p>
-                      </div>
-                    )}
+                    <span>{showAllFaqs ? 'View Less' : 'View All'}</span>
+                    <ChevronDown size={16} className={`faq-view-all-icon ${showAllFaqs ? 'rotated' : ''}`} />
+                  </button>
+                )}
+              </div>
+
+              {/* Right Column: Rovaware Engineering Team Showcase Photo */}
+              <div className="faqs-visual-col">
+                <div className="faqs-image-card">
+                  <img
+                    src="/assets/rovaware_team_faq.jpg"
+                    alt="Rovaware Engineering & Digital Studio Team"
+                    className="faqs-team-img"
+                    loading="lazy"
+                  />
+                  <div className="faqs-image-overlay">
+                    <div className="faqs-badge">
+                      <Sparkles size={13} />
+                      <span>DIRECT ENGINEERING COLLABORATION</span>
+                    </div>
+                    <p className="faqs-overlay-caption">
+                      Have a custom technical challenge? Speak directly with our core engineering team.
+                    </p>
                   </div>
-                );
-              })}
+                </div>
+              </div>
             </div>
           </section>
 
@@ -4246,7 +4460,14 @@ function AppContent() {
               <div className="brand-icon-box">
                 <img src="/assets/rovaware_icon.png?v=12" alt="RovaWare" className="brand-logo-img" />
               </div>
-              <span className="brand-name">RovaWare</span>
+              <span className="brand-divider" aria-hidden="true" />
+              <div className="brand-text-block">
+                <div className="brand-text">
+                  <span className="brand-text-main">ROVA</span>
+                  <span className="brand-text-accent">WARE</span>
+                </div>
+                <div className="brand-tagline">ENGINEERING THE DIGITAL FUTURE</div>
+              </div>
             </a>
             <p>
               We turn ambitious ideas into digital experiences through modern web development and AI solutions.
@@ -4283,7 +4504,7 @@ function AppContent() {
                 <li><a href="/services/android-development" onClick={(e) => { e.preventDefault(); navigateToServiceDetail('android-development'); }}>Android Development</a></li>
                 <li><a href="/services/saas-scaling" onClick={(e) => { e.preventDefault(); navigateToServiceDetail('saas-scaling'); }}>SaaS Scaling</a></li>
                 <li><a href="/services/ui-ux-design" onClick={(e) => { e.preventDefault(); navigateToServiceDetail('ui-ux-design'); }}>UI/UX Design</a></li>
-                <li><a href="/services" onClick={(e) => { e.preventDefault(); navigateToServices(); }} style={{ color: '#FF8C32', fontWeight: 600 }}>All 9 Services →</a></li>
+                <li><a href="/services" onClick={(e) => { e.preventDefault(); navigateToServices(); }} style={{ color: '#38BDF8', fontWeight: 600 }}>All 9 Services →</a></li>
               </ul>
             </div>
 
@@ -4335,15 +4556,6 @@ function AppContent() {
 
         <div className="footer-bottom">
           <span>© 2026 ROVAWARE STUDIO. ALL RIGHTS RESERVED.</span>
-          <div className="footer-bottom-legal-links">
-            <a href="#privacy" onClick={(e) => { e.preventDefault(); openLegalModal('privacy'); }}>Privacy Policy</a>
-            <span>•</span>
-            <a href="#terms" onClick={(e) => { e.preventDefault(); openLegalModal('terms'); }}>Terms of Service</a>
-            <span>•</span>
-            <a href="#cookies" onClick={(e) => { e.preventDefault(); openLegalModal('cookies'); }}>Cookie Policy</a>
-            <span>•</span>
-            <a href="#refund" onClick={(e) => { e.preventDefault(); openLegalModal('refund'); }}>Refund Policy</a>
-          </div>
         </div>
       </footer>
 
@@ -4388,7 +4600,23 @@ function AppContent() {
                   </a>
                 </div>
                 <div className="theater-web-preview">
-                  <img src={modalVideo.img} alt={modalVideo.title} />
+                  {modalVideo.video ? (
+                    <video
+                      src={modalVideo.video}
+                      poster={modalVideo.img}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="theater-preview-media"
+                    />
+                  ) : (
+                    <img
+                      src={modalVideo.img}
+                      alt={modalVideo.title}
+                      className="theater-preview-media"
+                    />
+                  )}
                   <div className="theater-web-overlay-cta">
                     <div className="theater-web-info">
                       <span className="tech-badge">ENTERPRISE NEXT.JS WEB PLATFORM</span>
@@ -4410,7 +4638,7 @@ function AppContent() {
               </div>
             ) : (
               <div className="theater-video-wrapper">
-                <video autoPlay controls playsInline src="/assets/hero.mp4">
+                <video autoPlay controls playsInline src="/assets/hero.mp4?v=orig10s">
                   Your browser does not support HTML5 video.
                 </video>
               </div>

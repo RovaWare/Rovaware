@@ -1,0 +1,240 @@
+/* ==========================================================================
+   ROVAWARE — CINEMATIC INITIAL INTRO LOADER
+   Apple-Style Minimal Dark Reveal with Specular Blue-to-Cyan Light Sweep
+   ========================================================================== */
+
+.intro-loader-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background-color: #080A10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: all;
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.45s ease;
+  overflow: hidden;
+  user-select: none;
+}
+
+.intro-loader-backdrop.is-fading-out {
+  opacity: 0;
+  transform: scale(1.02);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* Ambient Radial Glow in the Cosmic Center */
+.intro-loader-ambient {
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(37, 133, 232, 0.18) 0%, rgba(54, 201, 244, 0.08) 35%, rgba(8, 10, 16, 0) 70%);
+  filter: blur(40px);
+  pointer-events: none;
+  animation: introAmbientPulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes introAmbientPulse {
+  0% { transform: scale(0.92); opacity: 0.6; }
+  100% { transform: scale(1.08); opacity: 1; }
+}
+
+/* Center Stage Content */
+.intro-loader-stage {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+}
+
+/* Logo & Brand Unit */
+.intro-loader-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  animation: introLogoEntrance 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes introLogoEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(16px) scale(0.96);
+    filter: blur(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.intro-loader-icon {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 16px rgba(54, 201, 244, 0.45));
+}
+
+.intro-loader-divider {
+  width: 1px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.22);
+  flex-shrink: 0;
+}
+
+.intro-loader-text-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  line-height: 1.1;
+  gap: 3px;
+}
+
+.intro-loader-title {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.intro-loader-title .part-rova {
+  color: #FFFFFF;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.25);
+}
+
+.intro-loader-title .part-ware {
+  background: linear-gradient(135deg, #2585E8 0%, #36C9F4 60%, #60A5FA 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 18px rgba(54, 201, 244, 0.4));
+  animation: introGradientShift 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes introGradientShift {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* Specular Light Sweep across Logo */
+.intro-loader-sweep {
+  position: absolute;
+  top: -10%;
+  left: -40%;
+  width: 40%;
+  height: 120%;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.6) 50%, rgba(54, 201, 244, 0.8) 80%, transparent 100%);
+  transform: skewX(-25deg);
+  pointer-events: none;
+  animation: introSweepPass 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
+  opacity: 0;
+}
+
+@keyframes introSweepPass {
+  0% {
+    left: -50%;
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    left: 140%;
+    opacity: 0;
+  }
+}
+
+.intro-loader-tagline {
+  font-family: 'JetBrains Mono', 'Plus Jakarta Sans', monospace;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+  opacity: 0;
+  animation: introTaglineReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+}
+
+@keyframes introTaglineReveal {
+  0% {
+    opacity: 0;
+    letter-spacing: 0.16em;
+  }
+  100% {
+    opacity: 1;
+    letter-spacing: 0.24em;
+  }
+}
+
+/* Minimal High-Precision Progress Track */
+.intro-loader-progress-wrap {
+  width: 140px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 8px;
+  position: relative;
+  opacity: 0;
+  animation: introProgressFadeIn 0.4s ease 0.2s forwards;
+}
+
+@keyframes introProgressFadeIn {
+  to { opacity: 1; }
+}
+
+.intro-loader-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #2585E8 0%, #36C9F4 100%);
+  box-shadow: 0 0 10px rgba(54, 201, 244, 0.8);
+  border-radius: 999px;
+  animation: introProgressFill 1.15s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
+}
+
+@keyframes introProgressFill {
+  0% { width: 0%; }
+  60% { width: 75%; }
+  100% { width: 100%; }
+}
+
+@media (max-width: 480px) {
+  .intro-loader-icon {
+    width: 30px;
+    height: 30px;
+  }
+  .intro-loader-divider {
+    height: 24px;
+  }
+  .intro-loader-title {
+    font-size: 22px;
+  }
+  .intro-loader-tagline {
+    font-size: 7px;
+    letter-spacing: 0.2em;
+  }
+  .intro-loader-progress-wrap {
+    width: 110px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-loader-backdrop {
+    display: none !important;
+  }
+}
+

@@ -436,7 +436,7 @@ html.is-loaded .ld {
 }
 .brand-icon-box {
   width: auto;
-  height: 28px;
+  height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -447,7 +447,7 @@ html.is-loaded .ld {
   transform: scale(1.06);
 }
 .brand-logo-img {
-  height: 28px;
+  height: 38px;
   width: auto;
   max-width: 52px;
   object-fit: contain;
@@ -486,14 +486,14 @@ html.is-loaded .ld {
   color: var(--muted-dim);
   text-transform: uppercase;
 }
-.nav-links {
+.nav .nav-links {
   display: flex;
   align-items: center;
   gap: clamp(18px, 2.4vw, 34px);
   position: relative;
   z-index: 1;
 }
-.nav-link {
+.nav .nav-link {
   font-size: 13.5px;
   font-weight: 600;
   color: var(--muted);
@@ -501,7 +501,7 @@ html.is-loaded .ld {
   letter-spacing: 0.01em;
   position: relative;
 }
-.nav-link.active {
+.nav .nav-link.active {
   color: var(--grn);
 }
 /* roll-text hover — olhauzhykova signature */
@@ -519,11 +519,11 @@ html.is-loaded .ld {
   height: 1.35em;
   line-height: 1.35em;
 }
-.nav-link:hover .roll-inner,
+.nav .nav-link:hover .roll-inner,
 .roll:hover .roll-inner {
   transform: translateY(-1.35em);
 }
-.nav-link .roll-inner span:nth-child(2) {
+.nav .nav-link .roll-inner span:nth-child(2) {
   color: var(--grn);
 }
 .nav-cta {
