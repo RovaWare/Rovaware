@@ -85,7 +85,7 @@ import ProcessSection from './components/Process/src/components/Process.jsx';
 import ServicesMegaMenu from './components/services/ServicesMegaMenu';
 import ServicesIndexView from './components/services/ServicesIndexView';
 import ServiceDetailView from './components/services/ServiceDetailView';
-import { serviceCategories } from './components/services/servicesData';
+import { serviceCategories, allServicesDetail } from './components/services/servicesData';
 import './styles/services.css';
 import BrandReveal from './components/brand/BrandReveal';
 import InteractiveFooterTypography from './components/footer/InteractiveFooterTypography';
@@ -2928,6 +2928,167 @@ function TechStackShowcase() {
   );
 }
 
+// Direct Studio Directory & Sitelink Shortcuts Component (Wyreflow Style)
+function ExploreShortcutsSection({
+  navigateToCareers,
+  navigateToServices,
+  navigateToAboutCompany,
+  navigateToProcess,
+  navigateToContact,
+  navigateToServiceDetail
+}) {
+  const shortcutLinks = [
+    {
+      id: 'careers',
+      title: 'Career',
+      subtitle: 'Join the ROVAWARE Engineering Team',
+      desc: 'Explore high-impact open roles across full-stack engineering, AI development, and UI/UX design. Remote-first engineering studio.',
+      badge: "WE'RE HIRING",
+      icon: Briefcase,
+      accent: '#38BDF8',
+      path: '/careers',
+      onClick: (e) => { e.preventDefault(); navigateToCareers(); }
+    },
+    {
+      id: 'services',
+      title: 'Services',
+      subtitle: 'Full-Stack Digital Engineering',
+      desc: 'High-throughput web applications, native mobile systems, scalable cloud architectures, and autonomous AI agents.',
+      badge: '9 PRACTICES',
+      icon: Layers,
+      accent: '#FF8C32',
+      path: '/services',
+      onClick: (e) => { e.preventDefault(); navigateToServices(); }
+    },
+    {
+      id: 'about',
+      title: 'About Us',
+      subtitle: 'Mission, Team & Engineering Standards',
+      desc: 'Learn about ROVAWARE’s engineering philosophy, leadership, and our unwavering commitment to building resilient digital products.',
+      badge: 'COMPANY',
+      icon: Building2,
+      accent: '#A855F7',
+      path: '/about/company',
+      onClick: (e) => { e.preventDefault(); navigateToAboutCompany(); }
+    },
+    {
+      id: 'process',
+      title: 'Our Process',
+      subtitle: 'From Architecture to Cloud Production',
+      desc: 'Our proven 5-stage software engineering lifecycle: Discovery, Architecture Blueprint, Agile Sprints, Hardening, and Cloud Scaling.',
+      badge: 'METHODOLOGY',
+      icon: Workflow,
+      accent: '#10B981',
+      path: '/process',
+      onClick: (e) => { e.preventDefault(); navigateToProcess(); }
+    },
+    {
+      id: 'contact',
+      title: 'Contact',
+      subtitle: 'Direct Studio Inbox & Technical Inquiry',
+      desc: 'Get in touch with ROVAWARE engineers to discuss project scope, architecture reviews, NDA execution, or request an instant callback.',
+      badge: '24HR DISPATCH',
+      icon: Mail,
+      accent: '#EC4899',
+      path: '/about/contact',
+      onClick: (e) => { e.preventDefault(); navigateToContact(); }
+    },
+    {
+      id: 'web-dev',
+      title: 'Web Development',
+      subtitle: 'Next.js 15 & Hybrid SSR Engines',
+      desc: 'Ultra-fast Next.js web platforms engineered with hybrid SSR, static edge caching, and sub-second TTFB for mission-critical digital scale.',
+      badge: 'CORE ENGINEERING',
+      icon: Code2,
+      accent: '#FF8C32',
+      path: '/services/web-development',
+      onClick: (e) => { e.preventDefault(); navigateToServiceDetail('web-development'); }
+    },
+    {
+      id: 'saas-cloud',
+      title: 'Cloud & SaaS Scaling',
+      subtitle: 'High-Concurrency Backends & Telemetry',
+      desc: 'Enterprise-grade multi-tenant database architectures, WebSocket telemetry, high-concurrency microservices, and automated DevOps.',
+      badge: 'HIGH CONCURRENCY',
+      icon: Cloud,
+      accent: '#38BDF8',
+      path: '/services/saas-scaling',
+      onClick: (e) => { e.preventDefault(); navigateToServiceDetail('saas-scaling'); }
+    },
+    {
+      id: 'ai-agents',
+      title: 'AI & Chatbots',
+      subtitle: 'Autonomous Agents & Vector RAG',
+      desc: 'Production AI systems integrating multi-node agent tool calling, vector search RAG, and WhatsApp / enterprise customer automation.',
+      badge: 'AGENTIC AI',
+      icon: Bot,
+      accent: '#10B981',
+      path: '/services/chatbot-integration',
+      onClick: (e) => { e.preventDefault(); navigateToServiceDetail('chatbot-integration'); }
+    }
+  ];
+
+  return (
+    <section id="directory" className="section-wrapper explore-shortcuts-section">
+      <div className="section-head">
+        <div>
+          <div className="section-kicker">
+            <Sparkles size={14} />
+            <span>EXPLORE ROVAWARE DIRECTORY</span>
+          </div>
+          <h2 className="section-title">
+            Quick shortcuts to our <em className="hero-highlight">core practices.</em>
+          </h2>
+        </div>
+        <p className="section-desc">
+          Navigate directly to our engineering practices, active career openings, studio standards, and technical consultation pipelines.
+        </p>
+      </div>
+
+      <div className="shortcuts-grid">
+        {shortcutLinks.map((item) => {
+          const IconComponent = item.icon;
+          return (
+            <a
+              key={item.id}
+              href={item.path}
+              className="shortcut-card"
+              onClick={item.onClick}
+              title={`Navigate to ${item.title}`}
+            >
+              <div className="shortcut-card-header">
+                <div
+                  className="shortcut-icon-badge"
+                  style={{
+                    color: item.accent,
+                    background: `${item.accent}14`,
+                    borderColor: `${item.accent}33`
+                  }}
+                >
+                  <IconComponent size={20} />
+                </div>
+                <span
+                  className="shortcut-badge"
+                  style={{
+                    color: item.accent,
+                    background: `${item.accent}14`
+                  }}
+                >
+                  {item.badge}
+                </span>
+                <ArrowUpRight size={16} className="shortcut-arrow-icon" />
+              </div>
+              <h3 className="shortcut-title">{item.title}</h3>
+              <p className="shortcut-subtitle">{item.subtitle}</p>
+              <p className="shortcut-desc">{item.desc}</p>
+            </a>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
 function AppContent() {
   // Global luxury magnetic button effect on all CTAs and [data-magnetic] buttons
   useMagneticButtons();
@@ -2978,6 +3139,75 @@ function AppContent() {
   };
 
   const { view: currentView, slug: articleSlug } = getRouteInfo(location.pathname);
+
+  // Synchronize document title, meta description, OG tags, and canonical link on route change
+  useEffect(() => {
+    let title = 'Rovaware';
+    let description = 'ROVAWARE is an elite digital engineering studio specializing in high-performance web platforms, modern cloud architectures, enterprise SaaS systems, and autonomous AI solutions.';
+    let canonical = 'https://rovaware.com/';
+
+    if (currentView === 'services-index') {
+      title = 'Digital Engineering & Growth Services — ROVAWARE';
+      description = 'Explore ROVAWARE’s comprehensive engineering suite: high-throughput web apps, mobile systems, cloud architecture, and autonomous AI agents.';
+      canonical = 'https://rovaware.com/services';
+    } else if (currentView === 'service-detail' && articleSlug) {
+      const detail = allServicesDetail && allServicesDetail[articleSlug];
+      if (detail) {
+        title = `${detail.title} — ROVAWARE Engineering Studio`;
+        description = detail.heroHeadline || detail.shortDesc || description;
+      } else {
+        title = 'Specialized Engineering Service — ROVAWARE';
+      }
+      canonical = `https://rovaware.com/services/${articleSlug}`;
+    } else if (currentView === 'about-company') {
+      title = 'About ROVAWARE — Company, Leadership & Engineering Standards';
+      description = 'Learn about ROVAWARE’s engineering philosophy, mission, leadership, and our commitment to building resilient, high-performance digital products.';
+      canonical = 'https://rovaware.com/about/company';
+    } else if (currentView === 'about-contact') {
+      title = 'Contact ROVAWARE — Technical Inquiry & Architecture Scoping';
+      description = 'Connect with ROVAWARE engineers to discuss project scope, architecture review, or schedule an instant callback consultation.';
+      canonical = 'https://rovaware.com/about/contact';
+    } else if (currentView === 'about-book-project') {
+      title = 'Book a Project — Architecture & Scope Consultation | ROVAWARE';
+      description = 'Schedule a comprehensive scoping session with ROVAWARE engineers to architect and build your next-generation digital platform.';
+      canonical = 'https://rovaware.com/about/book-project';
+    } else if (currentView === 'careers') {
+      title = 'Careers & Engineering Opportunities — ROVAWARE';
+      description = 'Join our elite engineering studio. Explore high-impact roles in full-stack engineering, AI systems, cloud architecture, and UI/UX design.';
+      canonical = 'https://rovaware.com/careers';
+    } else if (currentView === 'process') {
+      title = 'Our Engineering Process — ROVAWARE Studio';
+      description = 'Our proven software development lifecycle: Discovery, Architecture, Agile Sprints, Rigorous Hardening, and Production Cloud Scaling.';
+      canonical = 'https://rovaware.com/process';
+    } else if (currentView === 'blog') {
+      title = 'Blog & Technical Insights — ROVAWARE Engineering';
+      description = 'Explore in-depth technical guides, software architecture benchmarks, AI agent workflows, and digital engineering insights from ROVAWARE engineers.';
+      canonical = 'https://rovaware.com/blog';
+    } else if (currentView === 'article') {
+      title = 'Engineering Insight & Article — ROVAWARE';
+      canonical = `https://rovaware.com/blog/${articleSlug || ''}`;
+    } else if (currentView === 'reveal') {
+      title = 'ROVAWARE — Brand Reveal Animation';
+      canonical = 'https://rovaware.com/reveal';
+    }
+
+    document.title = title;
+
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute('content', description);
+
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute('content', title);
+
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) ogDesc.setAttribute('content', description);
+
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.setAttribute('content', canonical);
+
+    const canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (canonicalLink) canonicalLink.setAttribute('href', canonical);
+  }, [location.pathname, currentView, articleSlug]);
   const [showBrandReveal, setShowBrandReveal] = useState(false);
   const [aboutDropdownOpen, setAboutDropdownOpen] = useState(false);
   const [mobileAboutExpanded, setMobileAboutExpanded] = useState(false);
@@ -3075,7 +3305,7 @@ function AppContent() {
     if (location.pathname !== '/') {
       navigate('/');
     }
-    document.title = 'ROVAWARE — Build • Automate • Scale';
+    document.title = 'Rovaware';
     if (anchor) {
       setTimeout(() => {
         const el = document.getElementById(anchor);
@@ -3485,6 +3715,17 @@ function AppContent() {
             />
           </div>
           <a
+            href="/careers"
+            className={`nav-link ${currentView === 'careers' ? 'active' : ''}`}
+            onClick={(e) => {
+              e.preventDefault();
+              setMobileMenu(false);
+              navigateToCareers();
+            }}
+          >
+            <NavRollingText text="Careers" />
+          </a>
+          <a
             href="/blog"
             className={`nav-link ${currentView === 'blog' || currentView === 'article' ? 'active' : ''}`}
             onClick={(e) => {
@@ -3538,6 +3779,25 @@ function AppContent() {
                 <div className="dropdown-item-text">
                   <span className="dropdown-item-title">About Company</span>
                   <span className="dropdown-item-desc">Who we are, mission & values</span>
+                </div>
+              </a>
+
+              <a
+                href="/careers"
+                className={`nav-dropdown-item ${currentView === 'careers' ? 'active' : ''}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setAboutDropdownOpen(false);
+                  setMobileMenu(false);
+                  navigateToCareers();
+                }}
+              >
+                <div className="dropdown-item-icon">
+                  <Briefcase size={16} />
+                </div>
+                <div className="dropdown-item-text">
+                  <span className="dropdown-item-title">Careers</span>
+                  <span className="dropdown-item-desc">Join our elite engineering studio</span>
                 </div>
               </a>
 
@@ -3669,6 +3929,18 @@ function AppContent() {
                 >
                   <Building2 size={15} />
                   <span>About Company</span>
+                </a>
+                <a
+                  href="/careers"
+                  className={`mobile-dropdown-sublink ${currentView === 'careers' ? 'active' : ''}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setMobileMenu(false);
+                    navigateToCareers();
+                  }}
+                >
+                  <Briefcase size={15} />
+                  <span>Careers</span>
                 </a>
                 <a
                   href="/about/contact"
@@ -4398,6 +4670,16 @@ function AppContent() {
             </div>
           </section>
 
+          {/* EXPLORE DIRECTORY & SHORTCUTS (WYREFLOW STYLE) */}
+          <ExploreShortcutsSection
+            navigateToCareers={navigateToCareers}
+            navigateToServices={navigateToServices}
+            navigateToAboutCompany={navigateToAboutCompany}
+            navigateToProcess={navigateToProcess}
+            navigateToContact={navigateToContact}
+            navigateToServiceDetail={navigateToServiceDetail}
+          />
+
           {/* NEWSLETTER & PROJECT INTAKE */}
           <section id="contact" className="section-wrapper newsletter-section">
             <div className="newsletter-grid">
@@ -4557,8 +4839,9 @@ function AppContent() {
               <h4>Services</h4>
               <ul>
                 <li><a href="/services/web-development" onClick={(e) => { e.preventDefault(); navigateToServiceDetail('web-development'); }}>Web Development</a></li>
+                <li><a href="/services/chatbot-integration" onClick={(e) => { e.preventDefault(); navigateToServiceDetail('chatbot-integration'); }}>AI & Chatbots</a></li>
+                <li><a href="/services/saas-scaling" onClick={(e) => { e.preventDefault(); navigateToServiceDetail('saas-scaling'); }}>SaaS & Cloud Scaling</a></li>
                 <li><a href="/services/android-development" onClick={(e) => { e.preventDefault(); navigateToServiceDetail('android-development'); }}>Android Development</a></li>
-                <li><a href="/services/saas-scaling" onClick={(e) => { e.preventDefault(); navigateToServiceDetail('saas-scaling'); }}>SaaS Scaling</a></li>
                 <li><a href="/services/ui-ux-design" onClick={(e) => { e.preventDefault(); navigateToServiceDetail('ui-ux-design'); }}>UI/UX Design</a></li>
                 <li><a href="/services" onClick={(e) => { e.preventDefault(); navigateToServices(); }} style={{ color: '#38BDF8', fontWeight: 600 }}>All 9 Services →</a></li>
               </ul>

@@ -1,21 +1,185 @@
 <!doctype html>
 <html lang="en" data-theme="dark">
   <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-    <meta name="theme-color" content="#080A10"/>
-    <link rel="icon" type="image/png" href="/favicon.png?v=11" />
-    <link rel="apple-touch-icon" href="/favicon.png?v=11" />
-    <meta name="description" content="ROVAWARE — Full-stack web platforms, modern cloud applications, and autonomous AI solutions engineered to build, automate, and scale."/>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#080A10" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://rovaware.com/" />
+
+    <!-- Primary SEO Meta Tags -->
+    <title>Rovaware</title>
+    <meta name="title" content="ROVAWARE — Engineering the Digital Future | AI, Cloud & Web Platforms" />
+    <meta name="description" content="ROVAWARE is an elite digital engineering studio specializing in high-performance web platforms, modern cloud architectures, enterprise SaaS systems, and autonomous AI solutions." />
+    <meta name="keywords" content="ROVAWARE, rovaware, software engineering, Next.js web development, enterprise SaaS, autonomous AI agents, cloud architecture, UI UX design, full-stack development" />
+    <meta name="author" content="ROVAWARE" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large" />
+    <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large" />
+
+    <!-- Multi-Resolution Favicons & Brand Icons (Optimized for Google & Bing Search Snippets) -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="144x144" href="/favicon-144x144.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="ROVAWARE — Build • Automate • Scale | Engineering Insights" />
-    <meta property="og:description" content="Discover ideas, practical guides and expert insights on software development, artificial intelligence, automation and scalable digital platforms." />
-    <meta property="og:image" content="/assets/showcase_ai.jpg" />
+    <meta property="og:url" content="https://rovaware.com/" />
+    <meta property="og:site_name" content="ROVAWARE" />
+    <meta property="og:title" content="ROVAWARE — Engineering the Digital Future | AI, Cloud & Web Platforms" />
+    <meta property="og:description" content="ROVAWARE is an elite digital engineering studio specializing in high-performance web platforms, modern cloud architectures, enterprise SaaS systems, and autonomous AI solutions." />
+    <meta property="og:image" content="https://rovaware.com/assets/rovaware_og.jpg" />
+    <meta property="og:image:secure_url" content="https://rovaware.com/assets/rovaware_og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="801" />
+    <meta property="og:image:height" content="533" />
+    <meta property="og:image:alt" content="ROVAWARE — Engineering the Digital Future" />
+
+    <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="ROVAWARE — Engineering Insights & Digital Innovation" />
-    <meta name="twitter:description" content="Discover ideas, practical guides and expert insights on software development, artificial intelligence, and automation." />
-    <meta name="twitter:image" content="/assets/showcase_ai.jpg" />
-    <title>ROVAWARE — Build • Automate • Scale</title>
+    <meta name="twitter:url" content="https://rovaware.com/" />
+    <meta name="twitter:site" content="@rovaware_" />
+    <meta name="twitter:creator" content="@rovaware_" />
+    <meta name="twitter:title" content="ROVAWARE — Engineering the Digital Future" />
+    <meta name="twitter:description" content="Full-stack web platforms, modern cloud applications, and autonomous AI solutions engineered to build, automate, and scale." />
+    <meta name="twitter:image" content="https://rovaware.com/assets/rovaware_og.jpg" />
+    <meta name="twitter:image:alt" content="ROVAWARE — Engineering the Digital Future" />
+
+    <!-- JSON-LD Structured Data: Organization & WebSite (Knowledge Graph & Sitelinks Searchbox) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://rovaware.com/#website",
+          "url": "https://rovaware.com/",
+          "name": "ROVAWARE",
+          "alternateName": ["RovaWare", "RovaWare Engineering Studio", "RovaWare Technology"],
+          "description": "ROVAWARE — Engineering the Digital Future. Full-stack web platforms, modern cloud applications, and autonomous AI solutions.",
+          "inLanguage": "en-US",
+          "publisher": {
+            "@id": "https://rovaware.com/#organization"
+          },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://rovaware.com/blog?q={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://rovaware.com/#organization",
+          "name": "ROVAWARE",
+          "legalName": "ROVAWARE Technology",
+          "url": "https://rovaware.com/",
+          "logo": {
+            "@type": "ImageObject",
+            "@id": "https://rovaware.com/#logo",
+            "url": "https://rovaware.com/favicon-512x512.png",
+            "caption": "ROVAWARE Logo",
+            "width": 512,
+            "height": 512
+          },
+          "image": {
+            "@type": "ImageObject",
+            "url": "https://rovaware.com/assets/rovaware_og.jpg",
+            "width": 801,
+            "height": 533
+          },
+          "description": "Premier digital engineering studio specializing in high-performance web platforms, cloud architecture, and autonomous AI systems.",
+          "telephone": "+91-9752264618",
+          "email": "hello@rovaware.com",
+          "sameAs": [
+            "https://www.instagram.com/rovaware_",
+            "https://github.com/rovaware"
+          ],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+91-9752264618",
+            "contactType": "customer service",
+            "email": "hello@rovaware.com",
+            "availableLanguage": ["English", "Hindi"]
+          }
+        },
+        {
+          "@type": "ItemList",
+          "@id": "https://rovaware.com/#sitelinks",
+          "name": "ROVAWARE Primary Navigation",
+          "itemListElement": [
+            {
+              "@type": "SiteNavigationElement",
+              "position": 1,
+              "name": "Services",
+              "description": "End-to-end digital engineering: high-throughput web apps, mobile systems, cloud architecture, and agentic AI.",
+              "url": "https://rovaware.com/services"
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 2,
+              "name": "About Us",
+              "description": "Learn about ROVAWARE's engineering philosophy, mission, leadership, and commitment to building resilient digital products.",
+              "url": "https://rovaware.com/about/company"
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 3,
+              "name": "Careers",
+              "description": "Join our elite engineering studio. Explore high-impact roles in full-stack engineering, AI systems, cloud architecture, and UI/UX.",
+              "url": "https://rovaware.com/careers"
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 4,
+              "name": "Our Process",
+              "description": "Our proven software development lifecycle: Discovery, Architecture, Agile Sprints, Rigorous Hardening, and Production Cloud Scaling.",
+              "url": "https://rovaware.com/process"
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 5,
+              "name": "Contact",
+              "description": "Get in touch with ROVAWARE engineers to discuss project scope, technical consulting, or request an instant callback.",
+              "url": "https://rovaware.com/about/contact"
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 6,
+              "name": "Web Development",
+              "description": "High-performance Next.js 15 web applications, edge runtimes, sub-second TTFB, and secure full-stack cloud systems.",
+              "url": "https://rovaware.com/services/web-development"
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 7,
+              "name": "Chatbot & AI Integration",
+              "description": "Autonomous LLM agents, vector retrieval RAG pipelines, intelligent customer bots, and custom workflow automation.",
+              "url": "https://rovaware.com/services/chatbot-integration"
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 8,
+              "name": "Cloud & SaaS Scaling",
+              "description": "Multi-tenant cloud architecture, distributed microservices, real-time data streaming, and scalable SaaS infrastructure.",
+              "url": "https://rovaware.com/services/saas-scaling"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+
     <script>
       (function() {
         document.documentElement.setAttribute('data-theme', 'dark');
@@ -33,4 +197,3 @@
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
-
