@@ -1,0 +1,32 @@
+User-agent: *
+Allow: /
+Allow: /assets/
+Allow: /favicon*
+Allow: /*.png
+Allow: /*.ico
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.svg
+
+# Sitemaps
+Sitemap: https://rovaware.com/sitemap.xml
+
+# Search Crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: msnbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
