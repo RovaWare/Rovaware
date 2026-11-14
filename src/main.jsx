@@ -466,7 +466,7 @@ const legalPoliciesData = {
       {
         index: '05',
         title: 'Your Privacy Rights & Inquiries',
-        content: 'You have the right to request access to the personal data we hold about you, request corrections, or request complete deletion of your submitted project briefs from our active records. For any privacy-related questions or data deletion requests, email our engineering lead directly at hello@rovaware.com.'
+        content: 'You have the right to request access to the personal data we hold about you, request corrections, or request complete deletion of your submitted project briefs from our active records. For any privacy-related questions or data deletion requests, email our engineering lead directly at support@rovaware.com.'
       }
     ]
   },
@@ -605,7 +605,7 @@ const legalPoliciesData = {
       {
         index: '04',
         title: 'How to Request a Refund or Cancellation',
-        content: 'To initiate a cancellation or request a refund under our deposit guarantee, please email hello@rovaware.com with your full name, project name, and UPI transaction reference number. Our team will review and process your request within 3 to 5 business days, and the funds will be transferred directly to your originating UPI account.'
+        content: 'To initiate a cancellation or request a refund under our deposit guarantee, please email support@rovaware.com with your full name, project name, and UPI transaction reference number. Our team will review and process your request within 3 to 5 business days, and the funds will be transferred directly to your originating UPI account.'
       }
     ]
   }
@@ -749,9 +749,9 @@ function LegalModal({ isOpen, activeTab, onSelectTab, onClose, onOpenDemo }) {
               <p>Reach out directly to Rovaware Studio. We respond to all inquiries within 24 hours.</p>
             </div>
             <div className="legal-contact-actions">
-              <a href="mailto:hello@rovaware.com" className="legal-email-btn">
+              <a href="mailto:support@rovaware.com" className="legal-email-btn">
                 <Mail size={15} />
-                <span>hello@rovaware.com</span>
+                <span>support@rovaware.com</span>
               </a>
               <button
                 type="button"
@@ -3671,7 +3671,6 @@ function AppContent() {
               <span className="brand-text-main">ROVA</span>
               <span className="brand-text-accent">WARE</span>
             </div>
-            <div className="brand-tagline">ENGINEERING THE DIGITAL FUTURE</div>
           </div>
         </a>
 
@@ -4767,8 +4766,18 @@ function AppContent() {
 
       {/* FOOTER */}
       <footer className="site-footer">
-        <div className="footer-top">
-          <div className="footer-brand">
+        <div
+          className="footer-top"
+          style={{
+            border: 'none',
+            display: 'grid',
+            gridTemplateColumns: '310px 1fr',
+            alignItems: 'flex-start',
+            gap: '48px',
+            paddingBottom: 0
+          }}
+        >
+          <div className="footer-brand" style={{ marginTop: 0, paddingTop: 0 }}>
             <a
               href="/"
               className="nav-brand"
@@ -4780,7 +4789,7 @@ function AppContent() {
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
               }}
-              style={{ textDecoration: 'none' }}
+              style={{ textDecoration: 'none', marginTop: 0, paddingTop: 0 }}
               title="Rovaware Studio"
             >
               <div className="brand-icon-box">
@@ -4792,7 +4801,6 @@ function AppContent() {
                   <span className="brand-text-main">ROVA</span>
                   <span className="brand-text-accent">WARE</span>
                 </div>
-                <div className="brand-tagline">ENGINEERING THE DIGITAL FUTURE</div>
               </div>
             </a>
             <p>
@@ -4800,19 +4808,29 @@ function AppContent() {
             </p>
 
             <a
-              href="mailto:hello@rovaware.com"
+              href="mailto:support@rovaware.com"
               className="footer-email-box"
               title="Send email to Rovaware"
             >
               <Mail size={14} className="footer-email-icon" />
-              <span>hello@rovaware.com</span>
+              <span>support@rovaware.com</span>
             </a>
-
-            {/* Glowing Social Media Icons */}
             <FooterSocialIcons />
           </div>
 
-          <div className="footer-links-group stagger-reveal">
+          <div className="footer-links-wrapper">
+            <div
+              className="footer-links-group stagger-reveal"
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(5, minmax(0, 1fr))',
+                gap: '22px',
+                width: '100%',
+                alignSelf: 'flex-start',
+                marginTop: 0,
+                paddingTop: 0
+              }}
+            >
             {/* Explore */}
             <div className="footer-col">
               <h4>Explore</h4>
@@ -4820,8 +4838,6 @@ function AppContent() {
                 <li><a href="#work" onClick={(e) => scrollToSection('work', e)}>Our Work</a></li>
                 <li><a href="/about/company" onClick={(e) => { e.preventDefault(); navigateToAboutCompany(); }}>About Company</a></li>
                 <li><a href="/careers" onClick={(e) => { e.preventDefault(); navigateToCareers(); }}>Careers</a></li>
-                <li><a href="/about/contact" onClick={(e) => { e.preventDefault(); navigateToContact(); }}>Contact Studio</a></li>
-                <li><a href="/about/book-project" onClick={(e) => { e.preventDefault(); navigateToBookProject(); }}>Book a Project</a></li>
                 <li><a href="/process" onClick={(e) => {
                   if (currentView === 'home') {
                     scrollToSection('process', e);
@@ -4843,7 +4859,6 @@ function AppContent() {
                 <li><a href="/services/saas-scaling" onClick={(e) => { e.preventDefault(); navigateToServiceDetail('saas-scaling'); }}>SaaS & Cloud Scaling</a></li>
                 <li><a href="/services/android-development" onClick={(e) => { e.preventDefault(); navigateToServiceDetail('android-development'); }}>Android Development</a></li>
                 <li><a href="/services/ui-ux-design" onClick={(e) => { e.preventDefault(); navigateToServiceDetail('ui-ux-design'); }}>UI/UX Design</a></li>
-                <li><a href="/services" onClick={(e) => { e.preventDefault(); navigateToServices(); }} style={{ color: '#38BDF8', fontWeight: 600 }}>All 9 Services →</a></li>
               </ul>
             </div>
 
@@ -4855,6 +4870,7 @@ function AppContent() {
                 <li><a href="/blog" onClick={(e) => { e.preventDefault(); navigateToBlog(); }}>AI & Automation</a></li>
                 <li><a href="/blog" onClick={(e) => { e.preventDefault(); navigateToBlog(); }}>Architecture Guides</a></li>
                 <li><a href="/blog" onClick={(e) => { e.preventDefault(); navigateToBlog(); }}>Tech Radar</a></li>
+                <li><a href="/about/company" onClick={(e) => { e.preventDefault(); navigateToAboutCompany(); }}>Engineering Studio</a></li>
               </ul>
             </div>
 
@@ -4862,7 +4878,7 @@ function AppContent() {
             <div className="footer-col">
               <h4>Get in Touch</h4>
               <ul>
-                <li><a href="/about/contact" onClick={(e) => { e.preventDefault(); navigateToContact(); }}>Contact Desk</a></li>
+                <li><a href="/about/contact" onClick={(e) => { e.preventDefault(); navigateToContact(); }}>Contact Studio</a></li>
                 <li><a href="/about/book-project" onClick={(e) => { e.preventDefault(); navigateToBookProject(); }}>Book a Project</a></li>
                 <li>
                   <button
@@ -4873,7 +4889,16 @@ function AppContent() {
                     Start a Project
                   </button>
                 </li>
-                <li><a href="mailto:hello@rovaware.com">Email Us</a></li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => setIsCallbackModalOpen(true)}
+                    className="footer-link-btn"
+                  >
+                    Request a Callback
+                  </button>
+                </li>
+                <li><a href="mailto:support@rovaware.com">Email Us</a></li>
               </ul>
             </div>
 
@@ -4888,15 +4913,16 @@ function AppContent() {
               </ul>
             </div>
           </div>
-        </div>
 
-        {/* INTERACTIVE OVERSIZED ROVAWARE TYPOGRAPHY WORDMARK (THEME-AWARE) */}
-        <InteractiveFooterTypography theme={routeTheme} />
-
-        <div className="footer-bottom">
-          <span>© 2026 ROVAWARE STUDIO. ALL RIGHTS RESERVED.</span>
+          <div className="footer-copyright-bottom">
+            <span>© 2026 ROVAWARE STUDIO. ALL RIGHTS RESERVED.</span>
+          </div>
         </div>
-      </footer>
+      </div>
+
+      {/* INTERACTIVE OVERSIZED ROVAWARE TYPOGRAPHY WORDMARK (THEME-AWARE) */}
+      <InteractiveFooterTypography theme={routeTheme} />
+    </footer>
 
       {/* VIDEO MODAL LIGHTBOX / THEATER */}
       {modalVideo && (

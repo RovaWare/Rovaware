@@ -128,7 +128,7 @@ export default function WebDevelopmentView({
     const body = encodeURIComponent(
       `Name: ${name}\nEmail: ${email}\nService: ${project}\nBudget: ${budget}\n\nProject Overview:\n${message}`,
     );
-    window.location.href = `mailto:hello@rovaware.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:support@rovaware.com?subject=${subject}&body=${body}`;
     setFormMessage('Opening your email client with your project details...');
   };
 
@@ -308,7 +308,7 @@ export default function WebDevelopmentView({
               <div className="contact-intro reveal">
                 <h2 className="editorial-heading">Let&apos;s build<br />what comes <em>next.</em></h2>
                 <p>Tell us where you want to go. An engineer — not a salesperson — will reply within one working day.</p>
-                <a className="contact-email" href="mailto:hello@rovaware.com">hello@rovaware.com <ArrowIcon diagonal /></a>
+                <a className="contact-email" href="mailto:support@rovaware.com">support@rovaware.com <ArrowIcon diagonal /></a>
                 <p className="contact-domain">
                   <a href="https://rovaware.com" target="_blank" rel="noopener noreferrer">rovaware.com</a>
                 </p>

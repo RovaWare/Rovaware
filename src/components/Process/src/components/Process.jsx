@@ -243,7 +243,7 @@ export default function Process() {
               </div>
             </div>
 
-            <a className="rw-intro-link" href="mailto:hello@rovaware.com">
+            <a className="rw-intro-link" href="mailto:support@rovaware.com">
               Have a project in mind? <span>Let's talk.</span>
               <ArrowUpRight size={16} aria-hidden="true"/>
             </a>

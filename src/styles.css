@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap');
 @import "./styles/blog.css";
 @import "./styles/about-pages.css";
 
@@ -382,13 +383,7 @@ html[data-theme="light"] .brand-name {
 }
 
 .brand-tagline {
-  font-family: 'JetBrains Mono', 'Plus Jakarta Sans', monospace;
-  font-size: 7.2px;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.72);
-  white-space: nowrap;
+  display: none !important;
 }
 
 .brand-badge {
@@ -3019,7 +3014,6 @@ html[data-theme="light"] .navbar-orange-black .nav-dropdown-trigger.active::afte
 #contact,
 #about,
 #work,
-#services,
 #tech,
 #process,
 #faqs {
@@ -7913,62 +7907,95 @@ html[data-theme="light"] .faq-view-all-btn:hover {
 
 /* ============================================================
    ROVAWARE FOOTER — PREMIUM REDESIGN WITH ALIGNED GRID & GLOWING SOCIALS
+   Curved top border radius dynamically aligned with perspective cards arc
    ============================================================ */
 .site-footer {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  background: #070A10;
-  padding: 55px 0 35px;
   position: relative;
   width: 100%;
+  border-top: 1px solid rgba(56, 189, 248, 0.38);
+  border-top-left-radius: 50% 60px;
+  border-top-right-radius: 50% 60px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  background: radial-gradient(ellipse 100% 120px at 50% 0%, rgba(56, 189, 248, 0.09) 0%, rgba(7, 10, 16, 0.98) 70%), #070A10;
+  box-shadow: 0 -4px 30px rgba(56, 189, 248, 0.12);
+  padding: 56px 0 12px;
 }
 
+@media (max-width: 1024px) {
+  .site-footer {
+    border-top-left-radius: 50% 45px;
+    border-top-right-radius: 50% 45px;
+    padding-top: 48px;
+  }
+}
+
+.site-footer .footer-top,
 .footer-top {
-  max-width: 1400px;
-  margin: 0 auto 45px;
-  padding: 0 4vw;
-  display: grid;
-  grid-template-columns: 360px 1fr;
-  gap: 56px;
-  align-items: flex-start;
+  max-width: 1400px !important;
+  margin: 0 auto 12px !important;
+  padding: 0 4vw !important;
+  display: grid !important;
+  grid-template-columns: 310px 1fr !important;
+  gap: 48px !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  border: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
 }
 
 /* Brand Column (Left) */
+.site-footer .footer-brand,
 .footer-brand {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  border: none !important;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.site-footer .footer-brand .nav-brand,
+.footer-brand .nav-brand {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  display: flex !important;
+  align-items: center !important;
 }
 
 .footer-brand p {
   color: #94A3B8;
-  font-size: 13.5px;
-  max-width: 360px;
-  margin: 16px 0 18px;
-  line-height: 1.65;
+  font-size: 13px;
+  max-width: 310px;
+  margin: 12px 0 16px;
+  line-height: 1.6;
+  border: none !important;
 }
 
 /* Direct Email Box */
 .footer-email-box {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 9px 16px;
+  gap: 8px;
+  padding: 8px 16px;
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.035);
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.04);
+  border: none !important;
   color: #E2E8F0;
   text-decoration: none;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 500;
   transition: all 0.25s ease;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .footer-email-box:hover {
-  background: rgba(56, 189, 248, 0.08);
-  border-color: rgba(56, 189, 248, 0.35);
+  background: rgba(56, 189, 248, 0.12);
+  border: none !important;
   color: #38BDF8;
-  box-shadow: 0 0 20px rgba(56, 189, 248, 0.15);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.18);
   transform: translateY(-1px);
 }
 
@@ -7980,16 +8007,17 @@ html[data-theme="light"] .faq-view-all-btn:hover {
 .footer-social-row {
   display: flex;
   align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
+  gap: 8px;
+  flex-wrap: nowrap;
+  border: none !important;
 }
 
 .footer-social-btn {
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.035);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: none !important;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -8003,86 +8031,130 @@ html[data-theme="light"] .faq-view-all-btn:hover {
 /* Social Button Specific Hover States */
 .footer-social-btn.social-linkedin:hover {
   color: #0A66C2;
-  background: rgba(10, 102, 194, 0.16);
-  border-color: rgba(10, 102, 194, 0.55);
+  background: rgba(10, 102, 194, 0.18);
+  border: none !important;
   box-shadow: 0 0 22px rgba(10, 102, 194, 0.65), 0 0 35px rgba(10, 102, 194, 0.3);
   transform: translateY(-3px) scale(1.08);
 }
 
 .footer-social-btn.social-github:hover {
   color: #FFFFFF;
-  background: rgba(255, 255, 255, 0.14);
-  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.16);
+  border: none !important;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 32px rgba(99, 102, 241, 0.3);
   transform: translateY(-3px) scale(1.08);
 }
 
 .footer-social-btn.social-x:hover {
   color: #38BDF8;
-  background: rgba(56, 189, 248, 0.14);
-  border-color: rgba(56, 189, 248, 0.55);
+  background: rgba(56, 189, 248, 0.16);
+  border: none !important;
   box-shadow: 0 0 22px rgba(56, 189, 248, 0.65), 0 0 35px rgba(49, 94, 255, 0.3);
   transform: translateY(-3px) scale(1.08);
 }
 
 .footer-social-btn.social-instagram:hover {
   color: #E1306C;
-  background: rgba(225, 48, 108, 0.15);
-  border-color: rgba(225, 48, 108, 0.55);
+  background: rgba(225, 48, 108, 0.18);
+  border: none !important;
   box-shadow: 0 0 24px rgba(225, 48, 108, 0.65), 0 0 38px rgba(240, 148, 51, 0.3);
   transform: translateY(-3px) scale(1.08);
 }
 
 .footer-social-btn.social-discord:hover {
   color: #5865F2;
-  background: rgba(88, 101, 242, 0.15);
-  border-color: rgba(88, 101, 242, 0.55);
+  background: rgba(88, 101, 242, 0.18);
+  border: none !important;
   box-shadow: 0 0 24px rgba(88, 101, 242, 0.65), 0 0 38px rgba(88, 101, 242, 0.3);
   transform: translateY(-3px) scale(1.08);
 }
 
 .footer-social-btn.social-youtube:hover {
   color: #FF0000;
-  background: rgba(255, 0, 0, 0.15);
-  border-color: rgba(255, 0, 0, 0.55);
+  background: rgba(255, 0, 0, 0.18);
+  border: none !important;
   box-shadow: 0 0 24px rgba(255, 0, 0, 0.65), 0 0 38px rgba(255, 0, 0, 0.3);
   transform: translateY(-3px) scale(1.08);
 }
 
-/* 5 Columns Layout (Right) */
-.footer-links-group {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 28px;
-  width: 100%;
+/* Links Column Wrapper with Copyright at Lower End of links section */
+.footer-links-wrapper {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 18px !important;
+  width: 100% !important;
+  align-self: flex-start !important;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
 }
 
+.footer-copyright-bottom {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  padding-top: 18px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.07) !important;
+  width: 100% !important;
+  margin-top: 4px !important;
+}
+
+.footer-copyright-bottom span {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.12em !important;
+  color: #64748B !important;
+  text-transform: uppercase !important;
+  line-height: 1.4 !important;
+}
+
+/* 5 Columns Layout (Right) */
+.site-footer .footer-links-group,
+.footer-links-group {
+  display: grid !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  gap: 22px !important;
+  width: 100% !important;
+  align-self: flex-start !important;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.site-footer .footer-col,
+.footer-col {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.site-footer .footer-col h4,
 .footer-col h4 {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 10.5px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: #F8FAFC;
   font-weight: 700;
-  margin-bottom: 20px;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  margin-bottom: 14px;
   display: flex;
   align-items: center;
   gap: 8px;
+  line-height: 1.2;
 }
 
 .footer-col h4::after {
-  content: '';
-  display: inline-block;
-  width: 14px;
-  height: 1px;
-  background: rgba(56, 189, 248, 0.4);
+  display: none !important;
 }
 
 .footer-col ul {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 9px;
   padding: 0;
   margin: 0;
 }
@@ -8090,14 +8162,15 @@ html[data-theme="light"] .faq-view-all-btn:hover {
 .footer-col a,
 .footer-col .footer-link-btn,
 .footer-link-btn {
-  font-size: 13.5px;
+  font-size: 13px;
   color: #94A3B8;
   font-weight: 500;
+  line-height: 1.45;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  transition: all 0.22s ease;
+  transition: all 0.2s ease;
   background: transparent;
   border: none;
   padding: 0;
@@ -8110,8 +8183,8 @@ html[data-theme="light"] .faq-view-all-btn:hover {
 .footer-col .footer-link-btn:hover,
 .footer-link-btn:hover {
   color: #38BDF8;
-  text-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
-  transform: translateX(4px);
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.35);
+  transform: translateX(3px);
 }
 
 /* Bottom Bar */
@@ -8154,32 +8227,38 @@ html[data-theme="light"] .faq-view-all-btn:hover {
 /* Responsive Footer Top */
 @media (max-width: 1200px) {
   .footer-top {
-    grid-template-columns: 320px 1fr;
-    gap: 40px;
+    grid-template-columns: 280px 1fr;
+    gap: 36px;
+    margin: 0 auto 12px;
   }
   .footer-links-group {
-    gap: 20px;
+    gap: 18px;
   }
 }
 
 @media (max-width: 1024px) {
   .footer-top {
     grid-template-columns: 1fr;
-    gap: 44px;
+    gap: 32px;
+    margin: 0 auto 14px;
   }
   .footer-brand p {
     max-width: 580px;
   }
   .footer-links-group {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 32px;
+    gap: 28px;
   }
 }
 
 @media (max-width: 640px) {
+  .footer-top {
+    gap: 24px;
+    margin: 0 auto 10px;
+  }
   .footer-links-group {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 26px;
+    gap: 22px;
   }
   .footer-bottom {
     flex-direction: column;
@@ -8194,8 +8273,8 @@ html[data-theme="light"] .faq-view-all-btn:hover {
 .footer-typography-section {
   position: relative;
   width: 100%;
-  margin: 50px 0 32px;
-  padding: 24px 0 10px;
+  margin: 35px 0 24px;
+  padding: 16px 0 10px;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
   background: radial-gradient(ellipse 70% 65% at 50% 50%, rgba(56, 189, 248, 0.04) 0%, rgba(8, 10, 16, 0) 75%);
@@ -8221,7 +8300,9 @@ html[data-theme="light"] .faq-view-all-btn:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 18px;
+  max-width: 1400px;
+  margin: 0 auto 18px;
+  padding: 0 4vw;
   flex-wrap: wrap;
   gap: 12px;
 }
@@ -8292,8 +8373,8 @@ html[data-theme="light"] .faq-view-all-btn:hover {
 .footer-typog-glow-line {
   position: absolute;
   bottom: 0;
-  left: 15%;
-  right: 15%;
+  left: 9%;
+  right: 9%;
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.45) 50%, transparent);
   pointer-events: none;
@@ -8822,7 +8903,9 @@ html[data-theme="light"] .faq-view-all-btn:hover {
     grid-template-columns: 1fr 1fr;
   }
   .site-footer {
-    padding: 34px 5vw 18px 6vw !important;
+    border-top-left-radius: 50% 32px;
+    border-top-right-radius: 50% 32px;
+    padding: 42px 5vw 18px 6vw !important;
   }
   .footer-top {
     flex-direction: column;
@@ -12515,6 +12598,14 @@ html[data-theme="light"] .footer-bottom-legal-links a:hover {
 
 html[data-theme="light"] .footer-bottom-legal-links span {
   color: rgba(15, 23, 42, 0.25) !important;
+}
+
+html[data-theme="light"] .footer-copyright-bottom {
+  border-top-color: rgba(15, 23, 42, 0.08) !important;
+}
+
+html[data-theme="light"] .footer-copyright-bottom span {
+  color: #64748b !important;
 }
 
 /* LEGAL PAGES IN LIGHT MODE */
