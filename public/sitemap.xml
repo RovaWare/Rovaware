@@ -7,7 +7,7 @@
   <!-- Primary Homepage -->
   <url>
     <loc>https://rovaware.com/</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -15,49 +15,49 @@
   <!-- Core Sitelinks Sections -->
   <url>
     <loc>https://rovaware.com/services</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
 
   <url>
     <loc>https://rovaware.com/about/company</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
   </url>
 
   <url>
     <loc>https://rovaware.com/careers</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
 
   <url>
     <loc>https://rovaware.com/process</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
   </url>
 
   <url>
     <loc>https://rovaware.com/about/contact</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
   </url>
 
   <url>
     <loc>https://rovaware.com/about/book-project</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
 
   <url>
     <loc>https://rovaware.com/blog</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -65,63 +65,63 @@
   <!-- High-Value Specialized Engineering Services (Sitelinks Candidates) -->
   <url>
     <loc>https://rovaware.com/services/web-development</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
 
   <url>
     <loc>https://rovaware.com/services/chatbot-integration</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
 
   <url>
     <loc>https://rovaware.com/services/saas-scaling</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
 
   <url>
     <loc>https://rovaware.com/services/ui-ux-design</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
 
   <url>
     <loc>https://rovaware.com/services/android-development</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
 
   <url>
     <loc>https://rovaware.com/services/3d-modeling-animation</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
 
   <url>
     <loc>https://rovaware.com/services/digital-marketing</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
 
   <url>
     <loc>https://rovaware.com/services/ai-detection-plagiarism</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
 
   <url>
     <loc>https://rovaware.com/services/legal-drafting</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
