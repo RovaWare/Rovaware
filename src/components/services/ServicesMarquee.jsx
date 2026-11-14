@@ -205,34 +205,34 @@ export default function ServicesMarquee({ onSelectService }) {
         if (relX > totalTrackWidth / 2) relX -= totalTrackWidth;
 
         // Normalized distance from center (-1: left edge of half-stage, +1: right edge)
-        const normalized = relX / (stageWidth * 0.48);
+        const normalized = relX / (stageWidth * 0.5);
+        const clampedNorm = Math.max(-1.5, Math.min(1.5, normalized));
 
         // Center card is straight (0 deg); outer cards progressively rotate
         // Right side rotates clockwise (> 0), Left side rotates counterclockwise (< 0)
         const rotation =
-          Math.sign(normalized) *
-          Math.pow(Math.abs(normalized), 0.94) *
+          Math.sign(clampedNorm) *
+          Math.pow(Math.abs(clampedNorm), 0.94) *
           maxAngle;
 
         // Curved perspective arc: cards drop down as they move away from center
-        const arcDrop = Math.pow(Math.abs(normalized), 1.65) * maxDrop;
+        const arcDrop = Math.pow(Math.abs(clampedNorm), 1.65) * maxDrop;
 
         // Scale: center card is largest (1.0), edges slightly smaller
-        const scale = Math.max(0.86, 1 - Math.abs(normalized) * 0.075);
+        const scale = Math.max(0.85, 1 - Math.abs(clampedNorm) * 0.06);
 
         // Z-Index: center card has highest stacking priority
         const zIndex = Math.round(
-          (2.5 - Math.min(Math.abs(normalized), 2.5)) * 40
-        );
-
-        // Opacity: smoothly culls cards as they exit viewport bounds
-        const opacity = Math.max(
-          0,
-          Math.min(1, 1 - (Math.abs(normalized) - 1.25) * 2.5)
+          (2.5 - Math.min(Math.abs(clampedNorm), 2.5)) * 40
         );
 
         // Actual card X position in stage
         const posX = centerX + relX - cardWidth / 2;
+
+        // 100% Full-Width: keep cards fully rendered and visible well past the viewport edges
+        // so there is zero abrupt popping or visible cutoffs
+        const isOffScreen = posX + cardWidth < -350 || posX > stageWidth + 350;
+        const opacity = isOffScreen ? 0 : 1;
 
         // Apply hardware-accelerated transforms
         cardEl.style.transform = `translate3d(${posX}px, ${arcDrop}px, 0) rotate(${rotation}deg) scale(${scale})`;
@@ -287,6 +287,18 @@ export default function ServicesMarquee({ onSelectService }) {
       id="services"
       className="services-marquee-section"
       aria-label="Capabilities and Services"
+      style={{
+        width: '100vw',
+        maxWidth: '100vw',
+        position: 'relative',
+        left: '50%',
+        right: '50%',
+        marginLeft: '-50vw',
+        marginRight: '-50vw',
+        paddingLeft: 0,
+        paddingRight: 0,
+        boxSizing: 'border-box',
+      }}
     >
       {/* Atmospheric Ambient Lighting */}
       <div className="marquee-ambient-glow marquee-glow-center" aria-hidden="true" />
@@ -318,6 +330,13 @@ export default function ServicesMarquee({ onSelectService }) {
       <div
         ref={stageRef}
         className="services-marquee-stage"
+        style={{
+          width: '100vw',
+          maxWidth: '100vw',
+          margin: 0,
+          padding: 0,
+          boxSizing: 'border-box',
+        }}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
@@ -356,11 +375,7 @@ export default function ServicesMarquee({ onSelectService }) {
           </svg>
         </div>
 
-        {/* Left & Right Edge Vignette / Masks for seamless infinite entrance */}
-        <div className="marquee-stage-mask-left" aria-hidden="true" />
-        <div className="marquee-stage-mask-right" aria-hidden="true" />
-
-        {/* Dynamic Cards Track */}
+        {/* Dynamic Cards Track — 100% Full Width Edge-to-Edge */}
         <div className="services-marquee-track">
           {CAROUSEL_ITEMS.map((card, idx) => {
             const IconComponent = card.icon;

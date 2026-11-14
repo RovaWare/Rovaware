@@ -97,8 +97,8 @@ export default function InteractiveFooterTypography({ theme = 'deep-blue' }) {
     if (!container || !canvas) return;
 
     const width = container.clientWidth;
-    // Responsive height
-    const height = width < 480 ? 64 : width < 768 ? 105 : 235;
+    // Responsive height: bold, impactful typography presence
+    const height = width < 480 ? 120 : width < 768 ? 170 : 230;
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     canvas.width = width * dpr;
@@ -110,9 +110,9 @@ export default function InteractiveFooterTypography({ theme = 'deep-blue' }) {
     if (!ctx) return;
     ctx.scale(dpr, dpr);
 
-    // Optimized grid spacing for high density & crisp readability
-    const gap = width < 480 ? 5.5 : width < 768 ? 6.5 : 7.2;
-    const charSize = Math.max(6, Math.floor(gap * 0.92));
+    // Optimized grid spacing for clear, bold, high-legibility ASCII characters
+    const gap = width < 480 ? 5.2 : width < 768 ? 5.8 : 6.4;
+    const charSize = Math.max(5.2, Math.floor(gap * 0.94));
 
     // Offscreen canvas for typography rasterization & sampling
     const offscreen = document.createElement('canvas');
@@ -121,21 +121,22 @@ export default function InteractiveFooterTypography({ theme = 'deep-blue' }) {
     const offCtx = offscreen.getContext('2d', { willReadFrequently: true });
     if (!offCtx) return;
 
-    // Calculate maximum font size that fits "ROVAWARE" cleanly
-    let fontSize = Math.min(width * 0.175, height * 0.85);
-    offCtx.font = `900 ${fontSize}px "Orbitron", "Plus Jakarta Sans", -apple-system, sans-serif`;
+    // Constrain width with balanced side margins (~9% on each side on desktop, matching reference)
+    const maxTextWidth = width < 480 ? width * 0.92 : width < 768 ? width * 0.86 : width * 0.82;
+
+    // Calculate maximum font size that fits "ROVAWARE" boldly inside maxTextWidth
+    let fontSize = Math.min(width * 0.16, height * 0.82);
+    offCtx.font = `900 ${fontSize}px "Orbitron", "Plus Jakarta Sans", sans-serif`;
     if ('letterSpacing' in offCtx) {
-      offCtx.letterSpacing = `${Math.max(2, Math.round(fontSize * 0.04))}px`;
+      offCtx.letterSpacing = `${Math.max(2, Math.round(fontSize * 0.03))}px`;
     }
     offCtx.textAlign = 'center';
     offCtx.textBaseline = 'middle';
 
-    // Constrain width with margins so it stays fully visible
-    const maxTextWidth = width * 0.94;
     let measured = offCtx.measureText('ROVAWARE').width;
     if (measured > maxTextWidth) {
       fontSize = Math.floor(fontSize * (maxTextWidth / measured));
-      offCtx.font = `900 ${fontSize}px "Orbitron", "Plus Jakarta Sans", -apple-system, sans-serif`;
+      offCtx.font = `900 ${fontSize}px "Orbitron", "Plus Jakarta Sans", sans-serif`;
       if ('letterSpacing' in offCtx) {
         offCtx.letterSpacing = `${Math.max(2, Math.round(fontSize * 0.03))}px`;
       }
@@ -166,7 +167,7 @@ export default function InteractiveFooterTypography({ theme = 'deep-blue' }) {
         const idx = (py * width + px) * 4;
         const alpha = imgData[idx + 3];
 
-        if (alpha > 70) {
+        if (alpha > 55) {
           const isWare = x >= centerX;
           let char;
           if (isWare) {
@@ -200,13 +201,22 @@ export default function InteractiveFooterTypography({ theme = 'deep-blue' }) {
 
   // Set up listeners and animation loop
   useEffect(() => {
-    if (document.fonts && document.fonts.ready) {
+    let isMounted = true;
+
+    // Immediately initialize with available metrics
+    initParticles();
+
+    // Re-sample immediately once web fonts are loaded
+    if (document.fonts) {
       document.fonts.ready.then(() => {
-        initParticles();
-      });
-    } else {
-      initParticles();
+        if (isMounted) initParticles();
+      }).catch(() => {});
     }
+
+    // Secondary guarantee: re-check after slight delay in case font finishes downloading
+    const fontTimer = setTimeout(() => {
+      if (isMounted) initParticles();
+    }, 400);
 
     // Resize observer
     let resizeTimer = null;
@@ -364,7 +374,7 @@ export default function InteractiveFooterTypography({ theme = 'deep-blue' }) {
           }
         }
 
-        ctx.font = `700 ${p.size}px "JetBrains Mono", "Plus Jakarta Sans", monospace`;
+        ctx.font = `700 ${p.size}px "JetBrains Mono", monospace`;
         ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${a})`;
         ctx.fillText(p.char, p.x, p.y);
       }
@@ -377,6 +387,8 @@ export default function InteractiveFooterTypography({ theme = 'deep-blue' }) {
     animFrameRef.current = requestAnimationFrame(render);
 
     return () => {
+      isMounted = false;
+      clearTimeout(fontTimer);
       window.removeEventListener('resize', handleResize);
       clearTimeout(resizeTimer);
       if (animFrameRef.current) {
@@ -442,29 +454,23 @@ export default function InteractiveFooterTypography({ theme = 'deep-blue' }) {
       role="region"
       aria-label="Interactive RovaWare Wordmark Typography"
     >
-      {/* Decorative Brand Header & Interaction Guide */}
-      <div className="footer-typog-header">
-        <div
-          className="footer-typog-pill"
-          style={{ borderColor: currentThemeConfig.pillBorder }}
-        >
-          <span
-            className="footer-typog-dot"
-            style={{
-              background: currentThemeConfig.accent,
-              boxShadow: isInteracting
-                ? currentThemeConfig.dotGlow
-                : `0 0 6px ${currentThemeConfig.accent}80`,
-              transform: isInteracting ? 'scale(1.3)' : 'scale(1)',
-            }}
-          />
-          <span className="footer-typog-label">KINETIC TYPOGRAPHY SYSTEM</span>
-        </div>
-        <div className="footer-typog-hint">
-          <span>MOVE CURSOR TO DISTORT</span>
-          <span className="hint-divider" style={{ color: currentThemeConfig.accent }}>•</span>
-          <span>CLICK TO SCATTER</span>
-        </div>
+      {/* Invisible DOM preloader guaranteeing browser immediately fetches & decodes Orbitron & JetBrains Mono */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: 0,
+          height: 0,
+          opacity: 0,
+          pointerEvents: 'none',
+          zIndex: -999,
+          overflow: 'hidden',
+        }}
+      >
+        <span style={{ fontFamily: 'Orbitron', fontWeight: 900 }}>ROVAWARE</span>
+        <span style={{ fontFamily: '"JetBrains Mono"', fontWeight: 700 }}>ROVAWARE</span>
       </div>
 
       {/* Canvas Layer */}

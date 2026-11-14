@@ -41,7 +41,7 @@ const INITIAL = {
     company: "",
     topic: "Web Development",
     budget: "$5k - $15k",
-    desk: "hello@rovaware.com",
+    desk: "support@rovaware.com",
     message: "",
 };
 const TOPICS = [

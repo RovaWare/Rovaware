@@ -97,7 +97,7 @@ export default function ProjectModal({ open, onClose, defaultService = 'UI/UX De
     if (!validate()) return;
     setPrepared(true);
     const subject = encodeURIComponent(`Project inquiry — ${form.service} — ${form.name}`);
-    window.location.href = `mailto:hello@rovaware.com?subject=${subject}&body=${encodeURIComponent(brief)}`;
+    window.location.href = `mailto:support@rovaware.com?subject=${subject}&body=${encodeURIComponent(brief)}`;
   };
 
   const copyBrief = async () => {
@@ -135,7 +135,7 @@ export default function ProjectModal({ open, onClose, defaultService = 'UI/UX De
             <li><Check size={15} /> NDA-friendly conversations</li>
             <li><Check size={15} /> Scope shaped around your needs</li>
           </ul>
-          <span className="modal-aside-note">Prefer email? hello@rovaware.com</span>
+          <span className="modal-aside-note">Prefer email? support@rovaware.com</span>
         </div>
 
         <form className="project-form" onSubmit={submit} noValidate>

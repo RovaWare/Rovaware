@@ -34,7 +34,7 @@ export default function FooterSocialIcons() {
     },
     {
       name: 'Instagram',
-      href: 'https://instagram.com/rovaware',
+      href: 'https://www.instagram.com/rovaware_?psln=aGJjbzIxcDR0OXNk',
       className: 'social-instagram',
       icon: (
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">

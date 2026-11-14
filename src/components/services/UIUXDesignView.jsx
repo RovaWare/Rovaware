@@ -431,7 +431,7 @@ export default function UIUXDesignView({
               <p className="service-hero-description hero-enter hero-enter-four">We craft comprehensive Figma design systems, interactive prototypes, and conversion-optimized user journeys rooted in cognitive ergonomics and refined modern aesthetics.</p>
               <div className="hero-actions hero-enter hero-enter-five">
                 <button className="button button-primary button-large" type="button" onClick={openProject}>Scope This Project <ArrowUpRight size={18} /></button>
-                <a className="button button-service-ghost button-large" href="mailto:hello@rovaware.com">Direct Studio Inquiry <Mail size={17} /></a>
+                <a className="button button-service-ghost button-large" href="mailto:support@rovaware.com">Direct Studio Inquiry <Mail size={17} /></a>
               </div>
             </div>
             <div className="ui-system-visual hero-enter hero-enter-media" aria-label="Tokenized Figma design system illustration">
@@ -674,7 +674,7 @@ export default function UIUXDesignView({
               <span className="detail-kicker">FREQUENTLY ASKED QUESTIONS</span>
               <h2>Common Questions About<br /><em>UI/UX Design</em></h2>
               <p>Clear, honest answers about scope, timelines, deliverables, and technical execution.</p>
-              <a className="text-link" href="mailto:hello@rovaware.com">Ask a different question <ArrowUpRight size={16} /></a>
+              <a className="text-link" href="mailto:support@rovaware.com">Ask a different question <ArrowUpRight size={16} /></a>
             </Reveal>
             <Reveal className="faq-list" delay={100}>
               {detailedFaqs.map((faq, index) => {
@@ -833,7 +833,7 @@ export default function UIUXDesignView({
                 <a href="/about/contact" onClick={(e) => { if (onNavigateContact) { e.preventDefault(); onNavigateContact(); } }}>Contact Desk</a>
                 <a href="/about/book-project" onClick={(e) => { if (onNavigateBookProject) { e.preventDefault(); onNavigateBookProject(); } }}>Book a Project</a>
                 <button type="button" onClick={openProject}>Start a Project</button>
-                <a href="mailto:hello@rovaware.com">Email Us</a>
+                <a href="mailto:support@rovaware.com">Email Us</a>
               </div>
               <div className="footer-col">
                 <h3>Legal</h3>

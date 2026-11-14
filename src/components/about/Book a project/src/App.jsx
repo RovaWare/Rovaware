@@ -313,7 +313,7 @@ function ProjectBooking({ selectedServices, toggleService, startRequest, }) {
         "",
         `References: ${emailEntry.referenceLinks || "Not provided"}`,
     ].join("\n");
-    const emailHref = `mailto:hello@rovaware.com?subject=${encodeURIComponent(`Project brief ${emailEntry.referenceId}`)}&body=${encodeURIComponent(emailBody)}`;
+    const emailHref = `mailto:support@rovaware.com?subject=${encodeURIComponent(`Project brief ${emailEntry.referenceId}`)}&body=${encodeURIComponent(emailBody)}`;
     return (<section id="book-project" className="booking-section grid-surface">
       <div className="container booking-layout">
         <div className="booking-intro reveal">
@@ -324,8 +324,8 @@ function ProjectBooking({ selectedServices, toggleService, startRequest, }) {
           </p>
           <div className="booking-contact">
             <span>Prefer to talk directly?</span>
-            <a href="mailto:hello@rovaware.com">
-              hello@rovaware.com <Arrow diagonal/>
+            <a href="mailto:support@rovaware.com">
+              support@rovaware.com <Arrow diagonal/>
             </a>
           </div>
         </div>
@@ -699,7 +699,7 @@ export default function App({ hideNav = true, hideFooter = true }) {
             <div className="footer-main">
               <div className="footer-brand"><Brand /><p>Building thoughtful digital experiences for a world that never stands still.</p></div>
               <div className="footer-column"><span>EXPLORE</span><a href="#about">About</a><a href="#services">Services</a><a href="#work">Our work</a><a href="#process">Process</a></div>
-              <div className="footer-column"><span>CONNECT</span><a href="mailto:hello@rovaware.com">hello@rovaware.com</a><a href="https://rovaware.com/about/contact">Contact us</a><button type="button" onClick={() => setCallbackOpen(true)}>Request a callback</button><a href="https://docs.google.com/forms/d/15zbRoUfGocjXiBKCLB7lj5UWeXUXgKuY8sbix_W0Stw/viewform" target="_blank" rel="noreferrer">Book a demo</a><a href="https://rovaware.com/blog">Journal</a></div>
+              <div className="footer-column"><span>CONNECT</span><a href="mailto:support@rovaware.com">support@rovaware.com</a><a href="https://rovaware.com/about/contact">Contact us</a><button type="button" onClick={() => setCallbackOpen(true)}>Request a callback</button><a href="https://docs.google.com/forms/d/15zbRoUfGocjXiBKCLB7lj5UWeXUXgKuY8sbix_W0Stw/viewform" target="_blank" rel="noreferrer">Book a demo</a><a href="https://rovaware.com/blog">Journal</a></div>
             </div>
             <div className="footer-bottom"><span>&copy; {new Date().getFullYear()} ROVAWARE. ALL RIGHTS RESERVED.</span><a href="#home">BACK TO TOP <span aria-hidden="true">&uarr;</span></a></div>
           </div>
