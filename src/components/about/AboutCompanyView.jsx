@@ -479,307 +479,33 @@ function EngineeringExpertiseCard({ item, idx, inView, isCardActive }) {
   );
 }
 
-// Premium Interactive Horizontal Scrolling Gallery for Core Engineering Disciplines
-// (Mirrors the exact swipe/drag, wheel translation, progress rail, fade edges, and pagination pill animation from Homepage Services)
+// Fixed 3-Column Studio Grid for Core Engineering Disciplines
 function StickyDisciplinesGallery({ items, inView }) {
-  const sectionRef = useRef(null);
-  const trackRef = useRef(null);
-  const isDraggingRef = useRef(false);
-  const startXRef = useRef(0);
-  const scrollLeftRef = useRef(0);
-  const hasMovedRef = useRef(false);
-
-  const [isDragging, setIsDragging] = useState(false);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [activeCardIndex, setActiveCardIndex] = useState(0);
-
-  const updateScrollState = () => {
-    const track = trackRef.current;
-    if (!track) return;
-
-    const { scrollLeft, scrollWidth, clientWidth } = track;
-    const maxScroll = Math.max(0, scrollWidth - clientWidth);
-
-    setCanScrollLeft(scrollLeft > 6);
-    setCanScrollRight(scrollLeft < maxScroll - 6);
-
-    const progress = maxScroll > 0 ? (scrollLeft / maxScroll) * 100 : 0;
-    setScrollProgress(progress);
-
-    // Calculate active card index based on position relative to track
-    const cards = track.querySelectorAll('.disciplines-gallery-slide');
-    if (cards.length > 0) {
-      let closestIdx = 0;
-      let minDiff = Infinity;
-      const trackRect = track.getBoundingClientRect();
-
-      cards.forEach((card, idx) => {
-        const cardRect = card.getBoundingClientRect();
-        const diff = Math.abs(cardRect.left - trackRect.left);
-        if (diff < minDiff) {
-          minDiff = diff;
-          closestIdx = idx;
-        }
-      });
-      setActiveCardIndex(closestIdx);
-    }
-  };
-
-  useEffect(() => {
-    updateScrollState();
-    const handleResize = () => updateScrollState();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  // Global mouseup to cleanly stop dragging even when mouse releases outside track
-  useEffect(() => {
-    const handleGlobalMouseUp = () => {
-      if (isDraggingRef.current) {
-        isDraggingRef.current = false;
-        setIsDragging(false);
-      }
-    };
-    window.addEventListener('mouseup', handleGlobalMouseUp);
-    return () => window.removeEventListener('mouseup', handleGlobalMouseUp);
-  }, []);
-
-  // Mouse wheel & trackpad horizontal scroll handling with smooth boundary pass-through
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-
-    const handleWheel = (e) => {
-      // Natural horizontal trackpad swipe - allow native handling
-      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
-        return;
-      }
-
-      // Translate vertical wheel delta into smooth horizontal scroll
-      if (e.deltaY !== 0) {
-        const maxScroll = track.scrollWidth - track.clientWidth;
-        if (maxScroll <= 0) return;
-
-        const isMovingRight = e.deltaY > 0;
-        const canScroll = isMovingRight
-          ? track.scrollLeft < maxScroll - 1
-          : track.scrollLeft > 1;
-
-        if (canScroll) {
-          e.preventDefault();
-          track.scrollBy({
-            left: e.deltaY * 1.6,
-            behavior: 'auto'
-          });
-        }
-      }
-    };
-
-    track.addEventListener('wheel', handleWheel, { passive: false });
-    return () => {
-      track.removeEventListener('wheel', handleWheel);
-    };
-  }, []);
-
-  // Mouse Drag-To-Scroll handlers
-  const handleMouseDown = (e) => {
-    if (e.button !== 0) return; // Only primary button
-    const track = trackRef.current;
-    if (!track) return;
-
-    isDraggingRef.current = true;
-    setIsDragging(true);
-    startXRef.current = e.pageX - track.offsetLeft;
-    scrollLeftRef.current = track.scrollLeft;
-    hasMovedRef.current = false;
-  };
-
-  const handleMouseMove = (e) => {
-    if (!isDraggingRef.current) return;
-    const track = trackRef.current;
-    if (!track) return;
-
-    e.preventDefault();
-    const x = e.pageX - track.offsetLeft;
-    const walk = (x - startXRef.current) * 1.4;
-    if (Math.abs(walk) > 3) {
-      hasMovedRef.current = true;
-    }
-    track.scrollLeft = scrollLeftRef.current - walk;
-  };
-
-  const handleMouseUpOrLeave = () => {
-    if (isDraggingRef.current) {
-      isDraggingRef.current = false;
-      setIsDragging(false);
-    }
-  };
-
-  const handleScrollStep = (direction) => {
-    const track = trackRef.current;
-    if (!track) return;
-    const card = track.querySelector('.disciplines-gallery-slide');
-    const scrollAmount = card ? card.offsetWidth + 24 : 404;
-
-    track.scrollBy({
-      left: direction === 'right' ? scrollAmount : -scrollAmount,
-      behavior: 'smooth'
-    });
-  };
-
-  const scrollToCard = (index) => {
-    const track = trackRef.current;
-    if (!track) return;
-    const cards = track.querySelectorAll('.disciplines-gallery-slide');
-    const targetCard = cards[index];
-    if (targetCard) {
-      const targetLeft = targetCard.offsetLeft - track.offsetLeft - 16;
-      track.scrollTo({
-        left: Math.max(0, targetLeft),
-        behavior: 'smooth'
-      });
-      setActiveCardIndex(index);
-    }
-  };
-
   return (
-    <section className="disciplines-gallery-section disciplines-sticky-runway" id="disciplines" ref={sectionRef}>
-      <div className="disciplines-gallery-container disciplines-sticky-viewport">
-        {/* Section Heading & Subtitle */}
-        <div className="about-content-container disciplines-sticky-header">
-          <div className="disciplines-header-top">
-            <div>
-              <div className="section-pill-badge">
-                <Cpu size={13} />
-                <span>CAPABILITIES & ARCHITECTURE</span>
-              </div>
-              <h2 className="section-display-heading">Core Engineering Disciplines</h2>
-            </div>
+    <section className="about-content-section disciplines-grid-section" id="disciplines">
+      <div className="about-content-container">
+        <div className="disciplines-section-header">
+          <div className="section-pill-badge">
+            <Cpu size={13} />
+            <span>CAPABILITIES & ARCHITECTURE</span>
           </div>
-
-          <p className="section-center-sub disciplines-gallery-sub">
+          <h2 className="section-display-heading">Core Engineering Disciplines</h2>
+          <p className="section-center-sub" style={{ textAlign: 'left', margin: '8px 0 0 0', maxWidth: '720px' }}>
             Deep, battle-tested expertise across modern web architectures, cloud infrastructure, and artificial intelligence.
           </p>
         </div>
 
-        {/* Carousel Wrapper matching Homepage Services Side-Scroll Architecture */}
-        <div className="disciplines-carousel-wrapper">
-          {/* Header Controls & Live Counters */}
-          <div className="disciplines-carousel-header">
-            <div className="disciplines-carousel-meta">
-              <div className="disciplines-badge-counter" aria-live="polite">
-                <span className="live-counter-current">0{activeCardIndex + 1}</span>
-                <span className="live-counter-divider">/</span>
-                <span className="live-counter-total">0{items.length}</span>
-              </div>
-              <div className="disciplines-hint-pill">
-                <span className="hint-pulse-dot" />
-                <span>Drag, swipe, or click any number to jump to that capability</span>
-              </div>
-            </div>
-
-            <div className="disciplines-carousel-nav">
-              {/* Visual progress bar */}
-              <div className="disciplines-progress-rail" aria-label="Capabilities carousel scroll progress">
-                <div
-                  className="disciplines-progress-fill"
-                  style={{ width: `${Math.max(16, scrollProgress)}%` }}
-                />
-              </div>
-
-              <div className="disciplines-nav-buttons">
-                <button
-                  type="button"
-                  className="disciplines-nav-btn prev"
-                  onClick={() => handleScrollStep('left')}
-                  disabled={!canScrollLeft}
-                  aria-label="Previous capability"
-                >
-                  <ChevronLeft size={18} />
-                </button>
-                <button
-                  type="button"
-                  className="disciplines-nav-btn next"
-                  onClick={() => handleScrollStep('right')}
-                  disabled={!canScrollRight}
-                  aria-label="Next capability"
-                >
-                  <ChevronRight size={18} />
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Carousel Track Container */}
-          <div className="disciplines-track-container">
-            {/* Subtle Edge Gradients signaling more cards */}
-            <div className={`disciplines-fade-edge left ${canScrollLeft ? 'active' : ''}`} />
-            <div className={`disciplines-fade-edge right ${canScrollRight ? 'active' : ''}`} />
-
-            <div
-              ref={trackRef}
-              className={`disciplines-carousel-track ${isDragging ? 'is-dragging' : ''}`}
-              onMouseDown={handleMouseDown}
-              onMouseMove={handleMouseMove}
-              onMouseUp={handleMouseUpOrLeave}
-              onMouseLeave={handleMouseUpOrLeave}
-              onScroll={updateScrollState}
-            >
-              {items.map((item, idx) => {
-                const isCardActive = activeCardIndex === idx;
-                return (
-                  <div
-                    key={idx}
-                    className={`disciplines-gallery-slide ${isCardActive ? 'slide-active' : ''}`}
-                    onMouseEnter={() => setActiveCardIndex(idx)}
-                    onClick={(e) => {
-                      if (hasMovedRef.current) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        return;
-                      }
-                      scrollToCard(idx);
-                    }}
-                  >
-                    <EngineeringExpertiseCard
-                      item={item}
-                      idx={idx}
-                      inView={inView}
-                      isCardActive={isCardActive}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Pagination Pills for Direct Jumping & Hover Indication */}
-          <div className="disciplines-pagination-dots" role="tablist" aria-label="Capabilities carousel navigation">
-            {items.map((item, idx) => {
-              const numStr = `0${idx + 1}`;
-              const isPillActive = activeCardIndex === idx;
-              return (
-                <button
-                  key={idx}
-                  type="button"
-                  role="tab"
-                  aria-selected={isPillActive}
-                  className={`disciplines-dot-btn ${isPillActive ? 'active' : ''}`}
-                  onClick={() => scrollToCard(idx)}
-                  onMouseEnter={() => setActiveCardIndex(idx)}
-                  title={`Capability ${numStr}: ${item.title}`}
-                  aria-label={`Jump to capability ${numStr}: ${item.title}`}
-                >
-                  <span className="dot-pill">
-                    <span className="dot-active-beacon" />
-                    <span className="dot-num">{numStr}</span>
-                  </span>
-                </button>
-              );
-            })}
-          </div>
+        {/* Fixed Responsive Grid: 3 columns desktop, 2 tablet, 1 mobile */}
+        <div className="disciplines-card-grid">
+          {items.map((item, idx) => (
+            <EngineeringExpertiseCard
+              key={idx}
+              item={item}
+              idx={idx}
+              inView={inView}
+              isCardActive={false}
+            />
+          ))}
         </div>
       </div>
     </section>

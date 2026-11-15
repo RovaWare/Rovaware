@@ -364,7 +364,6 @@ function EngineeringExpertiseCard({ item, idx, inView }) {
     });
 
     const handleMouseMove = (e) => {
-        // Disable on touch devices and respect prefers-reduced-motion
         if (typeof window !== 'undefined') {
             if (window.matchMedia && window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
             if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -376,16 +375,9 @@ function EngineeringExpertiseCard({ item, idx, inView }) {
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
 
-        // Relative mouse position within card [0, 1]
         const px = Math.max(0, Math.min(1, x / rect.width));
         const py = Math.max(0, Math.min(1, y / rect.height));
 
-        // Perspective-based 3D tilt: max 5 degrees rotateX and rotateY
-        // Subtly follows cursor direction:
-        // Cursor at top (py < 0.5) -> rotateX tilts top toward cursor (+5deg)
-        // Cursor at bottom (py > 0.5) -> rotateX tilts bottom toward cursor (-5deg)
-        // Cursor at left (px < 0.5) -> rotateY tilts left toward cursor (-5deg)
-        // Cursor at right (px > 0.5) -> rotateY tilts right toward cursor (+5deg)
         const rx = Number(((0.5 - py) * 10).toFixed(2));
         const ry = Number(((px - 0.5) * 10).toFixed(2));
 
@@ -412,7 +404,7 @@ function EngineeringExpertiseCard({ item, idx, inView }) {
             ref={cardRef}
             className={`discipline-interactive-card ${inView ? 'in-view' : ''} ${state.isHovered ? 'is-tilt-active' : ''}`}
             style={{
-                transitionDelay: inView ? '0ms' : `${idx * 80}ms`,
+                transitionDelay: inView ? `${Math.min(idx * 70, 400)}ms` : '0ms',
                 transform: inView
                     ? (state.isHovered
                         ? `perspective(1000px) translateY(-5px) rotateX(${state.rx}deg) rotateY(${state.ry}deg)`
@@ -432,208 +424,80 @@ function EngineeringExpertiseCard({ item, idx, inView }) {
                 aria-hidden="true"
             />
 
-            <div className="discipline-card-top">
-                <div className="discipline-icon-box" style={{ borderColor: `${item.color}40`, color: item.color }}>
-                    <Icon size={22} />
-                </div>
-                <span className="discipline-metric-chip" style={{ color: item.color, borderColor: `${item.color}30` }}>
-                    {item.metric}
-                </span>
-            </div>
+            {/* Card Visual Banner with Software Engineering Image */}
+            {item.img && (
+                <div className="discipline-card-media">
+                    <img
+                        src={item.img}
+                        alt={item.title}
+                        className="discipline-card-img"
+                        loading="lazy"
+                    />
+                    <div className="discipline-card-media-overlay" />
 
-            <div className="discipline-card-body">
+                    {/* Floating Top Header Badges over Image */}
+                    <div className="discipline-card-top-badges">
+                        <div className="discipline-icon-box" style={{ borderColor: `${item.color}55`, color: item.color }}>
+                            <Icon size={20} />
+                        </div>
+                        <span className="discipline-metric-chip" style={{ color: item.color, borderColor: `${item.color}40` }}>
+                            {item.metric}
+                        </span>
+                    </div>
+                </div>
+            )}
+
+            {!item.img && (
+                <div className="discipline-card-top" style={{ padding: '20px 22px 0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <div className="discipline-icon-box" style={{ borderColor: `${item.color}40`, color: item.color }}>
+                        <Icon size={22} />
+                    </div>
+                    <span className="discipline-metric-chip" style={{ color: item.color, borderColor: `${item.color}30` }}>
+                        {item.metric}
+                    </span>
+                </div>
+            )}
+
+            <div className="discipline-card-content">
                 <h3 className="discipline-title">{item.title}</h3>
                 <p className="discipline-desc">{item.desc}</p>
-            </div>
 
-            <div className="discipline-tag-wrap">
-                {item.tags.map((t, tIdx) => (
-                    <span key={tIdx} className="discipline-tag-badge">{t}</span>
-                ))}
+                <div className="discipline-tag-wrap">
+                    {item.tags.map((t, tIdx) => (
+                        <span key={tIdx} className="discipline-tag-badge">{t}</span>
+                    ))}
+                </div>
             </div>
         </div>
     );
 }
 
-// Awwwards-Style Sticky Scrolling Gallery for Core Engineering Disciplines
+// Fixed 3-Column Studio Grid for Core Engineering Disciplines
 function StickyDisciplinesGallery({ items, inView }) {
-    const runwayRef = useRef(null);
-    const trackRef = useRef(null);
-    const viewportRef = useRef(null);
-    const [scrollProgress, setScrollProgress] = useState(0);
-    const [activeCardIndex, setActiveCardIndex] = useState(0);
-    const currentTranslateRef = useRef(0);
-    const targetTranslateRef = useRef(0);
-    const maxTranslateRef = useRef(0);
-    const [displayTranslate, setDisplayTranslate] = useState(0);
-
-    useEffect(() => {
-        let animId;
-        const handleScroll = () => {
-            const runway = runwayRef.current;
-            const track = trackRef.current;
-            if (!runway || !track) return;
-
-            if (window.innerWidth <= 768 || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
-                return;
-            }
-
-            const rect = runway.getBoundingClientRect();
-            const viewportHeight = window.innerHeight;
-            const navbarHeight = 68;
-            const totalScrollableDistance = rect.height - viewportHeight;
-
-            if (totalScrollableDistance <= 0) return;
-
-            // Distance scrolled through runway: starts cleanly when runway docks at navbarHeight
-            const scrolled = Math.max(0, navbarHeight - rect.top);
-            const effectiveScrollable = Math.max(1, totalScrollableDistance - navbarHeight);
-            const rawProgress = Math.max(0, Math.min(1, scrolled / effectiveScrollable));
-            setScrollProgress(rawProgress);
-
-            // Total horizontal distance to travel
-            const maxTranslate = Math.max(0, track.scrollWidth - window.innerWidth);
-            maxTranslateRef.current = maxTranslate;
-            targetTranslateRef.current = rawProgress * maxTranslate;
-
-            // Calculate active card index (0 to items.length - 1)
-            const activeIdx = Math.min(items.length - 1, Math.round(rawProgress * (items.length - 1)));
-            setActiveCardIndex(activeIdx);
-        };
-
-        // Smooth snappy lerp loop for buttery momentum feel (0.22 lerp speed)
-        const updateLerp = () => {
-            const diff = targetTranslateRef.current - currentTranslateRef.current;
-            if (Math.abs(diff) > 0.1) {
-                currentTranslateRef.current += diff * 0.22;
-                setDisplayTranslate(currentTranslateRef.current);
-            } else if (currentTranslateRef.current !== targetTranslateRef.current) {
-                currentTranslateRef.current = targetTranslateRef.current;
-                setDisplayTranslate(currentTranslateRef.current);
-            }
-            animId = requestAnimationFrame(updateLerp);
-        };
-
-        // Direct wheel support for trackpad or mouse wheel horizontal gestures
-        const handleWheel = (e) => {
-            if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 2) {
-                e.preventDefault();
-                window.scrollBy({ top: e.deltaX * 0.9, behavior: 'auto' });
-            }
-        };
-
-        const viewportEl = viewportRef.current;
-        if (viewportEl) {
-            viewportEl.addEventListener('wheel', handleWheel, { passive: false });
-        }
-
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        window.addEventListener('resize', handleScroll);
-        handleScroll();
-        animId = requestAnimationFrame(updateLerp);
-
-        return () => {
-            if (viewportEl) {
-                viewportEl.removeEventListener('wheel', handleWheel);
-            }
-            window.removeEventListener('scroll', handleScroll);
-            window.removeEventListener('resize', handleScroll);
-            cancelAnimationFrame(animId);
-        };
-    }, [items.length]);
-
-    const scrollToCard = (index) => {
-        const runway = runwayRef.current;
-        if (!runway) return;
-        const rect = runway.getBoundingClientRect();
-        const runwayTop = window.scrollY + rect.top;
-        const navbarHeight = 68;
-        const totalScrollableDistance = rect.height - window.innerHeight;
-        const effectiveScrollable = Math.max(1, totalScrollableDistance - navbarHeight);
-        const targetProgress = index / (items.length - 1);
-        const targetScrollY = runwayTop - navbarHeight + (targetProgress * effectiveScrollable);
-        window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
-    };
-
     return (
-        <section className="disciplines-sticky-runway" id="disciplines" ref={runwayRef}>
-            <div className="disciplines-sticky-viewport" ref={viewportRef}>
-                <div className="about-content-container disciplines-sticky-header">
-                    <div className="disciplines-header-top">
-                        <div>
-                            <div className="section-pill-badge">
-                                <Cpu size={13} />
-                                <span>CAPABILITIES & ARCHITECTURE</span>
-                            </div>
-                            <h2 className="section-display-heading">Core Engineering Disciplines</h2>
-                        </div>
-
-                        {/* Gallery Progress & Quick Controls */}
-                        <div className="disciplines-gallery-controls">
-                            <span className="gallery-counter">
-                                <span className="counter-current">0{activeCardIndex + 1}</span>
-                                <span className="counter-divider">/</span>
-                                <span className="counter-total">0{items.length}</span>
-                            </span>
-
-                            <div className="gallery-progress-bar-wrap">
-                                <div
-                                    className="gallery-progress-bar-fill"
-                                    style={{ width: `${Math.max(12, scrollProgress * 100)}%` }}
-                                />
-                            </div>
-
-                            <div className="gallery-nav-buttons">
-                                <button
-                                    type="button"
-                                    className="gallery-nav-btn"
-                                    onClick={() => scrollToCard(Math.max(0, activeCardIndex - 1))}
-                                    disabled={activeCardIndex === 0}
-                                    aria-label="Previous capability"
-                                >
-                                    <ChevronLeft size={16} />
-                                </button>
-                                <button
-                                    type="button"
-                                    className="gallery-nav-btn"
-                                    onClick={() => scrollToCard(Math.min(items.length - 1, activeCardIndex + 1))}
-                                    disabled={activeCardIndex === items.length - 1}
-                                    aria-label="Next capability"
-                                >
-                                    <ChevronRight size={16} />
-                                </button>
-                            </div>
-                        </div>
+        <section className="about-content-section disciplines-grid-section" id="disciplines">
+            <div className="about-content-container">
+                <div className="disciplines-section-header">
+                    <div className="section-pill-badge">
+                        <Cpu size={13} />
+                        <span>CAPABILITIES & ARCHITECTURE</span>
                     </div>
-
-                    <p className="section-center-sub disciplines-gallery-sub">
+                    <h2 className="section-display-heading">Core Engineering Disciplines</h2>
+                    <p className="section-center-sub" style={{ textAlign: 'left', margin: '8px 0 0 0', maxWidth: '720px' }}>
                         Deep, battle-tested expertise across modern web architectures, cloud infrastructure, and artificial intelligence.
                     </p>
                 </div>
 
-                {/* Horizontal Scrolling Gallery Stage */}
-                <div className="disciplines-track-mask">
-                    <div
-                        className="disciplines-horizontal-track"
-                        ref={trackRef}
-                        style={{
-                            transform: `translate3d(-${displayTranslate}px, 0, 0)`
-                        }}
-                    >
-                        {items.map((item, idx) => (
-                            <div
-                                key={idx}
-                                className={`disciplines-gallery-slide ${activeCardIndex === idx ? 'slide-active' : ''}`}
-                                onClick={() => scrollToCard(idx)}
-                            >
-                                <EngineeringExpertiseCard
-                                    item={item}
-                                    idx={idx}
-                                    inView={inView}
-                                />
-                            </div>
-                        ))}
-                    </div>
+                {/* Fixed Responsive Grid: 3 columns desktop, 2 tablet, 1 mobile */}
+                <div className="disciplines-card-grid">
+                    {items.map((item, idx) => (
+                        <EngineeringExpertiseCard
+                            key={idx}
+                            item={item}
+                            idx={idx}
+                            inView={inView}
+                        />
+                    ))}
                 </div>
             </div>
         </section>
@@ -864,7 +728,8 @@ export const SecurityHarness = {
             desc: 'Next.js 15, React 19, high-throughput Node.js microservices, and distributed edge architectures optimized for sub-100ms TTFB.',
             tags: ['Next.js 15', 'React 19', 'Edge SSR', 'TypeScript'],
             metric: '99.9% SLA',
-            color: '#FF6A00'
+            color: '#FF6A00',
+            img: '/assets/showcase_web_dev.jpg'
         },
         {
             icon: Zap,
@@ -872,7 +737,8 @@ export const SecurityHarness = {
             desc: 'Multi-agent orchestration, semantic vector RAG, stateful memory graphs, and custom model fine-tuning for mission-critical operations.',
             tags: ['LangGraph', 'Vector Stores', 'Multi-Agent', 'Tool-Calling'],
             metric: 'Zero-Latency RAG',
-            color: '#FF8C32'
+            color: '#FF8C32',
+            img: '/assets/showcase_ai.jpg'
         },
         {
             icon: Layers,
@@ -880,7 +746,8 @@ export const SecurityHarness = {
             desc: 'Multi-tenant database schema isolation, event-driven Stripe billing architectures, distributed queues, and 99.99% availability SLAs.',
             tags: ['PostgreSQL RLS', 'BullMQ', 'Stripe Billing', 'Docker/K8s'],
             metric: 'Multi-Tenant Scale',
-            color: '#FF6A00'
+            color: '#FF6A00',
+            img: '/assets/showcase_dashboard.jpg'
         },
         {
             icon: Globe,
@@ -888,7 +755,8 @@ export const SecurityHarness = {
             desc: 'Spatial design systems, micro-interactions, hardware-accelerated 60fps animations, WCAG accessibility, and sub-second TTI.',
             tags: ['Spatial UI', '60 FPS Motion', 'Design Tokens', 'Figma Sync'],
             metric: '60 FPS Motion',
-            color: '#FF8C32'
+            color: '#FF8C32',
+            img: '/assets/experience.jpg'
         },
         {
             icon: ShieldCheck,
@@ -896,7 +764,8 @@ export const SecurityHarness = {
             desc: 'Cryptographic token rotation, HTTP-only secure cookie sessions, prompt injection firewalls, and least-privilege egress controls.',
             tags: ['Zero-Trust', 'OAuth 2.1', 'Audit Logs', 'mTLS'],
             metric: 'Enterprise Security',
-            color: '#FF6A00'
+            color: '#FF6A00',
+            img: '/assets/pipeline.jpg'
         },
         {
             icon: Target,
@@ -904,7 +773,8 @@ export const SecurityHarness = {
             desc: 'Event-driven Kafka triggers, asynchronous background processing, autonomous OCR ingestion, and transactional ERP integrations.',
             tags: ['Kafka', 'Webhooks', 'Serverless', 'Audit Trails'],
             metric: 'Async Queues',
-            color: '#FF8C32'
+            color: '#FF8C32',
+            img: '/assets/motion_vfx.jpg'
         }
     ];
 
