@@ -72,20 +72,18 @@ export function Intro() {
       <div className="mt-20 grid gap-12 md:mt-28 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-5">
           <p className="font-serif text-[clamp(1.9rem,4.6vw,4.25rem)] leading-[1.02] tracking-[-0.015em]">
-            We build slow homes for fast lives. That requires an environment where thinking is protected.
+            We engineer high-performance software for ambitious ideas. That requires an environment where deep focus is protected.
           </p>
         </div>
         <div className="flex flex-col justify-between gap-10 lg:col-span-7">
           <div className="max-w-xl space-y-6 text-base leading-[1.45] text-ink/70 md:text-lg">
             <p>
-              STILL / FORM began in 2014 as two architects and a joiner sharing a draughty room in Copenhagen. Today we are
-              twenty-four people across two studios and four time zones. We design private residences, guest houses and
-              the bespoke furniture that sits inside them.
+              ROVAWARE is an elite digital engineering studio. Our engineers and designers architect high-performance
+              Next.js 15 platforms, autonomous AI agent swarms, and enterprise SaaS cloud infrastructure.
             </p>
             <p>
-              We keep the studio intentionally small. We take on six commissions a year, rarely more. That means every
-              person on the team works on projects they know down to the grain of the oak, with clients who value patience
-              over novelty.
+              We maintain an uncompromising bar for technical excellence: strict TypeScript across the stack, 100% Lighthouse
+              performance scores, and sub-100ms TTFB. Every team member works on high-impact products with complete architectural dignity.
             </p>
           </div>
 

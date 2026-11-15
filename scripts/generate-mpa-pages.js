@@ -58,6 +58,22 @@ const MPA_PAGES = [
     ]
   },
   {
+    relPath: 'career/index.html',
+    canonicalPath: 'career',
+    title: 'Careers & Open Roles — ROVAWARE Engineering Studio',
+    metaTitle: 'Careers & Open Roles — ROVAWARE Engineering Studio',
+    description: 'Join our elite engineering studio. Explore high-impact roles in full-stack web engineering, autonomous AI systems, cloud architecture, and UI/UX design.',
+    breadcrumbName: 'Career',
+    themeColor: '#2a2725',
+    h1: 'Careers at ROVAWARE',
+    lead: 'Build the future of digital engineering with an elite team of engineers, designers, and AI researchers.',
+    sections: [
+      { heading: 'Full-Stack Engineers', text: 'Work with Next.js, React, Node.js, and high-concurrency microservices.' },
+      { heading: 'AI & ML Engineers', text: 'Architect autonomous agent swarms, vector databases, and enterprise LLM integrations.' },
+      { heading: 'UI/UX Architects', text: 'Craft award-winning digital experiences, design tokens, and fluid spatial interfaces.' }
+    ]
+  },
+  {
     relPath: 'process/index.html',
     canonicalPath: 'process',
     title: 'Our Process — ROVAWARE Engineering Studio',
@@ -199,6 +215,21 @@ const MPA_PAGES = [
       { heading: 'Architecture Case Studies', text: 'Real-world benchmarks and production deployment retrospectives.' },
       { heading: 'Autonomous AI Insights', text: 'How we build and orchestrate production LLM agent swarms.' },
       { heading: 'Web Performance Guides', text: 'Techniques for sub-100ms TTFB and perfect 100 Lighthouse scores.' }
+    ]
+  },
+  {
+    relPath: 'admin/jobs/index.html',
+    canonicalPath: 'admin/jobs',
+    title: 'Admin Portal — Job Postings Management | ROVAWARE',
+    metaTitle: 'Admin Portal — Job Postings Management | ROVAWARE',
+    description: 'ROVAWARE internal administrative console for managing live job listings.',
+    breadcrumbName: 'Admin Jobs',
+    themeColor: '#0a0a0b',
+    h1: 'ROVAWARE Admin Portal',
+    lead: 'Internal job postings and careers board management.',
+    sections: [
+      { heading: 'Job Creation', text: 'Create and publish new job roles directly to the public careers board.' },
+      { heading: 'Management', text: 'View, edit, and delete published openings.' }
     ]
   }
 ];

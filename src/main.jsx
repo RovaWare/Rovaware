@@ -80,6 +80,7 @@ import AboutCompanyView from './components/about/About Company/aboutcompnayview'
 import ContactView from './components/about/contact/ContactView';
 import BookProjectView from './components/about/Book a project/BookProjectView';
 import CareersView from './components/career/CareersView';
+import AdminJobManager from './components/career/AdminJobManager';
 import ProcessView from './components/Process/ProcessView';
 import ProcessSection from './components/Process/src/components/Process.jsx';
 import ServicesMegaMenu from './components/services/ServicesMegaMenu';
@@ -3110,7 +3111,26 @@ function AppContent() {
     if (pathname === '/about/book-project' || pathname === '/about/book-project/') {
       return { view: 'about-book-project', slug: null };
     }
-    if (pathname === '/careers' || pathname === '/careers/' || pathname === '/about/careers' || pathname === '/about/careers/') {
+    if (
+      pathname === '/admin/jobs' ||
+      pathname === '/admin/jobs/' ||
+      pathname === '/admin' ||
+      pathname === '/admin/' ||
+      pathname === '/careers/admin' ||
+      pathname === '/careers/admin/'
+    ) {
+      return { view: 'admin-jobs', slug: null };
+    }
+    if (
+      pathname === '/careers' ||
+      pathname === '/careers/' ||
+      pathname === '/career' ||
+      pathname === '/career/' ||
+      pathname === '/about/careers' ||
+      pathname === '/about/careers/' ||
+      pathname === '/about/career' ||
+      pathname === '/about/career/'
+    ) {
       return { view: 'careers', slug: null };
     }
     if (pathname === '/process' || pathname === '/process/' || pathname === '/our-process' || pathname === '/our-process/') {
@@ -3175,6 +3195,10 @@ function AppContent() {
       title = 'Careers & Engineering Opportunities — ROVAWARE';
       description = 'Join our elite engineering studio. Explore high-impact roles in full-stack engineering, AI systems, cloud architecture, and UI/UX design.';
       canonical = 'https://rovaware.com/careers';
+    } else if (currentView === 'admin-jobs') {
+      title = 'Admin Portal — Job Postings Management | ROVAWARE';
+      description = 'ROVAWARE internal administrative console for managing live job listings.';
+      canonical = 'https://rovaware.com/admin/jobs';
     } else if (currentView === 'process') {
       title = 'Our Engineering Process — ROVAWARE Studio';
       description = 'Our proven software development lifecycle: Discovery, Architecture, Agile Sprints, Rigorous Hardening, and Production Cloud Scaling.';
@@ -4124,6 +4148,15 @@ function AppContent() {
         </div>
       )}
 
+      {currentView === 'admin-jobs' && (
+        <div key="admin-jobs" className="cinematic-view-transition">
+          <AdminJobManager
+            onNavigateHome={() => navigateToHome()}
+            onNavigateCareers={() => navigateToCareers()}
+          />
+        </div>
+      )}
+
       {currentView === 'process' && (
         <div key="process" className="cinematic-view-transition">
           <ProcessView
@@ -4765,7 +4798,8 @@ function AppContent() {
       )}
 
       {/* FOOTER */}
-      <footer className="site-footer">
+      {currentView !== 'admin-jobs' && (
+        <footer className="site-footer">
         <div
           className="footer-top"
           style={{
@@ -4923,6 +4957,7 @@ function AppContent() {
       {/* INTERACTIVE OVERSIZED ROVAWARE TYPOGRAPHY WORDMARK (THEME-AWARE) */}
       <InteractiveFooterTypography theme={routeTheme} />
     </footer>
+    )}
 
       {/* VIDEO MODAL LIGHTBOX / THEATER */}
       {modalVideo && (

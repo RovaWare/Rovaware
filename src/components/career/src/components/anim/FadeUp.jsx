@@ -50,6 +50,14 @@ export function FadeUp({
             if (self.progress > 0) tween.play();
           },
         });
+
+        // Fail-safe: if already in or near viewport, reveal immediately
+        if (typeof window !== "undefined") {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight + 100) {
+            tween.play();
+          }
+        }
       }
     }, el);
 

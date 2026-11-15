@@ -164,6 +164,14 @@ export function Positions() {
           scrollTrigger: { trigger: list, start: "top 80%", once: true },
         }
       );
+
+      // Fail-safe: if already visible, reveal immediately
+      if (typeof window !== "undefined") {
+        const rect = list.getBoundingClientRect();
+        if (rect.top < window.innerHeight + 100) {
+          gsap.to(rows, { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.04 });
+        }
+      }
     }, list);
     return () => ctx.revert();
   }, []);

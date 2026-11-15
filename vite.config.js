@@ -15,6 +15,7 @@ export default defineConfig({
         services: resolve(__dirname, 'services/index.html'),
         aboutCompany: resolve(__dirname, 'about/company/index.html'),
         careers: resolve(__dirname, 'careers/index.html'),
+        career: resolve(__dirname, 'career/index.html'),
         process: resolve(__dirname, 'process/index.html'),
         aboutContact: resolve(__dirname, 'about/contact/index.html'),
         aboutBookProject: resolve(__dirname, 'about/book-project/index.html'),
@@ -23,7 +24,8 @@ export default defineConfig({
         serviceSaas: resolve(__dirname, 'services/saas-scaling/index.html'),
         serviceAndroid: resolve(__dirname, 'services/android-development/index.html'),
         serviceUiUx: resolve(__dirname, 'services/ui-ux-design/index.html'),
-        blog: resolve(__dirname, 'blog/index.html')
+        blog: resolve(__dirname, 'blog/index.html'),
+        adminJobs: resolve(__dirname, 'admin/jobs/index.html')
       }
     }
   }

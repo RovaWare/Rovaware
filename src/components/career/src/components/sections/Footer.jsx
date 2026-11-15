@@ -13,10 +13,10 @@ const explore = [
 ];
 
 const follow = [
-  { label: "Instagram", href: "https://instagram.com", external: true },
-  { label: "LinkedIn", href: "https://linkedin.com", external: true },
-  { label: "Journal", href: "#", external: false },
-  { label: "Main site", href: "https://stillform.homes", external: true },
+  { label: "Instagram", href: "https://www.instagram.com/rovaware_?psln=aGJjbzIxcDR0OXNk", external: true },
+  { label: "LinkedIn", href: "https://linkedin.com/company/rovaware", external: true },
+  { label: "GitHub", href: "https://github.com/rovaware", external: true },
+  { label: "Main site", href: "/", external: false },
 ];
 
 export function Footer() {
@@ -61,6 +61,13 @@ export function Footer() {
           if (self.progress > 0) playTl();
         },
       });
+
+      if (typeof window !== "undefined") {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight + 100) {
+          playTl();
+        }
+      }
     }, el);
     return () => ctx.revert();
   }, []);
@@ -96,7 +103,7 @@ export function Footer() {
             </div>
             <div className="overflow-hidden">
               <p className="footer-reveal mt-6 max-w-xl text-lg leading-[1.2] md:text-xl">
-                {jobs.length} open roles across Lisbon, Copenhagen and wherever you do your best thinking.
+                {jobs.length} open roles across Remote, Global and wherever you do your best engineering.
               </p>
             </div>
             <div className="mt-8 overflow-hidden">
