@@ -2001,19 +2001,34 @@
   }
 }
 
-/* 3.5 Core Engineering Disciplines (Base Card) */
+/* 3.5 Core Engineering Disciplines (Fixed 3-Column Studio Grid) */
+.disciplines-grid-section {
+  position: relative;
+  width: 100%;
+  padding: 60px 0 70px !important;
+  background-color: #050505;
+  box-sizing: border-box;
+}
+
+.disciplines-section-header {
+  margin-bottom: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 .disciplines-card-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 26px;
+  align-items: stretch;
   perspective: 1200px;
 }
 
 .discipline-interactive-card {
   width: 100%;
-  height: 480px;
-  min-height: 480px;
-  max-height: 480px;
+  height: 100%;
+  min-height: 460px;
   background: rgba(22, 22, 22, 0.85);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
@@ -2023,8 +2038,8 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  opacity: 0;
-  transform: translateY(22px);
+  opacity: 1 !important;
+  transform: translateY(0);
   /* Smooth spring-like reset when cursor leaves */
   transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
               transform 0.55s cubic-bezier(0.175, 0.885, 0.32, 1.25),
@@ -2040,7 +2055,7 @@
 }
 
 .discipline-interactive-card.in-view {
-  opacity: 1;
+  opacity: 1 !important;
 }
 
 /* Fast, fluid tracking when mouse is actively moving */
