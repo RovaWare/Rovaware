@@ -52,6 +52,14 @@ export function ImageReveal({
         },
       });
 
+      // Fail-safe: if already in or near viewport, reveal immediately
+      if (typeof window !== "undefined") {
+        const rect = wrap.getBoundingClientRect();
+        if (rect.top < window.innerHeight + 100) {
+          tl.play();
+        }
+      }
+
       if (parallax) {
         gsap.fromTo(
           img,

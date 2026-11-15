@@ -10,6 +10,7 @@ const ROUTES = [
   { path: 'services', title: 'Services & Digital Engineering Solutions — ROVAWARE', breadcrumbName: 'Services' },
   { path: 'about/company', title: 'About Us — ROVAWARE Engineering Studio', breadcrumbName: 'About Us' },
   { path: 'careers', title: 'Careers & Open Roles — ROVAWARE Engineering Studio', breadcrumbName: 'Careers' },
+  { path: 'career', title: 'Careers & Open Roles — ROVAWARE Engineering Studio', breadcrumbName: 'Career' },
   { path: 'process', title: 'Our Process — ROVAWARE Engineering Studio', breadcrumbName: 'Our Process' },
   { path: 'about/contact', title: 'Contact Us — ROVAWARE Engineering Studio', breadcrumbName: 'Contact' },
   { path: 'about/book-project', title: 'Book a Project — Architecture & Scope Consultation | ROVAWARE', breadcrumbName: 'Book a Project' },
@@ -18,7 +19,8 @@ const ROUTES = [
   { path: 'services/saas-scaling', title: 'SaaS & Cloud Scaling — ROVAWARE Engineering Studio', breadcrumbName: 'SaaS Scaling' },
   { path: 'services/android-development', title: 'Android & Mobile Development — ROVAWARE Engineering Studio', breadcrumbName: 'Android Development' },
   { path: 'services/ui-ux-design', title: 'UI/UX Design Systems — ROVAWARE Engineering Studio', breadcrumbName: 'UI/UX Design' },
-  { path: 'blog', title: 'Blog & Technical Insights — ROVAWARE Engineering', breadcrumbName: 'Blog' }
+  { path: 'blog', title: 'Blog & Technical Insights — ROVAWARE Engineering', breadcrumbName: 'Blog' },
+  { path: 'admin/jobs', title: 'Admin Portal — Job Postings Management | ROVAWARE', breadcrumbName: 'Admin Jobs' }
 ];
 
 function verifyAndMirror() {

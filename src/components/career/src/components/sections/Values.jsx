@@ -22,7 +22,17 @@ export function MarqueeBreak() {
         start: "top bottom",
         end: "bottom top",
         onUpdate: (self) => {
-          const skew = clamp(self.getVelocity() / -400);
+          let rawVel = 0;
+          try {
+            if (typeof self?.getVelocity === 'function') {
+              rawVel = self.getVelocity();
+            } else if (typeof ScrollTrigger?.getVelocity === 'function') {
+              rawVel = ScrollTrigger.getVelocity();
+            }
+          } catch {
+            rawVel = 0;
+          }
+          const skew = clamp(rawVel / -400);
           if (Math.abs(skew) > Math.abs(proxy.skew)) {
             proxy.skew = skew;
             gsap.to(proxy, {

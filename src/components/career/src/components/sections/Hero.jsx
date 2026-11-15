@@ -110,7 +110,7 @@ export function Hero({ ready }) {
             delay={0.15}
             className="font-serif text-[clamp(2.75rem,12vw,4.5rem)] leading-[0.94] text-white md:text-[5rem] lg:text-[5.64rem]"
           >
-            {"Work,\n*considered.*"}
+            {"Engineering with\n*purpose.*"}
           </Reveal>
 
           <FadeUp
