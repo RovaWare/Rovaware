@@ -562,8 +562,23 @@ html.is-loaded .ld {
   line-height: 1;
 }
 
+.brand-text-main {
+  color: #FFFFFF !important;
+  background: none !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  font-weight: 800 !important;
+}
+
 .brand-text-accent {
-  color: var(--grn);
+  font-style: normal !important;
+  color: #C4B5FD !important;
+  background: linear-gradient(135deg, #C4B5FD 0%, #38BDF8 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  display: inline-block !important;
+  filter: drop-shadow(0 2px 14px rgba(99, 102, 241, 0.35)) !important;
+  font-weight: 800 !important;
 }
 
 .brand-tagline {

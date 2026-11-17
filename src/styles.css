@@ -296,34 +296,6 @@ textarea:focus-visible {
   display: block;
 }
 
-.navbar-orange-black .brand-name,
-.navbar-orange-black .brand-text-accent {
-  background: linear-gradient(135deg, #FF6A00 0%, #FF8C32 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 10px rgba(255, 106, 0, 0.45));
-}
-
-.navbar-emerald-green .brand-name,
-.navbar-emerald-green .brand-text-accent {
-  background: linear-gradient(135deg, #10B981 0%, #34D399 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 10px rgba(52, 211, 153, 0.45));
-}
-
-.navbar-rose-gold .brand-name,
-.navbar-rose-gold .brand-text-accent {
-  background: linear-gradient(135deg, #D8B56A 0%, #E5A4C5 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 10px rgba(229, 164, 197, 0.25));
-}
-
-
 .nav-brand:hover .brand-name,
 .nav-brand:hover .brand-text-accent {
   opacity: 0.92;
@@ -362,24 +334,37 @@ html[data-theme="light"] .brand-name {
   line-height: 1;
 }
 
-.brand-text-main {
-  color: #FFFFFF;
-  background: none;
-  -webkit-text-fill-color: #FFFFFF;
-  font-weight: 800;
+/* ========================================================
+   GLOBAL PERMANENT ROVAWARE LOGO WORDMARK
+   ROVA in crisp white, WARE in violet-cyan gradient.
+   Fixed across ALL sections, routes, pages and theme variants.
+   ======================================================== */
+.brand-text-main,
+.nav-brand .brand-text-main,
+.navbar .brand-text-main,
+header .brand-text-main,
+.site-footer .brand-text-main {
+  color: #FFFFFF !important;
+  background: none !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  font-weight: 800 !important;
 }
 
-.brand-text-accent {
-  font-style: normal;
-  color: #C4B5FD;
-  background: linear-gradient(135deg, #C4B5FD 0%, #38BDF8 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: inline-block;
-  text-shadow: none;
-  filter: drop-shadow(0 2px 14px rgba(99, 102, 241, 0.35));
-  font-weight: 800;
+.brand-text-accent,
+.nav-brand .brand-text-accent,
+.navbar .brand-text-accent,
+header .brand-text-accent,
+.site-footer .brand-text-accent {
+  font-style: normal !important;
+  color: #C4B5FD !important;
+  background: linear-gradient(135deg, #C4B5FD 0%, #38BDF8 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  display: inline-block !important;
+  text-shadow: none !important;
+  filter: drop-shadow(0 2px 14px rgba(99, 102, 241, 0.35)) !important;
+  font-weight: 800 !important;
 }
 
 .brand-tagline {
@@ -659,15 +644,6 @@ html[data-theme="light"] .brand-name {
   transform: translateY(-2px);
 }
 
-/* Orange Brand Accent & Pulse */
-.navbar-orange-black .brand-text-accent {
-  background: linear-gradient(135deg, #FF6A00 0%, #FF8C32 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 10px rgba(255, 106, 0, 0.45));
-}
-
 .navbar-orange-black .pulse-dot {
   background-color: #FF6A00;
   box-shadow: 0 0 5px rgba(255, 106, 0, 0.6);
@@ -779,15 +755,6 @@ html[data-theme="light"] .brand-name {
   background: linear-gradient(135deg, #10B981 0%, #6EE7B7 100%);
   box-shadow: 0 0 28px rgba(52, 211, 153, 0.65);
   transform: translateY(-2px);
-}
-
-/* Emerald Green Brand Accent & Pulse */
-.navbar-emerald-green .brand-text-accent {
-  background: linear-gradient(135deg, #10B981 0%, #34D399 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 10px rgba(52, 211, 153, 0.45));
 }
 
 .navbar-emerald-green .pulse-dot {
@@ -932,15 +899,6 @@ html[data-theme="light"] .brand-name {
   transform: translateY(-2px);
 }
 
-/* Rose & Gold Brand Accent & Pulse */
-.navbar-rose-gold .brand-text-accent {
-  background: linear-gradient(135deg, #D8B56A 0%, #E5A4C5 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 10px rgba(216, 181, 106, 0.45));
-}
-
 .navbar-rose-gold .pulse-dot {
   background-color: #D8B56A;
   box-shadow: 0 0 5px rgba(216, 181, 106, 0.6);
@@ -998,13 +956,6 @@ html[data-theme="light"] .brand-name {
 
 .theme-rose-gold .site-footer .footer-brand p {
   color: #A38D9D;
-}
-
-.theme-rose-gold .site-footer .brand-text-accent {
-  background: linear-gradient(135deg, #D8B56A 0%, #E5A4C5 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 .theme-rose-gold .footer-bottom {
@@ -11529,22 +11480,6 @@ html[data-theme="light"] .brand-icon-box {
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
-}
-
-html[data-theme="light"] .brand-text-main {
-  color: #0F172A !important;
-  background: linear-gradient(180deg, #090D16 0%, #1E293B 100%) !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-}
-
-html[data-theme="light"] .brand-text-accent {
-  background: linear-gradient(135deg, #4F46E5 0%, #0284C7 100%) !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  filter: drop-shadow(0 2px 8px rgba(79, 70, 229, 0.25)) !important;
 }
 
 html[data-theme="light"] .brand-tagline {

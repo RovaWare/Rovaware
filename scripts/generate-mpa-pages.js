@@ -97,7 +97,7 @@ const MPA_PAGES = [
     metaTitle: 'Contact Us — ROVAWARE Engineering Studio',
     description: 'Get in touch with ROVAWARE engineers to discuss project scope, architectural consulting, or book an instant technical discovery callback.',
     breadcrumbName: 'Contact',
-    themeColor: '#10B981',
+    themeColor: '#FF8C32',
     h1: 'Contact ROVAWARE',
     lead: 'Connect directly with technical architects to explore your project requirements.',
     sections: [

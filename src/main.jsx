@@ -77,7 +77,7 @@ import './styles.css';
 import BlogView from './components/blog/BlogView';
 import ArticleDetailView from './components/blog/ArticleDetailView';
 import AboutCompanyView from './components/about/About Company/aboutcompnayview';
-import ContactView from './components/about/contact/ContactView';
+import ContactView from './components/about/ContactView';
 import BookProjectView from './components/about/Book a project/BookProjectView';
 import CareersView from './components/career/CareersView';
 import AdminJobManager from './components/career/AdminJobManager';
@@ -3365,9 +3365,7 @@ function AppContent() {
   const isUIUXService = currentView === 'service-detail' && articleSlug === 'ui-ux-design';
   const routeTheme = isUIUXService
     ? 'rose-gold'
-    : currentView === 'about-contact'
-      ? 'emerald-green'
-      : (currentView === 'about-company' || currentView === 'about-book-project' || isServicesSuite ? 'orange-black' : 'deep-blue');
+    : (isAboutSuite || isServicesSuite ? 'orange-black' : 'deep-blue');
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', 'dark');
