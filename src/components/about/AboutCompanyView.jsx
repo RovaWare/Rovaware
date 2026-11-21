@@ -70,6 +70,15 @@ const showcaseProjects = [
     summary: 'Custom autonomous AI workflows integrating Large Language Models, semantic search embeddings, and multi-step reasoning agents.'
   },
   {
+    id: 'wallx-texture',
+    title: 'WallX — Premium Surface Solutions & Architectural Finishes',
+    category: 'Architectural Surfaces & Finishes',
+    client: 'WallX Surface Solutions',
+    img: '/assets/wallx_texture.jpg',
+    tags: ['React', 'Tailwind CSS', 'Waterproofing'],
+    summary: 'Architectural wall protection & surface solutions web platform with interactive waterproofing specs, textured finishes catalog, and commercial dealer onboarding.'
+  },
+  {
     id: 'rathore-construction',
     title: 'Rathore Construction & Earthmovers — Heavy Equipment Platform',
     category: 'Fleet & Civil Infrastructure',

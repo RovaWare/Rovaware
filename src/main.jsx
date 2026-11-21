@@ -147,6 +147,21 @@ const projectsData = [
     revealText: 'DPIIT-RECOGNIZED • 100+ UTILITY SOLAR DEPLOYMENTS'
   },
   {
+    id: 'wallx-texture',
+    title: 'WallX — Premium Surface Solutions & Architectural Finishes',
+    category: 'Web Platforms',
+    client: 'WallX Surface Solutions',
+    duration: 'Live Platform',
+    type: 'featured',
+    aspect: 'React • Tailwind CSS • Vite',
+    url: 'https://wallxtexture.com/',
+    video: '/assets/wallx_texture.mp4',
+    img: '/assets/wallx_texture.jpg',
+    tags: ['React', 'Tailwind CSS', 'Architectural Finishes', 'Waterproofing', 'Dealer Network'],
+    summary: 'Premium architectural wall protection & surface solutions platform featuring interactive waterproofing systems, textured finishes, and commercial dealer networks.',
+    revealText: 'PREMIUM ARCHITECTURAL SURFACES & WATERPROOFING'
+  },
+  {
     id: 'rathore-construction',
     title: 'Rathore Construction & Earthmovers — Heavy Equipment Platform',
     category: 'Web Platforms',
@@ -1592,7 +1607,7 @@ function ProductionDeploymentsOrbit({ projects, onSelectProject, activeCategory 
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
-  // 3 Showcase Cards with project images, names, and clean presentation
+  // 4 Showcase Cards with project images, names, and clean presentation
   const cardsData = [
     {
       id: 'asa-epc',
@@ -1604,13 +1619,22 @@ function ProductionDeploymentsOrbit({ projects, onSelectProject, activeCategory 
       project: (projects && projects.find((p) => p.id === 'asa-epc')) || projectsData[0]
     },
     {
+      id: 'wallx-texture',
+      tabLabel: 'WallX — Surface Solutions',
+      title: 'WallX — Wall Finishes & Surface Protection',
+      video: '/assets/wallx_texture.mp4',
+      img: '/assets/wallx_texture.jpg',
+      icon: <Layers size={15} />,
+      project: (projects && projects.find((p) => p.id === 'wallx-texture')) || projectsData[1]
+    },
+    {
       id: 'rathore-construction',
       tabLabel: 'Rathore Construction',
       title: 'Rathore Construction & Earthmovers',
       video: '/assets/rathore_construction.mp4',
       img: '/assets/rathore_construction.jpg',
       icon: <Building2 size={15} />,
-      project: (projects && projects.find((p) => p.id === 'rathore-construction')) || projectsData[1]
+      project: (projects && projects.find((p) => p.id === 'rathore-construction')) || projectsData[2]
     },
     {
       id: 'doctor-appointment',
@@ -1619,7 +1643,7 @@ function ProductionDeploymentsOrbit({ projects, onSelectProject, activeCategory 
       video: '/assets/doctor_appointment.mp4',
       img: '/assets/doctor_appointment.jpg',
       icon: <CalendarCheck size={15} />,
-      project: (projects && projects.find((p) => p.id === 'doctor-appointment-booking')) || projectsData[2]
+      project: (projects && projects.find((p) => p.id === 'doctor-appointment-booking')) || projectsData[3]
     }
   ];
 
@@ -1629,11 +1653,11 @@ function ProductionDeploymentsOrbit({ projects, onSelectProject, activeCategory 
   };
 
   const handlePrev = () => {
-    setActiveIndex((prev) => (prev - 1 + 3) % 3);
+    setActiveIndex((prev) => (prev - 1 + cardsData.length) % cardsData.length);
   };
 
   const handleNext = () => {
-    setActiveIndex((prev) => (prev + 1) % 3);
+    setActiveIndex((prev) => (prev + 1) % cardsData.length);
   };
 
   const touchStartXRef = useRef(0);
@@ -1660,14 +1684,15 @@ function ProductionDeploymentsOrbit({ projects, onSelectProject, activeCategory 
   useEffect(() => {
     if (isHovered) return;
     const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % 3);
-    }, 4000);
+      setActiveIndex((prev) => (prev + 1) % cardsData.length);
+    }, 4500);
     return () => clearInterval(interval);
-  }, [isHovered]);
+  }, [isHovered, cardsData.length]);
 
   // Calculate forward-facing 3D position relative to activeIndex (avoids mirrored backside)
   const getCardStyle = (idx) => {
-    const diff = (idx - activeIndex + 3) % 3;
+    const total = cardsData.length;
+    const diff = (idx - activeIndex + total) % total;
 
     if (diff === 0) {
       return {
@@ -1679,16 +1704,23 @@ function ProductionDeploymentsOrbit({ projects, onSelectProject, activeCategory 
     } else if (diff === 1) {
       return {
         transform: 'translateX(195px) translateZ(-45px) rotateY(-22deg) scale(0.86)',
-        zIndex: 5,
+        zIndex: 6,
+        opacity: 0.85,
+        filter: 'brightness(0.8)',
+      };
+    } else if (diff === total - 1) {
+      return {
+        transform: 'translateX(-195px) translateZ(-45px) rotateY(22deg) scale(0.86)',
+        zIndex: 6,
         opacity: 0.85,
         filter: 'brightness(0.8)',
       };
     } else {
       return {
-        transform: 'translateX(-195px) translateZ(-45px) rotateY(22deg) scale(0.86)',
-        zIndex: 5,
-        opacity: 0.85,
-        filter: 'brightness(0.8)',
+        transform: 'translateX(0px) translateZ(-140px) rotateY(0deg) scale(0.72)',
+        zIndex: 1,
+        opacity: 0,
+        pointerEvents: 'none',
       };
     }
   };
@@ -3663,8 +3695,8 @@ function AppContent() {
 
   return (
     <div className={`app-container theme-${routeTheme} view-${currentView}`}>
-      {/* Navigation Bar */}
-      <header className={`navbar navbar-${routeTheme} navbar-view-${currentView} ${isNavbarTransparent && !mobileMenu ? 'navbar-transparent' : ''}`}>
+      {/* Navigation Bar — Permanent unified solid theme across all landing pages */}
+      <header className={`navbar navbar-deep-blue navbar-view-${currentView} ${isNavbarTransparent && !mobileMenu ? 'navbar-transparent' : ''}`}>
         <a
           href="/"
           className="nav-brand"
@@ -4851,18 +4883,7 @@ function AppContent() {
           </div>
 
           <div className="footer-links-wrapper">
-            <div
-              className="footer-links-group stagger-reveal"
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(5, minmax(0, 1fr))',
-                gap: '22px',
-                width: '100%',
-                alignSelf: 'flex-start',
-                marginTop: 0,
-                paddingTop: 0
-              }}
-            >
+            <div className="footer-links-group stagger-reveal">
             {/* Explore */}
             <div className="footer-col">
               <h4>Explore</h4>
@@ -4945,15 +4966,16 @@ function AppContent() {
               </ul>
             </div>
           </div>
-
-          <div className="footer-copyright-bottom">
-            <span>© 2026 ROVAWARE STUDIO. ALL RIGHTS RESERVED.</span>
-          </div>
         </div>
       </div>
 
       {/* INTERACTIVE OVERSIZED ROVAWARE TYPOGRAPHY WORDMARK (THEME-AWARE) */}
       <InteractiveFooterTypography theme={routeTheme} />
+
+      {/* COPYRIGHT AT THE VERY LAST */}
+      <div className="footer-copyright-bottom">
+        <span>© 2026 ROVAWARE STUDIO. ALL RIGHTS RESERVED.</span>
+      </div>
     </footer>
     )}
 

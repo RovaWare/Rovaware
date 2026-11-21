@@ -43,6 +43,15 @@ const showcaseProjects = [
         summary: 'High-performance Next.js enterprise web application built for 100+ projects trusted by L&T Construction, Bajaj & KEC.'
     },
     {
+        id: 'wallx-texture',
+        title: 'WallX — Premium Surface Solutions & Architectural Finishes',
+        category: 'Architectural Surfaces & Finishes',
+        client: 'WallX Surface Solutions',
+        img: '/assets/wallx_texture.jpg',
+        tags: ['React', 'Tailwind CSS', 'Waterproofing'],
+        summary: 'Architectural wall protection & surface solutions web platform with interactive waterproofing specs, textured finishes catalog, and commercial dealer onboarding.'
+    },
+    {
         id: 'rathore-construction',
         title: 'Rathore Construction & Earthmovers — Heavy Equipment Platform',
         category: 'Fleet & Civil Infrastructure',
